@@ -1,0 +1,66 @@
+/* Required height of parents of the Half Page Carousel for proper displaying carousel itself */
+html,
+body,
+.view {
+  height: 100%; }
+
+@media (max-width: 740px) {
+  .full-page-intro {
+    height: 1000px; } }
+
+/* Half Page Carousel itself*/
+.carousel {
+  height: 50%; }
+  .carousel .carousel-inner {
+    height: 100%; }
+    .carousel .carousel-inner .carousel-item,
+    .carousel .carousel-inner .active {
+      height: 100%; }
+
+/* Adjustment for mobile devices*/
+@media (max-width: 776px) {
+  .carousel {
+    height: 100%; } }
+
+/* Navbar animation */
+.navbar {
+  background-color: rgba(0, 0, 0, 0.3); }
+
+.top-nav-collapse {
+  background-color: #1C2331; }
+
+/* Adding color to the Navbar on mobile */
+@media only screen and (max-width: 768px) {
+  .navbar {
+    background-color: #1C2331; } }
+
+/* Footer color for sake of consistency with Navbar */
+.page-footer {
+  background-color: #1C2331; }
+
+.infolabel {
+	display: block;
+	font-size: 1.2rem; 
+	font-weight: 400;
+	color: var(--purple);
+	}
+
+.inline.dropdown {display: inline-block;  }
+.veryred {color: red !important;}
+
+.paddedHeader {padding-top: 30px;}
+
+.breadcrumbs {color: var(--purple);}
+
+.list-group-item .close {
+	  cursor: pointer;
+	  transition: 0.4s;
+	  font-weight: normal;}
+
+.list-group-item .close:hover {
+	  transform: scale(1.1);}
+
+#machinesOnRoute th:first-child {width: 15%;}
+#machinesOnRoute .custom-switch  {text-align: center;}
+
+.table-top-margin {margin-top: 10px;}
