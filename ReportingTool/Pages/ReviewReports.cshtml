@@ -114,6 +114,16 @@
     </nav>
     <!-- Navbar -->
 
+    @{
+        var actionService = new Reportingtool.Models.ActionsService();
+        var actions = actionService.GetAll();
+    }
+
+    @foreach (var action in actions)
+    {
+        <p>@action.Id</p>
+    }
+
     <hr class="my-5">
     <!--Section: Report Form-->
     <div class="container">
