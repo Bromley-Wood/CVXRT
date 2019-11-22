@@ -215,6 +215,7 @@
     <!-- Full Page Intro -->
 
 
+   
 
 
     <table class="table">
@@ -235,22 +236,22 @@
         <tbody>
             @foreach (var item in Model.Fault_Type)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PK_FaultTypeId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FaultType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FK_TechnologyId)
-                </td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.PK_FaultTypeId">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.PK_FaultTypeId">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.PK_FaultTypeId">Delete</a>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PK_FaultTypeId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FaultType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FK_TechnologyId)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.PK_FaultTypeId">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.PK_FaultTypeId">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.PK_FaultTypeId">Delete</a>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>

@@ -9,5 +9,6 @@ namespace ReportingTool.Models
         }
 
         public DbSet<ReportingTool.Models.Fault_Type> Fault_Type { get; set; }
+        public DbSet<ReportingTool.Models.Action_> Action { get; set; }
     }
 }
