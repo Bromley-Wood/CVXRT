@@ -12,8 +12,9 @@ namespace ReportingTool.Models
         public double Labour_Hours { get; set; }
         public DateTime Plan_Date { get; set; }
         public DateTime Schedule_Date { get; set; }
-        [DataType(DataType.Date)] public Nullable<DateTime> Modified_Date { get; set; }
+        public Route Route { get; set; }
 
+        [DataType(DataType.Date)] public Nullable<DateTime> Modified_Date { get; set; }
         #nullable enable 
         public string? Modified_By { get; set; }
     }
