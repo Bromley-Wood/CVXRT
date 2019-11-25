@@ -1,4 +1,5 @@
 ﻿@page
+@model Reportingtool.Pages.ScheduleMaintenanceModel
 <!DOCTYPE html>
 <html lang="en">
 
@@ -364,32 +365,27 @@
 					<th class="th-sm">Start date</th>
 				  </tr>
 				</thead>
-				<tbody>
-				  <tr>
-					<td>CM Route 1</td>
-					<td>6 wks</td>
-					<td>Edinburgh</td>
-					<td>10</td>
-					<td>2011/04/25</td>
-					<td>2011/04/30</td>
-				  </tr>
-				  <tr>
-					<td>CM Route 2</td>
-					<td>12 wks</td>
-					<td>Tokyo</td>
-					<td>20</td>
-					<td>2011/07/25</td>
-					<td>2011/08/02</td>
-				  </tr>
-				  <tr>
-					<td>Lube Rounds</td>
-					<td>24 Wks</td>
-					<td>San Francisco</td>
-					<td>66</td>
-					<td>2011/01/12</td>
-					<td>2011/01/12</td>
-				  </tr>
-				</tbody>
+                <tbody>
+                    <tr>
+                        <td>CM Route 1</td>
+                        <td>6 wks</td>
+                        <td>Edinburgh</td>
+                        <td>10</td>
+                        <td>2011/04/25</td>
+                        <td>2011/04/30</td>
+                    </tr>
+                    @foreach (var item in Model.Route_Call)
+                    {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.PK_CallId)</td> 
+                        <td>@Html.DisplayFor(modelItem => item.Call_No)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FK_RouteId)</td> 
+                        <td>@Html.DisplayFor(modelItem => item.Labour_Hours)</td> 
+                        <td>@Html.DisplayFor(modelItem => item.Plan_Date)</td> 
+                        <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td> 
+                    </tr>
+                    }
+                </tbody>
 				<tfoot>
 				  <tr>
 					<th>Maintenance Item Description</th>
