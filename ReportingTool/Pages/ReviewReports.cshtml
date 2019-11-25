@@ -265,8 +265,8 @@
                                 <option value="">Plan Action</option>
                                 @foreach (var item in Model.Action)
                                 {
-                                    <option>@item.Action</option>
-                                    @Html.DisplayFor(modelItem => item.Action)
+                                    <option>@item.ActionDescription</option>
+                                    @Html.DisplayFor(modelItem => item.ActionDescription)
                                 }
                             </select>
                             <div class="invalid-feedback">
