@@ -376,14 +376,14 @@
                     </tr>
                     @foreach (var item in Model.Route_Call)
                     {
-                    <tr>
-                        <td>@Html.DisplayFor(modelItem => item.PK_CallId)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Call_No)</td>
-                        <td>@Html.DisplayFor(modelItem => item.FK_RouteId)</td> 
-                        <td>@Html.DisplayFor(modelItem => item.Labour_Hours)</td> 
-                        <td>@Html.DisplayFor(modelItem => item.Plan_Date)</td> 
-                        <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td> 
-                    </tr>
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Route.RouteDescription)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Call_No)</td>
+                            <td>@Html.DisplayFor(modelItem => item.RouteId)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Labour_Hours)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Plan_Date)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
+                        </tr>
                     }
                 </tbody>
 				<tfoot>

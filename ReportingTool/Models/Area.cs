@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReportingTool.Models
 {
+    [Table("Area")]
     public class Area
     {
         [Key] 

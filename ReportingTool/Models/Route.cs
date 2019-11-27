@@ -4,10 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReportingTool.Models
 {
+    [Table("Route")]
     public class Route
     {
-        [Key] 
-        public int PK_RouteId { get; set; }
+        [Key]
+        [Column("PK_RouteId")]
+        public int RouteId { get; set; }
         [Column("Route")]
         public string RouteDescription { get; set; }
         public int FK_AreaId { get; set; }

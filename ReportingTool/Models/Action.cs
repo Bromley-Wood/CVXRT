@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReportingTool.Models
 {
+    [Table("Action")]
     public class Action
     {
         [Key]
