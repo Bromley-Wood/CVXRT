@@ -19,10 +19,10 @@ namespace Reportingtool.Pages
         public IList<Route_Call> Route_Call { get; set; }
         public async Task OnGetAsync()
         {
-            Route_Call = await _context.Route_Call
-                .Include(c => c.Route)
-                .AsNoTracking()
-                .ToListAsync();
+            //Route_Call = await _context.Route_Call
+            //    .Include(c => c.Route)
+            //    .AsNoTracking()
+            //    .ToListAsync();
         }
 
         
