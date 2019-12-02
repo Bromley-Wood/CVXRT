@@ -19,7 +19,7 @@ namespace Reportingtool.Pages
         public IList<Action> Action { get; set; }
         public async Task OnGetAsync()
         {
-            Action = await _context.Action.ToListAsync();
+            //Action = await _context.Action.ToListAsync();
         }
 
         
