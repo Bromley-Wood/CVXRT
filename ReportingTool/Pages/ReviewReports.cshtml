@@ -1,51 +1,53 @@
 ﻿@page
+@model Reportingtool.Pages.ReviewReportsModel
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Reporting Tool</title>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-  <!-- Bootstrap core CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <!-- Material Design Bootstrap -->
-  <link href="css/mdb.min.css" rel="stylesheet">
-  <!-- Your custom styles (optional) -->
-  <link href="css/style.css" rel="stylesheet">
-  <style type="text/css">
-    html,
-    body,
-    header,
-    .view {
-      height: 100%;
-    }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Reporting Tool</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+    <style type="text/css">
+        html,
+        body,
+        header,
+        .view {
+            height: 100%;
+        }
 
-    @@media (max-width: 740px) {
-      html,
-      body,
-      header,
-      .view {
-        height: 1000px;
-      }
-    }
+        @@media (max-width: 740px) {
+            html,
+            body,
+            header,
+            .view {
+                height: 1000px;
+            }
+        }
 
-    @@media (min-width: 800px) and (max-width: 850px) {
-      html,
-      body,
-      header,
-      .view {
-        height: 650px;
-      }
-    }
-    @@media (min-width: 800px) and (max-width: 850px) {
-              .navbar:not(.top-nav-collapse) {
-                  background: #1C2331!important;
-              }
-          }
-  </style>
+        @@media (min-width: 800px) and (max-width: 850px) {
+            html,
+            body,
+            header,
+            .view {
+                height: 650px;
+            }
+        }
+
+        @@media (min-width: 800px) and (max-width: 850px) {
+            .navbar:not(.top-nav-collapse) {
+                background: #1C2331 !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -113,6 +115,8 @@
         </div>
     </nav>
     <!-- Navbar -->
+
+
 
     <hr class="my-5">
     <!--Section: Report Form-->
@@ -259,10 +263,11 @@
                             <label for="severity">Severity</label>
                             <select class="custom-select d-block w-100" id="severity" required>
                                 <option value="">Plan Action</option>
-                                <option>Good</option>
-                                <option>Trending</option>
-                                <option>Plan Action</option>
-                                <option>Prompt Action</option>
+                                @foreach (var item in Model.Action)
+                                {
+                                    <option>@item.ActionDescription</option>
+                                    @Html.DisplayFor(modelItem => item.ActionDescription)
+                                }
                             </select>
                             <div class="invalid-feedback">
                                 Please select a valid severity.
