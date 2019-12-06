@@ -13,5 +13,6 @@ namespace ReportingTool.Models
         public DbSet<ReportingTool.Models.Route_Call> Route_Call { get; set; }
         public DbSet<ReportingTool.Models.Route> Route { get; set; }
         public DbSet<ReportingTool.Models.Area> Area { get; set; }
+        public DbSet<ReportingTool.Models.Machine_Train> Machine_Train { get; set; }
     }
 }

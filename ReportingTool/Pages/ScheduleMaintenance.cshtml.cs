@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using ReportingTool.Models.ViewModels
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ReportingTool.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace Reportingtool.Pages
 {
@@ -21,6 +23,7 @@ namespace Reportingtool.Pages
         public List<List<Route_Call>> Route_Call_Week_List = new List<List<Route_Call>>();
         public List<double> WeekHourList = new List<double>();
 
+        public IList<Machine_Train> Machine_Train_All { get; set; }
 
         // This part should read from the database later.
         public IList<string> MachineNames = new string[] {
@@ -28,6 +31,9 @@ namespace Reportingtool.Pages
 
         public async Task OnGetAsync()
         {
+
+
+
             /* Get Route_Call for different weeks */
             Route_Call_All = await _context.Route_Call
                 .Include(c => c.Route)
@@ -58,6 +64,19 @@ namespace Reportingtool.Pages
                 WeekHourList.Add(Route_Call_Week_List[i].Sum(r => r.Labour_Hours));
             }
             /* Get Route_Call for different weeks */
+
+
+
+            IQueryable<RouteGroup> machines =
+                from machine in _context.Machine_Train
+                group machine by machine.FK_RouteId into machineGroup
+                select new RouteGroup()
+                {
+                    FK_RouteId = machineGroup.Key,
+                    MachineCount = machineGroup.Count()
+                };
+
+
         }
 
 
