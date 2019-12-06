@@ -1,0 +1,299 @@
+/* Required height of parents of the Half Page Carousel for proper displaying carousel itself */
+html,
+body,
+.view {
+	height: 100%;
+}
+
+@media (max-width: 740px) {
+	.full-page-intro {
+		height: 1000px;
+	}
+}
+
+/* Half Page Carousel itself*/
+.carousel {
+	height: 50%;
+}
+
+	.carousel .carousel-inner {
+		height: 100%;
+	}
+
+		.carousel .carousel-inner .carousel-item,
+		.carousel .carousel-inner .active {
+			height: 100%;
+		}
+
+/* Adjustment for mobile devices*/
+@media (max-width: 776px) {
+	.carousel {
+		height: 100%;
+	}
+}
+
+/* Navbar animation */
+.navbar {
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.top-nav-collapse {
+	background-color: #1C2331;
+}
+
+/* Adding color to the Navbar on mobile */
+@media only screen and (max-width: 768px) {
+	.navbar {
+		background-color: #1C2331;
+	}
+}
+
+/* Footer color for sake of consistency with Navbar */
+.page-footer {
+	background-color: #1C2331;
+}
+
+.infolabel {
+	display: block;
+	font-size: 1.2rem;
+	font-weight: 400;
+	color: var(--purple);
+}
+
+.inline.dropdown {
+	display: inline-block;
+}
+
+.paddedHeader {
+	padding-top: 30px;
+}
+
+.breadcrumbs {
+	color: var(--purple);
+}
+
+.list-group-item .close {
+	cursor: pointer;
+	transition: 0.4s;
+	font-weight: normal;
+}
+
+	.list-group-item .close:hover {
+		transform: scale(1.1);
+	}
+
+#machinesOnRoute th:first-child {
+	width: 15%;
+	text-align: center;
+}
+
+.rt-table .custom-switch {
+	text-align: center;
+}
+
+.table-top-margin {
+	margin-top: 10px;
+}
+
+.route-table th:first-child {
+	width: 50%;
+}
+
+.route-table thead th,
+.route-table tbody td,
+.route-table tfoot th {
+	vertical-align: middle;
+}
+
+.rt-table caption {
+	caption-side: top;
+}
+
+.route-table th:nth-child(n+2),
+.route-table td:nth-child(n+2) {
+	text-align: center;
+}
+
+.route-table th:last-child {
+	min-width: 60px;
+}
+
+.route-table td:last-child {
+	padding: 0px;
+	height: 100%;
+}
+
+.route-table td .btn {
+	padding: .5rem 1.2rem;
+}
+
+.route-table td .btn i {
+	font-size: 1.2rem;
+}
+
+
+
+.rt-check.btn
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+	position: absolute;
+	pointer-events: none;
+	opacity: 0;
+}
+
+.rt-check {
+	background-color: #4B515D;
+	color: grey;
+}
+
+.rt-check.active {
+		background-color: #2BBBAD;
+		color: white;
+	}
+
+
+.md-form .field-data {
+	display: block;
+	font-size: 1rem;
+	font-weight: 400;
+	color: var(--purple);
+}
+
+
+.md-form .field-label {
+	color: #757575;
+	font-size: 0.8rem;
+}
+
+
+
+
+/* chippy checkboxes 
+	by Adam Quinlan
+	https://codepen.io/quinlo/pen/ReMRXz
+*/
+
+ul.ks-cboxtags {
+	list-style: none;
+	padding: 20px;
+	font-size: 0.8rem;
+}
+
+	ul.ks-cboxtags li {
+		display: inline;
+	}
+
+		ul.ks-cboxtags li label {
+			display: inline-block;
+			background-color: rgba(255, 255, 255, .9);
+			border: 2px solid rgba(139, 139, 139, .3);
+			color: #adadad;
+			border-radius: 25px;
+			white-space: nowrap;
+			margin: 3px 0px;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			-webkit-tap-highlight-color: transparent;
+			transition: all .2s;
+		}
+
+		ul.ks-cboxtags li label {
+			padding: 8px 12px;
+			cursor: pointer;
+		}
+
+			ul.ks-cboxtags li label::before {
+				display: inline-block;
+				font-style: normal;
+				font-variant: normal;
+				text-rendering: auto;
+				-webkit-font-smoothing: antialiased;
+				font-family: "Font Awesome 5 Free";
+				font-weight: 900;
+				font-size: 12px;
+				padding: 2px 6px 2px 2px;
+				content: "\f067";
+				transition: transform .3s ease-in-out;
+			}
+
+		ul.ks-cboxtags li input[type="checkbox"]:checked + label::before {
+			content: "\f00c";
+			transform: rotate(-360deg);
+			transition: transform .3s ease-in-out;
+		}
+
+		ul.ks-cboxtags li input[type="checkbox"]:checked + label {
+			border: 2px solid #1bdbf8;
+			background-color: #12bbd4;
+			color: #fff;
+			transition: all .2s;
+		}
+
+		ul.ks-cboxtags li input[type="checkbox"] {
+			position: absolute;
+			opacity: 0;
+		}
+
+			ul.ks-cboxtags li input[type="checkbox"]:focus + label {
+				border: 2px solid #e9a1ff;
+			}
+
+/* column hiding 
+	https://phppot.com/css/automatic-column-hiding-using-css-in-responsive-table/
+
+*/
+
+@media (max-width: 1225px) and (min-width: 1045px) {
+	/* lowest priority */
+	.route-table > * > tr > *:nth-child(2) {
+		display: none;
+	}
+}
+
+@media (max-width: 1045px) and (min-width: 835px) {
+	/* lowest priority */
+	.route-table > * > tr > *:nth-child(2) {
+		display: none;
+	}
+
+	.route-table > * > tr > *:nth-child(5) {
+		display: none;
+	}
+}
+
+@media (max-width: 835px) and (min-width: 300px) {
+	/* lowest priority */
+	.route-table > * > tr > *:nth-child(2) {
+		display: none;
+	}
+
+	.route-table > * > tr > *:nth-child(5) {
+		display: none;
+	}
+
+	.route-table > * > tr > *:nth-child(3) {
+		display: none;
+	}
+}
+
+@media (max-width: 300px) {
+	/* lowest priority */
+	.route-table > * > tr > *:nth-child(2) {
+		display: none;
+	}
+
+	.route-table > * > tr > *:nth-child(5) {
+		display: none;
+	}
+
+	.route-table > * > tr > *:nth-child(3) {
+		display: none;
+	}
+
+	.priority-2 {
+		display: none;
+	}
+}
