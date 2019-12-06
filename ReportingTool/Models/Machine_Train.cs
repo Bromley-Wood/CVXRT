@@ -14,7 +14,7 @@ namespace ReportingTool.Models
         public string Machine_Train_Long_Name { get; set; }
         public int FK_DrivenUnitTypeId { get; set; }
         public int FK_AreaId { get; set; }
-        public int? FK_RouteId { get; set; }
+        public int FK_RouteId { get; set; }
         public bool MachineTrain_IsActive { get; set; }
 
     }
