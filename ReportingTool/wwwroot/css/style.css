@@ -5,8 +5,9 @@ body,
   height: 100%; }
 
 @media (max-width: 740px) {
-  .full-page-intro {
-    height: 1000px; } }
+    .full-page-intro {
+        height: 1000px;
+    } }
 
 /* Half Page Carousel itself*/
 .carousel {

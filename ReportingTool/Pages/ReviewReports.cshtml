@@ -1,0 +1,381 @@
+﻿@page
+@model Reportingtool.Pages.ReviewReportsModel
+
+<hr class="my-5">
+<!--Section: Report Form-->
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>In Progress Reports</h2>
+        <p class="lead">Analyse and Diagnose Machinery Issues</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 order-md-2 mb-4">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">In Progress Reports</span>
+                <span class="badge badge-secondary badge-pill">7</span>
+            </h4>
+            <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Area 1</span>
+                    <strong>3 Reports</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">Machine 1</h6>
+                        <small class="text-muted">Motor - Fault Description</small>
+                    </div>
+                    <span class="text-muted">Prompt Action</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">Machine 2</h6>
+                        <small class="text-muted">Component & Fault Type</small>
+                    </div>
+                    <span class="text-muted">Plan Action</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">Machine 3</h6>
+                        <small class="text-muted">Component & Fault Type</small>
+                    </div>
+                    <span class="text-muted">Trending</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Area 2</span>
+                    <strong>4 Reports</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed bg-light purple">
+                    <div>
+                        <h6 class="my-0">44GB403A</h6>
+                        <small class="text-muted">Motor - Bearing Defect</small>
+                    </div>
+                    <span class="text-muted">Plan Action</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">Machine 3</h6>
+                        <small class="text-muted">Component & Fault Type</small>
+                    </div>
+                    <span class="text-muted">Trending</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">Machine 3</h6>
+                        <small class="text-muted">Component & Fault Type</small>
+                    </div>
+                    <span class="text-muted">No Action</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">Machine 3</h6>
+                        <small class="text-muted">Component & Fault Type</small>
+                    </div>
+                    <span class="text-muted">No Action</span>
+                </li>
+            </ul>
+
+            <form class="card p-2">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="XXX">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-secondary">XXX</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-8 order-md-1">
+            <label for="machine">Machine</label>
+            <h2 class="mb-3 breadcrumbs" id="machineTag">44GB403A</h2>
+            <h5 class="mb-3 breadcrumbs" id="machineDescription">Fuel Gas KO Drum Pump A</h5>
+            <form class="needs-validation" novalidate>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="machineType">Machine Type</label>
+                        <label class="infolabel" id="machineType">Pump</label>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="machineTrain">Machine Train</label>
+                        <label class="infolabel" id="machineTrain">Machine 4</label>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="component">Component</label>
+                        <label class="infolabel" id="component">Motor</label>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="componentType">Component Type</label>
+                        <label class="infolabel" id="componentType">AC</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="componentMake">Make</label>
+                        <label class="infolabel" id="componentMake">Toshiba</label>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="componentModel">Model</label>
+                        <label class="infolabel" id="componentModel">0052DPSA31A-P</label>
+                    </div>
+                </div>
+            </form>
+
+            <h4 class="mb-3 paddedHeader">Fault</h4>
+            <form class="needs-validation" novalidate>
+
+                <label for="faultType">Fault Location</label>
+                <label class="infolabel" id="faultType">Motor Drive End</label>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="faultType">Fault Type</label>
+                        <label class="infolabel" id="faultType">Bearing Defect</label>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="faultSubtype">Fault Subtype</label>
+                        <label class="infolabel" id="faultSubtype">Outer Race Defect</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5 mb-3">
+                        <label for="severity">Severity</label>
+                        <select class="custom-select d-block w-100" id="severity" required>
+                            <option value="">Plan Action</option>
+                            @*foreach (var item in Model.Action)
+                                {
+                                    <option>@item.ActionDescription</option>
+                                    @Html.DisplayFor(modelItem => item.ActionDescription)
+                                }*@
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select a valid severity.
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="reportType">Report Type</label>
+                        <select class="custom-select d-block w-100" id="reportType" required>
+                            <option value="">Routine</option>
+                            <option>Baseline</option>
+                            <option>Troubleshooting</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="reportType">Technology</label>
+                        <select class="custom-select d-block w-100" id="reportType" required>
+                            <option value="">Vibration</option>
+                            <option>Lubrication</option>
+                            <option>Thermography</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="username">Report Date</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                        </div>
+                        <input type="date" class="form-control" id="username" placeholder="dd/mm/yyyy" required>
+                        <div class="invalid-feedback" style="width: 100%;">
+                            Your username is required.
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+
+            <h4 class="mb-3 paddedHeader">Observations</h4>
+            <form class="needs-validation" novalidate>
+                <div class="row">
+                    <div class="col-md-5 mb-3">
+                        <label for="observationType">Observation Type</label>
+                        <select class="custom-select d-block w-100" id="observationType" required>
+                            <option value="">Audible Noises</option>
+                            <option>Data Collection Errors</option>
+                            <option>Phase</option>
+                            <option>Physical / Visual</option>
+                            <option>Spectral Amplitude</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select a valid severity.
+                        </div>
+                    </div>
+                    <div class="col-md-5 mb-3">
+                        <label for="reportType">Observation</label>
+                        <select class="custom-select d-block w-100" id="reportType" required>
+                            <option value="">Component is noisy</option>
+                            <option>Machine has high pitched sound</option>
+                            <option>Machine has low rumble</option>
+                            <option>Rubbing sound</option>
+                            <option>Sounds like gravel through pump</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="reportType">Add to list</label>
+                        <button type="submit" class="btn btn-primary btn-block">+</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10 mb-3">
+                        <label for="notification">Custom Observation</label>
+                        <input type="number" class="form-control" id="notification" placeholder="" value="" required>
+                        <div class="invalid-feedback">
+                            Valid number is required.
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="reportType">Add to list</label>
+                        <button type="submit" class="btn btn-primary btn-block">+</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <ul class="list-group">
+                            <li class="list-group-item">There is a rubbing sound <span class="close">x</span></li>
+                            <li class="list-group-item">The casing is hot <span class="close">x</span></li>
+                            <li class="list-group-item">This is a custom observation <span class="close">x</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+
+
+            <h4 class="mb-3 paddedHeader">Actions</h4>
+            <form class="needs-validation" novalidate>
+                <div class="row">
+                    <div class="col-md-10 mb-3">
+                        <label for="observationType">Action</label>
+                        <select class="custom-select d-block w-100" id="Action" required>
+                            <option value="">1.  Lubricate and retake data</option>
+                            <option>2.  Reduce monitoring interval</option>
+                            <option>3.  Clean an repack bearing</option>
+                            <option>4.  Replace bearing</option>
+                            <option>5.  Review bearing selection</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select a valid severity.
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label for="reportType">Add to list</label>
+                        <button type="submit" class="btn btn-primary btn-block">+</button>
+                    </div>
+                </div>
+
+                <div class="md-form">
+                    <i class="fas fa-pencil-alt prefix grey-text"></i>
+                    <textarea type="text" id="form8" class="md-textarea"></textarea>
+                    <label for="form8">Additional Recommendations</label>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="notification">Notification</label>
+                        <input type="number" class="form-control" id="notification" placeholder="" value="" required>
+                        <div class="invalid-feedback">
+                            Valid number is required.
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="workOrder">Work Order</label>
+                        <input type="number" class="form-control" id="workOrder" placeholder="" value="" required>
+                        <div class="invalid-feedback">
+                            Valid number is required.
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <h4 class="mb-3 paddedHeader">Notes</h4>
+            <form class="needs-validation" novalidate>
+                <div class="md-form">
+                    <i class="fas fa-pencil-alt prefix grey-text"></i>
+                    <textarea type="text" id="form8" class="md-textarea"></textarea>
+                    <label for="form8">Analyst Notes (internal)</label>
+                </div>
+
+                <div class="md-form">
+                    <i class="fas fa-pencil-alt prefix grey-text"></i>
+                    <textarea type="text" id="form8" class="md-textarea"></textarea>
+                    <label for="form8">External Notes</label>
+                </div>
+
+
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile01"
+                               aria-describedby="inputGroupFileAddon01">
+                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    </div>
+                </div>
+                <hr class="mb-4">
+
+                <div class="d-block my-3">
+                    <div class="custom-control custom-radio">
+                        <input id="inProgress" name="reportProgress" type="radio" class="custom-control-input" checked required>
+                        <label class="custom-control-label" for="inProgress">In Progress</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input id="readyforReview" name="reportProgress" type="radio" class="custom-control-input" required>
+                        <label class="custom-control-label" for="readyforReview">Ready for Review</label>
+                    </div>
+                </div>
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+                <h4 class="mb-3 paddedHeader"></h4>
+
+
+                <h4 class="mb-3 paddedHeader">Review</h4>
+                Later will refashion this to a different type of form<br>
+                Note: Might be able to move this to form validation<br><br>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="same-address">
+                    <label class="custom-control-label" for="same-address">Severity</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="save-info">
+                    <label class="custom-control-label" for="save-info">Image</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="save-info">
+                    <label class="custom-control-label" for="save-info">Recommendation</label>
+                </div>
+
+                <div class="md-form">
+                    <i class="fas fa-pencil-alt prefix grey-text"></i>
+                    <textarea type="text" id="form8" class="md-textarea"></textarea>
+                    <label for="form8">Reviewer Notes (internal)</label>
+                </div>
+
+                <div class="d-block my-3">
+                    <div class="custom-control custom-radio">
+                        <input id="credit" name="reviewProgress" type="radio" class="custom-control-input" checked required>
+                        <label class="custom-control-label" for="credit">Reviewed with comments</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input id="paypal" name="reviewProgress" type="radio" class="custom-control-input" required>
+                        <label class="custom-control-label" for="paypal">Client Comments</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input id="debit" name="reviewProgress" type="radio" class="custom-control-input" required>
+                        <label class="custom-control-label" for="debit">Released</label>
+                    </div>
+                </div>
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+<!--Section: Report Form-->
