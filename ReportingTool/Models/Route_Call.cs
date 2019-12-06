@@ -13,7 +13,9 @@ namespace ReportingTool.Models
         [Column("FK_RouteId")]
         public int RouteId { get; set; }
         public double Labour_Hours { get; set; }
+        [DataType(DataType.Date)]
         public DateTime Plan_Date { get; set; }
+        [DataType(DataType.Date)]
         public DateTime Schedule_Date { get; set; }
 
         public Route Route { get; set; }

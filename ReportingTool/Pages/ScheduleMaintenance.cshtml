@@ -102,7 +102,7 @@
                                                         <ul class="ks-cboxtags">
                                                             @for (var i = 1; i < 62; ++i)
                                                             {
-                                                                <li><input type="checkbox" id="cbmach@(i)" value="@(i+9)"><label for="cbmach@(i)">@Model.MachineNames[i-1]</label></li>
+                                                                <li><input type="checkbox" id="cbmach@(i)" value="@(i+9)"><label for="cbmach@(i)">@Model.MachineNames[i - 1]</label></li>
                                                             }
                                                         </ul>
 
@@ -260,7 +260,6 @@
             <!--Grid row-->
 
         </section>
-        <!--Section: Sched Maint Header-->
 
         <hr class="my-5">
 
@@ -273,25 +272,25 @@
             </h4>
             <!-- List group -->
             <div class="list-group list-group-horizontal py-3" id="myList" role="tablist">
-                <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center active"
+                <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
                    data-toggle="list" href="#lastWeek" role="tab">
                     Last Week
-                    <span class="badge mdb-color white-text badge-pill">39</span>
+                    <span class="badge mdb-color white-text badge-pill">@Model.WeekHourList[0]</span>
                 </a>
-                <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center active"
                    data-toggle="list" href="#currentWeek" role="tab">
                     Current Week
-                    <span class="badge mdb-color white-text badge-pill">14</span>
+                    <span class="badge mdb-color white-text badge-pill">@Model.WeekHourList[1]</span>
                 </a>
                 <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
                    data-toggle="list" href="#nextWeek" role="tab">
                     Next Week
-                    <span class="badge mdb-color white-text badge-pill">34</span>
+                    <span class="badge mdb-color white-text badge-pill">@Model.WeekHourList[2]</span>
                 </a>
                 <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
                    data-toggle="list" href="#weekAfterNext" role="tab">
                     Week After Next
-                    <span class="badge mdb-color white-text badge-pill">30</span>
+                    <span class="badge mdb-color white-text badge-pill">@Model.WeekHourList[3]</span>
                 </a>
             </div>
 
@@ -307,11 +306,11 @@
 
                 <!-- Tab panes -->
                 <div class="tab-content col-md-12 py-2">
-                    <div class="tab-pane active" id="lastWeek" role="tabpanel">
+                    <div class="tab-pane" id="lastWeek" role="tabpanel">
                         <div class="table-responsive-md">
                             <table id="dtLastWeek" class="rt-table route-table table table-striped table-bordered table-top-margin align-middle" cellspacing="0" width="100%">
                                 <caption class="text-center text-muted border border-bottom-0 border-light py-3 rgba-grey-slight">
-                                    Last Week - 39 Hours Scheduled
+                                    Last Week - @Model.WeekHourList[0] Hours Scheduled
                                 </caption>
                                 <thead>
 
@@ -326,46 +325,33 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>0900: Inlet - KJVG Common MEG plant  [ GAA ]</td>
-                                        <td>56</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>4/12/2019</td>
-                                        <td>4/12/2019</td>
-                                        <td>
-                                            <div class="btn-group btn-group-lg" role="group">
-                                                <button type="button" class="btn btn-mdb-color btn-sm" data-callid="10" data-toggle="modal" data-target="#modalEdit">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>	<!-- when clicked, push this row of data to the modaledit pop up form.-->
-                                                <button type="button" class="btn btn-unique btn-sm" data-routeid="10" data-toggle="modal" data-target="#modalMachineList">
-                                                    <i class="far fa-list-alt"></i>
-                                                </button>	<!-- when clicked, query: SELECT Machine_Train, Measurement_Date, Condition, Change_In_Condtion from V_Route_Machines where RouteId = <data-routeid>  -->
-                                                <label class="rt-check btn form-check-label btn-sm" data-callid="10" data-toggle="buttons">
-                                                    <input class="form-check-input" type="checkbox" autocomplete="off">
-                                                    <i class="fas fa-clipboard-check"></i>
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr><td>	0900: Inlet - KJVG Common MEG plant  [ GAC ]	</td><td>	56	</td><td>	3	</td><td>	5	</td><td>	4/12/2019	</td><td>	4/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                    <tr><td>	0900: Inlet - KJVG Common MEG plant  [ GAH ]	</td><td>	56	</td><td>	29	</td><td>	2	</td><td>	4/12/2019	</td><td>	4/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                    <tr><td>	0900: Inlet - KJVG Common MEG plant  [ JAC ]	</td><td>	56	</td><td>	17	</td><td>	2	</td><td>	4/12/2019	</td><td>	4/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                    <tr><td>	0900: Inlet - KJVG Common MEG plant  [ RBA ]	</td><td>	56	</td><td>	11	</td><td>	1	</td><td>	4/12/2019	</td><td>	4/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                    <tr><td>	0901: Inlet - KJVG Common MEG plant  [ GAC ]	</td><td>	56	</td><td>	6	</td><td>	5	</td><td>	4/12/2019	</td><td>	4/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                    <tr><td>	0901: Inlet - KJVG Common MEG plant  [ JAC ]	</td><td>	56	</td><td>	24	</td><td>	2	</td><td>	4/12/2019	</td><td>	4/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                    <tr><td>	1001: Inlet - Inlet Processing  [ GAD ]	</td><td>	56	</td><td>	18	</td><td>	1	</td><td>	4/12/2019	</td><td>	4/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                    <tr><td>	1001: Inlet - Inlet Processing  [ GAE ]	</td><td>	56	</td><td>	18	</td><td>	1	</td><td>	4/12/2019	</td><td>	4/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                    <tr><td>	1010: Inlet - Inlet Processing  [ GAA ]	</td><td>	56	</td><td>	2	</td><td>	1	</td><td>	4/12/2019	</td><td>	4/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                    <tr><td>	1010: Inlet - Inlet Processing  [ GAG ]	</td><td>	56	</td><td>	5	</td><td>	1	</td><td>	4/12/2019	</td><td>	4/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                    <tr><td>	1010: Inlet - Inlet Processing  [ JAD ]	</td><td>	56	</td><td>	6	</td><td>	1	</td><td>	4/12/2019	</td><td>	4/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                    <tr><td>	1100: LNG - Acid Gas Removal Unit (Common)  [ AAA ]	</td><td>	56	</td><td>	65	</td><td>	3	</td><td>	4/12/2019	</td><td>	4/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                    <tr><td>	1100: LNG - Acid Gas Removal Unit (Common)  [ ABA ]	</td><td>	56	</td><td>	63	</td><td>	3	</td><td>	4/12/2019	</td><td>	4/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                    <tr><td>	1100: LNG - Acid Gas Removal Unit (Common)  [ ACA ]	</td><td>	56	</td><td>	59	</td><td>	3	</td><td>	4/12/2019	</td><td>	4/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                    <tr><td>	1100: LNG - Acid Gas Removal Unit (Common)  [ UAH ]	</td><td>	56	</td><td>	1	</td><td>	1	</td><td>	4/12/2019	</td><td>	4/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                    <tr><td>	1901: Inlet - Carbon Dioxide Re-injection Unit Pipe Line and Wells  [ CAA ]	</td><td>	56	</td><td>	40	</td><td>	2	</td><td>	4/12/2019	</td><td>	4/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                    <tr><td>	1901: Inlet - Carbon Dioxide Re-injection Unit Pipe Line and Wells  [ CBA ]	</td><td>	56	</td><td>	40	</td><td>	2	</td><td>	4/12/2019	</td><td>	4/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                    <tr><td>	1903: Inlet - Carbon Dioxide Re-injection Unit Pipe Line and Wells  [ CCA ]	</td><td>	56	</td><td>	40	</td><td>	2	</td><td>	4/12/2019	</td><td>	4/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
+                                    @foreach (var item in Model.Route_Call_Week_List[0])
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => item.Route.RouteDescription)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Route.Cycle_Days)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.RouteId)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Labour_Hours)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Plan_Date)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
+                                            <td>
+                                                <div class="btn-group btn-group-lg" role="group">
+                                                    <button type="button" class="btn btn-mdb-color btn-sm" data-callid="10" data-toggle="modal" data-target="#modalEdit">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <!-- when clicked, push this row of data to the modaledit pop up form.-->
+                                                    <button type="button" class="btn btn-unique btn-sm" data-routeid="10" data-toggle="modal" data-target="#modalMachineList">
+                                                        <i class="far fa-list-alt"></i>
+                                                    </button>
+                                                    <!-- when clicked, query: SELECT Machine_Train, Measurement_Date, Condition, Change_In_Condtion from V_Route_Machines where RouteId = <data-routeid>  -->
+                                                    <label class="rt-check btn form-check-label btn-sm" data-callid="10" data-toggle="buttons">
+                                                        <input class="form-check-input" type="checkbox" autocomplete="off">
+                                                        <i class="fas fa-clipboard-check"></i>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -381,10 +367,10 @@
                             </table>
                         </div>
                     </div>
-                    <div class="tab-pane" id="currentWeek" role="tabpanel">
+                    <div class="tab-pane active" id="currentWeek" role="tabpanel">
                         <table id="dtThisWeek" class="rt-table route-table table table-striped table-bordered table-top-margin" cellspacing="0" width="100%">
                             <caption class="text-center text-muted border border-bottom-0 border-light py-3 rgba-grey-slight">
-                                This Week - 14 Hours Scheduled
+                                This Week - @Model.WeekHourList[1] Hours Scheduled
                             </caption>
                             <thead>
                                 <tr>
@@ -398,16 +384,33 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td>	1201: LNG - Dehydration Unit (LNG) (Common)  [ TAJA ]	</td><td>	56	</td><td>	6	</td><td>	2	</td><td>	11/12/2019	</td><td>	11/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1204: LNG - Dehydration Unit (LNG) (Common)  [ TAJA ]	</td><td>	56	</td><td>	3	</td><td>	2	</td><td>	11/12/2019	</td><td>	11/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1401: LNG - Natural Gas Liquefaction Unit (Common)  [ TAD ]	</td><td>	56	</td><td>	1	</td><td>	1	</td><td>	11/12/2019	</td><td>	11/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1401: LNG - Natural Gas Liquefaction Unit (Common)  [ TAH ]	</td><td>	56	</td><td>	6	</td><td>	1	</td><td>	11/12/2019	</td><td>	11/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1401: LNG - Natural Gas Liquefaction Unit (Common)  [ TAJD ]	</td><td>	56	</td><td>	9	</td><td>	3	</td><td>	11/12/2019	</td><td>	11/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	3300: Storage and loading - Condensate Storage and Loading  [ SAH ]	</td><td>	56	</td><td>	2	</td><td>	1	</td><td>	11/12/2019	</td><td>	11/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	3400: Storage and loading - LNG Storage and Loading and BOG  [ SAD ]	</td><td>	56	</td><td>	24	</td><td>	1	</td><td>	11/12/2019	</td><td>	11/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	3400: Storage and loading - LNG Storage and Loading and BOG  [ SAY ]	</td><td>	56	</td><td>	4	</td><td>	1	</td><td>	11/12/2019	</td><td>	11/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	4500: Utilities - Water Systems (RO)  [ MAG ]	</td><td>	56	</td><td>	2	</td><td>	1	</td><td>	11/12/2019	</td><td>	11/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	7000: Utilities - LNG Jetty and Mooring Facilities  [ SAY ]	</td><td>	56	</td><td>	1	</td><td>	1	</td><td>	11/12/2019	</td><td>	11/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
+                                @foreach (var item in Model.Route_Call_Week_List[1])
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.Route.RouteDescription)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Route.Cycle_Days)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.RouteId)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Labour_Hours)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Plan_Date)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
+                                        <td>
+                                            <div class="btn-group btn-group-lg" role="group">
+                                                <button type="button" class="btn btn-mdb-color btn-sm" data-callid="10" data-toggle="modal" data-target="#modalEdit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <!-- when clicked, push this row of data to the modaledit pop up form.-->
+                                                <button type="button" class="btn btn-unique btn-sm" data-routeid="10" data-toggle="modal" data-target="#modalMachineList">
+                                                    <i class="far fa-list-alt"></i>
+                                                </button>
+                                                <!-- when clicked, query: SELECT Machine_Train, Measurement_Date, Condition, Change_In_Condtion from V_Route_Machines where RouteId = <data-routeid>  -->
+                                                <label class="rt-check btn form-check-label btn-sm" data-callid="10" data-toggle="buttons">
+                                                    <input class="form-check-input" type="checkbox" autocomplete="off">
+                                                    <i class="fas fa-clipboard-check"></i>
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -425,7 +428,8 @@
                     <div class="tab-pane" id="nextWeek" role="tabpanel">
                         <table id="dtNextWeek" class="rt-table route-table table table-striped table-bordered table-top-margin " cellspacing="0" width="100%">
                             <caption class="text-center text-muted border border-bottom-0 border-light py-3 rgba-grey-slight">
-                                Next Week - 34 Hours Scheduled
+                                Next Week - @Model.WeekHourList[2] Hours Scheduled
+
                             </caption>
                             <thead>
                                 <tr>
@@ -439,22 +443,33 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td>	1510: LNG - Refrigeration Unit (Common)  [ TAG ]	</td><td>	56	</td><td>	12	</td><td>	1	</td><td>	18/12/2019	</td><td>	18/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1510: LNG - Refrigeration Unit (Common)  [ TAJD ]	</td><td>	56	</td><td>	24	</td><td>	3	</td><td>	18/12/2019	</td><td>	18/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1512: LNG - Refrigeration Unit (Common)  [ TAJD ]	</td><td>	56	</td><td>	24	</td><td>	3	</td><td>	18/12/2019	</td><td>	18/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1530: LNG - Refrigeration Unit (Common)  [ TAF ]	</td><td>	56	</td><td>	12	</td><td>	1	</td><td>	18/12/2019	</td><td>	18/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1530: LNG - Refrigeration Unit (Common)  [ TAJA ]	</td><td>	56	</td><td>	12	</td><td>	2	</td><td>	18/12/2019	</td><td>	18/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1531: LNG - Refrigeration Unit (Common)  [ TAJB ]	</td><td>	56	</td><td>	60	</td><td>	3	</td><td>	18/12/2019	</td><td>	18/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1531: LNG - Refrigeration Unit (Common)  [ TAJC ]	</td><td>	56	</td><td>	60	</td><td>	3	</td><td>	18/12/2019	</td><td>	18/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1532: LNG - Refrigeration Unit (Common)  [ TAJA ]	</td><td>	56	</td><td>	18	</td><td>	2	</td><td>	18/12/2019	</td><td>	18/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1600: LNG - Fractionation Unit (Common)  [ TAJA ]	</td><td>	56	</td><td>	1	</td><td>	2	</td><td>	18/12/2019	</td><td>	18/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1600: LNG - Refrigeration Unit (Common)  [ TAJA ]	</td><td>	56	</td><td>	1	</td><td>	2	</td><td>	18/12/2019	</td><td>	18/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1603: LNG - Fractionation Unit (Common)  [ TAJA ]	</td><td>	56	</td><td>	3	</td><td>	2	</td><td>	18/12/2019	</td><td>	18/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1604: LNG - Fractionation Unit (Common)  [ TAJA ]	</td><td>	56	</td><td>	3	</td><td>	2	</td><td>	18/12/2019	</td><td>	18/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1610: LNG - Fractionation Unit (Common)  [ TAB ]	</td><td>	56	</td><td>	4	</td><td>	2	</td><td>	18/12/2019	</td><td>	18/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1612: LNG - Fractionation Unit (Common)  [ TAB ]	</td><td>	56	</td><td>	4	</td><td>	2	</td><td>	18/12/2019	</td><td>	18/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1613: LNG - Fractionation Unit (Common)  [ TAB ]	</td><td>	56	</td><td>	4	</td><td>	2	</td><td>	18/12/2019	</td><td>	18/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1614: LNG - Fractionation Unit (Common)  [ TAB ]	</td><td>	56	</td><td>	10	</td><td>	2	</td><td>	18/12/2019	</td><td>	18/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
+                                @foreach (var item in Model.Route_Call_Week_List[2])
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.Route.RouteDescription)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Route.Cycle_Days)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.RouteId)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Labour_Hours)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Plan_Date)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
+                                        <td>
+                                            <div class="btn-group btn-group-lg" role="group">
+                                                <button type="button" class="btn btn-mdb-color btn-sm" data-callid="10" data-toggle="modal" data-target="#modalEdit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <!-- when clicked, push this row of data to the modaledit pop up form.-->
+                                                <button type="button" class="btn btn-unique btn-sm" data-routeid="10" data-toggle="modal" data-target="#modalMachineList">
+                                                    <i class="far fa-list-alt"></i>
+                                                </button>
+                                                <!-- when clicked, query: SELECT Machine_Train, Measurement_Date, Condition, Change_In_Condtion from V_Route_Machines where RouteId = <data-routeid>  -->
+                                                <label class="rt-check btn form-check-label btn-sm" data-callid="10" data-toggle="buttons">
+                                                    <input class="form-check-input" type="checkbox" autocomplete="off">
+                                                    <i class="fas fa-clipboard-check"></i>
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -472,7 +487,7 @@
                     <div class="tab-pane" id="weekAfterNext" role="tabpanel">
                         <table id="dtWeekAfterNext" class="rt-table route-table table table-striped table-bordered table-top-margin" cellspacing="0" width="100%">
                             <caption class="text-center text-muted border border-bottom-0 border-light py-3 rgba-grey-slight">
-                                Week After Next - 30 Hours Scheduled
+                                Week After Next - @Model.WeekHourList[3] Hours Scheduled
                             </caption>
                             <thead>
                                 <tr>
@@ -481,25 +496,38 @@
                                     <th class="th-sm"># Machines</th>
                                     <th class="th-sm">Labour Hours</th>
                                     <th class="th-sm">Plan Date</th>
+                                    <th class="th-sm">Sched. Date</th>
                                     <th class="th-sm">Edit | View | Close</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td>	1201: LNG - Dehydration Unit (LNG) (Common)  [ TBJA ]	</td><td>	56	</td><td>	6	</td><td>	2	</td><td>	25/12/2019	</td><td>	25/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1204: LNG - Dehydration Unit (LNG) (Common)  [ TBJA ]	</td><td>	56	</td><td>	3	</td><td>	2	</td><td>	25/12/2019	</td><td>	25/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1402: LNG - Natural Gas Liquefaction Unit (Common)  [ TBD ]	</td><td>	56	</td><td>	1	</td><td>	1	</td><td>	25/12/2019	</td><td>	25/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1402: LNG - Natural Gas Liquefaction Unit (Common)  [ TBH ]	</td><td>	56	</td><td>	6	</td><td>	1	</td><td>	25/12/2019	</td><td>	25/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	1402: LNG - Natural Gas Liquefaction Unit (Common)  [ TBJD ]	</td><td>	56	</td><td>	9	</td><td>	3	</td><td>	25/12/2019	</td><td>	25/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	2400: Utilities - Extraction and Compression ( DOMGAS )  [ DAA ]	</td><td>	56	</td><td>	36	</td><td>	2	</td><td>	25/12/2019	</td><td>	25/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	4100: Utilities - Heating Medium System – Hot oil  [ UAE ]	</td><td>	56	</td><td>	44	</td><td>	3	</td><td>	25/12/2019	</td><td>	25/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	4200: Utilities - Recycle Gas Compression  [ UAC ]	</td><td>	56	</td><td>	10	</td><td>	1	</td><td>	25/12/2019	</td><td>	25/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	4300: Utilities - Demineralised Water  [ UAE ]	</td><td>	56	</td><td>	6	</td><td>	3	</td><td>	25/12/2019	</td><td>	25/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	4600: Utilities - Tempered Water (Common)  [ UAE ]	</td><td>	56	</td><td>	12	</td><td>	3	</td><td>	25/12/2019	</td><td>	25/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	4610: Utilities - Tempered Water Tr1  [ TAJD ]	</td><td>	56	</td><td>	8	</td><td>	3	</td><td>	25/12/2019	</td><td>	25/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	4700: Utilities - Instrument Air  [ UAG ]	</td><td>	56	</td><td>	8	</td><td>	1	</td><td>	25/12/2019	</td><td>	25/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	4800: Utilities - Nitrogen  [ UAE ]	</td><td>	56	</td><td>	22	</td><td>	3	</td><td>	25/12/2019	</td><td>	25/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	4800: Utilities - Nitrogen  [ UAG ]	</td><td>	56	</td><td>	4	</td><td>	1	</td><td>	25/12/2019	</td><td>	25/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
-                                <tr><td>	6200: Utilities - Wet Flare Knockout Drums  [ SAN ]	</td><td>	56	</td><td>	4	</td><td>	1	</td><td>	25/12/2019	</td><td>	25/12/2019	</td>	<td> <div class="btn-group btn-group-lg" role="group"><button type="button" class="btn btn-mdb-color btn-md" data-callid="10" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>	<button type="button" class="btn btn-unique btn-md" data-callid="10"><i class="far fa-list-alt"></i></button>	<label class="rt-check btn form-check-label btn-md" data-callid="10" data-toggle="buttons"><input class="form-check-input" type="checkbox" autocomplete="off"> <i class="fas fa-clipboard-check"></i></label></div></td>	</tr>
+                                @foreach (var item in Model.Route_Call_Week_List[3])
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.Route.RouteDescription)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Route.Cycle_Days)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.RouteId)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Labour_Hours)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Plan_Date)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
+                                        <td>
+                                            <div class="btn-group btn-group-lg" role="group">
+                                                <button type="button" class="btn btn-mdb-color btn-sm" data-callid="10" data-toggle="modal" data-target="#modalEdit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <!-- when clicked, push this row of data to the modaledit pop up form.-->
+                                                <button type="button" class="btn btn-unique btn-sm" data-routeid="10" data-toggle="modal" data-target="#modalMachineList">
+                                                    <i class="far fa-list-alt"></i>
+                                                </button>
+                                                <!-- when clicked, query: SELECT Machine_Train, Measurement_Date, Condition, Change_In_Condtion from V_Route_Machines where RouteId = <data-routeid>  -->
+                                                <label class="rt-check btn form-check-label btn-sm" data-callid="10" data-toggle="buttons">
+                                                    <input class="form-check-input" type="checkbox" autocomplete="off">
+                                                    <i class="fas fa-clipboard-check"></i>
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -508,6 +536,7 @@
                                     <th class="th-sm"># Machines</th>
                                     <th class="th-sm">Labour Hours</th>
                                     <th class="th-sm">Plan Date</th>
+                                    <th class="th-sm">Sched. Date</th>
                                     <th class="th-sm">Edit | View | Close</th>
                                 </tr>
                             </tfoot>
