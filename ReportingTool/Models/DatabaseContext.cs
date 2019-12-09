@@ -4,9 +4,22 @@ namespace ReportingTool.Models
 {
     public class DatabaseContext : DbContext
     {
+        
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
+            
         }
+
+        // Specify DbSet properties etc
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<V_Route_Machines>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("V_Route_Machines");
+            });
+        }
+
 
         public DbSet<ReportingTool.Models.Fault_Type> Fault_Type { get; set; }
         public DbSet<ReportingTool.Models.Action> Action { get; set; }
@@ -14,5 +27,8 @@ namespace ReportingTool.Models
         public DbSet<ReportingTool.Models.Route> Route { get; set; }
         public DbSet<ReportingTool.Models.Area> Area { get; set; }
         public DbSet<ReportingTool.Models.Machine_Train> Machine_Train { get; set; }
+        public virtual DbSet<ReportingTool.Models.V_Route_Machines> V_Route_Machines { get; set; }
+
+        
     }
 }

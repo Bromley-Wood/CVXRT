@@ -18,6 +18,7 @@ namespace ReportingTool.Models
         #nullable enable
         [Column("FK_RouteId")] public int? RouteId { get; set; }
         
+        
 
     }
 }

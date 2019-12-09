@@ -17,7 +17,7 @@ namespace ReportingTool.Models
         public bool Route_IsActive { get; set; }
 
         public ICollection<Machine_Train> Machine_Train_List { get; set; }
-
+        
         #nullable enable
         public string? Module_Code { get; set; }
         public string? Unit { get; set; }
