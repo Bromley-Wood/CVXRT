@@ -22,8 +22,12 @@ namespace ReportingTool.Models
         public DateTime? Create_Date { get; set; }
         public string? Fault_Location { get; set; }
         public int? ReportId { get; set; }
-        [DataType(DataType.Date)] public DateTime? Report_Date { get; set; }
-        [DataType(DataType.Date)] public DateTime? Measurement_Date { get; set; }
+        
+        [DataType(DataType.Date)] 
+        public DateTime? Report_Date { get; set; }
+        
+        [DataType(DataType.Date)] 
+        public DateTime? Measurement_Date { get; set; }
         public string? Condition { get; set; }
         public string? Actions { get; set; }
         public int? Condition_Difference { get; set; }

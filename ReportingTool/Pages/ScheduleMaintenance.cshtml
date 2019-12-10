@@ -173,45 +173,57 @@
                                         </div>
                                     </div>
                                     <!--- Edit form -->
-                                    <!-- Machine list-->
-                                    <div class="modal fade" id="modalMachineList" tabindex="-1" role="dialog" aria-labelledby="modalMachineList"
-                                         aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header text-center">
-                                                    <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Machines</h4>
-                                                    <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body mx-3">
-                                                    <table id="dtMachinesList" class="route-table table table-striped table-bordered table-top-margin" cellspacing="0" width="100%">
-                                                        <thead>
-                                                            <tr>
-                                                                <th class="th-sm">Machine Train </th>
-                                                                <th class="th-sm">Lasted Measured</th>
-                                                                <th class="th-sm">Condition</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr><td>	1E-1201-K1	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	28/08/2019	</td><td>	No Action	<small>	(Unchanged)	</small></td></tr>
-                                                            <tr><td>	1E-1201-K2	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	28/08/2019	</td><td>	No Action	<small>	(Unchanged)	</small></td></tr>
-                                                            <tr><td>	1E-1201-K3	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	9/05/2019	</td><td>	No Action	<small>	(Unchanged)	</small></td></tr>
-                                                            <tr><td>	1E-1201-K4	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	28/08/2019	</td><td>	Trending	<small>	(Unchanged)	</small></td></tr>
-                                                            <tr><td>	1E-1201-K5	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	28/08/2019	</td><td>	Trending	<small>	(Unchanged)	</small></td></tr>
-                                                            <tr><td>	1E-1201-K6	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	5/07/2019	</td><td>	No Action	<small>	(Unchanged)	</small></td></tr>
-                                                        </tbody>
 
-                                                    </table>
+                                    @foreach (var mtraininfo in Model.Machine_List_Dict)
+                                    {
 
-                                                </div>
-                                                <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
-                                                    <button type="button" class="btn btn-info btnYesClass" id="btnYes" data-dismiss="modal">Done</button>
+                                        <!-- Machine list-->
+                                        <div class="modal fade" id="modalMachineList@(mtraininfo.Key)" tabindex="-1" role="dialog" aria-labelledby="modalMachineList@(mtraininfo.Key)"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header text-center">
+                                                        <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Machines</h4>
+                                                        <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body mx-3">
+                                                        <table id="dtMachinesList" class="route-table table table-striped table-bordered table-top-margin" cellspacing="0" width="100%">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="th-sm">Machine Train </th>
+                                                                    <th class="th-sm">Lasted Measured</th>
+                                                                    <th class="th-sm">Condition</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach (var mtrain in mtraininfo.Value)
+                                                                {
+                                                                    string last_measured_time = mtrain.Measurement_Date.HasValue ? mtrain.Measurement_Date.Value.ToString("dd/MM/yyyy") : "";
+                                                                    <tr>
+                                                                        <td>	@mtrain.Machine_Train	<br>	@mtrain.Machine_Train_Long_Name	</td>
+                                                                        <td>	@last_measured_time	</td>
+                                                                        <td>	@mtrain.Condition	<small> @mtrain.Change_In_Condition</small></td>
+                                                                    </tr>
+                                                                    
+                                                                }
+                                                            </tbody>
+
+                                                        </table>
+
+                                                    </div>
+                                                    <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
+                                                        <button type="button" class="btn btn-info btnYesClass" id="btnYes" data-dismiss="modal">Done</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!--- end machines list -->
+                                        <!--- end machines list -->
+
+
+                                    }
+
                                     <div class="modal fade" id="modalCloseRoutes" tabindex="-1" role="dialog" aria-labelledby="modalCloseRoutes"
                                          aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -260,6 +272,9 @@
             <!--Grid row-->
 
         </section>
+
+
+
 
         <hr class="my-5">
 
@@ -336,15 +351,15 @@
                                             <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
                                             <td>
                                                 <div class="btn-group btn-group-lg" role="group">
-                                                    <button type="button" class="btn btn-mdb-color btn-sm" data-callid="10" data-toggle="modal" data-target="#modalEdit">
+                                                    <button type="button" class="btn btn-mdb-color btn-sm" data-callid=@item.PK_CallId data-toggle="modal" data-target="#modalEdit">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
                                                     <!-- when clicked, push this row of data to the modaledit pop up form.-->
-                                                    <button type="submit" class="btn btn-unique btn-sm" data-routeid="10" data-toggle="modal" data-target="#modalMachineList" >
+                                                    <button type="submit" class="btn btn-unique btn-sm" data-routeid=@item.RouteId data-toggle="modal" data-target="#modalMachineList@(item.RouteId)">
                                                         <i class="far fa-list-alt"></i>
                                                     </button>
                                                     <!-- when clicked, query: SELECT Machine_Train, Measurement_Date, Condition, Change_In_Condtion from V_Route_Machines where RouteId = <data-routeid>  -->
-                                                    <label class="rt-check btn form-check-label btn-sm" data-callid="10" data-toggle="buttons">
+                                                    <label class="rt-check btn form-check-label btn-sm" data-callid=@item.PK_CallId data-toggle="buttons">
                                                         <input class="form-check-input" type="checkbox" autocomplete="off">
                                                         <i class="fas fa-clipboard-check"></i>
                                                     </label>
@@ -395,15 +410,15 @@
                                         <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
                                         <td>
                                             <div class="btn-group btn-group-lg" role="group">
-                                                <button type="button" class="btn btn-mdb-color btn-sm" data-callid="10" data-toggle="modal" data-target="#modalEdit">
+                                                <button type="button" class="btn btn-mdb-color btn-sm" data-callid=@item.PK_CallId data-toggle="modal" data-target="#modalEdit">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
                                                 <!-- when clicked, push this row of data to the modaledit pop up form.-->
-                                                <button type="button" class="btn btn-unique btn-sm" data-routeid="10" data-toggle="modal" data-target="#modalMachineList">
+                                                <button type="button" class="btn btn-unique btn-sm" data-routeid=@item.RouteId data-toggle="modal" data-target="#modalMachineList@(item.RouteId)">
                                                     <i class="far fa-list-alt"></i>
                                                 </button>
                                                 <!-- when clicked, query: SELECT Machine_Train, Measurement_Date, Condition, Change_In_Condtion from V_Route_Machines where RouteId = <data-routeid>  -->
-                                                <label class="rt-check btn form-check-label btn-sm" data-callid="10" data-toggle="buttons">
+                                                <label class="rt-check btn form-check-label btn-sm" data-callid=@item.PK_CallId data-toggle="buttons">
                                                     <input class="form-check-input" type="checkbox" autocomplete="off">
                                                     <i class="fas fa-clipboard-check"></i>
                                                 </label>
@@ -454,15 +469,15 @@
                                         <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
                                         <td>
                                             <div class="btn-group btn-group-lg" role="group">
-                                                <button type="button" class="btn btn-mdb-color btn-sm" data-callid="10" data-toggle="modal" data-target="#modalEdit">
+                                                <button type="button" class="btn btn-mdb-color btn-sm" data-callid=@item.PK_CallId data-toggle="modal" data-target="#modalEdit">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
                                                 <!-- when clicked, push this row of data to the modaledit pop up form.-->
-                                                <button type="button" class="btn btn-unique btn-sm" data-routeid="10" data-toggle="modal" data-target="#modalMachineList">
+                                                <button type="button" class="btn btn-unique btn-sm" data-routeid=@item.RouteId data-toggle="modal" data-target="#modalMachineList@(item.RouteId)">
                                                     <i class="far fa-list-alt"></i>
                                                 </button>
                                                 <!-- when clicked, query: SELECT Machine_Train, Measurement_Date, Condition, Change_In_Condtion from V_Route_Machines where RouteId = <data-routeid>  -->
-                                                <label class="rt-check btn form-check-label btn-sm" data-callid="10" data-toggle="buttons">
+                                                <label class="rt-check btn form-check-label btn-sm" data-callid=@item.PK_CallId data-toggle="buttons">
                                                     <input class="form-check-input" type="checkbox" autocomplete="off">
                                                     <i class="fas fa-clipboard-check"></i>
                                                 </label>
@@ -512,15 +527,15 @@
                                         <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
                                         <td>
                                             <div class="btn-group btn-group-lg" role="group">
-                                                <button type="button" class="btn btn-mdb-color btn-sm" data-callid="10" data-toggle="modal" data-target="#modalEdit">
+                                                <button type="button" class="btn btn-mdb-color btn-sm" data-callid=@item.PK_CallId data-toggle="modal" data-target="#modalEdit">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
                                                 <!-- when clicked, push this row of data to the modaledit pop up form.-->
-                                                <button type="button" class="btn btn-unique btn-sm" data-routeid="10" data-toggle="modal" data-target="#modalMachineList">
+                                                <button type="button" class="btn btn-unique btn-sm" data-routeid=@item.RouteId data-toggle="modal" data-target="#modalMachineList@(item.RouteId)">
                                                     <i class="far fa-list-alt"></i>
                                                 </button>
                                                 <!-- when clicked, query: SELECT Machine_Train, Measurement_Date, Condition, Change_In_Condtion from V_Route_Machines where RouteId = <data-routeid>  -->
-                                                <label class="rt-check btn form-check-label btn-sm" data-callid="10" data-toggle="buttons">
+                                                <label class="rt-check btn form-check-label btn-sm" data-callid=@item.PK_CallId data-toggle="buttons">
                                                     <input class="form-check-input" type="checkbox" autocomplete="off">
                                                     <i class="fas fa-clipboard-check"></i>
                                                 </label>

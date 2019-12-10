@@ -28,6 +28,8 @@ namespace Reportingtool.Pages
 
         public IList<V_Route_Machines> V_Route_Machines_All { get; set; }
 
+        public Dictionary<int, List<V_Route_Machines>> Machine_List_Dict = new Dictionary<int, List<V_Route_Machines>>();
+
 
         public async Task OnGetAsync()
         {
@@ -59,9 +61,6 @@ namespace Reportingtool.Pages
                 DateTime weekstartdate = startingDate.AddDays(-7 + 7 * i);
                 DateTime weekenddate = startingDate.AddDays(-1 + 7 * i);
 
-                Console.WriteLine(weekstartdate);
-                Console.WriteLine(weekenddate);
-
                 Route_Call_Week_List.Add(Route_Call_All
                     .Where(r => r.Schedule_Date <= weekenddate)
                     .Where(r => r.Schedule_Date >= weekstartdate)
@@ -69,7 +68,17 @@ namespace Reportingtool.Pages
                     .ToList());
 
                 WeekHourList.Add(Route_Call_Week_List[i].Sum(r => r.Labour_Hours));
+
+                for (int j = 0; j < Route_Call_Week_List[i].Count; ++j)
+                {
+                    var r_id = Route_Call_Week_List[i][j].RouteId;
+                    var Machine_List = V_Route_Machines_All
+                        .Where(m => m.RouteId == r_id)
+                        .ToList();
+                    Machine_List_Dict.Add(r_id, Machine_List);
+                }
             }
+
             /* Get Route_Call for different weeks */
 
 
