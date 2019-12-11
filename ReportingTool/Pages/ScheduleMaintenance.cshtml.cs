@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-
 namespace Reportingtool.Pages
 {
     public class ScheduleMaintenanceModel : PageModel
@@ -21,6 +20,9 @@ namespace Reportingtool.Pages
 
         [BindProperty]
         public Route_Call Edit_Route_Call { get; set; }
+
+        [BindProperty]
+        public List<int> AreChecked { get; set; }
 
         public IList<Route_Call> Route_Call_All { get; set; }
         // Route_Call_Week_List contains four lists of route calls: last week, current week, next week and week after next
@@ -45,6 +47,7 @@ namespace Reportingtool.Pages
             Route_Call_All = await _context.Route_Call
                 .Include(c => c.Route)
                     .ThenInclude(c => c.Machine_Train_List)
+                .Where(c => c.Complete_Date == null)
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -88,7 +91,7 @@ namespace Reportingtool.Pages
 
             var Updated_Route_Call = await _context.Route_Call.FirstOrDefaultAsync(m => m.PK_CallId == Edit_Route_Call.PK_CallId);
             Updated_Route_Call.Schedule_Date = Edit_Route_Call.Schedule_Date;
-            
+
             _context.Attach(Updated_Route_Call).State = EntityState.Modified;
 
             try
@@ -110,13 +113,46 @@ namespace Reportingtool.Pages
             return RedirectToPage("/ScheduleMaintenance");
         }
 
+
+
+        public async Task<IActionResult> OnPostCompleteRoute()
+        {
+            //Console.WriteLine(" ------------------------------ Complete Route ------------------------------");
+            //Console.WriteLine(AreChecked.Count);
+            //AreChecked.ForEach(Console.WriteLine);
+            //Console.WriteLine(" ------------------------------ Complete Route ------------------------------");
+
+
+            for (int i = 0; i < AreChecked.Count; ++i)
+            {
+                var updateQueryString = "UPDATE Route_Call SET Complete_Date='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' WHERE PK_CallId=" + AreChecked[i] + ";";
+                _context.Database.ExecuteSqlRaw(updateQueryString);
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!RouteCallExists(AreChecked[i]))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+
+            //Console.WriteLine(" ------------------------------ Finish Editing ------------------------------");
+            return RedirectToPage("/ScheduleMaintenance");
+        }
+
         private bool RouteCallExists(int id)
         {
             return _context.Route_Call.Any(e => e.PK_CallId == id);
         }
-
-
-
 
     }
 }

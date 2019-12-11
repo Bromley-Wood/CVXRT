@@ -19,8 +19,15 @@ $(document).on("click", ".btn-editform", function () {
 
 $(function () {
     $(document).on("click", ".editroutecallsubmit", function () {
-
         //alert("submitting form");
         $('#editroutecall').submit();
+    });
+});
+
+
+$(function () {
+    $(document).on("click", ".btnYesCompleteRoute", function () {
+        //alert("submitting complete form");
+        $('#completeroute').submit();
     });
 });

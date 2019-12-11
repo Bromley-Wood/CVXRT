@@ -21,5 +21,6 @@ namespace ReportingTool.Models
         [DataType(DataType.Date)] public Nullable<DateTime> Modified_Date { get; set; }
         #nullable enable 
         public string? Modified_By { get; set; }
+        public DateTime? Complete_Date { get; set; }
     }
 }
