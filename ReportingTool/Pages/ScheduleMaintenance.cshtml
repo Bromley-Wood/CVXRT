@@ -57,131 +57,64 @@
                             <div class="list-group  d-flex justify-content-center">
                                 <!--- buttons and forms  -->
                                 <div class="row d-flex justify-content-center modalWrapper">
-                                    <div class="modal fade addNewInputs" id="modalAddRoute" tabindex="-1" role="dialog" aria-labelledby="modalAddRoute"
-                                         aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header text-center">
-                                                    <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add an Adhoc Route</h4>
-                                                    <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body mx-3">
-                                                    <h5 class="modal-title w-100 font-weight-bold text-primary ml-5"><i class="fas fa-tools"></i>  Under Construction  <i class="fas fa-mug-hot"></i></h5>
-                                                    <div class="md-form mb-5">
-                                                        <input type="text" id="formAddRoute" class="form-control validate">
-                                                        <label data-error="wrong" data-success="right" for="inputName">Route Name</label>
-                                                    </div>
-                                                    <div class="md-form mb-5">
-                                                        <input type="date" id="inputDate" class="form-control" placeholder="Select Date">
-                                                        <label data-error="wrong" data-success="right" for="inputDate">Schedule Date</label>
-                                                    </div>
-                                                    <div class="md-form mb-5">
-                                                        <input type="number" id="formAddLabour" class="form-control validate">
-                                                        <label data-error="wrong" data-success="right" for="formAddLabour">Labour Hours</label>
-                                                    </div>
-                                                    <div class="md-form mb-5">
-                                                        <span>Greater Area</span>
-                                                        <select class="custom-select d-block w-100" id="formAddGreaterArea" required>
-                                                            <option>Inlet</option>
-                                                            <option>LNG</option>
-                                                            <option>DOMGAS</option>
-                                                            <option>S&L</option>
-                                                            <option>Utilities</option>
-                                                        </select>
-
-                                                    </div>
-
-                                                    <div class="md-form mb-5">
-                                                        <input type="text" id="inputAge" class="form-control validate">
-                                                        <label data-error="wrong" data-success="right" for="inputAge">Machines</label>
-                                                    </div>
-
-                                                    <div class="mb-5">
-                                                        <ul class="ks-cboxtags">
-                                                            @*@for (var i = 1; i <= Model.Machine_Train_All.Count; ++i)*@
-                                                            @for (var i = 1; i <= 50; ++i)
-                                                            {
-                                                                <li><input type="checkbox" id="cbmach@(i)" value="@(i+9)"><label for="cbmach@(i)">@Model.Machine_Train_All[i - 1].Machine_Train_Name</label></li>
-                                                            }
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
-                                                    <button class="btn btn-outline-primary btn-block buttonAdd" data-dismiss="modal">
-                                                        Add form
-                                                        <i class="fas fa-paper-plane-o ml-1"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="text-center">
-                                        <a href="" class="btn btn-info btn-rounded btn-sm" data-toggle="modal" data-target="#modalAddRoute">
-                                            Add Route<i class="fas fa-plus-square ml-1"></i>
-                                        </a>
-                                    </div>
                                     <!--- end add form -->
-                                    @for (int i = 0; i < Model.Route_Call_Week_List.Count; ++i)
-                                    {
-                                        foreach (var item in Model.Route_Call_Week_List[i])
-                                        {
-                                            
-                                            <!--- Edit Route -->
-                                            <div class="modal fade modalEditClass" id="modalEdit@(item.PK_CallId)" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modalEdit@(item.PK_CallId)">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header text-center">
-                                                            <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit Route</h4>
-                                                            <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
+                                    <form method="POST" asp-page-handler="EditRouteCall">
+                                        <!--- Edit Route -->
+                                        <div class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modalEdit">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header text-center">
+                                                        <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit Route</h4>
+                                                        <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <input type="hidden" asp-for="Edit_Route_Call.PK_CallId" id="formEditCallId" />
+                                                    <div class="modal-body-edit modal-body mx-3">
+                                                        <div class="md-form mb-5">
+                                                            <span class="field-label">Route</span>
+                                                            <span class="field-data">
+                                                                <input style="border: 0; background-color: #fff;" type="text" id="formEditRoute" />
+                                                            </span>
                                                         </div>
-                                                        <div class="modal-body mx-3">
-                                                            <div class="md-form mb-5">
-                                                                <span class="field-label">Route</span>
-                                                                <span class="field-data" id="formEditRoute">@item.Route.RouteDescription</span>
-                                                            </div>
 
-                                                            <div class="md-form mb-5">
-                                                                <span class="field-label">Cycle (days)</span>
-                                                                <span class="field-data" id="formEditCycle">@item.Route.Cycle_Days</span>
-                                                            </div>
-
-                                                            <div class="md-form mb-5">
-                                                                <span class="field-label">Labour Hours</span>
-                                                                <span class="field-data" id="formEditLabourHours">@item.Labour_Hours</span>
-                                                            </div>
-
-                                                            <div class="md-form mb-5">
-                                                                <span class="field-label">Plan Date</span>
-                                                                <span class="field-data" id="formEditPlannedDate">@item.Plan_Date.Date.ToString("dd/MM/yyyy")</span>
-                                                            </div>
-
-                                                            <div class="md-form mb-5">
-                                                                <input type="date" id="formEditScheduleDate" class="form-control validate" value=@item.Schedule_Date>
-                                                                <label data-error="wrong" data-success="right" for="formEditScheduleDate">Schedule Date</label>
-                                                            </div>
-
-
+                                                        <div class="md-form mb-5">
+                                                            <span class="field-label">Cycle (days)</span>
+                                                            <input style="border: 0; background-color: #fff;" type="text" id="formEditCycle" />
+                                                            @*<span class="field-data" id="formEditCycle"></span>*@
                                                         </div>
+
+                                                        <div class="md-form mb-5">
+                                                            <span class="field-label">Labour Hours</span>
+                                                            <input style="border: 0; background-color: #fff;" type="text" id="formEditLabourHours" />
+                                                            @*<span class="field-data" id="formEditLabourHours"></span>*@
+                                                        </div>
+
+                                                        <div class="md-form mb-5">
+                                                            <span class="field-label">Plan Date</span>
+                                                            <input style="border: 0; background-color: #fff;" type="text" id="formEditPlannedDate" />
+                                                            @*<span class="field-data" id="formEditPlannedDate"></span>*@
+                                                        </div>
+
+                                                        <div class="md-form mb-5">
+                                                            <input type="date" id="formEditScheduleDate" class="form-control validate" asp-for="Edit_Route_Call.Schedule_Date" />
+                                                            <label data-error="wrong" data-success="right" for="formEditScheduleDate" asp-for="Edit_Route_Call.Schedule_Date">Schedule Date</label>
+                                                            <span asp-validation-for="Edit_Route_Call.Schedule_Date"></span>
+                                                        </div>
+
                                                         <div class="modal-footer d-flex justify-content-center editInsideWrapper">
-                                                            <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal">
+                                                            <button type="submit" class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal" id="EditRouteCall">
                                                                 Edit form
                                                                 <i class="fas fa-paper-plane-o ml-1"></i>
                                                             </button>
                                                             <!-- UPDATE Route_Call SET Schedule_Date = '2019-12-05'  WHERE PK_CallId = (this id);-->
-
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!--- Edit Route -->
-                                        }
-                                    }
-
+                                        </div>
+                                    </form>
+                                    <!--- Edit Route -->
 
 
 
@@ -362,7 +295,7 @@
                                             <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
                                             <td>
                                                 <div class="btn-group btn-group-lg" role="group">
-                                                    <button type="button" class="btn btn-mdb-color btn-sm" data-callid=@item.PK_CallId data-toggle="modal" data-target="#modalEdit@(item.PK_CallId)">
+                                                    <button type="button" class="btn btn-mdb-color btn-sm" data-callid=@item.PK_CallId data-toggle="modal" data-target="#modalEdit">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
                                                     <!-- when clicked, push this row of data to the modaledit pop up form.-->
@@ -421,7 +354,7 @@
                                         <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
                                         <td>
                                             <div class="btn-group btn-group-lg" role="group">
-                                                <button type="button" class="btn btn-mdb-color btn-sm" data-callid=@item.PK_CallId data-toggle="modal" data-target="#modalEdit@(item.PK_CallId)">
+                                                <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PK_CallId data-toggle="modal" data-target="#modalEdit">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
                                                 <!-- when clicked, push this row of data to the modaledit pop up form.-->
@@ -480,7 +413,7 @@
                                         <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
                                         <td>
                                             <div class="btn-group btn-group-lg" role="group">
-                                                <button type="button" class="btn btn-mdb-color btn-sm" data-callid=@item.PK_CallId data-toggle="modal" data-target="#modalEdit@(item.PK_CallId)">
+                                                <button type="button" class="btn btn-mdb-color btn-sm" data-callid=@item.PK_CallId data-toggle="modal" data-target="#modalEdit">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
                                                 <!-- when clicked, push this row of data to the modaledit pop up form.-->
@@ -538,7 +471,7 @@
                                         <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
                                         <td>
                                             <div class="btn-group btn-group-lg" role="group">
-                                                <button type="button" class="btn btn-mdb-color btn-sm" data-callid=@item.PK_CallId data-toggle="modal" data-target="#modalEdit@(item.PK_CallId)">
+                                                <button type="button" class="btn btn-mdb-color btn-sm" data-callid=@item.PK_CallId data-toggle="modal" data-target="#modalEdit">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
                                                 <!-- when clicked, push this row of data to the modaledit pop up form.-->

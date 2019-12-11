@@ -19,6 +19,9 @@ namespace Reportingtool.Pages
             _context = context;
         }
 
+        [BindProperty]
+        public Route_Call Edit_Route_Call { get; set; }
+
         public IList<Route_Call> Route_Call_All { get; set; }
         // Route_Call_Week_List contains four lists of route calls: last week, current week, next week and week after next
         public List<List<Route_Call>> Route_Call_Week_List = new List<List<Route_Call>>();
@@ -35,10 +38,6 @@ namespace Reportingtool.Pages
         {
 
             V_Route_Machines_All = await _context.V_Route_Machines
-                .AsNoTracking()
-                .ToListAsync();
-
-            Machine_Train_All = await _context.Machine_Train
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -78,10 +77,36 @@ namespace Reportingtool.Pages
                     Machine_List_Dict.Add(r_id, Machine_List);
                 }
             }
-
             /* Get Route_Call for different weeks */
+        }
 
+        public async Task<IActionResult> OnPostEditRouteCall()
+        {
+            Console.WriteLine(" ------------------------------ Edit Route Call ------------------------------");
+            _context.Attach(Edit_Route_Call).State = EntityState.Modified;
 
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!RouteCallExists(Edit_Route_Call.PK_CallId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return RedirectToPage("/ScheduleMaintenance");
+        }
+
+        private bool RouteCallExists(int id)
+        {
+            return _context.Route_Call.Any(e => e.PK_CallId == id);
         }
 
 
