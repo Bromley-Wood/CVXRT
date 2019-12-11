@@ -14,5 +14,13 @@ $(document).on("click", ".btn-editform", function () {
     $(".modal-body-edit #formEditCycle").val(cycledays);
     $(".modal-body-edit #formEditLabourHours").val(labourhours);
     $(".modal-body-edit #formEditPlannedDate").val(plandate);
-    
+});
+
+
+$(function () {
+    $(document).on("click", ".editroutecallsubmit", function () {
+
+        //alert("submitting form");
+        $('#editroutecall').submit();
+    });
 });

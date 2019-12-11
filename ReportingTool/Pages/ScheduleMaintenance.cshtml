@@ -54,69 +54,72 @@
                                 Remove completed routes by checking the <i class="fas fa-clipboard-check"></i> button in the tables.
                             </p>
 
+
                             <div class="list-group  d-flex justify-content-center">
                                 <!--- buttons and forms  -->
                                 <div class="row d-flex justify-content-center modalWrapper">
                                     <!--- end add form -->
-                                    <form method="POST" asp-page-handler="EditRouteCall">
-                                        <!--- Edit Route -->
-                                        <div class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modalEdit">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header text-center">
-                                                        <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit Route</h4>
-                                                        <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <input type="hidden" asp-for="Edit_Route_Call.PK_CallId" id="formEditCallId" readonly/>
-                                                    <div class="modal-body-edit modal-body mx-3">
+                                    <!--- Edit Route -->
+                                    <div class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modalEdit">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header text-center">
+                                                    <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit Route</h4>
+                                                    <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+
+                                                <div class="modal-body-edit modal-body mx-3">
+                                                    <form method="post" asp-page-handler="editroutecall" id="editroutecall">
+                                                        <input type="hidden" asp-for="Edit_Route_Call.PK_CallId" id="formEditCallId" readonly />
                                                         <div class="md-form mb-5">
                                                             <span class="field-label">Route</span>
                                                             <span class="field-data">
-                                                                <input  class="field-data" id="formEditRoute" readonly/>
+                                                                <input class="field-data" id="formEditRoute" name="formEditRoute" readonly />
                                                             </span>
                                                         </div>
 
                                                         <div class="md-form mb-5">
                                                             <span class="field-label">Cycle (days)</span>
                                                             <span class="field-data">
-                                                                <input class="field-data" id="formEditCycle" readonly/>
+                                                                <input class="field-data" id="formEditCycle" readonly />
                                                             </span>
                                                         </div>
 
                                                         <div class="md-form mb-5">
                                                             <span class="field-label">Labour Hours</span>
                                                             <span class="field-data">
-                                                                <input class="field-data" id="formEditLabourHours" readonly/>
+                                                                <input class="field-data" id="formEditLabourHours" readonly />
                                                             </span>
                                                         </div>
 
                                                         <div class="md-form mb-5">
                                                             <span class="field-label">Plan Date</span>
                                                             <span class="field-data">
-                                                                <input class="field-data" id="formEditPlannedDate" readonly/>
+                                                                <input class="field-data" id="formEditPlannedDate" readonly />
                                                             </span>
                                                         </div>
 
                                                         <div class="md-form mb-5">
-                                                            <input type="date" id="formEditScheduleDate" class="form-control validate" asp-for="Edit_Route_Call.Schedule_Date" />
-                                                            <label data-error="wrong" data-success="right" for="formEditScheduleDate" asp-for="Edit_Route_Call.Schedule_Date">Schedule Date</label>
-                                                            <span asp-validation-for="Edit_Route_Call.Schedule_Date"></span>
+                                                            <input type="date" id="formEditScheduleDate" class="form-control validate" asp-for="Edit_Route_Call.Schedule_Date"/>
+                                                            <label data-error="wrong" data-success="right" for="formEditScheduleDate">Schedule Date</label>
+                                                            @*<span asp-validation-for="Edit_Route_Call.Schedule_Date"></span>*@
                                                         </div>
 
                                                         <div class="modal-footer d-flex justify-content-center editInsideWrapper">
-                                                            <button type="submit" class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal" id="EditRouteCall">
+                                                            <button type="submit" class="btn btn-outline-secondary btn-block editInside editroutecallsubmit" data-dismiss="modal">
                                                                 Edit form
                                                                 <i class="fas fa-paper-plane-o ml-1"></i>
                                                             </button>
                                                             <!-- UPDATE Route_Call SET Schedule_Date = '2019-12-05'  WHERE PK_CallId = (this id);-->
                                                         </div>
-                                                    </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
+
                                     <!--- Edit Route -->
 
 
@@ -208,309 +211,308 @@
 
                         </div>
 
-                    </div>
-                    <!--/.Card-->
-
                 </div>
-                <!--Grid column-->
-
+                <!--/.Card-->
 
             </div>
-            <!--Grid row-->
-
-        </section>
+            <!--Grid column-->
 
 
+    </div>
+    <!--Grid row-->
+    </section>
 
 
-        <hr class="my-5">
 
-        <!--Grid column-->
-        <div class="col-md-12 mb-4">
 
-            <!-- Heading -->
-            <h4 class="text-muted text-center">
-                Select a Time Range
-            </h4>
-            <!-- List group -->
-            <div class="list-group list-group-horizontal py-3" id="myList" role="tablist">
-                <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-                   data-toggle="list" href="#lastWeek" role="tab">
-                    Last Week
-                    <span class="badge mdb-color white-text badge-pill">@Model.WeekHourList[0]</span>
-                </a>
-                <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center active"
-                   data-toggle="list" href="#currentWeek" role="tab">
-                    Current Week
-                    <span class="badge mdb-color white-text badge-pill">@Model.WeekHourList[1]</span>
-                </a>
-                <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-                   data-toggle="list" href="#nextWeek" role="tab">
-                    Next Week
-                    <span class="badge mdb-color white-text badge-pill">@Model.WeekHourList[2]</span>
-                </a>
-                <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-                   data-toggle="list" href="#weekAfterNext" role="tab">
-                    Week After Next
-                    <span class="badge mdb-color white-text badge-pill">@Model.WeekHourList[3]</span>
-                </a>
+    <hr class="my-5">
+
+    <!--Grid column-->
+    <div class="col-md-12 mb-4">
+
+        <!-- Heading -->
+        <h4 class="text-muted text-center">
+            Select a Time Range
+        </h4>
+        <!-- List group -->
+        <div class="list-group list-group-horizontal py-3" id="myList" role="tablist">
+            <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+               data-toggle="list" href="#lastWeek" role="tab">
+                Last Week
+                <span class="badge mdb-color white-text badge-pill">@Model.WeekHourList[0]</span>
+            </a>
+            <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center active"
+               data-toggle="list" href="#currentWeek" role="tab">
+                Current Week
+                <span class="badge mdb-color white-text badge-pill">@Model.WeekHourList[1]</span>
+            </a>
+            <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+               data-toggle="list" href="#nextWeek" role="tab">
+                Next Week
+                <span class="badge mdb-color white-text badge-pill">@Model.WeekHourList[2]</span>
+            </a>
+            <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+               data-toggle="list" href="#weekAfterNext" role="tab">
+                Week After Next
+                <span class="badge mdb-color white-text badge-pill">@Model.WeekHourList[3]</span>
+            </a>
+        </div>
+
+
+
+    </div>
+    <!--Grid column-->
+    <!--Section: Maintenance Table-->
+    <section>
+        <!--Grid row-->
+
+        <div class="row wow fadeIn justify-content-center">
+
+            <!-- Tab panes -->
+            <div class="tab-content col-md-12 py-2">
+                <div class="tab-pane" id="lastWeek" role="tabpanel">
+                    <div class="table-responsive-md">
+                        <table id="dtLastWeek" class="rt-table route-table table table-striped table-bordered table-top-margin align-middle" cellspacing="0" width="100%">
+                            <caption class="text-center text-muted border border-bottom-0 border-light py-3 rgba-grey-slight">
+                                Last Week - @Model.WeekHourList[0] Hours Scheduled
+                            </caption>
+                            <thead>
+
+                                <tr>
+                                    <th class="th-sm">Route Name</th>
+                                    <th class="th-sm">Cycle (days)</th>
+                                    <th class="th-sm"># Machines</th>
+                                    <th class="th-sm">Labour Hours</th>
+                                    <th class="th-sm">Plan Date</th>
+                                    <th class="th-sm">Sched. Date</th>
+                                    <th class="th-sm">Edit | View | Close</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Route_Call_Week_List[0])
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.Route.RouteDescription)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Route.Cycle_Days)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Route.Machine_Train_List.Count)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Labour_Hours)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Plan_Date)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
+                                        <td>
+                                            <div class="btn-group btn-group-lg" role="group">
+                                                <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PK_CallId data-route="@item.Route.RouteDescription" data-cycledays=@item.Route.Cycle_Days data-labourhours=@item.Labour_Hours data-plandate=@item.Plan_Date data-scheduledate=@item.Schedule_Date data-toggle="modal" data-target="#modalEdit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <!-- when clicked, push this row of data to the modaledit pop up form.-->
+                                                <button type="submit" class="btn btn-unique btn-sm" data-routeid=@item.RouteId data-toggle="modal" data-target="#modalMachineList@(item.RouteId)">
+                                                    <i class="far fa-list-alt"></i>
+                                                </button>
+                                                <!-- when clicked, query: SELECT Machine_Train, Measurement_Date, Condition, Change_In_Condtion from V_Route_Machines where RouteId = <data-routeid>  -->
+                                                <label class="rt-check btn form-check-label btn-sm" data-completecallid=@item.PK_CallId data-toggle="buttons">
+                                                    <input class="form-check-input" type="checkbox" autocomplete="off">
+                                                    <i class="fas fa-clipboard-check"></i>
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th class="th-sm">Route Name</th>
+                                    <th class="th-sm">Cycle (days)</th>
+                                    <th class="th-sm"># Machines</th>
+                                    <th class="th-sm">Labour Hours</th>
+                                    <th class="th-sm">Plan Date</th>
+                                    <th class="th-sm">Sched. Date</th>
+                                    <th class="th-sm">Edit | View | Close</i></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane active" id="currentWeek" role="tabpanel">
+                    <table id="dtThisWeek" class="rt-table route-table table table-striped table-bordered table-top-margin" cellspacing="0" width="100%">
+                        <caption class="text-center text-muted border border-bottom-0 border-light py-3 rgba-grey-slight">
+                            This Week - @Model.WeekHourList[1] Hours Scheduled
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th class="th-sm">Route Name</th>
+                                <th class="th-sm">Cycle (days)</th>
+                                <th class="th-sm"># Machines</th>
+                                <th class="th-sm">Labour Hours</th>
+                                <th class="th-sm">Plan Date</th>
+                                <th class="th-sm">Sched. Date</th>
+                                <th class="th-sm">Edit | View | Close</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Route_Call_Week_List[1])
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Route.RouteDescription)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Route.Cycle_Days)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Route.Machine_Train_List.Count)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Labour_Hours)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Plan_Date)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
+                                    <td>
+                                        <div class="btn-group btn-group-lg" role="group">
+
+                                            <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PK_CallId data-route="@item.Route.RouteDescription" data-cycledays=@item.Route.Cycle_Days data-labourhours=@item.Labour_Hours data-plandate=@item.Plan_Date data-scheduledate=@item.Schedule_Date data-toggle="modal" data-target="#modalEdit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <!-- when clicked, push this row of data to the modaledit pop up form.-->
+                                            <button type="button" class="btn btn-unique btn-sm" data-routeid=@item.RouteId data-toggle="modal" data-target="#modalMachineList@(item.RouteId)">
+                                                <i class="far fa-list-alt"></i>
+                                            </button>
+                                            <!-- when clicked, query: SELECT Machine_Train, Measurement_Date, Condition, Change_In_Condtion from V_Route_Machines where RouteId = <data-routeid>  -->
+                                            <label class="rt-check btn form-check-label btn-sm" data-callid=@item.PK_CallId data-toggle="buttons">
+                                                <input class="form-check-input" type="checkbox" autocomplete="off">
+                                                <i class="fas fa-clipboard-check"></i>
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th class="th-sm">Route Name</th>
+                                <th class="th-sm">Cycle (days)</th>
+                                <th class="th-sm"># Machines</th>
+                                <th class="th-sm">Labour Hours</th>
+                                <th class="th-sm">Plan Date</th>
+                                <th class="th-sm">Sched. Date</th>
+                                <th class="th-sm">Edit | View | Close</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="tab-pane" id="nextWeek" role="tabpanel">
+                    <table id="dtNextWeek" class="rt-table route-table table table-striped table-bordered table-top-margin " cellspacing="0" width="100%">
+                        <caption class="text-center text-muted border border-bottom-0 border-light py-3 rgba-grey-slight">
+                            Next Week - @Model.WeekHourList[2] Hours Scheduled
+
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th class="th-sm">Route Name</th>
+                                <th class="th-sm">Cycle (days)</th>
+                                <th class="th-sm"># Machines</th>
+                                <th class="th-sm">Labour Hours</th>
+                                <th class="th-sm">Plan Date</th>
+                                <th class="th-sm">Sched. Date</th>
+                                <th class="th-sm">Edit | View | Close</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Route_Call_Week_List[2])
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Route.RouteDescription)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Route.Cycle_Days)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Route.Machine_Train_List.Count)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Labour_Hours)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Plan_Date)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
+                                    <td>
+                                        <div class="btn-group btn-group-lg" role="group">
+                                            <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PK_CallId data-route="@item.Route.RouteDescription" data-cycledays=@item.Route.Cycle_Days data-labourhours=@item.Labour_Hours data-plandate=@item.Plan_Date data-scheduledate=@item.Schedule_Date data-toggle="modal" data-target="#modalEdit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <!-- when clicked, push this row of data to the modaledit pop up form.-->
+                                            <button type="button" class="btn btn-unique btn-sm" data-routeid=@item.RouteId data-toggle="modal" data-target="#modalMachineList@(item.RouteId)">
+                                                <i class="far fa-list-alt"></i>
+                                            </button>
+                                            <!-- when clicked, query: SELECT Machine_Train, Measurement_Date, Condition, Change_In_Condtion from V_Route_Machines where RouteId = <data-routeid>  -->
+                                            <label class="rt-check btn form-check-label btn-sm" data-callid=@item.PK_CallId data-toggle="buttons">
+                                                <input class="form-check-input" type="checkbox" autocomplete="off">
+                                                <i class="fas fa-clipboard-check"></i>
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th class="th-sm">Route Name</th>
+                                <th class="th-sm">Cycle (days)</th>
+                                <th class="th-sm"># Machines</th>
+                                <th class="th-sm">Labour Hours</th>
+                                <th class="th-sm">Plan Date</th>
+                                <th class="th-sm">Sched. Date</th>
+                                <th class="th-sm">Edit | View | Close</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="tab-pane" id="weekAfterNext" role="tabpanel">
+                    <table id="dtWeekAfterNext" class="rt-table route-table table table-striped table-bordered table-top-margin" cellspacing="0" width="100%">
+                        <caption class="text-center text-muted border border-bottom-0 border-light py-3 rgba-grey-slight">
+                            Week After Next - @Model.WeekHourList[3] Hours Scheduled
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th class="th-sm">Route Name</th>
+                                <th class="th-sm">Cycle (days)</th>
+                                <th class="th-sm"># Machines</th>
+                                <th class="th-sm">Labour Hours</th>
+                                <th class="th-sm">Plan Date</th>
+                                <th class="th-sm">Sched. Date</th>
+                                <th class="th-sm">Edit | View | Close</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Route_Call_Week_List[3])
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Route.RouteDescription)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Route.Cycle_Days)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Route.Machine_Train_List.Count)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Labour_Hours)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Plan_Date)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
+                                    <td>
+                                        <div class="btn-group btn-group-lg" role="group">
+                                            <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PK_CallId data-route="@item.Route.RouteDescription" data-cycledays=@item.Route.Cycle_Days data-labourhours=@item.Labour_Hours data-plandate=@item.Plan_Date data-scheduledate=@item.Schedule_Date data-toggle="modal" data-target="#modalEdit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <!-- when clicked, push this row of data to the modaledit pop up form.-->
+                                            <button type="button" class="btn btn-unique btn-sm" data-routeid=@item.RouteId data-toggle="modal" data-target="#modalMachineList@(item.RouteId)">
+                                                <i class="far fa-list-alt"></i>
+                                            </button>
+                                            <!-- when clicked, query: SELECT Machine_Train, Measurement_Date, Condition, Change_In_Condtion from V_Route_Machines where RouteId = <data-routeid>  -->
+                                            <label class="rt-check btn form-check-label btn-sm" data-callid=@item.PK_CallId data-toggle="buttons">
+                                                <input class="form-check-input" type="checkbox" autocomplete="off">
+                                                <i class="fas fa-clipboard-check"></i>
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th class="th-sm">Route Name</th>
+                                <th class="th-sm">Cycle (days)</th>
+                                <th class="th-sm"># Machines</th>
+                                <th class="th-sm">Labour Hours</th>
+                                <th class="th-sm">Plan Date</th>
+                                <th class="th-sm">Sched. Date</th>
+                                <th class="th-sm">Edit | View | Close</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
             </div>
-
-
+            <!-- Tab panes -->
 
         </div>
-        <!--Grid column-->
-        <!--Section: Maintenance Table-->
-        <section>
-            <!--Grid row-->
-
-            <div class="row wow fadeIn justify-content-center">
-
-                <!-- Tab panes -->
-                <div class="tab-content col-md-12 py-2">
-                    <div class="tab-pane" id="lastWeek" role="tabpanel">
-                        <div class="table-responsive-md">
-                            <table id="dtLastWeek" class="rt-table route-table table table-striped table-bordered table-top-margin align-middle" cellspacing="0" width="100%">
-                                <caption class="text-center text-muted border border-bottom-0 border-light py-3 rgba-grey-slight">
-                                    Last Week - @Model.WeekHourList[0] Hours Scheduled
-                                </caption>
-                                <thead>
-
-                                    <tr>
-                                        <th class="th-sm">Route Name</th>
-                                        <th class="th-sm">Cycle (days)</th>
-                                        <th class="th-sm"># Machines</th>
-                                        <th class="th-sm">Labour Hours</th>
-                                        <th class="th-sm">Plan Date</th>
-                                        <th class="th-sm">Sched. Date</th>
-                                        <th class="th-sm">Edit | View | Close</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model.Route_Call_Week_List[0])
-                                    {
-                                        <tr>
-                                            <td>@Html.DisplayFor(modelItem => item.Route.RouteDescription)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.Route.Cycle_Days)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.Route.Machine_Train_List.Count)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.Labour_Hours)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.Plan_Date)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
-                                            <td>
-                                                <div class="btn-group btn-group-lg" role="group">
-                                                    <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PK_CallId data-route="@item.Route.RouteDescription" data-cycledays=@item.Route.Cycle_Days data-labourhours=@item.Labour_Hours data-plandate=@item.Plan_Date data-scheduledate=@item.Schedule_Date data-toggle="modal" data-target="#modalEdit">
-                                                        <i class="fas fa-edit"></i>
-                                                    </button>
-                                                    <!-- when clicked, push this row of data to the modaledit pop up form.-->
-                                                    <button type="submit" class="btn btn-unique btn-sm" data-routeid=@item.RouteId data-toggle="modal" data-target="#modalMachineList@(item.RouteId)">
-                                                        <i class="far fa-list-alt"></i>
-                                                    </button>
-                                                    <!-- when clicked, query: SELECT Machine_Train, Measurement_Date, Condition, Change_In_Condtion from V_Route_Machines where RouteId = <data-routeid>  -->
-                                                    <label class="rt-check btn form-check-label btn-sm" data-callid=@item.PK_CallId data-toggle="buttons">
-                                                        <input class="form-check-input" type="checkbox" autocomplete="off">
-                                                        <i class="fas fa-clipboard-check"></i>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th class="th-sm">Route Name</th>
-                                        <th class="th-sm">Cycle (days)</th>
-                                        <th class="th-sm"># Machines</th>
-                                        <th class="th-sm">Labour Hours</th>
-                                        <th class="th-sm">Plan Date</th>
-                                        <th class="th-sm">Sched. Date</th>
-                                        <th class="th-sm">Edit | View | Close</i></th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="tab-pane active" id="currentWeek" role="tabpanel">
-                        <table id="dtThisWeek" class="rt-table route-table table table-striped table-bordered table-top-margin" cellspacing="0" width="100%">
-                            <caption class="text-center text-muted border border-bottom-0 border-light py-3 rgba-grey-slight">
-                                This Week - @Model.WeekHourList[1] Hours Scheduled
-                            </caption>
-                            <thead>
-                                <tr>
-                                    <th class="th-sm">Route Name</th>
-                                    <th class="th-sm">Cycle (days)</th>
-                                    <th class="th-sm"># Machines</th>
-                                    <th class="th-sm">Labour Hours</th>
-                                    <th class="th-sm">Plan Date</th>
-                                    <th class="th-sm">Sched. Date</th>
-                                    <th class="th-sm">Edit | View | Close</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.Route_Call_Week_List[1])
-                                {
-                                    <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.Route.RouteDescription)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Route.Cycle_Days)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Route.Machine_Train_List.Count)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Labour_Hours)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Plan_Date)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
-                                        <td>
-                                            <div class="btn-group btn-group-lg" role="group">
-                                                
-                                                <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PK_CallId data-route="@item.Route.RouteDescription" data-cycledays=@item.Route.Cycle_Days data-labourhours=@item.Labour_Hours data-plandate=@item.Plan_Date data-scheduledate=@item.Schedule_Date data-toggle="modal" data-target="#modalEdit">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <!-- when clicked, push this row of data to the modaledit pop up form.-->
-                                                <button type="button" class="btn btn-unique btn-sm" data-routeid=@item.RouteId data-toggle="modal" data-target="#modalMachineList@(item.RouteId)">
-                                                    <i class="far fa-list-alt"></i>
-                                                </button>
-                                                <!-- when clicked, query: SELECT Machine_Train, Measurement_Date, Condition, Change_In_Condtion from V_Route_Machines where RouteId = <data-routeid>  -->
-                                                <label class="rt-check btn form-check-label btn-sm" data-callid=@item.PK_CallId data-toggle="buttons">
-                                                    <input class="form-check-input" type="checkbox" autocomplete="off">
-                                                    <i class="fas fa-clipboard-check"></i>
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th class="th-sm">Route Name</th>
-                                    <th class="th-sm">Cycle (days)</th>
-                                    <th class="th-sm"># Machines</th>
-                                    <th class="th-sm">Labour Hours</th>
-                                    <th class="th-sm">Plan Date</th>
-                                    <th class="th-sm">Sched. Date</th>
-                                    <th class="th-sm">Edit | View | Close</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                    <div class="tab-pane" id="nextWeek" role="tabpanel">
-                        <table id="dtNextWeek" class="rt-table route-table table table-striped table-bordered table-top-margin " cellspacing="0" width="100%">
-                            <caption class="text-center text-muted border border-bottom-0 border-light py-3 rgba-grey-slight">
-                                Next Week - @Model.WeekHourList[2] Hours Scheduled
-
-                            </caption>
-                            <thead>
-                                <tr>
-                                    <th class="th-sm">Route Name</th>
-                                    <th class="th-sm">Cycle (days)</th>
-                                    <th class="th-sm"># Machines</th>
-                                    <th class="th-sm">Labour Hours</th>
-                                    <th class="th-sm">Plan Date</th>
-                                    <th class="th-sm">Sched. Date</th>
-                                    <th class="th-sm">Edit | View | Close</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.Route_Call_Week_List[2])
-                                {
-                                    <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.Route.RouteDescription)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Route.Cycle_Days)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Route.Machine_Train_List.Count)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Labour_Hours)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Plan_Date)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
-                                        <td>
-                                            <div class="btn-group btn-group-lg" role="group">
-                                                <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PK_CallId data-route="@item.Route.RouteDescription" data-cycledays=@item.Route.Cycle_Days data-labourhours=@item.Labour_Hours data-plandate=@item.Plan_Date data-scheduledate=@item.Schedule_Date data-toggle="modal" data-target="#modalEdit">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <!-- when clicked, push this row of data to the modaledit pop up form.-->
-                                                <button type="button" class="btn btn-unique btn-sm" data-routeid=@item.RouteId data-toggle="modal" data-target="#modalMachineList@(item.RouteId)">
-                                                    <i class="far fa-list-alt"></i>
-                                                </button>
-                                                <!-- when clicked, query: SELECT Machine_Train, Measurement_Date, Condition, Change_In_Condtion from V_Route_Machines where RouteId = <data-routeid>  -->
-                                                <label class="rt-check btn form-check-label btn-sm" data-callid=@item.PK_CallId data-toggle="buttons">
-                                                    <input class="form-check-input" type="checkbox" autocomplete="off">
-                                                    <i class="fas fa-clipboard-check"></i>
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th class="th-sm">Route Name</th>
-                                    <th class="th-sm">Cycle (days)</th>
-                                    <th class="th-sm"># Machines</th>
-                                    <th class="th-sm">Labour Hours</th>
-                                    <th class="th-sm">Plan Date</th>
-                                    <th class="th-sm">Sched. Date</th>
-                                    <th class="th-sm">Edit | View | Close</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                    <div class="tab-pane" id="weekAfterNext" role="tabpanel">
-                        <table id="dtWeekAfterNext" class="rt-table route-table table table-striped table-bordered table-top-margin" cellspacing="0" width="100%">
-                            <caption class="text-center text-muted border border-bottom-0 border-light py-3 rgba-grey-slight">
-                                Week After Next - @Model.WeekHourList[3] Hours Scheduled
-                            </caption>
-                            <thead>
-                                <tr>
-                                    <th class="th-sm">Route Name</th>
-                                    <th class="th-sm">Cycle (days)</th>
-                                    <th class="th-sm"># Machines</th>
-                                    <th class="th-sm">Labour Hours</th>
-                                    <th class="th-sm">Plan Date</th>
-                                    <th class="th-sm">Sched. Date</th>
-                                    <th class="th-sm">Edit | View | Close</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.Route_Call_Week_List[3])
-                                {
-                                    <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.Route.RouteDescription)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Route.Cycle_Days)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Route.Machine_Train_List.Count)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Labour_Hours)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Plan_Date)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
-                                        <td>
-                                            <div class="btn-group btn-group-lg" role="group">
-                                                <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PK_CallId data-route="@item.Route.RouteDescription" data-cycledays=@item.Route.Cycle_Days data-labourhours=@item.Labour_Hours data-plandate=@item.Plan_Date data-scheduledate=@item.Schedule_Date data-toggle="modal" data-target="#modalEdit">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <!-- when clicked, push this row of data to the modaledit pop up form.-->
-                                                <button type="button" class="btn btn-unique btn-sm" data-routeid=@item.RouteId data-toggle="modal" data-target="#modalMachineList@(item.RouteId)">
-                                                    <i class="far fa-list-alt"></i>
-                                                </button>
-                                                <!-- when clicked, query: SELECT Machine_Train, Measurement_Date, Condition, Change_In_Condtion from V_Route_Machines where RouteId = <data-routeid>  -->
-                                                <label class="rt-check btn form-check-label btn-sm" data-callid=@item.PK_CallId data-toggle="buttons">
-                                                    <input class="form-check-input" type="checkbox" autocomplete="off">
-                                                    <i class="fas fa-clipboard-check"></i>
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th class="th-sm">Route Name</th>
-                                    <th class="th-sm">Cycle (days)</th>
-                                    <th class="th-sm"># Machines</th>
-                                    <th class="th-sm">Labour Hours</th>
-                                    <th class="th-sm">Plan Date</th>
-                                    <th class="th-sm">Sched. Date</th>
-                                    <th class="th-sm">Edit | View | Close</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-
-                </div>
-                <!-- Tab panes -->
-
-            </div>
-        </section>
-        <!--Section: Maintenance Table-->
+    </section>
+    <!--Section: Maintenance Table-->
     </div>
 </main>

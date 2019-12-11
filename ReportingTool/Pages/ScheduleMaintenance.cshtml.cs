@@ -82,8 +82,14 @@ namespace Reportingtool.Pages
 
         public async Task<IActionResult> OnPostEditRouteCall()
         {
-            Console.WriteLine(" ------------------------------ Edit Route Call ------------------------------");
-            _context.Attach(Edit_Route_Call).State = EntityState.Modified;
+            //Console.WriteLine(" ------------------------------ Edit Route Call ------------------------------");
+            //Console.WriteLine(Edit_Route_Call.Schedule_Date);
+            //Console.WriteLine(Edit_Route_Call.PK_CallId);
+
+            var Updated_Route_Call = await _context.Route_Call.FirstOrDefaultAsync(m => m.PK_CallId == Edit_Route_Call.PK_CallId);
+            Updated_Route_Call.Schedule_Date = Edit_Route_Call.Schedule_Date;
+            
+            _context.Attach(Updated_Route_Call).State = EntityState.Modified;
 
             try
             {
@@ -100,7 +106,7 @@ namespace Reportingtool.Pages
                     throw;
                 }
             }
-
+            //Console.WriteLine(" ------------------------------ Finish Editing ------------------------------");
             return RedirectToPage("/ScheduleMaintenance");
         }
 
