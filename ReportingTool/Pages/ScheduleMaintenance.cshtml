@@ -69,31 +69,34 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <input type="hidden" asp-for="Edit_Route_Call.PK_CallId" id="formEditCallId" />
+                                                    <input type="hidden" asp-for="Edit_Route_Call.PK_CallId" id="formEditCallId" readonly/>
                                                     <div class="modal-body-edit modal-body mx-3">
                                                         <div class="md-form mb-5">
                                                             <span class="field-label">Route</span>
                                                             <span class="field-data">
-                                                                <input style="border: 0; background-color: #fff;" type="text" id="formEditRoute" />
+                                                                <input  class="field-data" id="formEditRoute" readonly/>
                                                             </span>
                                                         </div>
 
                                                         <div class="md-form mb-5">
                                                             <span class="field-label">Cycle (days)</span>
-                                                            <input style="border: 0; background-color: #fff;" type="text" id="formEditCycle" />
-                                                            @*<span class="field-data" id="formEditCycle"></span>*@
+                                                            <span class="field-data">
+                                                                <input class="field-data" id="formEditCycle" readonly/>
+                                                            </span>
                                                         </div>
 
                                                         <div class="md-form mb-5">
                                                             <span class="field-label">Labour Hours</span>
-                                                            <input style="border: 0; background-color: #fff;" type="text" id="formEditLabourHours" />
-                                                            @*<span class="field-data" id="formEditLabourHours"></span>*@
+                                                            <span class="field-data">
+                                                                <input class="field-data" id="formEditLabourHours" readonly/>
+                                                            </span>
                                                         </div>
 
                                                         <div class="md-form mb-5">
                                                             <span class="field-label">Plan Date</span>
-                                                            <input style="border: 0; background-color: #fff;" type="text" id="formEditPlannedDate" />
-                                                            @*<span class="field-data" id="formEditPlannedDate"></span>*@
+                                                            <span class="field-data">
+                                                                <input class="field-data" id="formEditPlannedDate" readonly/>
+                                                            </span>
                                                         </div>
 
                                                         <div class="md-form mb-5">
@@ -295,7 +298,7 @@
                                             <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
                                             <td>
                                                 <div class="btn-group btn-group-lg" role="group">
-                                                    <button type="button" class="btn btn-mdb-color btn-sm" data-callid=@item.PK_CallId data-toggle="modal" data-target="#modalEdit">
+                                                    <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PK_CallId data-route="@item.Route.RouteDescription" data-cycledays=@item.Route.Cycle_Days data-labourhours=@item.Labour_Hours data-plandate=@item.Plan_Date data-scheduledate=@item.Schedule_Date data-toggle="modal" data-target="#modalEdit">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
                                                     <!-- when clicked, push this row of data to the modaledit pop up form.-->
@@ -354,7 +357,8 @@
                                         <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
                                         <td>
                                             <div class="btn-group btn-group-lg" role="group">
-                                                <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PK_CallId data-toggle="modal" data-target="#modalEdit">
+                                                
+                                                <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PK_CallId data-route="@item.Route.RouteDescription" data-cycledays=@item.Route.Cycle_Days data-labourhours=@item.Labour_Hours data-plandate=@item.Plan_Date data-scheduledate=@item.Schedule_Date data-toggle="modal" data-target="#modalEdit">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
                                                 <!-- when clicked, push this row of data to the modaledit pop up form.-->
@@ -413,7 +417,7 @@
                                         <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
                                         <td>
                                             <div class="btn-group btn-group-lg" role="group">
-                                                <button type="button" class="btn btn-mdb-color btn-sm" data-callid=@item.PK_CallId data-toggle="modal" data-target="#modalEdit">
+                                                <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PK_CallId data-route="@item.Route.RouteDescription" data-cycledays=@item.Route.Cycle_Days data-labourhours=@item.Labour_Hours data-plandate=@item.Plan_Date data-scheduledate=@item.Schedule_Date data-toggle="modal" data-target="#modalEdit">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
                                                 <!-- when clicked, push this row of data to the modaledit pop up form.-->
@@ -471,7 +475,7 @@
                                         <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
                                         <td>
                                             <div class="btn-group btn-group-lg" role="group">
-                                                <button type="button" class="btn btn-mdb-color btn-sm" data-callid=@item.PK_CallId data-toggle="modal" data-target="#modalEdit">
+                                                <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PK_CallId data-route="@item.Route.RouteDescription" data-cycledays=@item.Route.Cycle_Days data-labourhours=@item.Labour_Hours data-plandate=@item.Plan_Date data-scheduledate=@item.Schedule_Date data-toggle="modal" data-target="#modalEdit">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
                                                 <!-- when clicked, push this row of data to the modaledit pop up form.-->
