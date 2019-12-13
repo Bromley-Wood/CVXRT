@@ -10,7 +10,7 @@ namespace ReportingTool.Models
             
         }
 
-        // Specify DbSet properties etc
+        // HasNoKey needs to be specified for Views
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<V_Route_Machines>(entity =>
@@ -21,14 +21,8 @@ namespace ReportingTool.Models
         }
 
 
-        public DbSet<ReportingTool.Models.Fault_Type> Fault_Type { get; set; }
-        public DbSet<ReportingTool.Models.Action> Action { get; set; }
         public DbSet<ReportingTool.Models.Route_Call> Route_Call { get; set; }
-        public DbSet<ReportingTool.Models.Route> Route { get; set; }
-        public DbSet<ReportingTool.Models.Area> Area { get; set; }
-        public DbSet<ReportingTool.Models.Machine_Train> Machine_Train { get; set; }
+        public DbSet<ReportingTool.Models.Missed_Survey> Missed_Survey { get; set; }
         public virtual DbSet<ReportingTool.Models.V_Route_Machines> V_Route_Machines { get; set; }
-
-        
     }
 }
