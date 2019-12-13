@@ -87,26 +87,105 @@ body,
 	text-align: center;
 }
 
+
+/* Reporting Tool generic styles */
+
 .rt-table .custom-switch {
 	text-align: center;
 }
 
-.table-top-margin {
-	margin-top: 10px;
+.rt-table thead th,
+.rt-table tbody td,
+.rt-table tfoot th {
+	vertical-align: middle;
 }
+
+
+.rt-check.btn
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+	position: absolute;
+	pointer-events: none;
+	opacity: 0;
+}
+
+.rt-check {
+	background-color: #4B515D;
+	color: grey;
+}
+
+	.rt-check.active {
+		background-color: #2BBBAD;
+		color: white;
+	}
+
+.rt-radio.btn
+[type="radio"]:not(:checked),
+[type="radio"]:checked {
+	position: absolute;
+	pointer-events: none;
+	opacity: 0;
+}
+
+.rt-radio {
+	background-color: #4B515D;
+	color: grey;
+}
+
+	.rt-radio.active {
+		color: white;
+	}
+
+	.rt-radio.rt-radio-default.active {
+		background-color: #2bbbad;
+	}
+
+	.rt-radio.rt-radio-unique.active {
+		background-color: #880e4f;
+	}
+
+	.rt-radio.rt-radio-amber.active {
+		background-color: #FFA000;
+	}
+
+.rt-table caption {
+	caption-side: top;
+}
+
+.rt-table td .btn {
+	padding: .5rem 1.2rem;
+}
+
+	.rt-table td .btn i {
+		font-size: 1.2rem;
+	}
+
+/* Schedule Work Table Styles */
 
 .route-table th:first-child {
 	width: 50%;
 }
 
-.route-table thead th,
-.route-table tbody td,
-.route-table tfoot th {
-	vertical-align: middle;
+.route-table th:nth-child(n+2),
+.route-table td:nth-child(n+2) {
+	text-align: center;
 }
 
-.rt-table caption {
-	caption-side: top;
+.route-table th:last-child {
+	min-width: 60px;
+	white-space: nowrap;
+}
+
+.route-table td:last-child {
+	padding: 0px;
+	height: 100%;
+}
+
+
+/* Create Reports Table Styles */
+
+.route-table th:first-child {
+	width: 50%;
 }
 
 .route-table th:nth-child(n+2),
@@ -123,69 +202,32 @@ body,
 	height: 100%;
 }
 
-.route-table td .btn {
-	padding: .5rem 1.2rem;
-}
-
-.route-table td .btn i {
-	font-size: 1.2rem;
-}
 
 
-
-.rt-check.btn
-[type="checkbox"]:not(:checked),
-[type="checkbox"]:checked {
-	position: absolute;
-	pointer-events: none;
-	opacity: 0;
-}
-
-.rt-check {
-	background-color: #4B515D;
-	color: grey;
-}
-
-.rt-check.active {
-		background-color: #2BBBAD;
-		color: white;
-	}
 
 
 .md-form .field-data {
-    display: block;
-    font-size: 1rem;
-    font-weight: 400;
-    color: var(--purple);
-    width: 100%;
-    text-decoration: none;
-    border-bottom: none !important;
-    box-shadow: none !important;
+	display: block;
+	font-size: 1rem;
+	font-weight: 400;
+	color: var(--purple);
 }
-
 
 .md-form .field-label {
-    color: #757575;
-    font-size: 0.8rem;
-    background-color: #fff;
-    width: 100%;
+	color: #757575;
+	font-size: 0.8rem;
 }
 
-.editforminputfield {
-    text-decoration: none;
-    border: 0;
-    background-color: #fff;
-    border-bottom: none !important;
-    box-shadow: none !important;
-}
+
 /* chippy checkboxes 
 	by Adam Quinlan
 	https://codepen.io/quinlo/pen/ReMRXz
 */
+
 ul.ks-cboxtags {
-    list-style: none;
-    padding: 20px;
-    font-size: 0.8rem;
+	list-style: none;
+	padding: 20px;
+	font-size: 0.8rem;
 }
 
 	ul.ks-cboxtags li {
@@ -306,3 +348,4 @@ ul.ks-cboxtags {
 		display: none;
 	}
 }
+

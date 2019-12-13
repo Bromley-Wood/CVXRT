@@ -1,4 +1,4 @@
-﻿@page
+﻿
 <!DOCTYPE html>
 <html lang="en">
 
@@ -981,26 +981,26 @@
 		</div>
 	</main>
 
-			<!-- SCRIPTS -->
-			<!-- JQuery -->
-			<script type="text/javascript" src="../wwwroot/js/jquery-3.4.1.min.js"></script>
-			<!-- Bootstrap tooltips -->
-			<script type="text/javascript" src="../wwwroot/js/popper.min.js"></script>
-			<!-- Bootstrap core JavaScript -->
-			<script type="text/javascript" src="../wwwroot/js/bootstrap.min.js"></script>
-			<!-- MDB core JavaScript -->
-			<script type="text/javascript" src="../wwwroot/js/mdb.min.js"></script>
-			<!-- Initializations -->
-			<script type="text/javascript">
-				// Animations initialization
-				new WOW().init();
-			</script>
-			<script type="text/javascript">
-				$(document).on("change","#tabPanes tbody input[type='checkbox']", function(){
-					$(this).closest("tr").find("input").not(this).prop('disabled', this.checked);
-					$(this).closest("tr").find("select").not(this).prop('disabled', this.checked);
-				});
-			</script>
+	<!-- SCRIPTS -->
+	<!-- JQuery -->
+	<script type="text/javascript" src="../wwwroot/js/jquery-3.4.1.min.js"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" src="../wwwroot/js/popper.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="../wwwroot/js/bootstrap.min.js"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" src="../wwwroot/js/mdb.min.js"></script>
+	<!-- Initializations -->
+	<script type="text/javascript">
+		// Animations initialization
+		new WOW().init();
+	</script>
+	<script type="text/javascript">
+		$(document).on("change", "#tabPanes tbody input[type='checkbox']", function () {
+			$(this).closest("tr").find("input").not(this).prop('disabled', this.checked);
+			$(this).closest("tr").find("select").not(this).prop('disabled', this.checked);
+		});
+	</script>
 </body>
 
 </html>
