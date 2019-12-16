@@ -75,7 +75,13 @@ namespace Reportingtool.Pages
             {
                 //Console.WriteLine("{0}--{1}--{2}--{3}", 
                 //    inputreport.MachineTrainId, inputreport.MainOption, inputreport.Reason, inputreport.Comments);
+                if (inputreport.MainOption == 0) // Missed
+                {
+                    string sqlquery = "INSERT Missed_Survey (FK_MachineTrainId, Reason, Comments, Reported_Missed_Date, Reported_Missed_By)
+VALUES(123, 'no reason', 'no comments', null, 'reporter'); ";
 
+                        // TODO: ....
+                }
 
             }
             
