@@ -9,6 +9,15 @@ using System.Threading.Tasks;
 
 namespace Reportingtool.Pages
 {
+
+    public class InputReport
+    {
+        public int MachineTrainId { get; set; }
+        public int MainOption { get; set; }
+        public int Reason { get; set; }
+        public string Comments { get; set; }
+    }
+
     public class CreateReportsModel : PageModel
     {
         private readonly ReportingTool.Models.DatabaseContext _context;
@@ -17,6 +26,9 @@ namespace Reportingtool.Pages
         {
             _context = context;
         }
+
+        [BindProperty]
+        public List<InputReport> InputReportList { get; set; }
 
         public IList<Route_Call> Completed_Route_Call { get; set; }
 
@@ -53,6 +65,20 @@ namespace Reportingtool.Pages
                 Machine_List_Dict.Add(r_id, Machine_List);
             }
 
+        }
+
+        public async Task<IActionResult> OnPostCreateReport()
+        {
+            Console.WriteLine("---------------------------------------------------Submit Create Reports");
+            Console.WriteLine(InputReportList.Count);
+            foreach (var inputreport in InputReportList)
+            {
+                Console.WriteLine("{0}--{1}--{2}--{3}", 
+                    inputreport.MachineTrainId, inputreport.MainOption, inputreport.Reason, inputreport.Comments);
+            }
+            Console.WriteLine("---------------------------------------------------Submit Create Reports");
+
+            return RedirectToPage("/CreateReports");
         }
     }
 }

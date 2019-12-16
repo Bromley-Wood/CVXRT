@@ -31,3 +31,11 @@ $(function () {
         $('#completeroute').submit();
     });
 });
+
+
+$(function () {
+    $(document).on("click", ".btnCreateReportSubmit", function () {
+        //alert("submitting complete form");
+        $('#createreport').submit();
+    });
+});
