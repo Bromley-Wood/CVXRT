@@ -207,27 +207,42 @@ body,
 
 
 .md-form .field-data {
-	display: block;
-	font-size: 1rem;
-	font-weight: 400;
-	color: var(--purple);
+    display: block;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--purple);
+    width: 100%;
+    text-decoration: none;
+    border-bottom: none !important;
+    box-shadow: none !important;
 }
 
 .md-form .field-label {
-	color: #757575;
-	font-size: 0.8rem;
+    color: #757575;
+    font-size: 0.8rem;
+    background-color: #fff;
+    width: 100%;
 }
 
+<<<<<<< HEAD
 
+=======
+.editforminputfield {
+    text-decoration: none;
+    border: 0;
+    background-color: #fff;
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+>>>>>>> 9cd476edc1a6edd8ec36f24ec39a672675cf7303
 /* chippy checkboxes 
 	by Adam Quinlan
 	https://codepen.io/quinlo/pen/ReMRXz
 */
-
 ul.ks-cboxtags {
-	list-style: none;
-	padding: 20px;
-	font-size: 0.8rem;
+    list-style: none;
+    padding: 20px;
+    font-size: 0.8rem;
 }
 
 	ul.ks-cboxtags li {
