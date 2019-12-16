@@ -19,7 +19,16 @@ namespace Reportingtool.Pages
         }
 
         public IList<Route_Call> Completed_Route_Call { get; set; }
-        
+
+        public IList<V_Route_Machines> V_Route_Machines_All { get; set; }
+
+        public Dictionary<int, List<V_Route_Machines>> Machine_List_Dict = new Dictionary<int, List<V_Route_Machines>>();
+
+        // These two lists are defined to default the first route and its table to be active
+        public List<string> active_status_list = new List<string>() {"active", ""};
+        public List<string> aria_selected_status_list = new List<string>() { "true", "false" };
+        // These two lists are defined to default the first route and its table to be active
+
         public async Task OnGetAsync()
         {
             /* Get Completed Route_Call */
@@ -30,13 +39,20 @@ namespace Reportingtool.Pages
                 .AsNoTracking()
                 .ToListAsync();
 
-            foreach (var item in Completed_Route_Call)
+            V_Route_Machines_All = await _context.V_Route_Machines
+                .AsNoTracking()
+                .ToListAsync();
+
+
+            for (int i = 0; i < Completed_Route_Call.Count; ++i)
             {
-                foreach (var machine in item.Route.Machine_Train_List)
-                {
-                    Console.WriteLine(machine.Machine_Train_Name);
-                }
+                var r_id = Completed_Route_Call[i].RouteId;
+                var Machine_List = V_Route_Machines_All
+                    .Where(m => m.RouteId == r_id)
+                    .ToList();
+                Machine_List_Dict.Add(r_id, Machine_List);
             }
+
         }
     }
 }

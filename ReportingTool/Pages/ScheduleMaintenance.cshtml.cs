@@ -29,8 +29,6 @@ namespace Reportingtool.Pages
         public List<List<Route_Call>> Route_Call_Week_List = new List<List<Route_Call>>();
         public List<double> WeekHourList = new List<double>();
 
-        public IList<Machine_Train> Machine_Train_All { get; set; }
-
         public IList<V_Route_Machines> V_Route_Machines_All { get; set; }
 
         public Dictionary<int, List<V_Route_Machines>> Machine_List_Dict = new Dictionary<int, List<V_Route_Machines>>();
