@@ -69,14 +69,16 @@ namespace Reportingtool.Pages
 
         public async Task<IActionResult> OnPostCreateReport()
         {
-            Console.WriteLine("---------------------------------------------------Submit Create Reports");
-            Console.WriteLine(InputReportList.Count);
+            
+            //Console.WriteLine(InputReportList.Count);
             foreach (var inputreport in InputReportList)
             {
-                Console.WriteLine("{0}--{1}--{2}--{3}", 
-                    inputreport.MachineTrainId, inputreport.MainOption, inputreport.Reason, inputreport.Comments);
+                //Console.WriteLine("{0}--{1}--{2}--{3}", 
+                //    inputreport.MachineTrainId, inputreport.MainOption, inputreport.Reason, inputreport.Comments);
+
+
             }
-            Console.WriteLine("---------------------------------------------------Submit Create Reports");
+            
 
             return RedirectToPage("/CreateReports");
         }
