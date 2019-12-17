@@ -18,11 +18,18 @@ namespace ReportingTool.Models
                 entity.HasNoKey();
                 entity.ToView("V_Route_Machines");
             });
+
+            modelBuilder.Entity<V_Report_Summary>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("V_Report_Summary");
+            });
         }
 
-
         public DbSet<ReportingTool.Models.Route_Call> Route_Call { get; set; }
-        public DbSet<ReportingTool.Models.Missed_Survey> Missed_Survey { get; set; }
+        public DbSet<ReportingTool.Models.Fault> Fault { get; set; }
+        //public DbSet<ReportingTool.Models.Missed_Survey> Missed_Survey { get; set; }
         public virtual DbSet<ReportingTool.Models.V_Route_Machines> V_Route_Machines { get; set; }
+        public virtual DbSet<ReportingTool.Models.V_Report_Summary> V_Report_Summary { get; set; }
     }
 }

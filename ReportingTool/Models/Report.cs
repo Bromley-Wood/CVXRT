@@ -8,7 +8,9 @@ namespace ReportingTool.Models
     public class Report
     {
         [Key] public int PK_ReportId { get; set; }
-        public int FK_FaultId { get; set; }
+        
+        [Column("FK_FaultId")]
+        public int FaultId { get; set; }
 
         public int FK_ConditionId { get; set; }
         public int FK_ReportTypeId { get; set; }

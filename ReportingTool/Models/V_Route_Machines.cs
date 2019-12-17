@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,7 +14,6 @@ namespace ReportingTool.Models
         public string Machine_Train_Long_Name { get; set; }
 
         public bool MachineTrain_IsActive { get; set; }
-
 
         #nullable enable
         public string? Driven_Unit_Type { get; set; }
