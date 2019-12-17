@@ -41,6 +41,8 @@ namespace Reportingtool.Pages
         public List<string> aria_selected_status_list = new List<string>() { "true", "false" };
         // These two lists are defined to default the first route and its table to be active
 
+        public IList<string> reason_list = new List<string>() { "No Reason Selected", "No Access", "Out of Service", "Not Running" };
+
         public async Task OnGetAsync()
         {
             /* Get Completed Route_Call */
@@ -69,7 +71,10 @@ namespace Reportingtool.Pages
 
         public async Task<IActionResult> OnPostCreateReport()
         {
-            
+            /* TODO
+             * 1. Get the reporter's name using login info
+             
+             */
             //Console.WriteLine(InputReportList.Count);
             foreach (var inputreport in InputReportList)
             {
@@ -77,12 +82,20 @@ namespace Reportingtool.Pages
                 //    inputreport.MachineTrainId, inputreport.MainOption, inputreport.Reason, inputreport.Comments);
                 if (inputreport.MainOption == 0) // Missed
                 {
-                    string sqlquery = "INSERT Missed_Survey (FK_MachineTrainId, Reason, Comments, Reported_Missed_Date, Reported_Missed_By)
-VALUES(123, 'no reason', 'no comments', null, 'reporter'); ";
-
-                        // TODO: ....
+                    var insertQueryString =
+                        string.Format("INSERT Missed_Survey (FK_MachineTrainId, Reason, Comments, Reported_Missed_Date, Reported_Missed_By) VALUES ({0}, '{1}', '{2}', '{3}', '{4}'); ",
+                        inputreport.MachineTrainId, reason_list[inputreport.Reason], inputreport.Comments, DateTime.Now.ToString("yyyy-MM-dd"), "admin");
+                    Console.WriteLine(insertQueryString);
+                    _context.Database.ExecuteSqlRaw(insertQueryString);
                 }
+                else if (inputreport.MainOption == 1) // No Action
+                {
 
+                }
+                else if (inputreport.MainOption == 2) // Anomaly
+                {
+
+                }
             }
             
 
