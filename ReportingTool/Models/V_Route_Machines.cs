@@ -14,6 +14,7 @@ namespace ReportingTool.Models
 
         public bool MachineTrain_IsActive { get; set; }
 
+
         #nullable enable
         public string? Driven_Unit_Type { get; set; }
         public int? FaultId { get; set; }

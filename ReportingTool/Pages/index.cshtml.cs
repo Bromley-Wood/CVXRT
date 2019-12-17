@@ -15,14 +15,5 @@ namespace Reportingtool.Pages
         {
             _context = context;
         }
-
-        public IList<Fault_Type> Fault_Type { get; set; }
-        public async Task OnGetAsync()
-        {
-            // Fault_Type = await _context.Fault_Type.ToListAsync();
-        }
-
-        
-        
     }
 }

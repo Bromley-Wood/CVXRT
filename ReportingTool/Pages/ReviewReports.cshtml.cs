@@ -14,15 +14,6 @@ namespace Reportingtool.Pages
         public ReviewReportsModel(ReportingTool.Models.DatabaseContext context)
         {
             _context = context;
-        }
-
-        public IList<Action> Action { get; set; }
-        public async Task OnGetAsync()
-        {
-            //Action = await _context.Action.ToListAsync();
-        }
-
-        
-        
+        }        
     }
 }

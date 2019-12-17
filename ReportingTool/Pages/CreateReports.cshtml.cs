@@ -41,7 +41,7 @@ namespace Reportingtool.Pages
         public List<string> aria_selected_status_list = new List<string>() { "true", "false" };
         // These two lists are defined to default the first route and its table to be active
 
-        public IList<string> reason_list = new List<string>() { "No Reason Selected", "No Access", "Out of Service", "Not Running" };
+        public IList<string> reason_list = new List<string>() { "", "No Access", "Out of Service", "Not Running" };
 
         public async Task OnGetAsync()
         {
