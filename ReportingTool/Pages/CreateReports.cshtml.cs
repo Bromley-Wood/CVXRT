@@ -35,7 +35,7 @@ namespace Reportingtool.Pages
 
         public IList<Route_Call> Completed_Route_Call { get; set; }
 
-        public IList<int> Completed_Route_CallId { get; set; }
+        public List<int> Completed_Route_CallId { get; set; }
 
         //public IList<V_Route_Machines> V_Route_Machines_All { get; set; }
 
@@ -56,18 +56,7 @@ namespace Reportingtool.Pages
 
         public async Task OnGetAsync()
         {
-            /* Get Completed Route_Call */
-            Completed_Route_Call = await _context.Route_Call
-                .Include(c => c.Route)
-                    .ThenInclude(c => c.Machine_Train_List)
-                .Where(c => c.Complete_Date != null)
-                .AsNoTracking()
-                .ToListAsync();
-
-            //V_Route_Machines_All = await _context.V_Route_Machines
-            //    .AsNoTracking()
-            //    .ToListAsync();
-
+            
 
             // This is to get what routes need to be displayed on the page
             Completed_Route_CallId = await _context.V_Create_Reports
@@ -75,14 +64,21 @@ namespace Reportingtool.Pages
                 .Distinct()
                 .ToListAsync();
 
+            /* Get Completed Route_Call */
+            Completed_Route_Call = await _context.Route_Call
+                .Include(c => c.Route)
+                    .ThenInclude(c => c.Machine_Train_List)
+                .Where(c => Completed_Route_CallId.Contains(c.PK_CallId))
+                .AsNoTracking()
+                .ToListAsync();
 
             V_Create_Reports_All = await _context.V_Create_Reports
                 .AsNoTracking()
                 .ToListAsync();
 
-            for (int i = 0; i < Completed_Route_CallId.Count; ++i)
+            for (int i = 0; i < Completed_Route_Call.Count; ++i)
             {
-                var rcall_id = Completed_Route_CallId[i];
+                var rcall_id = Completed_Route_Call[i].PK_CallId;
                 var Machine_List = V_Create_Reports_All
                     .Where(m => m.PK_CallId == rcall_id)
                     .ToList();
@@ -115,11 +111,19 @@ namespace Reportingtool.Pages
                     inputreport.MachineTrainId, inputreport.MainOption, inputreport.Reason, inputreport.Comments, inputreport.PK_CallId);
                 if (inputreport.MainOption == "missed") // Missed
                 {
-                    var insertQueryString =
+                    if (inputreport.Reason == 0)
+                    {
+                        Console.WriteLine("Failed to create report for machine {0} in call {1}. You must SELECT A REASON for the missed machine!", inputreport.MachineTrainId, inputreport.PK_CallId);
+
+                    }
+                    else
+                    {
+                        var insertQueryString =
                         string.Format("INSERT Missed_Survey (FK_MachineTrainId, Reason, Comments, Reported_Missed_Date, Reported_Missed_By, Origin_CallId) VALUES ({0}, '{1}', '{2}', '{3}', '{4}', {5}); ",
                         inputreport.MachineTrainId, reason_list[inputreport.Reason], inputreport.Comments, DateTime.Now.ToString("yyyy-MM-dd"), "admin", inputreport.PK_CallId);
-                    Console.WriteLine(insertQueryString);
-                    _context.Database.ExecuteSqlRaw(insertQueryString);
+                        Console.WriteLine(insertQueryString);
+                        _context.Database.ExecuteSqlRaw(insertQueryString);
+                    }
                 }
                 else if (inputreport.MainOption == "good") // No Action
                 {
