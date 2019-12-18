@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReportingTool.Models
 {
-    [Table("Fault")]
+    [Table("tst_Fault")]
     public class Fault
     {
         [Column("PK_FaultId")]
@@ -17,7 +17,8 @@ namespace ReportingTool.Models
         public int FK_FaultTypeId { get; set; }
         [DataType(DataType.Date)] public DateTime Create_Date { get; set; }
         public bool Fault_IsActive { get; set; }
-        public string Status { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)] public string Status { get; set; }
 
         public ICollection<Report> Report_List { get; set; }
 

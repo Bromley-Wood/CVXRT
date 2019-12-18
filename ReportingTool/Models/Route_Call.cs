@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReportingTool.Models
 {
-    [Table("Route_Call")]
+    [Table("tst_Route_Call")]
     public class Route_Call
     {
         [Key] 

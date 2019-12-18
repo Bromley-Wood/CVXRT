@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReportingTool.Models
 {
-    [Table("Report")]
+    [Table("tst_Report")]
     public class Report
     {
         [Key] public int PK_ReportId { get; set; }

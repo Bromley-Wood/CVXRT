@@ -93,11 +93,11 @@ namespace Reportingtool.Pages
                 //    inputreport.MachineTrainId, inputreport.MainOption, inputreport.Reason, inputreport.Comments);
                 if (inputreport.MainOption == 0) // Missed
                 {
-                    //var insertQueryString =
-                    //    string.Format("INSERT Missed_Survey (FK_MachineTrainId, Reason, Comments, Reported_Missed_Date, Reported_Missed_By) VALUES ({0}, '{1}', '{2}', '{3}', '{4}'); ",
-                    //    inputreport.MachineTrainId, reason_list[inputreport.Reason], inputreport.Comments, DateTime.Now.ToString("yyyy-MM-dd"), "admin");
-                    //Console.WriteLine(insertQueryString);
-                    //_context.Database.ExecuteSqlRaw(insertQueryString);
+                    var insertQueryString =
+                        string.Format("INSERT Missed_Survey (FK_MachineTrainId, Reason, Comments, Reported_Missed_Date, Reported_Missed_By) VALUES ({0}, '{1}', '{2}', '{3}', '{4}'); ",
+                        inputreport.MachineTrainId, reason_list[inputreport.Reason], inputreport.Comments, DateTime.Now.ToString("yyyy-MM-dd"), "admin");
+                    Console.WriteLine(insertQueryString);
+                    _context.Database.ExecuteSqlRaw(insertQueryString);
                 }
                 else if (inputreport.MainOption == 1) // No Action
                 {
@@ -134,7 +134,7 @@ namespace Reportingtool.Pages
                                 // --Set this report to no fault, routine and released
                                 // --No Fault - Existing Report
                                var insertQueryString =
-                                    string.Format("INSERT INTO report ([FK_FaultId] , [Report_Date], [Measurement_Date], [FK_ConditionId], [FK_ReportTypeId], [FK_ReportStageId], [Observations], [Actions], [Analyst_Notes], [External_Notes], [Notification_No], [Work_Order_No], [Review_Comments], [Analyst_Name], [Reviewer_Name], [Report_IsActive]) SELECT [FK_FaultId],  '{0}', '{1}', 1, 1, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', NULL, 1 FROM Report where [PK_ReportId] = {2};", DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), latest_report.ReportId);
+                                    string.Format("INSERT INTO tst_report ([FK_FaultId] , [Report_Date], [Measurement_Date], [FK_ConditionId], [FK_ReportTypeId], [FK_ReportStageId], [Observations], [Actions], [Analyst_Notes], [External_Notes], [Notification_No], [Work_Order_No], [Review_Comments], [Analyst_Name], [Reviewer_Name], [Report_IsActive]) SELECT [FK_FaultId],  '{0}', '{1}', 1, 1, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', NULL, 1 FROM Report where [PK_ReportId] = {2};", DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), latest_report.ReportId);
                                 Console.WriteLine(insertQueryString);
                                 _context.Database.ExecuteSqlRaw(insertQueryString);
                             }
@@ -146,44 +146,98 @@ namespace Reportingtool.Pages
                             // -- create a new fault on this machine
                             // -- set the fault type to no fault
 
-                            /* Using entity framework for database operation
-                                //var new_fault = new Fault()
-                                //{
-                                //    FK_MachineTrainId = inputreport.MachineTrainId,
-                                //    FK_PrimaryComponentTypeId = 1,
-                                //    FK_PrimaryComponentSubtypeId = null,
-                                //    FK_TechnologyId = 1,
-                                //    FK_FaultTypeId = 1,
-                                //    FK_FaultSubtypeId = null,
-                                //    Create_Date = DateTime.Now,
-                                //    Close_Date = null,
-                                //    Fault_Location = null,
-                                //    Production_Impact_Cost = null,
-                                //    Fault_IsActive = true
-                                //};
+                            /* Using entity framework for database operation */
+                            var new_fault = new Fault()
+                            {
+                                FK_MachineTrainId = inputreport.MachineTrainId,
+                                FK_PrimaryComponentTypeId = 1,
+                                FK_PrimaryComponentSubtypeId = null,
+                                FK_TechnologyId = 1,
+                                FK_FaultTypeId = 1,
+                                FK_FaultSubtypeId = null,
+                                Create_Date = DateTime.Now,
+                                Close_Date = null,
+                                Fault_Location = "test",
+                                Production_Impact_Cost = null,
+                                Fault_IsActive = true
+                            };
 
-                                //_context.Fault.Add(new_fault);
-                                //_context.SaveChanges();
+                            _context.Fault.Add(new_fault);
+                            try
+                            {
+                                await _context.SaveChangesAsync();
+                            }
+                            catch (DbUpdateConcurrencyException)
+                            {
+                                if (!FaultExists(new_fault.FaultId))
+                                {
+                                    return NotFound();
+                                }
+                                else
+                                {
+                                    throw;
+                                }
+                            }
 
-                                //int new_fault_id = new_fault.FaultId;
-                                //Console.WriteLine(new_fault_id);
-                             */
+                            int new_fault_id = new_fault.FaultId;
+                            Console.WriteLine(new_fault_id);
 
-                            var insertNewFaultQuery = string.Format("INSERT INTO Fault ([FK_MachineTrainId], [FK_PrimaryComponentTypeId], [FK_PrimaryComponentSubtypeId], [FK_TechnologyId], [FK_FaultTypeId], [FK_FaultSubtypeId], [Create_Date], [Close_Date], [Fault_Location], [Production_Impact_Cost], [Fault_IsActive]) VALUES ({0}, 1, NULL, 1, 1, NULL, '{1}', NULL, NULL, NULL, 1);", inputreport.MachineTrainId, DateTime.Now.ToString("yyyy-MM-dd"));
-                            Console.WriteLine(insertNewFaultQuery);
+
+                            //var insertNewFaultQuery = string.Format("INSERT INTO Fault ([FK_MachineTrainId], [FK_PrimaryComponentTypeId], [FK_PrimaryComponentSubtypeId], [FK_TechnologyId], [FK_FaultTypeId], [FK_FaultSubtypeId], [Create_Date], [Close_Date], [Fault_Location], [Production_Impact_Cost], [Fault_IsActive]) VALUES ({0}, 1, NULL, 1, 1, NULL, '{1}', NULL, NULL, NULL, 1);", inputreport.MachineTrainId, DateTime.Now.ToString("yyyy-MM-dd"));
+                            //Console.WriteLine(insertNewFaultQuery);
                             // //_context.Database.ExecuteSqlRaw(insertNewFaultQuery);
-                            var newFaultId = _context.Fault.LastOrDefault().FaultId;
-                            Console.WriteLine(newFaultId);
-                            
-                            
+                            //var newFaultId = _context.Fault.LastOrDefault().FaultId;
+                            //Console.WriteLine(newFaultId);
+
+
 
                             // --Create a new report on the new fault.
                             // -- Set this report to no fault, routine and released
-                            //var createNewReportQuery = string.Format();
+                            var new_report = new Report()
+                            {
+                                FaultId = new_fault_id,
+                                Report_Date = DateTime.Now,
+                                Measurement_Date = DateTime.Now,
+                                FK_ConditionId = 1,
+                                FK_ReportTypeId = 1,
+                                FK_ReportStageId = 4,
+                                Observations = null,
+                                Actions = null,
+                                Analyst_Notes = null,
+                                External_Notes = null,
+                                Notification_No = null,
+                                Work_Order_No = null,
+                                Review_Comments = null,
+                                Analyst_Name = "admin",
+                                Reviewer_Name = null,
+                                Report_IsActive = true
+                            };
+
+
+                            _context.Report.Add(new_report);
+
+                            try
+                            {
+                                await _context.SaveChangesAsync();
+                            }
+                            catch (DbUpdateConcurrencyException)
+                            {
+                                if (!ReportExists(new_report.PK_ReportId))
+                                {
+                                    return NotFound();
+                                }
+                                else
+                                {
+                                    throw;
+                                }
+                            }
+
+                            Console.WriteLine(new_fault_id);
                         }
                         else if (latest_report_list.Count > 1)
                         {
-                            throw new System.NotImplementedException("This has not been implemented");
+                            //throw new System.NotImplementedException("This has not been implemented");
+                            Console.WriteLine("Lastest report list.count > 1 trigger");
                         }
                     }
                 }
@@ -193,8 +247,17 @@ namespace Reportingtool.Pages
                 }
             }
             
-
             return RedirectToPage("/CreateReports");
+        }
+
+        private bool FaultExists(int id)
+        {
+            return _context.Fault.Any(e => e.FaultId == id);
+        }
+
+        private bool ReportExists(int id)
+        {
+            return _context.Report.Any(e => e.PK_ReportId == id);
         }
     }
 }

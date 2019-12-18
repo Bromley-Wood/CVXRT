@@ -123,7 +123,7 @@ namespace Reportingtool.Pages
 
             for (int i = 0; i < AreChecked.Count; ++i)
             {
-                var updateQueryString = "UPDATE Route_Call SET Complete_Date='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' WHERE PK_CallId=" + AreChecked[i] + ";";
+                var updateQueryString = "UPDATE tst_Route_Call SET Complete_Date='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' WHERE PK_CallId=" + AreChecked[i] + ";";
                 _context.Database.ExecuteSqlRaw(updateQueryString);
 
                 try
