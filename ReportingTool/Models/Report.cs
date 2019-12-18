@@ -36,6 +36,7 @@ namespace ReportingTool.Models
         public string? Reviewer_Name { get; set; }
 
         public bool? Report_IsActive { get; set; }
+        public int? Origin_CallId { get; set; }
 
     }
 }

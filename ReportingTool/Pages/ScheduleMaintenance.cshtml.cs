@@ -36,7 +36,6 @@ namespace Reportingtool.Pages
 
         public async Task OnGetAsync()
         {
-
             V_Route_Machines_All = await _context.V_Route_Machines
                 .AsNoTracking()
                 .ToListAsync();

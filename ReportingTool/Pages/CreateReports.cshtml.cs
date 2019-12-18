@@ -13,9 +13,12 @@ namespace Reportingtool.Pages
     public class InputReport
     {
         public int MachineTrainId { get; set; }
-        public int MainOption { get; set; }
+        public string MainOption { get; set; }
         public int Reason { get; set; }
         public string Comments { get; set; }
+        public int PK_CallId { get; set; }
+
+
     }
 
     public class CreateReportsModel : PageModel
@@ -32,13 +35,17 @@ namespace Reportingtool.Pages
 
         public IList<Route_Call> Completed_Route_Call { get; set; }
 
-        public IList<V_Route_Machines> V_Route_Machines_All { get; set; }
+        public IList<int> Completed_Route_CallId { get; set; }
+
+        //public IList<V_Route_Machines> V_Route_Machines_All { get; set; }
 
         public IList<V_Report_Summary> V_Report_Summary_All { get; set; }
 
+        public IList<V_Create_Reports> V_Create_Reports_All { get; set; }
+
         public IList<Fault> Fault_All { get; set; }
 
-        public Dictionary<int, List<V_Route_Machines>> Machine_List_Dict = new Dictionary<int, List<V_Route_Machines>>();
+        public Dictionary<int, List<V_Create_Reports>> Machine_List_Dict = new Dictionary<int, List<V_Create_Reports>>();
 
         // These two lists are defined to default the first route and its table to be active
         public List<string> active_status_list = new List<string>() {"active", ""};
@@ -57,18 +64,32 @@ namespace Reportingtool.Pages
                 .AsNoTracking()
                 .ToListAsync();
 
-            V_Route_Machines_All = await _context.V_Route_Machines
-                .AsNoTracking()
+            //V_Route_Machines_All = await _context.V_Route_Machines
+            //    .AsNoTracking()
+            //    .ToListAsync();
+
+
+            // This is to get what routes need to be displayed on the page
+            Completed_Route_CallId = await _context.V_Create_Reports
+                .Select(m => m.PK_CallId)
+                .Distinct()
                 .ToListAsync();
 
 
-            for (int i = 0; i < Completed_Route_Call.Count; ++i)
+            V_Create_Reports_All = await _context.V_Create_Reports
+                .AsNoTracking()
+                .ToListAsync();
+
+            for (int i = 0; i < Completed_Route_CallId.Count; ++i)
             {
-                var r_id = Completed_Route_Call[i].RouteId;
-                var Machine_List = V_Route_Machines_All
-                    .Where(m => m.RouteId == r_id)
+                var rcall_id = Completed_Route_CallId[i];
+                var Machine_List = V_Create_Reports_All
+                    .Where(m => m.PK_CallId == rcall_id)
                     .ToList();
-                Machine_List_Dict.Add(r_id, Machine_List);
+                if (Machine_List.Count > 0)
+                {
+                    Machine_List_Dict.Add(rcall_id, Machine_List);
+                }
             }
 
         }
@@ -89,17 +110,18 @@ namespace Reportingtool.Pages
             //Console.WriteLine(InputReportList.Count);
             foreach (var inputreport in InputReportList)
             {
-                //Console.WriteLine("{0}--{1}--{2}--{3}", 
-                //    inputreport.MachineTrainId, inputreport.MainOption, inputreport.Reason, inputreport.Comments);
-                if (inputreport.MainOption == 0) // Missed
+
+                Console.WriteLine("{0}--{1}--{2}--{3}--{4}",
+                    inputreport.MachineTrainId, inputreport.MainOption, inputreport.Reason, inputreport.Comments, inputreport.PK_CallId);
+                if (inputreport.MainOption == "missed") // Missed
                 {
                     var insertQueryString =
-                        string.Format("INSERT Missed_Survey (FK_MachineTrainId, Reason, Comments, Reported_Missed_Date, Reported_Missed_By) VALUES ({0}, '{1}', '{2}', '{3}', '{4}'); ",
-                        inputreport.MachineTrainId, reason_list[inputreport.Reason], inputreport.Comments, DateTime.Now.ToString("yyyy-MM-dd"), "admin");
+                        string.Format("INSERT Missed_Survey (FK_MachineTrainId, Reason, Comments, Reported_Missed_Date, Reported_Missed_By, Origin_CallId) VALUES ({0}, '{1}', '{2}', '{3}', '{4}', {5}); ",
+                        inputreport.MachineTrainId, reason_list[inputreport.Reason], inputreport.Comments, DateTime.Now.ToString("yyyy-MM-dd"), "admin", inputreport.PK_CallId);
                     Console.WriteLine(insertQueryString);
                     _context.Database.ExecuteSqlRaw(insertQueryString);
                 }
-                else if (inputreport.MainOption == 1) // No Action
+                else if (inputreport.MainOption == "good") // No Action
                 {
 
                     // -- Check 1 : Are there in progress reports?
@@ -134,7 +156,7 @@ namespace Reportingtool.Pages
                                 // --Set this report to no fault, routine and released
                                 // --No Fault - Existing Report
                                var insertQueryString =
-                                    string.Format("INSERT INTO tst_report ([FK_FaultId] , [Report_Date], [Measurement_Date], [FK_ConditionId], [FK_ReportTypeId], [FK_ReportStageId], [Observations], [Actions], [Analyst_Notes], [External_Notes], [Notification_No], [Work_Order_No], [Review_Comments], [Analyst_Name], [Reviewer_Name], [Report_IsActive]) SELECT [FK_FaultId],  '{0}', '{1}', 1, 1, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', NULL, 1 FROM Report where [PK_ReportId] = {2};", DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), latest_report.ReportId);
+                                    string.Format("INSERT INTO tst_report ([FK_FaultId] , [Report_Date], [Measurement_Date], [FK_ConditionId], [FK_ReportTypeId], [FK_ReportStageId], [Observations], [Actions], [Analyst_Notes], [External_Notes], [Notification_No], [Work_Order_No], [Review_Comments], [Analyst_Name], [Reviewer_Name], [Report_IsActive], [Origin_CallId]) SELECT [FK_FaultId],  '{0}', '{1}', 1, 1, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', NULL, 1, {2} FROM Report where [PK_ReportId] = {3};", DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), inputreport.PK_CallId, latest_report.ReportId);
                                 Console.WriteLine(insertQueryString);
                                 _context.Database.ExecuteSqlRaw(insertQueryString);
                             }
@@ -210,7 +232,9 @@ namespace Reportingtool.Pages
                                 Review_Comments = null,
                                 Analyst_Name = "admin",
                                 Reviewer_Name = null,
-                                Report_IsActive = true
+                                Report_IsActive = true,
+                                Origin_CallId = inputreport.PK_CallId
+                                
                             };
 
 
@@ -241,9 +265,13 @@ namespace Reportingtool.Pages
                         }
                     }
                 }
-                else if (inputreport.MainOption == 2) // Anomaly
+                else if (inputreport.MainOption == "anomaly") // Anomaly
                 {
-
+                    Console.WriteLine("Anomaly report hasn't been implemented");
+                }
+                else
+                {
+                    Console.WriteLine("Nothing changed For Machine {0} in Call {1}", inputreport.MachineTrainId, inputreport.PK_CallId);
                 }
             }
             
