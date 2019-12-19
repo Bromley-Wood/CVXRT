@@ -14,173 +14,167 @@
         <!--Section: Sched Maint Header-->
         <section class="mt-5 wow fadeIn">
 
-            <!--Grid row-->
-            <div class="row">
+            <!-- Main heading -->
 
-                <!-- Main heading -->
-
-                <h2 class=" mb-3">Schedule Maintenance</h2>
+            <h2 class=" mb-3">Schedule Maintenance</h2>
 
 
-                <!-- Main heading -->
-                <div class="list-group  d-flex justify-content-center">
-                    <!--- buttons and forms  -->
-                    <div class="row d-flex justify-content-center modalWrapper">
-                        <!--- end add form -->
-                        <!--- Edit Route -->
-                        <div class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modalEdit">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header text-center">
-                                        <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit Route</h4>
-                                        <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
+            <!-- Main heading -->
+            <div class="list-group  d-flex justify-content-center">
+                <!--- buttons and forms  -->
+                <div class="row d-flex justify-content-center modalWrapper">
+                    <!--- end add form -->
+                    <!--- Edit Route -->
+                    <div class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modalEdit">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header text-center">
+                                    <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit Route</h4>
+                                    <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
 
-                                    <div class="modal-body-edit modal-body mx-3">
-                                        <form method="post" asp-page-handler="editroutecall" id="editroutecall">
-                                            <input type="hidden" asp-for="Edit_Route_Call.PK_CallId" id="formEditCallId" readonly />
-                                            <div class="md-form mb-5">
-                                                <span class="field-label">Route</span>
-                                                <span class="field-data">
-                                                    <input class="field-data" id="formEditRoute" name="formEditRoute" readonly />
-                                                </span>
-                                            </div>
+                                <div class="modal-body-edit modal-body mx-3">
+                                    <form method="post" asp-page-handler="editroutecall" id="editroutecall">
+                                        <input type="hidden" asp-for="Edit_Route_Call.PK_CallId" id="formEditCallId" readonly />
+                                        <div class="md-form mb-5">
+                                            <span class="field-label">Route</span>
+                                            <span class="field-data">
+                                                <input class="field-data" id="formEditRoute" name="formEditRoute" readonly />
+                                            </span>
+                                        </div>
 
-                                            <div class="md-form mb-5">
-                                                <span class="field-label">Cycle (days)</span>
-                                                <span class="field-data">
-                                                    <input class="field-data" id="formEditCycle" readonly />
-                                                </span>
-                                            </div>
+                                        <div class="md-form mb-5">
+                                            <span class="field-label">Cycle (days)</span>
+                                            <span class="field-data">
+                                                <input class="field-data" id="formEditCycle" readonly />
+                                            </span>
+                                        </div>
 
-                                            <div class="md-form mb-5">
-                                                <span class="field-label">Labour Hours</span>
-                                                <span class="field-data">
-                                                    <input class="field-data" id="formEditLabourHours" readonly />
-                                                </span>
-                                            </div>
+                                        <div class="md-form mb-5">
+                                            <span class="field-label">Labour Hours</span>
+                                            <span class="field-data">
+                                                <input class="field-data" id="formEditLabourHours" readonly />
+                                            </span>
+                                        </div>
 
-                                            <div class="md-form mb-5">
-                                                <span class="field-label">Plan Date</span>
-                                                <span class="field-data">
-                                                    <input class="field-data" id="formEditPlannedDate" readonly />
-                                                </span>
-                                            </div>
+                                        <div class="md-form mb-5">
+                                            <span class="field-label">Plan Date</span>
+                                            <span class="field-data">
+                                                <input class="field-data" id="formEditPlannedDate" readonly />
+                                            </span>
+                                        </div>
 
-                                            <div class="md-form mb-5">
-                                                <input type="date" id="formEditScheduleDate" class="form-control validate" asp-for="Edit_Route_Call.Schedule_Date" />
-                                                <label data-error="wrong" data-success="right" for="formEditScheduleDate">Schedule Date</label>
-                                            </div>
+                                        <div class="md-form mb-5">
+                                            <input type="date" id="formEditScheduleDate" class="form-control validate" asp-for="Edit_Route_Call.Schedule_Date" />
+                                            <label data-error="wrong" data-success="right" for="formEditScheduleDate">Schedule Date</label>
+                                        </div>
 
-                                            <div class="modal-footer d-flex justify-content-center editInsideWrapper">
-                                                <button type="submit" class="btn btn-outline-secondary btn-block editInside editroutecallsubmit" data-dismiss="modal">
-                                                    Edit form
-                                                    <i class="fas fa-paper-plane-o ml-1"></i>
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                        <div class="modal-footer d-flex justify-content-center editInsideWrapper">
+                                            <button type="submit" class="btn btn-outline-secondary btn-block editInside editroutecallsubmit" data-dismiss="modal">
+                                                Edit form
+                                                <i class="fas fa-paper-plane-o ml-1"></i>
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <!--- Edit Route -->
-
-
-
-                        @foreach (var mtraininfo in Model.Machine_List_Dict)
-                        {
-
-                            <!-- Machine list-->
-                            <div class="modal fade" id="modalMachineList@(mtraininfo.Key)" tabindex="-1" role="dialog" aria-labelledby="modalMachineList@(mtraininfo.Key)"
-                                 aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header text-center">
-                                            <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Machines</h4>
-                                            <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body mx-3">
-                                            <table id="dtMachinesList" class="route-table table table-striped table-bordered table-top-margin" cellspacing="0" width="100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="th-sm">Machine Train </th>
-                                                        <th class="th-sm">Lasted Measured</th>
-                                                        <th class="th-sm">Condition</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach (var mtrain in mtraininfo.Value)
-                                                    {
-                                                        string last_measured_time = mtrain.Measurement_Date.HasValue ? mtrain.Measurement_Date.Value.ToString("dd/MM/yyyy") : "";
-                                                        <tr>
-                                                            <td>	@mtrain.Machine_Train	<br>	@mtrain.Machine_Train_Long_Name	</td>
-                                                            <td>	@last_measured_time	</td>
-                                                            <td>	@mtrain.Condition	<small> @mtrain.Change_In_Condition</small></td>
-                                                        </tr>
-
-                                                    }
-                                                </tbody>
-
-                                            </table>
-
-                                        </div>
-                                        <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
-                                            <button type="button" class="btn btn-info btnYesClass" id="btnYes" data-dismiss="modal">Done</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--- end machines list -->
+                    <!--- Edit Route -->
 
 
-                        }
 
-                        <div class="modal fade" id="modalCloseRoutes" tabindex="-1" role="dialog" aria-labelledby="modalCloseRoutes"
+                    @foreach (var mtraininfo in Model.Machine_List_Dict)
+                    {
+
+                        <!-- Machine list-->
+                        <div class="modal fade" id="modalMachineList@(mtraininfo.Key)" tabindex="-1" role="dialog" aria-labelledby="modalMachineList@(mtraininfo.Key)"
                              aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header text-center">
-                                        <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Complete Routes</h4>
+                                        <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Machines</h4>
                                         <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body mx-3">
-                                        <p class="text-center">
-                                            Are you sure you want to complete these routes?  <br />
-                                            These routes will be removed from the displayed schedule.
-                                        </p>
+                                        <table id="dtMachinesList" class="route-table table table-striped table-bordered table-top-margin" cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th class="th-sm">Machine Train </th>
+                                                    <th class="th-sm">Lasted Measured</th>
+                                                    <th class="th-sm">Condition</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var mtrain in mtraininfo.Value)
+                                                {
+                                                    string last_measured_time = mtrain.Measurement_Date.HasValue ? mtrain.Measurement_Date.Value.ToString("dd/MM/yyyy") : "";
+                                                    <tr>
+                                                        <td>	@mtrain.Machine_Train	<br>	@mtrain.Machine_Train_Long_Name	</td>
+                                                        <td>	@last_measured_time	</td>
+                                                        <td>	@mtrain.Condition	<small> @mtrain.Change_In_Condition</small></td>
+                                                    </tr>
+
+                                                }
+                                            </tbody>
+
+                                        </table>
 
                                     </div>
                                     <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
-                                        <form method="post" asp-page-handler="completeroute" id="completeroute">
-                                            <button type="button" class="btn btn-danger btnYesClass btnYesCompleteRoute" data-dismiss="modal">Yes</button>
-                                        </form>
-                                        <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal">No</button>
+                                        <button type="button" class="btn btn-info btnYesClass" id="btnYes" data-dismiss="modal">Done</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        @*<div class="text-center">
-                                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalCloseRoutes">
-                                    Complete Routes <i class="fas fa-times ml-1"></i>
-                                </button>
-                            </div>*@
-                        <!-- when clicked, query: update Route_Call set Close_Date = SYSDATETIME() where RouteId in (<data-routeid1>, <data-routeid2>)  -->
-
-                    </div><!--- end pop up forms -->
-                </div>
+                        <!--- end machines list -->
 
 
+                    }
 
+                    <div class="modal fade" id="modalCloseRoutes" tabindex="-1" role="dialog" aria-labelledby="modalCloseRoutes"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header text-center">
+                                    <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Complete Routes</h4>
+                                    <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body mx-3">
+                                    <p class="text-center">
+                                        Are you sure you want to complete these routes?  <br />
+                                        These routes will be removed from the displayed schedule.
+                                    </p>
+
+                                </div>
+                                <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
+                                    <form method="post" asp-page-handler="completeroute" id="completeroute">
+                                        <button type="button" class="btn btn-danger btnYesClass btnYesCompleteRoute" data-dismiss="modal">Yes</button>
+                                    </form>
+                                    <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal">No</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*<div class="text-center">
+                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalCloseRoutes">
+                                Complete Routes <i class="fas fa-times ml-1"></i>
+                            </button>
+                        </div>*@
+                    <!-- when clicked, query: update Route_Call set Close_Date = SYSDATETIME() where RouteId in (<data-routeid1>, <data-routeid2>)  -->
+
+                </div><!--- end pop up forms -->
             </div>
-            <!--Grid row-->
+
+
         </section>
 
 

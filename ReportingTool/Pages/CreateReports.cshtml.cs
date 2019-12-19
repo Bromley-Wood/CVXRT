@@ -169,7 +169,7 @@ namespace Reportingtool.Pages
                                 // --Set this report to no fault, routine and released
                                 // --No Fault - Existing Report
                                var insertQueryString =
-                                    string.Format("INSERT INTO tst_report ([FK_FaultId] , [Report_Date], [Measurement_Date], [FK_ConditionId], [FK_ReportTypeId], [FK_ReportStageId], [Observations], [Actions], [Analyst_Notes], [External_Notes], [Notification_No], [Work_Order_No], [Review_Comments], [Analyst_Name], [Reviewer_Name], [Report_IsActive], [Origin_CallId]) SELECT [FK_FaultId],  '{0}', '{1}', 1, 1, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, {4}, NULL, 1, {2} FROM Report where [PK_ReportId] = {3};", DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), inputreport.PK_CallId, latest_report.ReportId, Current_User);
+                                    string.Format("INSERT INTO tst_report ([FK_FaultId] , [Report_Date], [Measurement_Date], [FK_ConditionId], [FK_ReportTypeId], [FK_ReportStageId], [Observations], [Actions], [Analyst_Notes], [External_Notes], [Notification_No], [Work_Order_No], [Review_Comments], [Analyst_Name], [Reviewer_Name], [Report_IsActive], [Origin_CallId]) SELECT [FK_FaultId],  '{0}', '{1}', 1, 1, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '{4}', NULL, 1, {2} FROM Report where [PK_ReportId] = {3};", DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), inputreport.PK_CallId, latest_report.ReportId, Current_User);
                                 Console.WriteLine(insertQueryString);
                                 _context.Database.ExecuteSqlRaw(insertQueryString);
                             
