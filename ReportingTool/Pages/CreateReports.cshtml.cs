@@ -142,16 +142,25 @@ namespace Reportingtool.Pages
                     else //-- if result is null then there are no in progress reports.  Go to the next check (2)
                     {
                         // -- Check 2: What is the latest report for this machine?
+                        V_Report_Summary latest_report = null;
                         var latest_report_list = V_Report_Summary_All
                                                 .Where(r => r.MachineTrainId == inputreport.MachineTrainId)
                                                 .Where(r => r.IsLatestReport == 1)
                                                 .ToList();
-                        if (latest_report_list.Count == 1)
+
+                        foreach(var lr in latest_report_list)
                         {
-                            var latest_report = latest_report_list[0];
-                            if(latest_report.Condition == "No Action")
-                            //-- If the above returns a report that is condition 2 then raise a no action report and release it.  go to (3)
+                            if (lr.Condition == "No Action")
                             {
+                                latest_report = lr;
+                                Console.WriteLine("Latest report found for machine {0}", inputreport.MachineTrainId);
+                            }
+                        }
+
+                        if (latest_report != null)
+                        {
+                            //-- If the above returns a report that is condition 2 then raise a no action report and release it.  go to (3)
+                            
                                 Console.WriteLine("Latest report has No Action");
                                 // Action 3
                                 // --Retrieve the latest report on this machine
@@ -163,9 +172,9 @@ namespace Reportingtool.Pages
                                     string.Format("INSERT INTO tst_report ([FK_FaultId] , [Report_Date], [Measurement_Date], [FK_ConditionId], [FK_ReportTypeId], [FK_ReportStageId], [Observations], [Actions], [Analyst_Notes], [External_Notes], [Notification_No], [Work_Order_No], [Review_Comments], [Analyst_Name], [Reviewer_Name], [Report_IsActive], [Origin_CallId]) SELECT [FK_FaultId],  '{0}', '{1}', 1, 1, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', NULL, 1, {2} FROM Report where [PK_ReportId] = {3};", DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), inputreport.PK_CallId, latest_report.ReportId);
                                 Console.WriteLine(insertQueryString);
                                 _context.Database.ExecuteSqlRaw(insertQueryString);
-                            }
+                            
                         }
-                        else if (latest_report_list.Count == 0)
+                        else
                         //-- if result is null then that means there are no open faults on this machine.  we need to raise a new fault and then a report.  go to (4).
                         {
                             // Action 4
@@ -261,11 +270,6 @@ namespace Reportingtool.Pages
                             }
 
                             Console.WriteLine(new_fault_id);
-                        }
-                        else if (latest_report_list.Count > 1)
-                        {
-                            //throw new System.NotImplementedException("This has not been implemented");
-                            Console.WriteLine("Lastest report list.count > 1 trigger");
                         }
                     }
                 }
