@@ -56,6 +56,8 @@ namespace Reportingtool.Pages
         public List<string> MainOptionList = new List<string>() { "missed", "good", "anomaly" };
         public IList<string> reason_list = new List<string>() { "", "No Access", "Out of Service", "Not Running" };
 
+        public List<string> GeneratedReportSummary { get; set; }
+
         public async Task OnGetAsync()
         {
 
