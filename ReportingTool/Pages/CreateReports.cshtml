@@ -24,10 +24,10 @@
                 Here is the summary of the reports you just submit:
             </p>
 
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Faucibus vitae aliquet nec ullamcorper. Blandit volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque.
-            </p>
+            @for (int i = 0; i< Model.GeneratedReportSummary.Count; ++i)
+            {
+                <p>@Model.GeneratedReportSummary[i]</p>
+            }
             <!-- Main heading -->
 
 
@@ -92,9 +92,9 @@
                                             @foreach (var mtrain in Model.Machine_List_Dict[current_route.PK_CallId])
                                             {
                                                 <input type="hidden" name="InputReportList[@machine_count].MachineTrainId" value=@mtrain.PK_MachineTrainId>
-                                                <input type="hidden" name="InputReportList[@machine_count].Machine_Train_Long_Name" value=@mtrain.Machine_Train_Long_Name>
+                                                <input type="hidden" name="InputReportList[@machine_count].Machine_Train_Long_Name" value='@mtrain.Machine_Train_Long_Name'>
                                                 <input type="hidden" name="InputReportList[@machine_count].PK_CallId" value=@current_route.PK_CallId>
-                                                <input type="hidden" name="InputReportList[@machine_count].RouteDescription" value=@current_route.Route.RouteDescription>
+                                                <input type="hidden" name="InputReportList[@machine_count].RouteDescription" value='@current_route.Route.RouteDescription'>
                                                 <tr>
                                                     <td>
                                                         <div class="btn-group btn-group-lg" data-toggle="buttons">
