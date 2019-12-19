@@ -93,10 +93,6 @@ namespace Reportingtool.Pages
 
         public async Task<IActionResult> OnPostCreateReport()
         {
-            /* TODO
-             * 1. Get the reporter's name using login info
-             
-             */
 
             V_Report_Summary_All = await _context.V_Report_Summary
                 .AsNoTracking()
@@ -118,11 +114,39 @@ namespace Reportingtool.Pages
                     }
                     else
                     {
-                        var insertQueryString =
-                        string.Format("INSERT Missed_Survey (FK_MachineTrainId, Reason, Comments, Reported_Missed_Date, Reported_Missed_By, Origin_CallId) VALUES ({0}, '{1}', '{2}', '{3}', '{4}', {5}); ",
-                        inputreport.MachineTrainId, reason_list[inputreport.Reason], inputreport.Comments, DateTime.Now.ToString("yyyy-MM-dd"), Current_User, inputreport.PK_CallId);
-                        Console.WriteLine(insertQueryString);
-                        _context.Database.ExecuteSqlRaw(insertQueryString);
+                        var new_missed_sruvey = new Missed_Survey()
+                        {
+                            FK_MachineTrainId = inputreport.MachineTrainId,
+                            Reason = reason_list[inputreport.Reason],
+                            Comments = inputreport.Comments,
+                            Reported_Missed_Date = DateTime.Now,
+                            Reported_Missed_By = Current_User,
+                            Origin_CallId = inputreport.PK_CallId
+                        };
+
+                        _context.Missed_Survey.Add(new_missed_sruvey);
+                        try
+                        {
+                            await _context.SaveChangesAsync();
+                        }
+                        catch (DbUpdateConcurrencyException)
+                        {
+                            if (!FaultExists(new_missed_sruvey.PK_MissedSurveyId))
+                            {
+                                return NotFound();
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
+
+
+                        //var insertQueryString =
+                        //string.Format("INSERT Missed_Survey (FK_MachineTrainId, Reason, Comments, Reported_Missed_Date, Reported_Missed_By, Origin_CallId) VALUES ({0}, '{1}', '{2}', '{3}', '{4}', {5}); ",
+                        //inputreport.MachineTrainId, reason_list[inputreport.Reason], inputreport.Comments, DateTime.Now.ToString("yyyy-MM-dd"), Current_User, inputreport.PK_CallId);
+                        //Console.WriteLine(insertQueryString);
+                        //_context.Database.ExecuteSqlRaw(insertQueryString);
                     }
                 }
                 else if (inputreport.MainOption == "good") // No Action
