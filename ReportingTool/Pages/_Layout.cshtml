@@ -111,12 +111,6 @@
         </div>
     </nav>
     <!-- Navbar -->
-    <!--header class="container site-header">
-        <div class="row">
-
-
-        </div>
-    </!--header>
 
 
     <div class="container">
@@ -200,7 +194,7 @@
         // Animations initialization
         new WOW().init();
     </script>
-    @if (ViewData["Title"].ToString() == "Create Reports")
+    @if (ViewData["Title"].ToString().Contains("Create Reports"))
     {
         <script type="text/javascript" src="js/create_reports.js"></script>
     }

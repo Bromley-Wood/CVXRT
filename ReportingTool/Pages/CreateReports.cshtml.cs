@@ -49,15 +49,16 @@ namespace Reportingtool.Pages
         public Dictionary<int, List<V_Create_Reports>> Machine_List_Dict = new Dictionary<int, List<V_Create_Reports>>();
 
         // These two lists are defined to default the first route and its table to be active
-        public List<string> active_status_list = new List<string>() {"active", ""};
+        public List<string> active_status_list = new List<string>() { "active", "" };
         public List<string> aria_selected_status_list = new List<string>() { "true", "false" };
         // These two lists are defined to default the first route and its table to be active
 
+        public List<string> MainOptionList = new List<string>() { "missed", "good", "anomaly" };
         public IList<string> reason_list = new List<string>() { "", "No Access", "Out of Service", "Not Running" };
 
         public async Task OnGetAsync()
         {
-            
+
 
             // This is to get what routes need to be displayed on the page
             Completed_Route_CallId = await _context.V_Create_Reports
@@ -99,6 +100,11 @@ namespace Reportingtool.Pages
                 .ToListAsync();
             //Console.WriteLine(V_Report_Summary_All.Count);
 
+            Console.WriteLine("******************");
+            Console.WriteLine(InputReportList.Count);
+            InputReportList = InputReportList.Where(r => MainOptionList.Contains(r.MainOption)).ToList();
+            Console.WriteLine(InputReportList.Count);
+            Console.WriteLine("******************");
 
             //Console.WriteLine(InputReportList.Count);
             foreach (var inputreport in InputReportList)
@@ -140,6 +146,7 @@ namespace Reportingtool.Pages
                                 throw;
                             }
                         }
+                        Console.WriteLine($"Missed Survey created for machine {inputreport.Machine_Train_Long_Name} in route {inputreport.RouteDescription}");
 
 
                         //var insertQueryString =
@@ -172,7 +179,7 @@ namespace Reportingtool.Pages
                                                 .Where(r => r.IsLatestReport == 1)
                                                 .ToList();
 
-                        foreach(var lr in latest_report_list)
+                        foreach (var lr in latest_report_list)
                         {
                             if (lr.Condition == "No Action")
                             {
@@ -184,19 +191,64 @@ namespace Reportingtool.Pages
                         if (latest_report != null)
                         {
                             //-- If the above returns a report that is condition 2 then raise a no action report and release it.  go to (3)
-                            
-                                Console.WriteLine("Latest report has No Action");
-                                // Action 3
-                                // --Retrieve the latest report on this machine
-                                // -- Get the fault id of this report
-                                // -- Create a new report on the same fault.
-                                // --Set this report to no fault, routine and released
-                                // --No Fault - Existing Report
-                               var insertQueryString =
-                                    string.Format("INSERT INTO tst_report ([FK_FaultId] , [Report_Date], [Measurement_Date], [FK_ConditionId], [FK_ReportTypeId], [FK_ReportStageId], [Observations], [Actions], [Analyst_Notes], [External_Notes], [Notification_No], [Work_Order_No], [Review_Comments], [Analyst_Name], [Reviewer_Name], [Report_IsActive], [Origin_CallId]) SELECT [FK_FaultId],  '{0}', '{1}', 1, 1, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '{4}', NULL, 1, {2} FROM Report where [PK_ReportId] = {3};", DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), inputreport.PK_CallId, latest_report.ReportId, Current_User);
-                                Console.WriteLine(insertQueryString);
-                                _context.Database.ExecuteSqlRaw(insertQueryString);
-                            
+
+                            Console.WriteLine("Latest report has No Action");
+                            // Action 3
+                            // --Retrieve the latest report on this machine
+                            // -- Get the fault id of this report
+                            // -- Create a new report on the same fault.
+                            // --Set this report to no fault, routine and released
+                            // --No Fault - Existing Report
+
+
+
+                            var old_report = await _context.Report.FirstOrDefaultAsync(r => r.PK_ReportId == latest_report.ReportId);
+                            var new_report = new Report()
+                            {
+                                FaultId = old_report.FaultId,
+                                Report_Date = DateTime.Now,
+                                Measurement_Date = DateTime.Now,
+                                FK_ConditionId = 1,
+                                FK_ReportTypeId = 1,
+                                FK_ReportStageId = 4,
+                                Observations = null,
+                                Actions = null,
+                                Analyst_Notes = null,
+                                External_Notes = null,
+                                Notification_No = null,
+                                Work_Order_No = null,
+                                Review_Comments = null,
+                                Analyst_Name = Current_User,
+                                Reviewer_Name = null,
+                                Report_IsActive = true,
+                                Origin_CallId = inputreport.PK_CallId
+                            };
+
+
+                            _context.Report.Add(new_report);
+                            try
+                            {
+                                await _context.SaveChangesAsync();
+                            }
+                            catch (DbUpdateConcurrencyException)
+                            {
+                                if (!FaultExists(new_report.PK_ReportId))
+                                {
+                                    return NotFound();
+                                }
+                                else
+                                {
+                                    throw;
+                                }
+                            }
+
+                            Console.WriteLine($"New report created for machine {inputreport.Machine_Train_Long_Name} in route {inputreport.RouteDescription}");
+
+                            //var insertQueryString =
+                            //        string.Format("INSERT INTO tst_report ([FK_FaultId] , [Report_Date], [Measurement_Date], [FK_ConditionId], [FK_ReportTypeId], [FK_ReportStageId], [Observations], [Actions], [Analyst_Notes], [External_Notes], [Notification_No], [Work_Order_No], [Review_Comments], [Analyst_Name], [Reviewer_Name], [Report_IsActive], [Origin_CallId]) SELECT [FK_FaultId],  '{0}', '{1}', 1, 1, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '{4}', NULL, 1, {2} FROM Report where [PK_ReportId] = {3};", DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), inputreport.PK_CallId, latest_report.ReportId, Current_User);
+                            //    Console.WriteLine(insertQueryString);
+                            //    _context.Database.ExecuteSqlRaw(insertQueryString);
+
                         }
                         else
                         //-- if result is null then that means there are no open faults on this machine.  we need to raise a new fault and then a report.  go to (4).
@@ -271,7 +323,7 @@ namespace Reportingtool.Pages
                                 Reviewer_Name = null,
                                 Report_IsActive = true,
                                 Origin_CallId = inputreport.PK_CallId
-                                
+
                             };
 
 
@@ -294,6 +346,7 @@ namespace Reportingtool.Pages
                             }
 
                             Console.WriteLine(new_fault_id);
+                            Console.WriteLine($"New report created for machine {inputreport.Machine_Train_Long_Name} in route {inputreport.RouteDescription}");
                         }
                     }
                 }
