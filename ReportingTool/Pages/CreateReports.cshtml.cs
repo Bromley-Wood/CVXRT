@@ -22,7 +22,7 @@ namespace Reportingtool.Pages
 
     }
 
-    public class CreateReportsModel : PageModel
+    public class CreateReportsModel : BasePageModel
     {
         private readonly ReportingTool.Models.DatabaseContext _context;
 

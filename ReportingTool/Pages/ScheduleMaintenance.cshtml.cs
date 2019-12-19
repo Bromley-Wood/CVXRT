@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Reportingtool.Pages
 {
-    public class ScheduleMaintenanceModel : PageModel
+    public class ScheduleMaintenanceModel : BasePageModel
     {
         private readonly ReportingTool.Models.DatabaseContext _context;
 

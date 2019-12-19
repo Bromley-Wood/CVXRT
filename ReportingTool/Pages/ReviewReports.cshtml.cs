@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Reportingtool.Pages
 {
-    public class ReviewReportsModel : PageModel
+    public class ReviewReportsModel : BasePageModel
     {
         private readonly ReportingTool.Models.DatabaseContext _context;
 
