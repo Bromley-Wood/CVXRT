@@ -24,7 +24,7 @@
                     <h2 class=" mb-3">Schedule Maintenance</h2>
                     <p>
                     </p>
-                    
+
                     <!-- Main heading -->
 
                 </div>
@@ -186,7 +186,7 @@
                                                 </div>
                                                 <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
                                                     <form method="post" asp-page-handler="completeroute" id="completeroute">
-                                                        <button type="button" class="btn btn-danger btnYesClass btnYesCompleteRoute"  data-dismiss="modal">Yes</button>
+                                                        <button type="button" class="btn btn-danger btnYesClass btnYesCompleteRoute" data-dismiss="modal">Yes</button>
                                                     </form>
                                                     <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal">No</button>
                                                 </div>
@@ -194,12 +194,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="text-center">
-                                        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalCloseRoutes">
-                                            Complete Routes <i class="fas fa-times ml-1"></i>
-                                        </button> <!-- when clicked, query: update Route_Call set Close_Date = SYSDATETIME() where RouteId in (<data-routeid1>, <data-routeid2>)  -->
-                                    </div>
-
+                                    @*<div class="text-center">
+                                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalCloseRoutes">
+                                                Complete Routes <i class="fas fa-times ml-1"></i>
+                                            </button>
+                                        </div>*@
+                                    <!-- when clicked, query: update Route_Call set Close_Date = SYSDATETIME() where RouteId in (<data-routeid1>, <data-routeid2>)  -->
 
                                 </div><!--- end pop up forms -->
                             </div>
@@ -496,7 +496,9 @@
 
                 </div>
                 <!-- Tab panes -->
-
+                <div class="py-3 col-md-12 ">
+                    <button type="submit" class="btn btn-outline-primary waves-effect btn-block" data-toggle="modal" data-target="#modalCloseRoutes">Complete Routes</button>
+                </div>
             </div>
         </section>
         <!--Section: Maintenance Table-->
