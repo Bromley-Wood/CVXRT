@@ -142,13 +142,13 @@
                                             @foreach (var mtrain in Model.Machine_List_Dict[current_route.PK_CallId])
                                             {
                                                 <input type="hidden" name="InputReportList[@machine_count].MachineTrainId" value=@mtrain.PK_MachineTrainId>
+                                                <input type="hidden" name="InputReportList[@machine_count].Machine_Train_Long_Name" value=@mtrain.Machine_Train_Long_Name>
                                                 <input type="hidden" name="InputReportList[@machine_count].PK_CallId" value=@current_route.PK_CallId>
-
-
+                                                <input type="hidden" name="InputReportList[@machine_count].RouteDescription" value=@current_route.Route.RouteDescription>
                                                 <tr>
                                                     <td>
                                                         <div class="btn-group btn-group-lg" data-toggle="buttons">
-        
+
                                                             <label class="rt-radio rt-radio-unique btn btn-sm form-check-label waves-effect waves-light">
                                                                 <input class="form-check-input" type="radio" name="InputReportList[@machine_count].MainOption" id="mt548-missed" value="missed"> <i class="fas fa-times-circle"></i>
                                                             </label>

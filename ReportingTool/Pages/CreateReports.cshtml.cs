@@ -17,7 +17,8 @@ namespace Reportingtool.Pages
         public int Reason { get; set; }
         public string Comments { get; set; }
         public int PK_CallId { get; set; }
-
+        public string Machine_Train_Long_Name { get; set; }
+        public string RouteDescription { get; set; }
 
     }
 
@@ -113,7 +114,7 @@ namespace Reportingtool.Pages
                 {
                     if (inputreport.Reason == 0)
                     {
-                        Console.WriteLine("Failed to create report for machine {0} in call {1}. You must SELECT A REASON for the missed machine!", inputreport.MachineTrainId, inputreport.PK_CallId);
+                        Console.WriteLine("Failed to create report for machine {0} in call {1}. You must SELECT A REASON for the missed machine!", inputreport.Machine_Train_Long_Name, inputreport.RouteDescription);
 
                     }
                     else
@@ -153,7 +154,7 @@ namespace Reportingtool.Pages
                             if (lr.Condition == "No Action")
                             {
                                 latest_report = lr;
-                                Console.WriteLine("Latest report found for machine {0}", inputreport.MachineTrainId);
+                                Console.WriteLine("Latest report found for machine {0} in route {1}", inputreport.Machine_Train_Long_Name, inputreport.RouteDescription);
                             }
                         }
 
@@ -279,10 +280,9 @@ namespace Reportingtool.Pages
                 }
                 else
                 {
-                    Console.WriteLine("Nothing changed For Machine {0} in Call {1}", inputreport.MachineTrainId, inputreport.PK_CallId);
+                    Console.WriteLine("Nothing changed For Machine {0} in Call {1}", inputreport.Machine_Train_Long_Name, inputreport.RouteDescription);
                 }
             }
-            
             return RedirectToPage("/CreateReports");
         }
 
