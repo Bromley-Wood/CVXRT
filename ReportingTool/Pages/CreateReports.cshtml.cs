@@ -115,13 +115,12 @@ namespace Reportingtool.Pages
                     if (inputreport.Reason == 0)
                     {
                         Console.WriteLine("Failed to create report for machine {0} in call {1}. You must SELECT A REASON for the missed machine!", inputreport.Machine_Train_Long_Name, inputreport.RouteDescription);
-
                     }
                     else
                     {
                         var insertQueryString =
                         string.Format("INSERT Missed_Survey (FK_MachineTrainId, Reason, Comments, Reported_Missed_Date, Reported_Missed_By, Origin_CallId) VALUES ({0}, '{1}', '{2}', '{3}', '{4}', {5}); ",
-                        inputreport.MachineTrainId, reason_list[inputreport.Reason], inputreport.Comments, DateTime.Now.ToString("yyyy-MM-dd"), "admin", inputreport.PK_CallId);
+                        inputreport.MachineTrainId, reason_list[inputreport.Reason], inputreport.Comments, DateTime.Now.ToString("yyyy-MM-dd"), Current_User, inputreport.PK_CallId);
                         Console.WriteLine(insertQueryString);
                         _context.Database.ExecuteSqlRaw(insertQueryString);
                     }
@@ -170,7 +169,7 @@ namespace Reportingtool.Pages
                                 // --Set this report to no fault, routine and released
                                 // --No Fault - Existing Report
                                var insertQueryString =
-                                    string.Format("INSERT INTO tst_report ([FK_FaultId] , [Report_Date], [Measurement_Date], [FK_ConditionId], [FK_ReportTypeId], [FK_ReportStageId], [Observations], [Actions], [Analyst_Notes], [External_Notes], [Notification_No], [Work_Order_No], [Review_Comments], [Analyst_Name], [Reviewer_Name], [Report_IsActive], [Origin_CallId]) SELECT [FK_FaultId],  '{0}', '{1}', 1, 1, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin', NULL, 1, {2} FROM Report where [PK_ReportId] = {3};", DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), inputreport.PK_CallId, latest_report.ReportId);
+                                    string.Format("INSERT INTO tst_report ([FK_FaultId] , [Report_Date], [Measurement_Date], [FK_ConditionId], [FK_ReportTypeId], [FK_ReportStageId], [Observations], [Actions], [Analyst_Notes], [External_Notes], [Notification_No], [Work_Order_No], [Review_Comments], [Analyst_Name], [Reviewer_Name], [Report_IsActive], [Origin_CallId]) SELECT [FK_FaultId],  '{0}', '{1}', 1, 1, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, {4}, NULL, 1, {2} FROM Report where [PK_ReportId] = {3};", DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), inputreport.PK_CallId, latest_report.ReportId, Current_User);
                                 Console.WriteLine(insertQueryString);
                                 _context.Database.ExecuteSqlRaw(insertQueryString);
                             
@@ -244,7 +243,7 @@ namespace Reportingtool.Pages
                                 Notification_No = null,
                                 Work_Order_No = null,
                                 Review_Comments = null,
-                                Analyst_Name = "admin",
+                                Analyst_Name = Current_User,
                                 Reviewer_Name = null,
                                 Report_IsActive = true,
                                 Origin_CallId = inputreport.PK_CallId

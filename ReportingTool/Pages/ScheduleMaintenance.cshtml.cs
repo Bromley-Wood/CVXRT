@@ -88,6 +88,7 @@ namespace Reportingtool.Pages
 
             var Updated_Route_Call = await _context.Route_Call.FirstOrDefaultAsync(m => m.PK_CallId == Edit_Route_Call.PK_CallId);
             Updated_Route_Call.Schedule_Date = Edit_Route_Call.Schedule_Date;
+            Updated_Route_Call.Modified_By = Current_User;
 
             _context.Attach(Updated_Route_Call).State = EntityState.Modified;
 
@@ -122,8 +123,14 @@ namespace Reportingtool.Pages
 
             for (int i = 0; i < AreChecked.Count; ++i)
             {
-                var updateQueryString = "UPDATE tst_Route_Call SET Complete_Date='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' WHERE PK_CallId=" + AreChecked[i] + ";";
-                _context.Database.ExecuteSqlRaw(updateQueryString);
+
+                //var updateQueryString = "UPDATE tst_Route_Call SET Complete_Date='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' WHERE PK_CallId=" + AreChecked[i] + ";";
+                //_context.Database.ExecuteSqlRaw(updateQueryString);
+
+                var Updated_Route_Call = await _context.Route_Call.FirstOrDefaultAsync(m => m.PK_CallId == AreChecked[i]);
+                Updated_Route_Call.Complete_Date = DateTime.Now;
+                _context.Attach(Updated_Route_Call).State = EntityState.Modified;
+
 
                 try
                 {
