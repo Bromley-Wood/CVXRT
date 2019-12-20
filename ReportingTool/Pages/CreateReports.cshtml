@@ -21,7 +21,7 @@
             <h2 class=" mb-3">Create Reports</h2>
 
             <p>
-                Here is the summary of the reports you just submit:
+                Here is the summary of the reports you just submit:::: @Model.GeneratedReportSummary.Count
             </p>
 
             @for (int i = 0; i< Model.GeneratedReportSummary.Count; ++i)
@@ -92,9 +92,10 @@
                                             @foreach (var mtrain in Model.Machine_List_Dict[current_route.PK_CallId])
                                             {
                                                 <input type="hidden" name="InputReportList[@machine_count].MachineTrainId" value=@mtrain.PK_MachineTrainId>
-                                                <input type="hidden" name="InputReportList[@machine_count].Machine_Train_Long_Name" value='@mtrain.Machine_Train_Long_Name'>
+                                                <input type="hidden" name="InputReportList[@machine_count].Machine_Train_Long_Name" value="@mtrain.Machine_Train_Long_Name">
+                                                <input type="hidden" name="InputReportList[@machine_count].Machine_Train" value="@mtrain.Machine_Train">
                                                 <input type="hidden" name="InputReportList[@machine_count].PK_CallId" value=@current_route.PK_CallId>
-                                                <input type="hidden" name="InputReportList[@machine_count].RouteDescription" value='@current_route.Route.RouteDescription'>
+                                                <input type="hidden" name="InputReportList[@machine_count].RouteDescription" value="@current_route.Route.RouteDescription">
                                                 <tr>
                                                     <td>
                                                         <div class="btn-group btn-group-lg" data-toggle="buttons">

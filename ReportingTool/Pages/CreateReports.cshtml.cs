@@ -19,6 +19,7 @@ namespace Reportingtool.Pages
         public int PK_CallId { get; set; }
         public string Machine_Train_Long_Name { get; set; }
         public string RouteDescription { get; set; }
+        public string Machine_Train { get; set; }
 
     }
 
@@ -57,6 +58,8 @@ namespace Reportingtool.Pages
         public IList<string> reason_list = new List<string>() { "", "No Access", "Out of Service", "Not Running" };
 
         public List<string> GeneratedReportSummary = new List<string>() { };
+
+        public string log_str;
 
         public async Task OnGetAsync()
         {
@@ -98,29 +101,22 @@ namespace Reportingtool.Pages
             V_Report_Summary_All = await _context.V_Report_Summary
                 .AsNoTracking()
                 .ToListAsync();
-            //Console.WriteLine(V_Report_Summary_All.Count);
-
-            Console.WriteLine("******************");
-            Console.WriteLine(InputReportList.Count);
+            
+            // only process selected machines
             InputReportList = InputReportList.Where(r => MainOptionList.Contains(r.MainOption)).ToList();
-            Console.WriteLine(InputReportList.Count);
-            Console.WriteLine("******************");
 
-            //Console.WriteLine(InputReportList.Count);
+            GeneratedReportSummary.Clear();
             foreach (var inputreport in InputReportList)
             {
-                GeneratedReportSummary.Clear();
-
-                Console.WriteLine("{0}--{1}--{2}--{3}--{4}",
-                    inputreport.MachineTrainId, inputreport.MainOption, inputreport.Reason, inputreport.Comments, inputreport.PK_CallId);
+                //Console.WriteLine("{0}--{1}--{2}--{3}--{4}",
+                //    inputreport.MachineTrainId, inputreport.MainOption, inputreport.Reason, inputreport.Comments, inputreport.PK_CallId);
                 if (inputreport.MainOption == "missed") // Missed
                 {
                     if (inputreport.Reason == 0)
                     {
-                        Console.WriteLine(inputreport.Machine_Train_Long_Name);
-                        string tmp_log = $"Failed to create report for machine {inputreport.Machine_Train_Long_Name} in call {inputreport.RouteDescription}. You must SELECT A REASON for the missed machine!";
-                        GeneratedReportSummary.Add(tmp_log);
-                        Console.WriteLine(tmp_log);
+                        log_str = $"Failed to create report for machine {inputreport.Machine_Train} - {inputreport.Machine_Train_Long_Name} in call {inputreport.RouteDescription}. You must SELECT A REASON for the missed machine!";
+                        GeneratedReportSummary.Add(log_str);
+                        Console.WriteLine(log_str);
                     }
                     else
                     {
@@ -150,9 +146,9 @@ namespace Reportingtool.Pages
                                 throw;
                             }
                         }
-                        string tmp_log = $"Missed Survey created for machine {inputreport.Machine_Train_Long_Name} in route {inputreport.RouteDescription}";
-                        GeneratedReportSummary.Add(tmp_log);
-                        Console.WriteLine(tmp_log);
+                        log_str = $"Missed Survey created for machine {inputreport.Machine_Train} - {inputreport.Machine_Train_Long_Name} in route {inputreport.RouteDescription}";
+                        GeneratedReportSummary.Add(log_str);
+                        Console.WriteLine(log_str);
                        
                         //var insertQueryString =
                         //string.Format("INSERT Missed_Survey (FK_MachineTrainId, Reason, Comments, Reported_Missed_Date, Reported_Missed_By, Origin_CallId) VALUES ({0}, '{1}', '{2}', '{3}', '{4}', {5}); ",
@@ -189,9 +185,9 @@ namespace Reportingtool.Pages
                             if (lr.Condition == "No Action")
                             {
                                 latest_report = lr;
-                                string tmp_log = $"Latest report has 'No Action' found for machine {inputreport.Machine_Train_Long_Name} in route {inputreport.RouteDescription}";
-                                GeneratedReportSummary.Add(tmp_log);
-                                Console.WriteLine(tmp_log);
+                                log_str = $"Latest report has 'No Action' found for machine {inputreport.Machine_Train} - {inputreport.Machine_Train_Long_Name} in route {inputreport.RouteDescription}";
+                                GeneratedReportSummary.Add(log_str);
+                                Console.WriteLine(log_str);
                             }
                         }
 
@@ -245,9 +241,9 @@ namespace Reportingtool.Pages
                                 }
                             }
 
-                            string tmp_log = $"New report created for machine {inputreport.Machine_Train_Long_Name} in route {inputreport.RouteDescription}";
-                            GeneratedReportSummary.Add(tmp_log);
-                            Console.WriteLine(tmp_log);
+                            log_str = $"New report created for machine {inputreport.Machine_Train} - {inputreport.Machine_Train_Long_Name} in route {inputreport.RouteDescription}";
+                            GeneratedReportSummary.Add(log_str);
+                            Console.WriteLine(log_str);
                             
 
                             //var insertQueryString =
@@ -296,10 +292,6 @@ namespace Reportingtool.Pages
                                 }
                             }
 
-                            int new_fault_id = new_fault.FaultId;
-                            Console.WriteLine(new_fault_id);
-
-
                             //var insertNewFaultQuery = string.Format("INSERT INTO Fault ([FK_MachineTrainId], [FK_PrimaryComponentTypeId], [FK_PrimaryComponentSubtypeId], [FK_TechnologyId], [FK_FaultTypeId], [FK_FaultSubtypeId], [Create_Date], [Close_Date], [Fault_Location], [Production_Impact_Cost], [Fault_IsActive]) VALUES ({0}, 1, NULL, 1, 1, NULL, '{1}', NULL, NULL, NULL, 1);", inputreport.MachineTrainId, DateTime.Now.ToString("yyyy-MM-dd"));
                             //Console.WriteLine(insertNewFaultQuery);
                             // //_context.Database.ExecuteSqlRaw(insertNewFaultQuery);
@@ -312,7 +304,7 @@ namespace Reportingtool.Pages
                             // -- Set this report to no fault, routine and released
                             var new_report = new Report()
                             {
-                                FaultId = new_fault_id,
+                                FaultId = new_fault.FaultId,
                                 Report_Date = DateTime.Now,
                                 Measurement_Date = DateTime.Now,
                                 FK_ConditionId = 1,
@@ -351,28 +343,27 @@ namespace Reportingtool.Pages
                                 }
                             }
 
-                            Console.WriteLine(new_fault_id);
-
-                            string tmp_log = $"New report created for machine {inputreport.Machine_Train_Long_Name} in route {inputreport.RouteDescription}";
-                            GeneratedReportSummary.Add(tmp_log);
-                            Console.WriteLine(tmp_log);
+                            log_str = $"New report created for machine {inputreport.Machine_Train} - {inputreport.Machine_Train_Long_Name} in route {inputreport.RouteDescription}";
+                            GeneratedReportSummary.Add(log_str);
+                            Console.WriteLine(log_str);
                         }
                     }
                 }
                 else if (inputreport.MainOption == "anomaly") // Anomaly
                 {
-                    string tmp_log = $"Anomaly report hasn't been implemented for machine {inputreport.Machine_Train_Long_Name} in route {inputreport.RouteDescription}";
-                    GeneratedReportSummary.Add(tmp_log);
-                    Console.WriteLine(tmp_log);
+                    log_str = $"Anomaly report hasn't been implemented for machine {inputreport.Machine_Train} - {inputreport.Machine_Train_Long_Name} in route {inputreport.RouteDescription}";
+                    GeneratedReportSummary.Add(log_str);
+                    Console.WriteLine(log_str);
                     
                 }
                 else
                 {
-                    string tmp_log = $"Nothing changed for machine {inputreport.Machine_Train_Long_Name} in route {inputreport.RouteDescription}";
-                    GeneratedReportSummary.Add(tmp_log);
-                    Console.WriteLine(tmp_log);
+                    log_str = $"Nothing changed for machine {inputreport.Machine_Train} - {inputreport.Machine_Train_Long_Name} in route {inputreport.RouteDescription}";
+                    GeneratedReportSummary.Add(log_str);
+                    Console.WriteLine(log_str);
                 }
             }
+            Console.WriteLine(GeneratedReportSummary.Count);
             return RedirectToPage("/CreateReports");
         }
 
