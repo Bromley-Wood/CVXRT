@@ -13,12 +13,6 @@
 	<!-- Your custom styles (optional) -->
 	<link href="../wwwroot/css/style.css" rel="stylesheet">
 	<style type="text/css">
-		html,
-		body,
-		header,
-		.view {
-			height: 100%;
-		}
 
 		@@media (max-width: 740px) {
 			html,
@@ -44,33 +38,6 @@
 			}
 		}
 	</style>
-	<style type="text/css">
-		/* Chart.js */
-		@-webkit-keyframes chartjs-render-animation {
-			from {
-				opacity: 0.99
-			}
-
-			to {
-				opacity: 1
-			}
-		}
-
-		@keyframes chartjs-render-animation {
-			from {
-				opacity: 0.99
-			}
-
-			to {
-				opacity: 1
-			}
-		}
-
-		.chartjs-render-monitor {
-			-webkit-animation: chartjs-render-animation 0.001s;
-			animation: chartjs-render-animation 0.001s;
-		}
-	</style>
 </head>
 
 <body>
@@ -81,12 +48,11 @@
 
 			<!-- Brand -->
 			<a class="navbar-brand" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
-				<strong>MDB</strong>
+				<strong>Home</strong>
 			</a>
 
 			<!-- Collapse -->
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-					aria-expanded="false" aria-label="Toggle navigation">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
@@ -95,39 +61,39 @@
 
 				<!-- Left -->
 				<ul class="navbar-nav mr-auto">
+
+					<li class="nav-item">
+						<a class="nav-link waves-effect waves-light" href="https://mdbootstrap.com/docs/jquery/" target="_blank">Schedule Work</a>
+					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="#">
-							Home
+						<a class="nav-link waves-effect waves-light" href="#">
+							Create Reports
 							<span class="sr-only">(current)</span>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="https://mdbootstrap.com/docs/jquery/" target="_blank">About MDB</a>
+						<a class="nav-link waves-effect waves-light" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank">Add Machine Notes</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank">Free download</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="https://mdbootstrap.com/education/bootstrap/" target="_blank">Free tutorials</a>
+						<a class="nav-link waves-effect waves-light" href="https://mdbootstrap.com/education/bootstrap/" target="_blank">Review Reports</a>
 					</li>
 				</ul>
 
 				<!-- Right -->
 				<ul class="navbar-nav nav-flex-icons">
 					<li class="nav-item">
-						<a href="https://www.facebook.com/mdbootstrap" class="nav-link" target="_blank">
-							<i class="fab fa-facebook-f"></i>
+						<a href="https://www.facebook.com/mdbootstrap" class="nav-link waves-effect waves-light" target="_blank">
+							<i class="fas fa-inbox"></i>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
-							<i class="fab fa-twitter"></i>
+						<a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect waves-light" target="_blank">
+							<i class="fas fa-envelope"></i>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded"
-						   target="_blank">
-							<i class="fab fa-github mr-2"></i>MDB GitHub
+						<a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded waves-effect waves-light" target="_blank">
+							<i class="fas fa-question-circle"></i> Help
 						</a>
 					</li>
 				</ul>
@@ -138,10 +104,9 @@
 	</nav>
 	<!-- Navbar -->
 	<!-- Full Page Intro -->
-	<div class="view full-page-intro" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/78.jpg'); background-repeat: no-repeat; background-size: cover;">
-
+	<div class="view full-page-intro" style="background-image: url('../Images/gorgon-plant-site-aerial-d-crop.jpg'); background-repeat: no-repeat; background-size: cover;">
 		<!-- Mask & flexbox options-->
-		<div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+		<div class="mask rgba-black-lighter d-flex justify-content-center align-items-center">
 
 			<!-- Content -->
 			<div class="container">
@@ -151,27 +116,29 @@
 
 					<!--Grid column-->
 					<div class="col-md-6 mb-4 white-text text-center text-md-left">
+						<div style="background: rgba(0,0,0,0.4); padding: 2.5rem;">
+							<h1 class="display-4 font-weight-bold">Hello</h1>
 
-						<h1 class="display-4 font-weight-bold">Hello</h1>
+							<hr class="hr-light">
 
-						<hr class="hr-light">
+							<p>
+								<strong>This is just a placeholder.  Please scroll down for the content. </strong>
+							</p>
 
-						<p>
-							<strong>This is just a placeholder.  Please scroll down for the content. </strong>
-						</p>
+							<p class="mb-4 d-none d-md-block">
+								<strong>
+									
+									Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+									Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+								</strong>
+							</p>
+							<a target="_blank" href="https://mdbootstrap.com/education/bootstrap/" class="btn btn-indigo btn-lg">
+								Start tutorial
+								<i class="fas fa-graduation-cap ml-2"></i>
+							</a>
+						</div>
 
-						<p class="mb-4 d-none d-md-block">
-							<strong>
-								If this is your first time here, click below for the tutorial.
-								Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-								Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-							</strong>
-						</p>
 
-						<a target="_blank" href="https://mdbootstrap.com/education/bootstrap/" class="btn btn-indigo btn-lg">
-							Start tutorial
-							<i class="fas fa-graduation-cap ml-2"></i>
-						</a>
 
 					</div>
 					<!--Grid column-->
@@ -252,18 +219,20 @@
 					<div class="card wow fadeIn" data-wow-delay="0.2s">
 
 						<!--Card image-->
-						<img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Architecture/4-col/img%20(3).jpg"
+						<img class="img-fluid" src="../Images/gorgon-plant-site-d-s.jpg"
 							 alt="Card image cap">
 
 						<!--Card content-->
-						<div class="card-body">
+						<div class="card-kpi card-body">
+							<!--KPI-->
+							<h1 class="font-weight-bold">12</h1>
 							<!--Title-->
 							<h4 class="card-title">Routes Remaining</h4>
 							<!--Text-->
 							<p class="card-text">
-								14 hours remaining in the schedule for this week. Shift your workload or confirm your routes. 
+								14 hours remaining in the schedule for this week. Shift your workload or confirm your routes.
 							</p>
-							<a href="#" class="btn btn-info">Schedule Work</a>
+							<a href="#" class="btn btn-info" asp-page="/ScheduleMaintenance">Schedule Work</a>
 						</div>
 
 					</div>
@@ -276,18 +245,21 @@
 					<div class="card wow fadeIn" data-wow-delay="0.4s">
 
 						<!--Card image-->
-						<img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Architecture/4-col/img%20(1).jpg"
+						<img class="img-fluid" src="../Images/DC_2317_c.jpg"
 							 alt="Card image cap">
 
+
 						<!--Card content-->
-						<div class="card-body">
+						<div class="card-kpi card-body">
+							<!--KPI-->
+							<h1 class="font-weight-bold">27</h1>
 							<!--Title-->
 							<h4 class="card-title">Machines to Verify</h4>
 							<!--Text-->
 							<p class="card-text">
 								5 Routes have been completed.  Verify whether these machines have been missed or require reporting for this survey.
 							</p>
-							<a href="#" class="btn btn-info">Read more</a>
+							<a href="#" class="btn btn-info" asp-page="/CreateReports">Raise Reports</a>
 						</div>
 
 					</div>
@@ -301,18 +273,20 @@
 					<div class="card wow fadeIn" data-wow-delay="0.6s">
 
 						<!--Card image-->
-						<img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Architecture/4-col/img%20(4).jpg"
+						<img class="img-fluid" src="../Images/gorgon-cargo-copy-s.jpg"
 							 alt="Card image cap">
 
 						<!--Card content-->
-						<div class="card-body">
+						<div class="card-kpi card-body">
+							<!--KPI-->
+							<h1 class="font-weight-bold">3</h1>
 							<!--Title-->
 							<h4 class="card-title">Reports In Progress</h4>
 							<!--Text-->
 							<p class="card-text">
 								8 Reports are currently in progress.  Record observations, analysis outcomes and recommendations.
 							</p>
-							<a href="#" class="btn btn-info">Read more</a>
+							<a href="#" class="btn btn-info" asp-page="/ReviewReports">Complete Analysis</a>
 						</div>
 
 					</div>
@@ -416,10 +390,6 @@
 
 </footer>
 <!--/.Footer-->
-
-
-
-
 <!-- SCRIPTS -->
 <!-- JQuery -->
 <script type="text/javascript" src="../wwwroot/js/jquery-3.4.1.min.js"></script>
@@ -435,6 +405,7 @@
 	// Animations initialization
 	new WOW().init();
 </script>
+
 <script type="text/javascript">
 	$(document).on("change", "#machinesOnRoute tbody .rt-radio-unique input[type='radio']", function () {
 		$(this).closest("tr").find("input.form-control.form-control-sm").not(this).prop('disabled', false);

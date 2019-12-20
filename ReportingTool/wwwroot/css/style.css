@@ -224,9 +224,7 @@ body,
     width: 100%;
 }
 
-<<<<<<< HEAD
 
-=======
 .editforminputfield {
     text-decoration: none;
     border: 0;
@@ -234,15 +232,16 @@ body,
     border-bottom: none !important;
     box-shadow: none !important;
 }
->>>>>>> 9cd476edc1a6edd8ec36f24ec39a672675cf7303
+
 /* chippy checkboxes 
 	by Adam Quinlan
 	https://codepen.io/quinlo/pen/ReMRXz
 */
 ul.ks-cboxtags {
-    list-style: none;
-    padding: 20px;
-    font-size: 0.8rem;
+	list-style: none;
+	padding: 20px;
+	font-size: 1rem;
+	margin-left: -20px;
 }
 
 	ul.ks-cboxtags li {
@@ -255,7 +254,6 @@ ul.ks-cboxtags {
 			border: 2px solid rgba(139, 139, 139, .3);
 			color: #adadad;
 			border-radius: 25px;
-			white-space: nowrap;
 			margin: 3px 0px;
 			-webkit-touch-callout: none;
 			-webkit-user-select: none;
@@ -271,6 +269,13 @@ ul.ks-cboxtags {
 			cursor: pointer;
 		}
 
+		ul.ks-cboxtags.ks-radio li label {
+			padding: 8px 12px;
+			cursor: pointer;
+			width: 100%;
+		}
+
+
 			ul.ks-cboxtags li label::before {
 				display: inline-block;
 				font-style: normal;
@@ -285,25 +290,29 @@ ul.ks-cboxtags {
 				transition: transform .3s ease-in-out;
 			}
 
-		ul.ks-cboxtags li input[type="checkbox"]:checked + label::before {
+		ul.ks-cboxtags li input[type="checkbox"]:checked + label::before,
+		ul.ks-cboxtags li input[type="radio"]:checked + label::before {
 			content: "\f00c";
 			transform: rotate(-360deg);
 			transition: transform .3s ease-in-out;
 		}
 
-		ul.ks-cboxtags li input[type="checkbox"]:checked + label {
+		ul.ks-cboxtags li input[type="checkbox"]:checked + label,
+		ul.ks-cboxtags li input[type="radio"]:checked + label {
 			border: 2px solid #1bdbf8;
 			background-color: #12bbd4;
 			color: #fff;
 			transition: all .2s;
 		}
 
-		ul.ks-cboxtags li input[type="checkbox"] {
+		ul.ks-cboxtags li input[type="checkbox"],
+		ul.ks-cboxtags li input[type="radio"] {
 			position: absolute;
 			opacity: 0;
 		}
 
-			ul.ks-cboxtags li input[type="checkbox"]:focus + label {
+			ul.ks-cboxtags li input[type="checkbox"]:focus + label,
+			ul.ks-cboxtags li input[type="radio"]:focus + label {
 				border: 2px solid #e9a1ff;
 			}
 
@@ -364,3 +373,96 @@ ul.ks-cboxtags {
 	}
 }
 
+
+/* index styles */
+
+.card-kpi {
+	position: relative;
+}
+
+.card-kpi h1 {
+	position: absolute;
+	font-size: 5rem;
+	top: -7rem;
+	left: 1.25rem;
+	color: white;
+	padding: 0 0.75rem;
+	background: rgba(0,0,0,0.3)
+}
+
+.rgba-black-lighter {
+	background: rgba(0,0,0,0.15);
+}
+
+/* machine notes */
+.dropzone.dz-clickable {
+	border: 2px dashed deepskyblue;
+}
+
+.machine-note .blockquote-footer .btn {
+	font-size: 1rem;
+	color: rgba(100,100,150,0.25);
+	box-shadow: none;
+	padding: 0 0.5rem;
+	transition: 0.4s ease;
+	margin: 0 0.5rem;
+}
+
+	.machine-note .blockquote-footer .btn:hover {
+		color: teal;
+		transition: 0.4s ease;
+	}
+
+/* jquery styling for searcher */
+.ui-autocomplete {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 1000;
+	float: left;
+	display: none;
+	min-width: 160px;
+	padding: 5px 0px;
+	margin: 0 0 10px 25px;
+	list-style: none;
+	background-color: #ffffff;
+	border-color: #ccc;
+	border-color: rgba(0, 0, 0, 0.2);
+	border-style: solid;
+	border-width: 1px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding;
+	background-clip: padding-box;
+	*border-right-width: 2px;
+	*border-bottom-width: 2px;
+}
+
+.ui-menu-item {padding: 0.5rem 20px;}
+
+.ui-menu-item > a.ui-corner-all {
+	display: block;
+	padding: 5px 15px;
+	clear: both;
+	font-weight: normal;
+	line-height: 18px;
+	color: #555555;
+	white-space: nowrap;
+	text-decoration: none;
+	margin-left: 20px;
+}
+
+.ui-state-hover, .ui-state-active {
+	color: #ffffff;
+	text-decoration: none;
+	background-color: #0088cc;
+	border-radius: 0px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	background-image: none;
+}
