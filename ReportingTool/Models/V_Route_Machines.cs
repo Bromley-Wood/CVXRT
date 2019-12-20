@@ -9,7 +9,7 @@ namespace ReportingTool.Models
     [Table("V_Route_Machines")]
     public class V_Route_Machines
     {
-        public int PK_MachineTrainId { get; set; }
+        [Column("PK_MachineTrainId")] public int MachineTrainId { get; set; }
         public string Machine_Train { get; set; }
         public string Machine_Train_Long_Name { get; set; }
 

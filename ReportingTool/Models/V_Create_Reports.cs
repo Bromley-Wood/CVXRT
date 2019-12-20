@@ -24,7 +24,7 @@ namespace ReportingTool.Models
         public DateTime? Modified_Date { get; set; }
         public string? Modified_By { get; set; }
         public DateTime? Complete_Date { get; set; }
-        public int? PK_MachineTrainId { get; set; }
+        [Column("PK_MachineTrainId")] public int? MachineTrainId { get; set; }
         public string? Machine_Train { get; set; }
         public string? Machine_Train_Long_Name { get; set; }
         public string? Record { get; set; }

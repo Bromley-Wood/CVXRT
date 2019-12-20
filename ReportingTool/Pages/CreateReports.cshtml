@@ -91,7 +91,7 @@
                                         <tbody>
                                             @foreach (var mtrain in Model.Machine_List_Dict[current_route.PK_CallId])
                                             {
-                                                <input type="hidden" name="InputReportList[@machine_count].MachineTrainId" value=@mtrain.PK_MachineTrainId>
+                                                <input type="hidden" name="InputReportList[@machine_count].MachineTrainId" value=@mtrain.MachineTrainId>
                                                 <input type="hidden" name="InputReportList[@machine_count].Machine_Train_Long_Name" value="@mtrain.Machine_Train_Long_Name">
                                                 <input type="hidden" name="InputReportList[@machine_count].Machine_Train" value="@mtrain.Machine_Train">
                                                 <input type="hidden" name="InputReportList[@machine_count].PK_CallId" value=@current_route.PK_CallId>

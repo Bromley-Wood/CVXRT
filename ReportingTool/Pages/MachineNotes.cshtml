@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id:int?}"
 @model Reportingtool.Pages.MachineNotesModel
 @{
     ViewData["Title"] = Model.Current_User + " - Machine Notes";
@@ -21,10 +21,10 @@
                     <div class="mb-4 wow fadeIn">
                         <div class="container">
                             <h2 class="display-4">
-                                2P-1614A
+                                @Model.Machine_Train.Machine_Train_Name
                             </h2>
                             <p class="lead">
-                                Butane Recycle Pump
+                                @Model.Machine_Train.Machine_Train_Long_Name
                             </p>
                             <hr />
                         </div>
