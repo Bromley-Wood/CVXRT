@@ -20,14 +20,14 @@
             <!-- Main heading -->
             <h2 class=" mb-3">Create Reports</h2>
 
-            <p>
-                Here is the summary of the reports you just submit:::: @Model.GeneratedReportSummary.Count
+            @*<p>
+                Here is the summary of the reports you just submit:
             </p>
 
             @for (int i = 0; i< Model.GeneratedReportSummary.Count; ++i)
             {
                 <p>@Model.GeneratedReportSummary[i]</p>
-            }
+            }*@
             <!-- Main heading -->
 
 

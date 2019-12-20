@@ -13,6 +13,10 @@
 
   <ItemGroup>
     <None Include="Pages\index.cshtml" />
+    <None Include="wwwroot\Images\DC_2317_c.jpg" />
+    <None Include="wwwroot\Images\gorgon-cargo-copy-s.jpg" />
+    <None Include="wwwroot\Images\gorgon-plant-site-aerial-d-crop.jpg" />
+    <None Include="wwwroot\Images\gorgon-plant-site-d-s.jpg" />
   </ItemGroup>
 
   <ItemGroup>
