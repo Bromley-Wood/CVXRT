@@ -37,7 +37,7 @@ namespace Reportingtool.Pages
 
             //Machine_Train_Notes_All = await _context.Machine_Train_Notes
             //    //.Include(m => m.Machine_Train)
-            //    .Where(m => m.MachineTrainId == id)                
+            //    .Where(m => m.MachineTrainId == id)
             //    .AsNoTracking()
             //    .ToListAsync();
         }
