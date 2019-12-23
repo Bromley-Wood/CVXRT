@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <!--/.Featured Image-->
-                    <!--Card-->
+                    <!--Display Machine Notes-->
                     <div class="card mb-4 wow fadeIn">
 
                         <!--Card content-->
@@ -67,8 +67,8 @@
                         </div>
 
                     </div>
-                    <!--/.Card-->
-                    <!--Reply-->
+                    <!--Display Machine Notes-->
+                    <!--Create New Machine Note-->
                     <div class="card mb-3 wow fadeIn">
                         <div class="card-header font-weight-bold">Post a note</div>
                         <div class="card-body">
@@ -93,8 +93,8 @@
                             </form>
                         </div>
                     </div>
-
-
+                    <!--Create New Machine Note-->
+                    <!--Add attachments-->
                     <div class="card mb-3 wow fadeIn">
                         <div class="card-header font-weight-bold">Add attachments</div>
                         <div class="card-body">
@@ -118,15 +118,14 @@
                             </div>
                         </div>
                     </div>
-
-                    <!--/.Reply-->
+                    <!--Add attachments-->
 
                 </div>
                 <!--Grid column-->
                 <!--Grid column-->
                 <div class="col-md-4 mb-4">
 
-                    <!--Card : Dynamic content wrapper-->
+                    <!--Card : Search Machine-->
                     <div class="card mb-4 text-center wow fadeIn">
 
                         <div class="card-header">Search for a Machine Train</div>
@@ -156,8 +155,8 @@
                         </div>
 
                     </div>
-                    <!--/.Card : Dynamic content wrapper-->
-                    <!--Card-->
+                    <!--/.Card : Search Machine-->
+                    <!--Attach Files-->
                     <div class="card mb-4 wow fadeIn">
 
                         <div class="card-header">Attached Files</div>
@@ -198,7 +197,7 @@
                         </div>
 
                     </div>
-                    <!--/.Card-->
+                    <!--Attach Files-->
 
                 </div>
                 <!--Grid column-->
@@ -208,8 +207,7 @@
 
         </section>
         <!--Section: Post-->
-
-
+        <!--Edit Machine Notes Modal-->
         <div class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -248,8 +246,9 @@
                 </div>
             </div>
         </div>
-        <!--- Edit form -->
-
+        <!--Edit Machine Notes Modal-->
+        
+        <!--Archive Machine Notes Modal-->
         <div class="modal fade" id="modalArchiveNote" tabindex="-1" role="dialog" aria-labelledby="modalArchiveNote"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -274,6 +273,8 @@
                 </div>
             </div>
         </div>
+        <!--Archive Machine Notes Modal-->
+
 
         <div class="modal fade addNewInputs" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="modalSearch"
              aria-hidden="true">
@@ -296,8 +297,8 @@
                                 <option>Utilities</option>
                             </select>
                             <!-- SELECT Unit_Reference + ': ' + Area as [Area_Long_Name]
-                                    FROM [DEV_ClientProject].[dbo].[Area]
-                                    where [Area_IsActive] = 1 -->
+                        FROM [DEV_ClientProject].[dbo].[Area]
+                        where [Area_IsActive] = 1 -->
                         </div>
 
                         <div class="input-group md-form form-sm form-1 pl-0 mb-5">
