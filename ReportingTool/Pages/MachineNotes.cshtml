@@ -21,10 +21,10 @@
                     <div class="mb-4 wow fadeIn">
                         <div class="container">
                             <h2 class="display-4">
-                                @Model.Machine_Train.Machine_Train_Name
+                                @Model.Current_Machine_Train.Machine_Train_Name
                             </h2>
                             <p class="lead">
-                                @Model.Machine_Train.Machine_Train_Long_Name
+                                @Model.Current_Machine_Train.Machine_Train_Long_Name
                             </p>
                             <hr />
                         </div>
@@ -38,63 +38,31 @@
 
                             <p class="h5 my-4">Displayed Notes </p>
 
-
-                            <blockquote class="machine-note blockquote">
-                                <p class="mb-0">Gearbox has no studs installed</p>
-                                <footer class="blockquote-footer">
-                                    <cite>Cheng Huan Liu - 19 Dec 2019</cite>
-                                    <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-pen"></i></button>
-                                    <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalArchiveNote"><i class="fas fa-archive"></i></button>
-                                </footer>
-                            </blockquote>
-
-
-                            <blockquote class="machine-note blockquote">
-                                <p class="mb-0">
-                                    Some other note - would like to have a character limit on these notes.  How many characters is this?
-                                    Some other note - would like to have a character limit on these notes.  How many characters is this?
-                                    Some other note - would like to have a character limit on these notes.  How many characters is this? (It's about 300)
-                                </p>
-                                <footer class="blockquote-footer">
-                                    <cite>Cheng Huan Liu - 10 Dec 2019</cite>
-                                    <button class="btn btn-sm float-right"><i class="fas fa-pen"></i></button>
-                                    <button class="btn btn-sm float-right"><i class="fas fa-archive"></i></button>
-                                </footer>
-                            </blockquote>
+                            @foreach (var item in Model.Machine_Train_Notes_All.Where(n => n.MachineTrainNote_ShowOnReport == true).ToList())
+                            {
+                                <blockquote class="machine-note blockquote">
+                                    <p class="mb-0">@item.MachineTrain_Note</p>
+                                    <footer class="blockquote-footer">
+                                        <cite>@item.Analyst_Name - @item.Note_Date.ToString("dd MMMM yyyy")</cite>
+                                        <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-pen"></i></button>
+                                        <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalArchiveNote"><i class="fas fa-archive"></i></button>
+                                    </footer>
+                                </blockquote>
+                            }
 
                             <p class="h5 my-4">Additional Machine Information </p>
 
-                            <p class="machine-note">
-                                The "post a note" section below to validate on the checkbox.  if checkbox is ticked, then limit submission to 300 characters.
-                                <span class="blockquote-footer">
-                                    <cite>Shu - 19 Dec 2019</cite>
-                                    <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-pen"></i></button>
-                                    <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalArchiveNote"><i class="fas fa-archive"></i></button>
-                                </span>
-                            </p>
-
-
-                            <p class="machine-note">
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, ut rerum deserunt corporis
-                                ducimus at, deleniti ea alias dolor reprehenderit sit vel. Incidunt id illum doloribus,
-                                consequuntur maiores sed eligendi.
-                                <span class="blockquote-footer">
-                                    <cite>Cheng Huan Liu - 10 Dec 2018</cite>
-                                    <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-pen"></i></button>
-                                    <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalArchiveNote"><i class="fas fa-archive"></i></button>
-                                </span>
-                            </p>
-
-                            <p class="machine-note">
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, ut rerum deserunt corporis
-                                ducimus at, deleniti ea alias dolor reprehenderit sit vel. Incidunt id illum doloribus,
-                                consequuntur maiores sed eligendi.
-                                <span class="blockquote-footer">
-                                    <cite>Cheng Huan Liu - 10 Dec 2017</cite>
-                                    <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-pen"></i></button>
-                                    <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalArchiveNote"><i class="fas fa-archive"></i></button>
-                                </span>
-                            </p>
+                            @foreach (var item in Model.Machine_Train_Notes_All.Where(n => n.MachineTrainNote_ShowOnReport == false).ToList())
+                            {
+                                <p class="machine-note">
+                                    @item.MachineTrain_Note
+                                    <span class="blockquote-footer">
+                                        <cite>@item.Analyst_Name - @item.Note_Date.ToString("dd MMMM yyyy")</cite>
+                                        <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-pen"></i></button>
+                                        <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalArchiveNote"><i class="fas fa-archive"></i></button>
+                                    </span>
+                                </p>
+                            }
 
                         </div>
 
@@ -106,20 +74,21 @@
                         <div class="card-body">
 
                             <!-- Default form reply -->
-                            <form>
+                            <form method="post" asp-page-handler="createnewmachinenote" id="createnewmachinenote">
+                                <input type="hidden" asp-for="New_Machine_Note.MachineTrainId" value=@Model.Current_Machine_Train.MachineTrainId>
                                 <!-- Comment -->
                                 <div class="form-group">
                                     <label for="replyFormComment">Your comment</label>
-                                    <textarea class="form-control" id="replyFormComment" rows="5"></textarea>
+                                    <textarea class="form-control" id="replyFormComment" rows="5" asp-for="New_Machine_Note.MachineTrain_Note"></textarea>
                                 </div>
                                 <hr>
                                 <fieldset class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="checkbox1">
-                                    <label for="checkbox1" class="form-check-label dark-grey-text">Show this note when raising reports</label>
+                                    <input type="checkbox" class="form-check-input" id="checkbox-shownonreport" asp-for="New_Machine_Note.MachineTrainNote_ShowOnReport">
+                                    <label for="checkbox-shownonreport" class="form-check-label dark-grey-text">Show this note when raising reports</label>
                                 </fieldset>
                                 <!-- Subtmit Post -->
                                 <div class="text-center mt-4">
-                                    <button class="btn btn-info btn-md" type="submit">Post</button>
+                                    <button class="btn btn-info btn-md btnCreateNewMachineNote" type="submit">Post</button>
                                 </div>
                             </form>
                         </div>

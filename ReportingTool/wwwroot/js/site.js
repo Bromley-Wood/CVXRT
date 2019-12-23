@@ -40,3 +40,11 @@ $(function () {
         $('#createreport').submit();
     });
 });
+
+$(function () {
+    $(document).on("click", ".btnCreateNewMachineNote", function () {
+        //alert("submitting complete form");
+
+        $('#createnewmachinenote').submit();
+    });
+});

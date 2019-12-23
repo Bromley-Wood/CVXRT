@@ -15,7 +15,7 @@ namespace ReportingTool.Models
         public int FK_AreaId { get; set; }
         public bool MachineTrain_IsActive { get; set; }
 
-        public ICollection<Machine_Train_Notes> Machine_Train_Notes_List { get; set; }
+        //public ICollection<Machine_Train_Notes> Machine_Train_Notes_List { get; set; }
 
         #nullable enable
         [Column("FK_RouteId")] public int? RouteId { get; set; }

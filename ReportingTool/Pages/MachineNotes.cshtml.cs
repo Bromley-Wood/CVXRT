@@ -20,10 +20,13 @@ namespace Reportingtool.Pages
             _context = context;
         }
 
-        [BindProperty]
+        //[BindProperty]
         public IList<Machine_Train_Notes> Machine_Train_Notes_All { get; set; }
 
-        public Machine_Train Machine_Train { get; set;}
+        public Machine_Train Current_Machine_Train { get; set; }
+
+        [BindProperty]
+        public Machine_Train_Notes New_Machine_Note { get; set; }
 
         public async Task OnGetAsync(int? id)
         {
@@ -33,14 +36,49 @@ namespace Reportingtool.Pages
                 Console.WriteLine("No ID Specified. Default machine is displayed.");
             }
 
-            Machine_Train = await _context.Machine_Train.FirstOrDefaultAsync(m => m.MachineTrainId == id);
+            Current_Machine_Train = await _context.Machine_Train.FirstOrDefaultAsync(m => m.MachineTrainId == id);
 
-            //Machine_Train_Notes_All = await _context.Machine_Train_Notes
-            //    //.Include(m => m.Machine_Train)
-            //    .Where(m => m.MachineTrainId == id)
-            //    .AsNoTracking()
-            //    .ToListAsync();
+            Machine_Train_Notes_All = await _context.Machine_Train_Notes
+                //.Include(m => m.Machine_Train)
+                .Where(m => m.MachineTrainId == id)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<IActionResult> OnPostCreateNewMachinenote()
+        {
+
+            New_Machine_Note.MachineTrainNote_IsActive = true;
+            New_Machine_Note.Note_Date = DateTime.Now;
+            New_Machine_Note.MachineTrainNote_IsActive = true;
+            New_Machine_Note.Analyst_Name = Current_User;
+
+            _context.Machine_Train_Notes.Add(New_Machine_Note);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!MachineNoteExists(New_Machine_Note.MachineTrainId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return RedirectToPage("/Machinenotes", New_Machine_Note.MachineTrainId);
+        }
+
+        private bool MachineNoteExists(int id)
+        {
+            return _context.Machine_Train_Notes.Any(n => n.MachineTrainId == id);
         }
 
     }
+
+
 }
