@@ -122,11 +122,6 @@ namespace Reportingtool.Pages
 
         public async Task<IActionResult> OnPostEditMachineNote()
         {
-
-            Console.WriteLine("-------------------------------");
-            Console.WriteLine("-------------------------------");
-            Console.WriteLine("-------------------------------");
-
             var Edit_Machine_Note = await _context.Machine_Train_Notes.FirstOrDefaultAsync(n => n.PK_MachineTrainNoteId == Machine_Train_Note_Id);
 
             if (Edit_Machine_Note == null)

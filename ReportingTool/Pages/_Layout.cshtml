@@ -198,6 +198,43 @@
     {
         <script type="text/javascript" src="~/js/create_reports.js"></script>
     }
+    @if (ViewData["Title"].ToString().Contains("Machine Notes"))
+    {
+        <script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
+
+        <script>
+            $(function () {
+                var availableTags = [
+                    "ActionScript",
+                    "AppleScript",
+                    "Asp",
+                    "BASIC",
+                    "C",
+                    "C++",
+                    "Clojure",
+                    "COBOL",
+                    "ColdFusion",
+                    "Erlang",
+                    "Fortran",
+                    "Groovy",
+                    "Haskell",
+                    "Java",
+                    "JavaScript",
+                    "Lisp",
+                    "Perl",
+                    "PHP",
+                    "Python",
+                    "Ruby",
+                    "Scala",
+                    "Scheme"
+                ];
+                $("#machineslist").autocomplete({
+                    source: availableTags
+                });
+                alert("Hello")
+            });
+        </script>
+    }
 </body>
 </html>
 
