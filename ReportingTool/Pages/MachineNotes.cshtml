@@ -79,7 +79,7 @@
                                 <!-- Comment -->
                                 <div class="form-group">
                                     <label for="replyFormComment">Your comment</label>
-                                    <textarea class="form-control" id="replyFormComment" rows="5" asp-for="New_Machine_Note.MachineTrain_Note"></textarea>
+                                    <textarea maxlength="300" class="form-control" id="replyFormComment" rows="5" asp-for="New_Machine_Note.MachineTrain_Note"></textarea>
                                 </div>
                                 <hr>
                                 <fieldset class="form-check">
@@ -227,7 +227,7 @@
                         <!-- Comment -->
                         <div class="form-group">
                             <label for="replyFormComment">Your comment</label>
-                            <textarea class="form-control" id="editmachinenotecontent" rows="5" asp-for="Machine_Train_Note_Content"  form="editmachinenoteform"></textarea>
+                            <textarea maxlength="300" class="form-control" id="editmachinenotecontent" rows="5" asp-for="Machine_Train_Note_Content"  form="editmachinenoteform" ></textarea>
                         </div>
 
                         <input type="hidden" class="form-control" id="machinetrainnoteid" asp-for="Machine_Train_Note_Id" form="editmachinenoteform">
