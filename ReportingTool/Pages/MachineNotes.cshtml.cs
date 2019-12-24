@@ -28,6 +28,10 @@ namespace Reportingtool.Pages
         [BindProperty]
         public Machine_Train_Notes New_Machine_Note { get; set; }
 
+        [BindProperty]
+        public int Machine_Train_Note_Id { get; set; }
+
+
         public async Task OnGetAsync(int? id)
         {
             if (id == null)
@@ -40,13 +44,15 @@ namespace Reportingtool.Pages
 
             Machine_Train_Notes_All = await _context.Machine_Train_Notes
                 //.Include(m => m.Machine_Train)
-                .Where(m => m.MachineTrainId == id)
+                .Where(n => n.MachineTrainId == id)
+                .Where(n => n.MachineTrainNote_IsActive == true)
                 .AsNoTracking()
                 .ToListAsync();
         }
 
         public async Task<IActionResult> OnPostCreateNewMachinenote()
         {
+
 
             New_Machine_Note.MachineTrainNote_IsActive = true;
             New_Machine_Note.Note_Date = DateTime.Now;
@@ -72,6 +78,40 @@ namespace Reportingtool.Pages
 
             return RedirectToPage("/Machinenotes", New_Machine_Note.MachineTrainId);
         }
+
+        public async Task<IActionResult> OnPostArchiveMachineNote()
+        {
+
+            var Edit_Machine_Note = await _context.Machine_Train_Notes.FirstOrDefaultAsync(n => n.PK_MachineTrainNoteId == Machine_Train_Note_Id);
+            
+            if (Edit_Machine_Note == null)
+            {
+                return NotFound();
+            }
+            
+            Edit_Machine_Note.MachineTrainNote_IsActive = false;
+
+            _context.Attach(Edit_Machine_Note).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!MachineNoteExists(Edit_Machine_Note.PK_MachineTrainNoteId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return RedirectToPage("/Machinenotes", Edit_Machine_Note.MachineTrainId);
+        }
+
 
         private bool MachineNoteExists(int id)
         {

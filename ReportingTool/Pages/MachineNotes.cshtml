@@ -45,7 +45,7 @@
                                     <footer class="blockquote-footer">
                                         <cite>@item.Analyst_Name - @item.Note_Date.ToString("dd MMMM yyyy")</cite>
                                         <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-pen"></i></button>
-                                        <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalArchiveNote"><i class="fas fa-archive"></i></button>
+                                        <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalArchiveNote" data-machinenoteid="@item.PK_MachineTrainNoteId"><i class="fas fa-archive"></i></button>
                                     </footer>
                                 </blockquote>
                             }
@@ -59,7 +59,7 @@
                                     <span class="blockquote-footer">
                                         <cite>@item.Analyst_Name - @item.Note_Date.ToString("dd MMMM yyyy")</cite>
                                         <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-pen"></i></button>
-                                        <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalArchiveNote"><i class="fas fa-archive"></i></button>
+                                        <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalArchiveNote" data-machinenoteid="@item.PK_MachineTrainNoteId"><i class="fas fa-archive"></i></button>
                                     </span>
                                 </p>
                             }
@@ -230,7 +230,6 @@
                                 <input type="checkbox" class="form-check-input" id="checkbox1">
                                 <label for="checkbox1" class="form-check-label dark-grey-text">Show this note when raising reports</label>
                             </fieldset>
-
                         </form>
                         <!-- Default form reply -->
 
@@ -246,10 +245,17 @@
                 </div>
             </div>
         </div>
+
         <!--Edit Machine Notes Modal-->
-        
+
+        <!--archive machine note form-->
+
+        <form method="post" asp-page-handler="archivemachinenote" id="archivemachinenoteform"></form>
+
+        <!--archive machine note form-->
+
         <!--Archive Machine Notes Modal-->
-        <div class="modal fade" id="modalArchiveNote" tabindex="-1" role="dialog" aria-labelledby="modalArchiveNote"
+        <div class="modal fade" id="modalArchiveNote" class="modalArchiveNote" tabindex="-1" role="dialog" aria-labelledby="modalArchiveNote"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -264,10 +270,14 @@
                             Are you sure you want to archive this note?  <br />
                             You will need to contact an administrator to retrieve it from archive.
                         </p>
-
+                        <input type="hidden" class="form-control" asp-for="Machine_Train_Note_Id" form="archivemachinenoteform">
                     </div>
+
                     <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
-                        <button type="button" class="btn btn-danger btnYesClass" id="btnYes" data-dismiss="modal">Yes</button>
+
+
+                        <button type="submit" class="btn btn-danger btnYesClass btnYesArachiveMachineNote" id="btnYesArachiveMachineNote" data-dismiss="modal">Yes</button>
+
                         <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal">No</button>
                     </div>
                 </div>
@@ -297,8 +307,8 @@
                                 <option>Utilities</option>
                             </select>
                             <!-- SELECT Unit_Reference + ': ' + Area as [Area_Long_Name]
-                        FROM [DEV_ClientProject].[dbo].[Area]
-                        where [Area_IsActive] = 1 -->
+                            FROM [DEV_ClientProject].[dbo].[Area]
+                            where [Area_IsActive] = 1 -->
                         </div>
 
                         <div class="input-group md-form form-sm form-1 pl-0 mb-5">

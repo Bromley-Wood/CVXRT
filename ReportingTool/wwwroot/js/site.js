@@ -1,8 +1,6 @@
 
 // Pass the route call information to the edit modal
 $(document).on("click", ".btn-editform", function () {
-    //alert($(this).data('route'));
-
     var callid = $(this).data('callid');
     var route = $(this).data('route');
     var cycledays = $(this).data('cycledays');
@@ -27,7 +25,6 @@ $(function () {
 
 $(function () {
     $(document).on("click", ".btnYesCompleteRoute", function () {
-        //alert("submitting complete form");
         $('#completeroute').submit();
     });
 });
@@ -35,16 +32,26 @@ $(function () {
 
 $(function () {
     $(document).on("click", ".btnCreateReportSubmit", function () {
-        //alert("submitting complete form");
-        
         $('#createreport').submit();
     });
 });
 
 $(function () {
     $(document).on("click", ".btnCreateNewMachineNote", function () {
-        //alert("submitting complete form");
-
         $('#createnewmachinenote').submit();
+    });
+});
+
+$('#modalArchiveNote').on('show.bs.modal', function (event) {
+    
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var id = button.data('machinenoteid');
+    var modal = $(this);
+    modal.find('.modal-body input').val(id);
+})
+
+$(function () {
+    $(document).on("click", ".btnYesArachiveMachineNote", function () {
+        $('#archivemachinenoteform').submit();
     });
 });
