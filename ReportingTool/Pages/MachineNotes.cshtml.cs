@@ -29,6 +29,9 @@ namespace Reportingtool.Pages
         public Machine_Train_Notes New_Machine_Note { get; set; }
 
         [BindProperty]
+        public int Machine_Train_Id { get; set; }
+
+        [BindProperty]
         public int Machine_Train_Note_Id { get; set; }
 
         [BindProperty]
@@ -47,7 +50,9 @@ namespace Reportingtool.Pages
                 Console.WriteLine("No ID Specified. Default machine is displayed.");
             }
 
+
             Current_Machine_Train = await _context.Machine_Train.FirstOrDefaultAsync(m => m.MachineTrainId == id);
+
 
             Machine_Train_Notes_All = await _context.Machine_Train_Notes
                 //.Include(m => m.Machine_Train)
@@ -151,7 +156,7 @@ namespace Reportingtool.Pages
                 }
             }
 
-            return RedirectToPage("/Machinenotes", Edit_Machine_Note.MachineTrainId);
+            return RedirectToPage("/Machinenotes", new { id = Edit_Machine_Note.MachineTrainId });
         }
 
 
@@ -159,6 +164,24 @@ namespace Reportingtool.Pages
         {
             return _context.Machine_Train_Notes.Any(n => n.MachineTrainId == id);
         }
+
+        public IActionResult GetMachineList()
+        {
+            var Machine_Train_All = _context.Machine_Train
+                .Select(m => m.Machine_Train_Name)
+                .AsNoTracking()
+                .ToList();
+
+            //Machine_Train_All.ForEach(Console.WriteLine);
+
+            return new JsonResult(Machine_Train_All);
+        }
+
+        public async Task<IActionResult> OnPostGoToMachineTrain()
+        {
+            return RedirectToPage("/Machinenotes", new { id = Machine_Train_Id });
+        }
+
 
     }
 

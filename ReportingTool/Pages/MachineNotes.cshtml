@@ -133,22 +133,17 @@
                         <!--Card content-->
                         <div class="card-body">
 
-                            <form>
+                            <form method="post" asp-page-handler="gotomachinetrain" id="gotomachinetrainform"></form>
 
                                 <div class="input-group mb-3 ui-widget">
-                                    <input type="text" class="form-control" id="machineslist" placeholder="Machine Train List" aria-label="Machine Train"
-                                           aria-describedby="button-addon2">
+                                    <input type="text" class="form-control" id="gotomachinetrainname" placeholder=@Model.Current_Machine_Train.Machine_Train_Name>
+
+                                    <input type="hidden" id="gotomachinetrainid" class="form-control" asp-for="Machine_Train_Id" form="gotomachinetrainform">
+
                                     <div class="input-group-append">
                                         <button class="btn btn-md btn-outline-primary m-0 px-3 py-2 z-depth-0 waves-effect btnGoToMachineTrain" type="button" id="btnGoToMachineTrain">Go</button>
                                     </div>
                                 </div>
-
-                                <div class="text-center">
-                                    <a href="#" class="btn btn-info btn-rounded btn-sm" data-toggle="modal" data-target="#modalSearch">
-                                        Advanced Search &nbsp;<i class="fas fa-search"></i>
-                                    </a>
-                                </div>
-                            </form>
 
                         </div>
 
@@ -283,76 +278,6 @@
             </div>
         </div>
         <!--Archive Machine Notes Modal-->
-
-
-        <div class="modal fade addNewInputs" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="modalSearch"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Select a machine</h4>
-                        <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body mx-3">
-                        <div class="md-form mb-5">
-                            <span>Area</span>
-                            <select class="custom-select d-block w-100" id="formAddArea" required>
-                                <option>Inlet</option>
-                                <option>LNG</option>
-                                <option>DOMGAS</option>
-                                <option>S&L</option>
-                                <option>Utilities</option>
-                            </select>
-                            <!-- SELECT Unit_Reference + ': ' + Area as [Area_Long_Name]
-                            FROM [DEV_ClientProject].[dbo].[Area]
-                            where [Area_IsActive] = 1 -->
-                        </div>
-
-                        <div class="input-group md-form form-sm form-1 pl-0 mb-5">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-text1">
-                                    <i class="fas fa-search text-white"
-                                       aria-hidden="true"></i>
-                                </span>
-                            </div>
-                            <input class="form-control my-0 py-1" type="text" placeholder="Search for a machine train" aria-label="Search">
-                        </div>
-
-                        <div class="mb-5">
-                            <ul class="ks-cboxtags ks-radio">
-                                <li><input type="radio" name="machinetrainid" id="cbmach1" value="10"><label for="cbmach1">0A-0A-0915-SM1A: UNIT 1 LEAN MEG CENTRIFUGE MAIN MOTOR</label></li>
-                                <li><input type="radio" name="machinetrainid" id="cbmach2" value="11"><label for="cbmach2">0A-0915-SM1B: UNIT 2 LEAN MEG CENTRIFUGE MAIN MOTOR</label></li>
-                                <li><input type="radio" name="machinetrainid" id="cbmach3" value="12"><label for="cbmach3">0A-0915-SM1C: UNIT 3 LEAN MEG CENTRIFUGE MAIN MOTOR</label></li>
-                                <li><input type="radio" name="machinetrainid" id="cbmach4" value="13"><label for="cbmach4">0A-0920-K1A: MEG VACUUM PUMP </label></li>
-                                <li><input type="radio" name="machinetrainid" id="cbmach5" value="15"><label for="cbmach5">0A-0920-K1A: MEG VACUUM PUMP </label></li>
-                                <li><input type="radio" name="machinetrainid" id="cbmach6" value="16"><label for="cbmach6">0A-0920-K1B: MEG VACUUM PUMP </label></li>
-                                <li><input type="radio" name="machinetrainid" id="cbmach7" value="17"><label for="cbmach7">0A-0920-KM1A: MEG VACUUM PACKAGE LIQUID RING CIRCULATING PUMP A</label></li>
-                                <li><input type="radio" name="machinetrainid" id="cbmach8" value="18"><label for="cbmach8">0A-0920-KM1B: MEG VACUUM PACKAGE LIQUID RING CIRCULATING PUMP B</label></li>
-                                <li><input type="radio" name="machinetrainid" id="cbmach9" value="19"><label for="cbmach9">0K-4801B-K1:	COOLER (INTER STAGE COOLER & AFTER COOLER & WATER COOLER) FAN</label></li>
-                                <li><input type="radio" name="machinetrainid" id="cbmach10" value="89"><label for="cbmach10">0A-0955-SM1: UNIT 3 LEAN MEG CENTRIFUGE MAIN MOTOR</label></li>
-                                <li><input type="radio" name="machinetrainid" id="cbmach11" value="90"><label for="cbmach11">0A-0960-K1A: Aker Tag (MEG vacuum pump)</label></li>
-                                <li><input type="radio" name="machinetrainid" id="cbmach12" value="91"><label for="cbmach12">0A-0960-K1B: Aker Tag (MEG vacuum pump)</label></li>
-                                <li><input type="radio" name="machinetrainid" id="cbmach13" value="92"><label for="cbmach13">0A-0990-K1A: Refrigeration Compressor </label></li>
-                                <li><input type="radio" name="machinetrainid" id="cbmach14" value="93"><label for="cbmach14">0A-0990-K1B: Refrigeration Compressor </label></li>
-                                <li><input type="radio" name="machinetrainid" id="cbmach15" value="94"><label for="cbmach15">0A-0990-K1C: Refrigeration Compressor </label></li>
-                                <li><input type="radio" name="machinetrainid" id="cbmach16" value="95"><label for="cbmach16">0A-0990-P3A: Cooling Water Circulation pump A</label></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
-                        <button class="btn btn-outline-primary btn-block buttonAdd" data-dismiss="modal">
-                            Add form
-                            <i class="fas fa-paper-plane-o ml-1"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--- end select form -->
-
-
 
     </div>
 </main>

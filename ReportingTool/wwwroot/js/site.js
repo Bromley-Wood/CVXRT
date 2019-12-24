@@ -85,3 +85,11 @@ $(function () {
     });
 });
 //---------------------------for archive machine train note ---------------------------//
+
+//---------------------------go to machine train ---------------------------//
+$(function () {
+    $(document).on("click", ".btnGoToMachineTrain", function () {
+        $('#gotomachinetrainform').submit();
+    });
+});
+//---------------------------go to machine train ---------------------------//

@@ -376,5 +376,7 @@ namespace Reportingtool.Pages
         {
             return _context.Report.Any(e => e.PK_ReportId == id);
         }
+
+
     }
 }
