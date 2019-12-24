@@ -31,6 +31,13 @@ namespace Reportingtool.Pages
         [BindProperty]
         public int Machine_Train_Note_Id { get; set; }
 
+        [BindProperty]
+        public string Machine_Train_Note_Content { get; set; }
+
+        [BindProperty]
+        public bool Machine_Train_Note_ShowOnReport { get; set; }
+        
+
 
         public async Task OnGetAsync(int? id)
         {
@@ -46,6 +53,7 @@ namespace Reportingtool.Pages
                 //.Include(m => m.Machine_Train)
                 .Where(n => n.MachineTrainId == id)
                 .Where(n => n.MachineTrainNote_IsActive == true)
+                .OrderByDescending(n => n.Note_Date)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -90,6 +98,45 @@ namespace Reportingtool.Pages
             }
             
             Edit_Machine_Note.MachineTrainNote_IsActive = false;
+
+            _context.Attach(Edit_Machine_Note).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!MachineNoteExists(Edit_Machine_Note.PK_MachineTrainNoteId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return RedirectToPage("/Machinenotes", Edit_Machine_Note.MachineTrainId);
+        }
+
+        public async Task<IActionResult> OnPostEditMachineNote()
+        {
+
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine("-------------------------------");
+
+            var Edit_Machine_Note = await _context.Machine_Train_Notes.FirstOrDefaultAsync(n => n.PK_MachineTrainNoteId == Machine_Train_Note_Id);
+
+            if (Edit_Machine_Note == null)
+            {
+                return NotFound();
+            }
+
+            Edit_Machine_Note.MachineTrain_Note = Machine_Train_Note_Content;
+            Edit_Machine_Note.MachineTrainNote_ShowOnReport = Machine_Train_Note_ShowOnReport;
+            Edit_Machine_Note.Note_Date = DateTime.Now;
 
             _context.Attach(Edit_Machine_Note).State = EntityState.Modified;
 
