@@ -93,3 +93,11 @@ $(function () {
     });
 });
 //---------------------------go to machine train ---------------------------//
+
+//---------------------------upload attachments ---------------------------//
+//$(function () {
+//    $(document).on("click", ".btnUploadAttachmentPost", function () {
+//        $('#uploadattachmentsform').submit();
+//    });
+//});
+//---------------------------upload attachments ---------------------------//

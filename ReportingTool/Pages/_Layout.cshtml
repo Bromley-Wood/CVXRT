@@ -1,12 +1,12 @@
 ﻿
 <!DOCTYPE html>
 <html>
-<head>     
-    
+<head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    
+
     <title> @ViewData["Title"]</title>
 
     <link rel="icon" href="~/logo.ico" type="image/x-icon">
@@ -194,16 +194,58 @@
         // Animations initialization
         new WOW().init();
     </script>
+
+    <!-- Navbar -->
+    <script>
+        $(function () {
+            $('a').each(function () {
+                if ($(this).prop('href') == window.location.href) {
+                    $(this).addClass('active'); $(this).parents('li').addClass('active');
+                }
+            });
+        });
+    </script>
+
+
     @if (ViewData["Title"].ToString().Contains("Create Reports"))
     {
         <script type="text/javascript" src="~/js/create_reports.js"></script>
     }
     @if (ViewData["Title"].ToString().Contains("Machine Notes"))
     {
+
+
+        <!-- Dropzone JavaScript -->
+        <script type="text/javascript" src="~/js/dropzone.min.js"></script>
+
+        <script>
+            function myParamName() {
+                return "files";
+            }
+
+            Dropzone.options.uploadattachmentsform = {
+                //autoProcessQueue: false,
+                uploadMultiple: true,
+                paramName: myParamName,
+                maxFilesize: 20, //MB
+                dictDefaultMessage: "Drop files here or Click to Upload",
+                addRemoveLinks: true, // Allows for cancellation of file upload and remove thumbnail
+                acceptedFiles: "image/*",
+                init: function () {
+                    myDropzone = this;
+                    myDropzone.on("success", function (file, response) {
+                        myDropzone.removeFile(file);
+                    });
+                }
+
+            }
+        </script>
+
+        <!-- Droplist -->
         <script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
         <script>
             $(function () {
-               
+
                 $("#gotomachinetrainname").autocomplete({
                     source: '@Url.Page("index", "search")',
                     select: function (event, ui) {
@@ -212,8 +254,8 @@
                         $('#gotomachinetrainid').val(ui.item.value);
                     }
                 });
-                
-                
+
+
             });
         </script>
     }
