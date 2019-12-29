@@ -315,11 +315,12 @@
 				<!--Report Body-->
 				<div class="col-md-8 order-md-1 py-5">
 
-					<!--Fault Attribute card-->
+					<!--DISPLAY: Fault Attribute card-->
+					<!-- This section to show if a report is being created on an existing fault -->
 					<div class="card mb-4 wow fadeIn">
 						<!--Card content-->
 						<div class="card-body" id="displayFaultAttributes">
-							<label class="small text-muted" for="machine">Fault Attributes</label>
+							<h5 class="grey-text font-weight-light">Fault Details</h5>
 							<h2 class="mb-3 breadcrumbs" id="machineTag">44GB403A</h2>
 							<h5 class="mb-3 breadcrumbs" id="machineDescription">Fuel Gas KO Drum Pump A</h5>
 							<hr />
@@ -354,15 +355,11 @@
 									</div>
 									<span class="infolabel"> Motor Drive End </span>
 								</div>
-
-
-
 							</form>
 						</div>
-					</div>
-
-
-					<!--Fault Attribute card-->
+					</div><!--./DISPLAY: Fault Attribute card-->
+					<!--FORM: Fault card-->
+					<!-- This section to show if a new fault needs to be created -->
 					<div class="card mb-4 wow fadeIn">
 						<div class="card-header font-weight-bold">Fault Attributes</div>
 						<!--Card content-->
@@ -488,268 +485,15 @@
 									</div>
 									<input type="text" class="form-control" placeholder="Add fault details here" aria-label="Username" aria-describedby="basic-addon1">
 								</div>
-
-
-
 							</form>
 						</div>
 					</div>
-
-					<!--Display report V2-->
-					<div class="card mb-4" id="historicReports">
-						<!--Card content-->
-						<div class="card-body col-md-12">
-							<h4>Reports
-							</h4>
-							<hr />
-							<div class="row">
-								<nav id="historicReportsNav" class="flex-column col-3 nav nav-pills">
-									<a class="nav-link" href="#abc"><i class="fas fa-square text-danger"></i>&nbsp; 2018.05.19</a>
-									<a class="nav-link" href="#def"><i class="fas fa-square text-alert"></i>&nbsp; 2018.04.08</a>
-									<a class="nav-link" href="#ghi"><i class="fas fa-square text-warning"></i>&nbsp;  2018.03.28</a>
-									<a class="nav-link" href="#jkl"><i class="fas fa-square text-warning"></i>&nbsp; 2018.03.04</a>
-									<a class="nav-link" href="#mno"><i class="fas fa-square text-default"></i>&nbsp;  2018.02.03</a>
-								</nav>
-								<div id="historicReportsBody" data-spy="scroll" data-target="#historicReportsNav" data-offset="50" class="col-9">
-									<!--Report 1-->
-									<section id="abc" class="my-3">
-										<h4>
-											<span>2018.05.19 </span> <span> Prompt Action </span>
-										</h4>
-										<div class="row">
-											<div class="col-md-6 mb-3">
-												<label class="small text-muted" for="observationType">Observations</label>
-												<ul class="mb-3 font-small">
-													<li>There is a rubbing sound </li>
-													<li>The casing is hot </li>
-													<li>This is a custom observation </li>
-												</ul>
-											</div>
-											<div class="col-md-6 mb-3">
-												<label class="small text-muted" for="Actions">Actions</label>
-												<ul class="mb-4 unstyled-list font-small">
-													<li>2.  Reduce monitoring interval </li>
-												</ul>
-											</div>
-										</div>
-										<label class="small text-muted" for="formAddRec">Additional Recommendations</label>
-										<p class="mb-4 font-small">
-											Recommend taking an oil sample ASAP to determine if any excessive wear metals are present.
-											If possible, conduct an inspection of the gear set while the machine is shutdown.
-											<br />If unit can’t be shut down in the short term, plan to monitor the unit every couple of days to track deterioration.
-											Recommend using this unit as a poor spare and avoid running if possible.
-										</p>
-
-										<div class="row mb-4">
-											<div class="col-md-5 ">
-												<label class="small text-muted" for="notification">Notification</label>
-												<span class="infolabel"> 98765544322 </span>
-											</div>
-											<div class="col-md-5">
-												<label class="small text-muted" for="workOrder">Work Order</label>
-												<span class="infolabel"> 123456789 </span>
-											</div>
-										</div>
-
-										<label class="small text-muted" for="formIntNotes">Analyst Notes (internal)</label>
-										<p class="mb-3 font-small">
-											2018.05.19 MM Motor velocity New 9.9x (485Hz) impacting frequency, strongest @M2I.  NO MOTOR FAULTS CONFIGURED.  M2A Velocity - Idler DE BPFO  151.26Hz(3.77x) impacting fundamental at 0.346 mm/s in ( &lt;0.12 mm/s @G1 & G2)... Idler shaft NDE appears to have a rub G2Accel demod/twf)  - may need WO to be discussed w/ EDSC
-										</p>
-										<label class="small text-muted">Attachments</label>
-										<p> X X X</p>
-									</section>
-									<hr />
-									<!--Report 1-->
-									<!--Report 2-->
-									<section id="def" class="my-3">
-										<h4>
-											<span>2018.04.08 </span> <span> Plan Action </span>
-										</h4>
-										<div class="row">
-											<div class="col-md-6 mb-3">
-												<label class="small text-muted" for="observationType">Observations</label>
-												<ul class="mb-3">
-													<li>There is a rubbing sound </li>
-													<li>The casing is hot </li>
-												</ul>
-											</div>
-											<div class="col-md-6 mb-3">
-												<label class="small text-muted" for="Actions">Actions</label>
-												<ul class="mb-4 unstyled-list">
-													<li>1.  Lubricate and retake data </li>
-												</ul>
-											</div>
-										</div>
-										<label class="small text-muted" for="formAddRec">Additional Recommendations</label>
-										<p class="mb-3 font-small">
-											Recommend taking an oil sample ASAP to determine if any excessive wear metals are present.
-											<br />If possible, conduct an inspection of the gear set while the machine is shutdown.
-											<br />If unit can’t be shut down in the short term, plan to monitor the unit every couple of days to track deterioration.
-											<br />Recommend using this unit as a poor spare and avoid running if possible.
-										</p>
-
-										<div class="row">
-											<div class="col-md-5 mb-3">
-												<label class="small text-muted" for="notification">Notification</label>
-												<span class="infolabel"> 98765544322 </span>
-											</div>
-											<div class="col-md-5 mb-3">
-												<label class="small text-muted" for="workOrder">Work Order</label>
-												<span class="infolabel"> 123456789 </span>
-											</div>
-										</div>
-
-										<label class="small text-muted" for="formIntNotes">Analyst Notes (internal)</label>
-										<p class="mb-3 font-small">
-											No change
-										</p>
-
-										<label class="small text-muted">Attachments</label>
-										<p> X X X</p>
-									</section>
-									<hr />
-
-									<!--Report 3-->
-									<section id="ghi">
-										<h4 class="my-3">
-											<span>2018.03.28 </span> <span> Plan Action </span>
-										</h4>
-										<div class="row">
-											<div class="col-md-6 mb-3">
-												<label class="small text-muted" for="observationType">Observations</label>
-												<ul class="mb-3">
-													<li>There is a rubbing sound </li>
-												</ul>
-											</div>
-											<div class="col-md-6 mb-3">
-												<label class="small text-muted" for="Actions">Actions</label>
-												<ul class="mb-4 unstyled-list">
-												</ul>
-											</div>
-										</div>
-										<label class="small text-muted" for="formAddRec">Additional Recommendations</label>
-										<p class="mb-3 font-small">
-										</p>
-
-										<div class="row">
-											<div class="col-md-5 mb-3">
-												<label class="small text-muted" for="notification">Notification</label>
-												<span class="infolabel">  </span>
-											</div>
-											<div class="col-md-5 mb-3">
-												<label class="small text-muted" for="workOrder">Work Order</label>
-												<span class="infolabel">  </span>
-											</div>
-										</div>
-
-										<label class="small text-muted" for="formIntNotes">Analyst Notes (internal)</label>
-										<p class="mb-3 font-small">
-											2018.03.28 MM Impacting increasing in M2A, M2N, G1I velocity.  Likely 1x motor, but may also be IB Idler shaft BPFO (which is quite close to motor speed harmonics).   0.08mm/s fundamental in M2A & absent from demod.  TWF shows "Impact bundles" around 2x (100Hz), nothing definite at 1x or at 344hz however.  This signal is lower in G2 and gone in G3, no other changes, not severe impacting yet, ctm, 3
-										</p>
-
-										<label class="small text-muted">Attachments</label>
-										<p> X X X</p>
-
-									</section>
-									<hr />
-
-									<!--Report 4-->
-									<section id="jkl" class="my-3">
-										<h4 >
-											<span>2018.03.04 </span> <span> Plan Action </span>
-										</h4>
-										<div class="row">
-											<div class="col-md-6 mb-3">
-												<label class="small text-muted" for="observationType">Observations</label>
-												<ul class="mb-3">
-													<li>There is a rubbing sound </li>
-												</ul>
-											</div>
-											<div class="col-md-6 mb-3">
-												<label class="small text-muted" for="Actions">Actions</label>
-												<ul class="mb-4 unstyled-list">
-												</ul>
-											</div>
-										</div>
-										<label class="small text-muted" for="formAddRec">Additional Recommendations</label>
-										<p class="mb-3 font-small">
-										</p>
-
-										<div class="row">
-											<div class="col-md-5 mb-3">
-												<label class="small text-muted" for="notification">Notification</label>
-												<span class="infolabel">  </span>
-											</div>
-											<div class="col-md-5 mb-3">
-												<label class="small text-muted" for="workOrder">Work Order</label>
-												<span class="infolabel">  </span>
-											</div>
-										</div>
-
-										<label class="small text-muted" for="formIntNotes">Analyst Notes (internal)</label>
-										<p class="mb-3 font-small">
-											2018.03.04 MM M1N velocity - 223.64 Hz frequency (4.5x) trended suddenly (up to 0.4mm/s).  This signal may be a mix of idler shaft 2nd harmonic of, BSF and BPFO contributions to this single spectral amplitude, but the ratio is uncertain (note the 1x idler signal is not present in accel spectrum & legitimate peaks are present in the time wave form at the 223Hz frequency (i.e. the spectral spike clearly has real components, and is not purely an artifact of the fourier transform  trying to cope with signal distortion of other frequencies));  M2N hi res spectum has TWO spikes at 50 right next to each other (possible electrical implications); lower of the two chosen as 1x, otherwise stable/ok, CTM -3-
-										</p>
-
-										<label class="small text-muted">Attachments</label>
-										<p> X X X</p>
-									</section>
-								<hr />
-
-										<!--Report 5-->
-								<section id="mno" class="my-3">
-									<h4 >
-										<span>2018.02.03 </span> <span> Trending </span>
-									</h4>
-									<div class="row">
-										<div class="col-md-6 mb-3">
-											<label class="small text-muted" for="observationType">Observations</label>
-											<ul class="mb-3">
-												<li>There is a rubbing sound </li>
-											</ul>
-										</div>
-										<div class="col-md-6 mb-3">
-											<label class="small text-muted" for="Actions">Actions</label>
-											<ul class="mb-4 unstyled-list">
-											</ul>
-										</div>
-									</div>
-									<label class="small text-muted" for="formAddRec">Additional Recommendations</label>
-									<p class="mb-3 font-small">
-										--
-									</p>
-
-									<div class="row">
-										<div class="col-md-5 mb-3">
-											<label class="small text-muted" for="notification">Notification</label>
-											<span class="infolabel"> -- </span>
-										</div>
-										<div class="col-md-5 mb-3">
-											<label class="small text-muted" for="workOrder">Work Order</label>
-											<span class="infolabel"> -- </span>
-										</div>
-									</div>
-
-									<label class="small text-muted" for="formIntNotes">Analyst Notes (internal)</label>
-									<p class="mb-3 font-small">
-										JBKH - Vibration measurements are deemed low this survey. Slight noise coming from gearbox/coupling area. Specialists know about it and have accepted its OK. Possibly minor in service issue with the coupling.
-									</p>
-
-									<label class="small text-muted">Attachments</label>
-									<p> X X X</p>
-								</section>
-										<hr />
-								</div>
-							</div>
-
-
-
-						</div>
-
-						</div><!--./end of display report-->
-					<!--card-->
+					<!--./FORM: Fault card-->
+					<!---------------------------------------------------------------->
+					<!--FORM: Reports -------------------------------------------------------->
+					<!--For now all these sections should probably always be displayed -->
+					<!--SUBFORM: Report Attributes -->
 					<div class="card mb-4 wow fadeIn">
-
 						<!--Card content-->
 						<div class="card-header font-weight-bold">Report Attributes</div>
 						<div class="card-body">
@@ -796,41 +540,40 @@
 							</form>
 						</div>
 					</div>
-					<!--card-->
+					<!--./SUBFORM: Report Attributes -->
+					<!--SUBFORM: Observations -->
 					<div class="card mb-4 wow fadeIn">
-
 						<div class="card-header font-weight-bold">Observations</div>
 						<!--Card content-->
 						<div class="card-body">
-							<form class="needs-validation" novalidate>
+							<form class="needs-validation col-12" novalidate>
 								<div class="row">
-									<div class="col-md-5 mb-3">
-										<label class="small text-muted" for="observationType">Observation Type</label>
-										<select class="custom-select d-block w-100" id="observationType" required>
-											<option value="">Audible Noises</option>
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text">Observation</span>
+										</div>
+										<select class="custom-select d-block" required>
+											<option>Select a category first</option>
+											<option>Audible Noises</option>
 											<option>Data Collection Errors</option>
 											<option>Phase</option>
 											<option>Physical / Visual</option>
 											<option>Spectral Amplitude</option>
 										</select>
-										<div class="invalid-feedback">
-											Please select a valid severity.
-										</div>
-									</div>
-									<div class="col-md-5 mb-3">
-										<label class="small text-muted" for="reportType">Observation</label>
-										<select class="custom-select d-block w-100" id="reportType" required>
+										<select class="custom-select d-block ">
 											<option value="">Component is noisy</option>
 											<option>Machine has high pitched sound</option>
 											<option>Machine has low rumble</option>
 											<option>Rubbing sound</option>
 											<option>Sounds like gravel through pump</option>
 										</select>
+										<div class="input-group-append">
+											<button class="btn-md btn-secondary" type="button">Add</button>
+										</div>
+
 									</div>
-									<div class="col-md-2 mb-3">
-										<label class="small text-muted" for="reportType">Add to list</label>
-										<button type="submit" class="btn btn-md btn-primary btn-block">+</button>
-									</div>
+
+
 								</div>
 
 								<div class="row">
@@ -859,8 +602,8 @@
 							</form>
 						</div>
 					</div>
-
-					<!--card-->
+					<!--./SUBFORM: Observations -->
+					<!--SUBFORM: Actions -->
 					<div class="card mb-4 wow fadeIn">
 						<div class="card-header font-weight-bold">Actions</div>
 						<!--Card content-->
@@ -892,13 +635,10 @@
 										</div>
 									</div>
 								</div>
-
-
 								<div class="form-group">
 									<label class="small text-muted" for="formExternalNotes">Additional Recommendations</label>
 									<textarea type="text" id="formExternalNotes" class="form-control" rows="3"></textarea>
 								</div>
-
 								<div class="row">
 									<div class="col-md-6 mb-3">
 										<label class="small text-muted" for="notification">Notification</label>
@@ -918,8 +658,8 @@
 							</form>
 						</div>
 					</div>
-
-					<!--card-->
+					<!--./SUBFORM: Actions -->
+					<!--SUBFORM: Attachments -->
 					<div class="card mb-4 wow fadeIn">
 						<div class="card-header font-weight-bold">Notes and Attachments</div>
 						<!--Card content-->
@@ -943,8 +683,171 @@
 							</form>
 						</div>
 					</div>
+					<!--./SUBFORM: Attachments -->
+					<!--DISPLAY:  Report Timeline -->
+					<div class="card mb-4" id="historicReports">
+						<!--Card content-->
+						<div class="card-body col-md-12">
+							<h5 class="grey-text font-weight-light">Report Timeline</h5>
+							<hr />
+							<div class="row">
+								<nav id="historicReportsNav" class="flex-column col-3 nav nav-pills">
+									<!-- *** note the fas fa-square icon class needs to change with condition: Prompt = text-danger; Plan = text-alert; Trending = text-warning; No action = text-default; *** -->
+									<div class="rpt-stepper"><a class="nav-link" href="#abc"> 18.05.19 <i class="fas fa-square text-danger pl-2"></i></a></div>
+									<div class="rpt-stepper"><a class="nav-link" href="#def"> 18.04.08 <i class="fas fa-square text-alert pl-2"></i></a></div>
+									<div class="rpt-stepper"><a class="nav-link" href="#ghi"> 18.03.28<i class="fas fa-square text-warning pl-2"></i></a></div>
+									<div class="rpt-stepper"><a class="nav-link" href="#jkl"> 18.03.04<i class="fas fa-square text-warning pl-2"></i></a></div>
+									<div class="rpt-stepper"><a class="nav-link" href="#mno"> 18.02.03 <i class="fas fa-square text-default pl-2"></i></a></div>
+								</nav>
+								<div id="historicReportsBody" data-spy="scroll" data-target="#historicReportsNav" data-offset="200" class="col-9">
+									<!--Report 1-->
+									<section id="abc">
+										<h4 class="border-danger">
+										<!-- *** note this class needs to change with condition: Prompt = border-danger; Plan = border-alert; Trending = border-warning; No action = border-default; ***-->
+										 Prompt Action
+										</h4>
+										<span><i class="far fa-calendar-alt"></i> 18.05.19 </span>
+
+										<!-- ***  Can we make these blocks not render if the result is null? ***-->
+										<!-- Observation Block -->
+										<h5>Observations</h5>
+										<ul class="mb-3 font-small">
+											<li>There is a rubbing sound </li>
+											<li>The casing is hot </li>
+											<li>This is a custom observation </li>
+										</ul>
+										<!-- ./Observation Block -->
+										<!-- Action Block -->
+										<h5 for="Actions">Actions</h5>
+										<ul class="mb-4 unstyled-list font-small">
+											<li>2.  Reduce monitoring interval </li>
+										</ul>
+										<!-- ./Action Block -->
+										<!-- Recommendations Block -->
+										<h5 for="formAddRec">Additional Recommendations</h5>
+										<p class="mb-3 font-small">
+											Recommend taking an oil sample ASAP to determine if any excessive wear metals are present.
+											If possible, conduct an inspection of the gear set while the machine is shutdown.
+											<br />If unit can’t be shut down in the short term, plan to monitor the unit every couple of days to track deterioration.
+											Recommend using this unit as a poor spare and avoid running if possible.
+										</p>
+										<!-- ./Recommendations Block -->
+										<!-- WO Block -->
+										<h5 for="workOrder">Work Order</h5>
+										<p> 123456789 </p>
+										<!-- ./WO Block -->
+										<!-- InternalNotes Block -->
+										<h5 for="formIntNotes">Analyst Notes (internal)</h5>
+										<p class="mb-3 font-small">
+											2018.05.19 MM Motor velocity New 9.9x (485Hz) impacting frequency, strongest @M2I.  NO MOTOR FAULTS CONFIGURED.  M2A Velocity - Idler DE BPFO  151.26Hz(3.77x) impacting fundamental at 0.346 mm/s in ( &lt;0.12 mm/s @G1 & G2)... Idler shaft NDE appears to have a rub G2Accel demod/twf)  - may need WO to be discussed w/ EDSC
+										</p>
+										<!-- ./InternalNotes Block -->
+										<!-- Attachment Block -->
+										<h5>Attachments</h5>
+										<p> X X X</p>
+										<!-- ./Attachment Block -->
+									</section>
+									<hr />
+									<!--Report 1-->
+									<!--Report 2-->
+									<section id="def">
+										<h4 class="border-alert"> Plan Action </h4>
+										<span><i class="far fa-calendar-alt"></i> 18.04.08 </span>
+
+										<h5 for="observationType">Observations</h5>
+										<ul class="mb-3 font-small">
+											<li>There is a rubbing sound </li>
+											<li>The casing is hot </li>
+										</ul>
+
+										<h5 for="Actions">Actions</h5>
+										<ul class="mb-4 unstyled-list font-small">
+											<li>1.  Lubricate and retake data </li>
+										</ul>
+
+										<h5 for="formAddRec">Additional Recommendations</h5>
+										<p class="mb-3 font-small">
+											Recommend taking an oil sample ASAP to determine if any excessive wear metals are present.
+											<br />If possible, conduct an inspection of the gear set while the machine is shutdown.
+											<br />If unit can’t be shut down in the short term, plan to monitor the unit every couple of days to track deterioration.
+											<br />Recommend using this unit as a poor spare and avoid running if possible.
+										</p>
+
+										<h5 for="workOrder">Work Order</h5>
+										<span class="infolabel"> 123456789 </span>
 
 
+										<h5 for="formIntNotes">Analyst Notes (internal)</h5>
+										<p class="mb-3 font-small">
+											No change
+										</p>
+
+										<h5>Attachments</h5>
+										<p> X X X</p>
+									</section>
+									<hr />
+
+									<!--Report 3-->
+									<section id="ghi">
+										<h4 class="border-warning"> Trending </h4>
+										<span><i class="far fa-calendar-alt"></i> 18.03.28 </span>
+
+										<h5>Observations</h5>
+										<ul class="mb-3 font-small">
+											<li>There is a rubbing sound </li>
+										</ul>
+
+										<h5 for="formIntNotes">Analyst Notes (internal)</h5>
+										<p class="mb-3 font-small">
+											2018.03.28 MM Impacting increasing in M2A, M2N, G1I velocity.  Likely 1x motor, but may also be IB Idler shaft BPFO (which is quite close to motor speed harmonics).   0.08mm/s fundamental in M2A & absent from demod.  TWF shows "Impact bundles" around 2x (100Hz), nothing definite at 1x or at 344hz however.  This signal is lower in G2 and gone in G3, no other changes, not severe impacting yet, ctm, 3
+										</p>
+
+										<h5>Attachments</h5>
+										<p> X X X</p>
+
+									</section>
+									<hr />
+
+									<!--Report 4-->
+									<section id="jkl" class="my-3">
+										<h4 class="border-warning">
+											<span>2018.03.04 </span> <span> Trending </span>
+										</h4>
+										<h5 for="observationType">Observations</h5>
+										<ul class="mb-3">
+											<li>There is a rubbing sound </li>
+										</ul>
+
+										<h5 for="formIntNotes">Analyst Notes (internal)</h5>
+										<p class="mb-3 font-small">
+											2018.03.04 MM M1N velocity - 223.64 Hz frequency (4.5x) trended suddenly (up to 0.4mm/s).  This signal may be a mix of idler shaft 2nd harmonic of, BSF and BPFO contributions to this single spectral amplitude, but the ratio is uncertain (note the 1x idler signal is not present in accel spectrum & legitimate peaks are present in the time wave form at the 223Hz frequency (i.e. the spectral spike clearly has real components, and is not purely an artifact of the fourier transform  trying to cope with signal distortion of other frequencies));  M2N hi res spectum has TWO spikes at 50 right next to each other (possible electrical implications); lower of the two chosen as 1x, otherwise stable/ok, CTM -3-
+										</p>
+
+									</section>
+									<hr />
+
+									<!--Report 5-->
+									<section id="mno" class="my-3">
+										<h4 class="border-default">
+											<span>2018.02.03 </span> <span> No Action </span>
+										</h4>
+										<h5 for="observationType">Observations</h5>
+										<ul class="mb-3">
+											<li>There is a rubbing sound </li>
+										</ul>
+
+										<h5 for="formIntNotes">Analyst Notes (internal)</h5>
+										<p class="mb-3 font-small">
+											JBKH - Vibration measurements are deemed low this survey. Slight noise coming from gearbox/coupling area. Specialists know about it and have accepted its OK. Possibly minor in service issue with the coupling.
+										</p>
+
+									</section>
+									<hr />
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--./DISPLAY: Report Timeline-->
 					<!--card-->
 					<div class="card mb-4 wow fadeIn">
 						<!--Card content-->
