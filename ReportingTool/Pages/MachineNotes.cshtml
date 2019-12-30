@@ -100,21 +100,20 @@
                         <div class="card-body">
 
                             <!-- Dropzone -->
-
-
-                            <div id="dropzone">
-                                <form method="post" asp-page-handler="UploadAttachments" class="dropzone needsclick" id="uploadattachmentsform">
-                                    <input type="hidden" asp-for="Machine_Train_Id" value=@Model.Current_Machine_Train.MachineTrainId>
-                                    <div class="dz-message needsclick" style="color: rgba(0,0,0,0.4);">
-                                        <i class="fas fa-file-import" style="font-size: 4rem; color: rgba(0,0,0,0.2); padding: 1rem;"></i>
-                                        <br />
-                                        Drop files here or click to upload.
-                                    </div>
-                                </form>
-                                @*<div class="text-center mt-4">
-                                        <button class="btn btn-info btn-md btnUploadAttachmentPost" id="btnUploadAttachmentPost" type="submit">Post</button>
-                                    </div>*@
+                            <form method="post" class="dropzone needsclick" id="uploadattachmentsform">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" asp-for="Machine_Train_Id" value=@Model.Current_Machine_Train.MachineTrainId>
+                                <div class=" dz-message needsclick" style="color: rgba(0,0,0,0.4);">
+                                    <i class="fas fa-file-import" style="font-size: 4rem; color: rgba(0,0,0,0.2); padding: 1rem;"></i>
+                                    <br />
+                                    Drop files here or click to upload.
+                                </div>
+                            </form>
+                            <div class="text-center mt-4">
+                                <button class="btn btn-info btn-md btnUploadAttachmentPost" id="btnUploadAttachmentPost" type="submit">Post</button>
                             </div>
+                            <!-- Dropzone -->
+
                         </div>
                     </div>
                     <!--Add attachments-->

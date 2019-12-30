@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +29,7 @@ namespace Reportingtool.Pages
 
         public Machine_Train Current_Machine_Train { get; set; }
 
-        public Machine_Train_Files New_Machine_Train_File = new Machine_Train_Files ();
+        
 
         public List<Machine_Train_Files> Machine_Train_File_All { get; set; }
 
@@ -173,10 +173,15 @@ namespace Reportingtool.Pages
             return RedirectToPage("/Machinenotes", new { id = Edit_Machine_Note.MachineTrainId });
         }
 
-        public async Task<IActionResult> OnPostUploadAttachments([FromForm] ICollection<IFormFile> files)
+        
+        public IActionResult OnPostUploadAttachments()
         {
-            foreach (var file in files)
+            var data = Request.Form;
+
+            foreach (var file in data.Files)
             {
+                Machine_Train_Files New_Machine_Train_File = new Machine_Train_Files();
+                
                 Console.WriteLine(file.FileName);
                 New_Machine_Train_File.FileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file.FileName);
                 New_Machine_Train_File.FK_MachineTrainId = Machine_Train_Id;
@@ -186,7 +191,7 @@ namespace Reportingtool.Pages
                 _context.Machine_Train_Files.Add(New_Machine_Train_File);
                 try
                 {
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -202,13 +207,11 @@ namespace Reportingtool.Pages
                 string save_path = $"wwwroot\\MachineAttach\\{New_Machine_Train_File.FileName}";
                 using (var fileStream = new FileStream(save_path, FileMode.Create))
                 {
-                    await file.CopyToAsync(fileStream);
+                    file.CopyTo(fileStream);
                 }
                 
-                
             }
-
-            return RedirectToPage("/Machinenotes", new { id = Machine_Train_Id });
+            return new RedirectToPageResult("/Machinenotes", new { id = Machine_Train_Id });
         }
         private bool MachineFileExists(int id)
         {
