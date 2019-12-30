@@ -7,16 +7,19 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+
 namespace Reportingtool.Pages
 {
     public class BasePageModel : PageModel
     {
+        public string Current_User { get; set; }
+
         public BasePageModel()
         {
+
             _GetUserName();
         }
 
-        public string Current_User { get; set; }
         public void _GetUserName()
         {
             Current_User = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
