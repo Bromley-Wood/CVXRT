@@ -568,16 +568,16 @@ ul.ks-cboxtags {
 }
 
 #historicReportsNav {
-	justify-content: space-evenly;
+	justify-content: space-between;
 	/* border-right: 1px solid rgba(0,0,0,0.1);*/
 	text-align: right;
 }
 
-	#historicReportsNav .rpt-stepper {
+	#historicReportsNav .rpt-stepper:nth-last-child(n+2) {
 		flex-grow: 1;
 	}
 
-		#historicReportsNav .rpt-stepper::after {
+		#historicReportsNav .rpt-stepper:nth-last-child(n+2)::after {
 			content: "";
 			display: block;
 			height: 70%;
@@ -636,14 +636,6 @@ ul.ks-cboxtags {
 	border-color: #f57c00 !important;
 }
 
-/*
-:target {
-	display: block;
-	position: relative;
-	top: 50px;
-	visibility: hidden;
-} */
-
 /* attempt to fix scrollspy*/
 :target::before {
 	content: "";
@@ -652,6 +644,204 @@ ul.ks-cboxtags {
 	margin: -60px 0 0; /* negative fixed header height */
 }
 
+/* input group mod to remove margins */
+.input-group button {
+	margin: 0;
+	box-shadow: none;
+	border: 1px solid #ced4da;
+	border-radius: 4px;
+	background-color: white;
+	color: grey;
+	padding: 0 1rem;
+}
+
+.input-group-append button {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+
+.rpt-input-group > .rpt-select-wrapper {
+	flex-grow: 1;
+}
+
+
+.rpt-input-group .input-group-prepend span{
+	width: 100%;
+}
+
+
+/* https://andrejgajdos.com/custom-select-dropdown/ */
+
+.rpt-select-wrapper *,
+.rpt-select-wrapper *:after,
+.rpt-select-wrapper *:before {
+	box-sizing: border-box;
+}
+
+.rpt-select-wrapper {
+	position: relative;
+	user-select: none;
+}
+
+.rpt-input-group .rpt-select-wrapper:nth-child(2) .rpt-select {
+	border-width: 0 1px 0 1px;
+}
+
+.rpt-select {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	border-width: 0 1px 0 0;
+	border-style: solid;
+	border-color: #ced4da;
+	font-size: 1rem;
+}
+
+.rpt-select__trigger {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.375rem 0.8rem;
+	font-weight: 300;
+	background: #ffffff;
+	cursor: pointer;
+	border-width: 1px 0 1px 0;
+	border-style: solid;
+	border-color: #ced4da;
+}
 
 
 
+.rpt-options {
+	position: absolute;
+	display: block;
+	top: 100%;
+	left: 0;
+	right: 0;
+	border: 1px solid #394a6d;
+	border-top: 0;
+	background: #fff;
+	transition: all 0.5s;
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	z-index: 2;
+}
+
+.rpt-select.open .rpt-options {
+	opacity: 1;
+	visibility: visible;
+	pointer-events: all;
+}
+
+
+.rpt-header {
+	position: relative;
+	display: block;
+	padding: 0.375rem 0.8rem;
+	font-weight: 300;
+	font-size: 0.7rem;
+	color: #3b3b3b;
+}
+
+.rpt-option {
+	position: relative;
+	display: block;
+	padding: 0.375rem 0.8rem;
+	font-weight: 300;
+	color: #3b3b3b;
+	cursor: pointer;
+	transition: all 0.5s;
+}
+
+	.rpt-option:hover {
+		cursor: pointer;
+		background-color: #b2b2b2;
+	}
+
+	.rpt-option.selected {
+		color: #ffffff;
+		background-color: #305c91;
+	}
+
+
+
+.arrow {
+	position: relative;
+	height: 12px;
+	width: 12px;
+}
+
+	.arrow::before, .arrow::after {
+		content: "";
+		position: absolute;
+		bottom: 0px;
+		width: 0.1rem;
+		height: 100%;
+		transition: all 0.5s;
+	}
+
+	.arrow::before {
+		left: -4px;
+		transform: rotate(45deg);
+		background-color: #394a6d;
+	}
+
+	.arrow::after {
+		left: 4px;
+		transform: rotate(-45deg);
+		background-color: #394a6d;
+	}
+
+.open .arrow::before {
+	left: -4px;
+	transform: rotate(-45deg);
+}
+
+.open .arrow::after {
+	left: 4px;
+	transform: rotate(45deg);
+}
+
+/* Line headings */
+/* http://vclever.com/blog/how-to-style-a-heading-with-horizontal-lines-either-side-using-css/ */
+
+h1.line-through {
+	overflow: hidden;
+	text-align: center;
+	font-size: 1rem;
+	font-weight: 300;
+	color: #59698d;
+}
+
+	h1.line-through:before,
+	h1.line-through:after {
+		background-color: #d0d6e2;
+		content: "";
+		display: inline-block;
+		height: 1px;
+		position: relative;
+		vertical-align: middle;
+		width: 50%;
+	}
+
+	h1.line-through:before {
+		right: 0.5em;
+		margin-left: -50%;
+	}
+
+	h1.line-through:after {
+		left: 0.5em;
+		margin-right: -50%;
+	}
+
+/* bs list=group-flush fix .. not sure why this isn't working */
+.list-group.list-group-flush li:first-child {
+	border-top: 0;
+}
+
+.list-group.list-group-flush li:last-child {
+	border-bottom: 0;
+}
