@@ -1,0 +1,257 @@
+﻿@page "{id:int?}"
+@model Reportingtool.Pages.MachineNotesModel
+@{
+    ViewData["Title"] = Model.Current_User + " - Machine Notes";
+}
+
+<!--Main layout-->
+<main class="mt-5 pt-5">
+    <div class="container">
+
+        <!--Section: Post-->
+        <section class="mt-4">
+
+            <!--Grid row-->
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-8 mb-4">
+
+                    <!--Featured Image-->
+                    <div class="mb-4 wow fadeIn">
+                        <div class="container">
+                            <h2 class="display-4">
+                                @Model.Current_Machine_Train.Machine_Train_Name
+                            </h2>
+                            <p class="lead">
+                                @Model.Current_Machine_Train.Machine_Train_Long_Name
+                            </p>
+                            <hr />
+                        </div>
+                    </div>
+                    <!--/.Featured Image-->
+                    <!--Display Machine Notes-->
+                    <div class="card mb-4 wow fadeIn">
+
+                        <!--Card content-->
+                        <div class="card-body">
+
+                            <p class="h5 my-4">Displayed Notes </p>
+
+                            @foreach (var item in Model.Machine_Train_Notes_All.Where(n => n.MachineTrainNote_ShowOnReport == true).ToList())
+                            {
+                                <blockquote class="machine-note blockquote">
+                                    <p class="mb-0">@item.MachineTrain_Note</p>
+                                    <footer class="blockquote-footer">
+                                        <cite>@item.Analyst_Name - @item.Note_Date.ToString("dd MMMM yyyy")</cite>
+                                        <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalArchiveNote" data-machinenoteid="@item.PK_MachineTrainNoteId"><i class="fas fa-archive"></i></button>
+                                        <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalEditNote" data-machinenoteid="@item.PK_MachineTrainNoteId" data-machinenote="@item.MachineTrain_Note"><i class="fas fa-pen"></i></button>
+                                    </footer>
+                                </blockquote>
+                            }
+
+                            <p class="h5 my-4">Additional Machine Information </p>
+
+                            @foreach (var item in Model.Machine_Train_Notes_All.Where(n => n.MachineTrainNote_ShowOnReport == false).ToList())
+                            {
+                                <p class="machine-note">
+                                    @item.MachineTrain_Note
+                                    <span class="blockquote-footer">
+                                        <cite>@item.Analyst_Name - @item.Note_Date.ToString("dd MMMM yyyy")</cite>
+                                        <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalArchiveNote" data-machinenoteid="@item.PK_MachineTrainNoteId"><i class="fas fa-archive"></i></button>
+                                        <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalEditNote" data-machinenoteid="@item.PK_MachineTrainNoteId" data-machinenote="@item.MachineTrain_Note"><i class="fas fa-pen"></i></button>
+                                    </span>
+                                </p>
+                            }
+
+                        </div>
+
+                    </div>
+                    <!--Display Machine Notes-->
+                    <!--Create New Machine Note-->
+                    <div class="card mb-3 wow fadeIn">
+                        <div class="card-header font-weight-bold">Post a note</div>
+                        <div class="card-body">
+
+                            <!-- Default form reply -->
+                            <form method="post" asp-page-handler="createnewmachinenote" id="createnewmachinenote">
+                                <input type="hidden" asp-for="New_Machine_Note.MachineTrainId" value=@Model.Current_Machine_Train.MachineTrainId>
+                                <!-- Comment -->
+                                <div class="form-group">
+                                    <label for="replyFormComment">Your comment</label>
+                                    <textarea maxlength="300" class="form-control" id="replyFormComment" rows="5" asp-for="New_Machine_Note.MachineTrain_Note"></textarea>
+                                </div>
+                                <hr>
+                                <fieldset class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="checkbox-shownonreport" asp-for="New_Machine_Note.MachineTrainNote_ShowOnReport">
+                                    <label for="checkbox-shownonreport" class="form-check-label dark-grey-text">Show this note when raising reports</label>
+                                </fieldset>
+                                <!-- Subtmit Post -->
+                                <div class="text-center mt-4">
+                                    <button class="btn btn-info btn-md btnCreateNewMachineNote" type="submit">Post</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!--Create New Machine Note-->
+                    <!--Add attachments-->
+                    <div class="card mb-3 wow fadeIn">
+                        <div class="card-header font-weight-bold">Add attachments</div>
+                        <div class="card-body">
+
+                            <!-- Dropzone -->
+                            <form method="post" class="dropzone needsclick" id="uploadattachmentsform">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" asp-for="Machine_Train_Id" value=@Model.Current_Machine_Train.MachineTrainId>
+                                <div class=" dz-message needsclick" style="color: rgba(0,0,0,0.4);">
+                                    <i class="fas fa-file-import" style="font-size: 4rem; color: rgba(0,0,0,0.2); padding: 1rem;"></i>
+                                    <br />
+                                    Drop files here or click to upload.
+                                </div>
+                            </form>
+                            <div class="text-center mt-4">
+                                <button class="btn btn-info btn-md btnUploadAttachmentPost" id="btnUploadAttachmentPost" type="submit">Post</button>
+                            </div>
+                            <!-- Dropzone -->
+
+                        </div>
+                    </div>
+                    <!--Add attachments-->
+
+                </div>
+                <!--Grid column-->
+                <!--Grid column-->
+                <div class="col-md-4 mb-4">
+
+                    <!--Card : Search Machine-->
+                    <div class="card mb-4 text-center wow fadeIn">
+
+                        <div class="card-header">Search for a Machine Train</div>
+
+                        <!--Card content-->
+                        <div class="card-body">
+
+                            <form method="post" asp-page-handler="gotomachinetrain" id="gotomachinetrainform"></form>
+
+                            <div class="input-group mb-3 ui-widget">
+                                <input type="text" class="form-control" id="gotomachinetrainname" placeholder=@Model.Current_Machine_Train.Machine_Train_Name>
+
+                                <input type="hidden" id="gotomachinetrainid" class="form-control" asp-for="Machine_Train_Id" form="gotomachinetrainform">
+
+                                <div class="input-group-append">
+                                    <button class="btn btn-md btn-outline-primary m-0 px-3 py-2 z-depth-0 waves-effect btnGoToMachineTrain" type="button" id="btnGoToMachineTrain">Go</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!--/.Card : Search Machine-->
+                    <!--Attach Files-->
+                    <div class="card mb-4 wow fadeIn">
+
+                        <div class="card-header">Attached Files</div>
+
+                        <!--Card content-->
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                @foreach (var item in Model.Machine_Train_File_All)
+                                {
+                                    <li class="media">
+                                        <img class="d-flex mr-3" src="~/MachineAttach/@(item.FileName)" alt="Generic placeholder image" width=25%, height=25%>
+                                        <div class="media-body">
+                                            Uploaded By: @item.Uploaded_By
+                                            <br />
+                                            Uploaded Date: @item.Upload_Date
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+
+                    </div>
+                    <!--Attach Files-->
+
+                </div>
+                <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+        </section>
+        <!--Section: Post-->
+        <!--Edit machine note form-->
+        <form method="post" asp-page-handler="editmachinenote" id="editmachinenoteform"></form>
+        <!--Edit machine note form-->
+        <!--Edit Machine Notes Modal-->
+        <div class="modal fade modalEditClass modalEditNote" id="modalEditNote" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit Route</h4>
+                        <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <!-- Comment -->
+                        <div class="form-group">
+                            <label for="replyFormComment">Your comment</label>
+                            <textarea maxlength="300" class="form-control" id="editmachinenotecontent" rows="5" asp-for="Machine_Train_Note_Content" form="editmachinenoteform"></textarea>
+                        </div>
+
+                        <input type="hidden" class="form-control" id="machinetrainnoteid" asp-for="Machine_Train_Note_Id" form="editmachinenoteform">
+
+                        <fieldset class="form-check">
+                            <input type="checkbox" class="form-check-input" id="showmachinenoteonreport" asp-for="Machine_Train_Note_ShowOnReport" form="editmachinenoteform">
+                            <label for="showmachinenoteonreport" class="form-check-label dark-grey-text">Show this note when raising reports</label>
+                        </fieldset>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center editInsideWrapper">
+                        <button class="btn btn-outline-secondary btn-block editInside btnYesEditMachineNote" id="btnYesEditMachineNote" data-dismiss="modal">
+                            Edit form
+                            <i class="fas fa-paper-plane-o ml-1"></i>
+                        </button>
+                        <!-- UPDATE Route_Call SET Schedule_Date = '2019-12-05'  WHERE PK_CallId = (this id);-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Edit Machine Notes Modal-->
+        <!--archive machine note form-->
+        <form method="post" asp-page-handler="archivemachinenote" id="archivemachinenoteform"></form>
+        <!--archive machine note form-->
+        <!--Archive Machine Notes Modal-->
+        <div class="modal fade modalArchiveNote" id="modalArchiveNote" tabindex="-1" role="dialog" aria-labelledby="modalArchiveNote"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Archive this note</h4>
+                        <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <p class="text-center">
+                            Are you sure you want to archive this note?  <br />
+                            You will need to contact an administrator to retrieve it from archive.
+                        </p>
+                        <input type="hidden" class="form-control" asp-for="Machine_Train_Note_Id" form="archivemachinenoteform">
+                    </div>
+
+                    <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
+
+
+                        <button type="submit" class="btn btn-danger btnYesClass btnYesArachiveMachineNote" id="btnYesArachiveMachineNote" data-dismiss="modal">Yes</button>
+
+                        <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Archive Machine Notes Modal-->
+
+    </div>
+</main>

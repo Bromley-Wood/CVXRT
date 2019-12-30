@@ -15,6 +15,6 @@ namespace ReportingTool.Models
         #nullable enable
         public string? Comments { get; set; }
         [DataType(DataType.Date)] public DateTime? Reported_Missed_Date { get; set; }
-
+        public int? Origin_CallId { get; set; }
     }
 }

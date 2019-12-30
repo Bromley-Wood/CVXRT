@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,10 +27,14 @@ namespace Reportingtool
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(IISDefaults.AuthenticationScheme);
+
             services.AddMvc(option => option.EnableEndpointRouting = false);
 
             var connection = configuration.GetConnectionString("CVXDevDb");
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
+
+
         }
 
      

@@ -4,11 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReportingTool.Models
 {
-    [Table("Report")]
+    [Table("tst_Report")]
     public class Report
     {
         [Key] public int PK_ReportId { get; set; }
-        public int FK_FaultId { get; set; }
+        
+        [Column("FK_FaultId")]
+        public int FaultId { get; set; }
 
         public int FK_ConditionId { get; set; }
         public int FK_ReportTypeId { get; set; }
@@ -34,6 +36,7 @@ namespace ReportingTool.Models
         public string? Reviewer_Name { get; set; }
 
         public bool? Report_IsActive { get; set; }
+        public int? Origin_CallId { get; set; }
 
     }
 }

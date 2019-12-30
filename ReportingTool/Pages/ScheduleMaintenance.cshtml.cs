@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Reportingtool.Pages
 {
-    public class ScheduleMaintenanceModel : PageModel
+    public class ScheduleMaintenanceModel : BasePageModel
     {
         private readonly ReportingTool.Models.DatabaseContext _context;
 
@@ -29,8 +29,6 @@ namespace Reportingtool.Pages
         public List<List<Route_Call>> Route_Call_Week_List = new List<List<Route_Call>>();
         public List<double> WeekHourList = new List<double>();
 
-        public IList<Machine_Train> Machine_Train_All { get; set; }
-
         public IList<V_Route_Machines> V_Route_Machines_All { get; set; }
 
         public Dictionary<int, List<V_Route_Machines>> Machine_List_Dict = new Dictionary<int, List<V_Route_Machines>>();
@@ -38,7 +36,6 @@ namespace Reportingtool.Pages
 
         public async Task OnGetAsync()
         {
-
             V_Route_Machines_All = await _context.V_Route_Machines
                 .AsNoTracking()
                 .ToListAsync();
@@ -91,6 +88,7 @@ namespace Reportingtool.Pages
 
             var Updated_Route_Call = await _context.Route_Call.FirstOrDefaultAsync(m => m.PK_CallId == Edit_Route_Call.PK_CallId);
             Updated_Route_Call.Schedule_Date = Edit_Route_Call.Schedule_Date;
+            Updated_Route_Call.Modified_By = Current_User;
 
             _context.Attach(Updated_Route_Call).State = EntityState.Modified;
 
@@ -125,8 +123,14 @@ namespace Reportingtool.Pages
 
             for (int i = 0; i < AreChecked.Count; ++i)
             {
-                var updateQueryString = "UPDATE Route_Call SET Complete_Date='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' WHERE PK_CallId=" + AreChecked[i] + ";";
-                _context.Database.ExecuteSqlRaw(updateQueryString);
+
+                //var updateQueryString = "UPDATE tst_Route_Call SET Complete_Date='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' WHERE PK_CallId=" + AreChecked[i] + ";";
+                //_context.Database.ExecuteSqlRaw(updateQueryString);
+
+                var Updated_Route_Call = await _context.Route_Call.FirstOrDefaultAsync(m => m.PK_CallId == AreChecked[i]);
+                Updated_Route_Call.Complete_Date = DateTime.Now;
+                _context.Attach(Updated_Route_Call).State = EntityState.Modified;
+
 
                 try
                 {

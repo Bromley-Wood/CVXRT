@@ -7,22 +7,13 @@ using System.Threading.Tasks;
 
 namespace Reportingtool.Pages
 {
-    public class ReviewReportsModel : PageModel
+    public class ReviewReportsModel : BasePageModel
     {
         private readonly ReportingTool.Models.DatabaseContext _context;
 
         public ReviewReportsModel(ReportingTool.Models.DatabaseContext context)
         {
             _context = context;
-        }
-
-        public IList<Action> Action { get; set; }
-        public async Task OnGetAsync()
-        {
-            //Action = await _context.Action.ToListAsync();
-        }
-
-        
-        
+        }        
     }
 }

@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ReportingTool.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Reportingtool.Pages
 {
-    public class IndexModel : PageModel
+    public class IndexModel : BasePageModel
     {
         private readonly ReportingTool.Models.DatabaseContext _context;
 
@@ -16,13 +19,19 @@ namespace Reportingtool.Pages
             _context = context;
         }
 
-        public IList<Fault_Type> Fault_Type { get; set; }
-        public async Task OnGetAsync()
+        
+        public IActionResult OnGetSearch(string term)
         {
-            // Fault_Type = await _context.Fault_Type.ToListAsync();
+            var machines = new object();
+
+            var names = _context.Machine_Train
+                .Where(m => m.Machine_Train_Name.Contains(term))
+                .Select(m => new { label = m.Machine_Train_Name, value = m.MachineTrainId })
+                .ToList();
+            return new JsonResult(names);
         }
 
-        
-        
+
+
     }
 }

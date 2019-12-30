@@ -338,4 +338,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
-ReportingTool/appsettings.json
+
+
+ReportingTool/wwwroot/MachineAttach/
