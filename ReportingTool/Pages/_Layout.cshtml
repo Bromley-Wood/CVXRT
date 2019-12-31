@@ -18,6 +18,8 @@
     <link href="~/css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="~/css/style.css" rel="stylesheet">
+    <!-- Dropzone -->
+    <link href="~/css/dropzone.min.css" rel="stylesheet">
     <style type="text/css">
         html,
         body,
@@ -113,9 +115,7 @@
     <!-- Navbar -->
 
 
-    <div class="container">
         @RenderBody()
-    </div>
 
     <!--Footer-->
     <footer class="page-footer text-center font-small mt-4 wow fadeIn">
@@ -194,6 +194,12 @@
         // Animations initialization
         new WOW().init();
     </script>
+
+    <!-- Droplist -->
+    <script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
+
+    <!-- Dropzone JavaScript -->
+    <script type="text/javascript" src="~/js/dropzone.min.js"></script>
 
     <!-- Navbar -->
     <script>
