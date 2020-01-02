@@ -34,6 +34,8 @@ namespace Reportingtool
             var connection = configuration.GetConnectionString("CVXDevDb");
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
 
+            services.AddDbContext<Reportingtool.Models.Db.DEV_ClientProjectContext>(options => options.UseSqlServer(connection));
+
 
         }
 

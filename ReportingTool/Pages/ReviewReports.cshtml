@@ -126,69 +126,102 @@
                 <!-- Queue -->
                 <h4 class="d-flex justify-content-between align-items-center mt-5 mx-3">
                     <span>In Queue</span>
-                    <span class="badge badge-secondary badge-pill">7</span>
+                    <span class="badge badge-secondary badge-pill">@Model.VTstReportSummary_InProgress.Count</span>
                 </h4>
                 <!--card-->
                 <div class="card mb-4 wow fadeIn">
                     <!--Card content-->
                     <div class="list-group" id="machinesInProgress" role="tablist">
-                        <h5 class="ip-sub-header list-group-item d-flex justify-content-between">
-                            <span>Unit 1000</span>
-                            <strong>3 Reports</strong>
-                        </h5>
-                        <a class="list-group-item d-flex justify-content-between lh-condensed" id="rptid1" data-toggle="list" href="#" role="tab">
-                            <div>
-                                <h6 class="my-0">Machine 1</h6>
-                                <small>New Fault</small>
-                            </div>
-                            <span></span>
-                        </a>
-                        <a class="list-group-item d-flex justify-content-between lh-condensed" id="rptid2" data-toggle="list" href="#" role="tab">
-                            <div>
-                                <h6 class="my-0">Machine 2</h6>
-                                <small>Component & Fault Type</small>
-                            </div>
-                            <span>Plan Action</span>
-                        </a>
-                        <a class="list-group-item d-flex justify-content-between lh-condensed" id="rptid3" data-toggle="list" href="#" role="tab">
-                            <div>
-                                <h6 class="my-0">Machine 3</h6>
-                                <small>Component & Fault Type</small>
-                            </div>
-                            <span>Trending</span>
-                        </a>
-                        <h5 class="ip-sub-header list-group-item d-flex justify-content-between">
-                            <span>Unit 1500</span>
-                            <strong>4 Reports</strong>
-                        </h5>
-                        <a class="list-group-item d-flex justify-content-between lh-condensed disabled" id="rptid5" data-toggle="list" href="#" role="tab">
-                            <div>
-                                <h6 class="my-0">44GB403A</h6>
-                                <small>Motor - Bearing Defect</small>
-                            </div>
-                            <span>Plan Action</span>
-                        </a>
-                        <a class="list-group-item d-flex justify-content-between lh-condensed" id="rptid6" data-toggle="list" href="#" role="tab">
-                            <div>
-                                <h6 class="my-0">Machine 3</h6>
-                                <small>Component & Fault Type</small>
-                            </div>
-                            <span>Trending</span>
-                        </a>
-                        <a class="list-group-item d-flex justify-content-between lh-condensed" id="rptid2" data-toggle="list" href="#" role="tab">
-                            <div>
-                                <h6 class="my-0">Machine 3</h6>
-                                <small>Component & Fault Type</small>
-                            </div>
-                            <span>No Action</span>
-                        </a>
-                        <a class="list-group-item d-flex justify-content-between lh-condensed" id="rptid2" data-toggle="list" href="#" role="tab">
-                            <div>
-                                <h6 class="my-0">Machine 3</h6>
-                                <small>Component & Fault Type</small>
-                            </div>
-                            <span>No Action</span>
-                        </a>
+                        @for (int idx = 0; idx < Model.UnitReference_InProgress.Count; ++idx)
+                        {
+                            var unit_ref = Model.UnitReference_InProgress[idx];
+                            var VTstReportSummary_InProgress_Per_Unit = Model.VTstReportSummary_InProgress.Where(r => r.UnitReference == @unit_ref).ToList();
+                            <h5 class="ip-sub-header list-group-item d-flex justify-content-between">
+                                <span>Unit @unit_ref</span>
+                                <strong>@VTstReportSummary_InProgress_Per_Unit.Count Reports</strong>
+                            </h5>
+
+                            foreach (var in_p_report in VTstReportSummary_InProgress_Per_Unit)
+                            {
+                                <a class="list-group-item d-flex justify-content-between lh-condensed" id="rptid@(idx)" data-toggle="list" href="#" role="tab">
+                                    @{
+                                        if (in_p_report.FaultTypeId == null)
+                                        {
+                                            <div>
+                                                <h6 class="my-0">@in_p_report.MachineTrain</h6>
+                                                <small>New Fault</small>
+                                            </div>
+                                            <span></span>
+                                        }
+                                        else
+                                        {   <div>
+                                                <h6 class="my-0">@in_p_report.MachineTrain</h6>
+                                                <small>@in_p_report.PrimaryComponentType & @in_p_report.FaultType</small>
+                                            </div>
+                                            <span>@in_p_report.Condition</span>
+                                        }
+                                    }
+                                </a>
+                            }
+                        }
+
+                        @*<h5 class="ip-sub-header list-group-item d-flex justify-content-between">
+                                <span>Unit 1000</span>
+                                <strong>3 Reports</strong>
+                            </h5>
+                            <a class="list-group-item d-flex justify-content-between lh-condensed" id="rptid1" data-toggle="list" href="#" role="tab">
+                                <div>
+                                    <h6 class="my-0">Machine 1</h6>
+                                    <small>New Fault</small>
+                                </div>
+                                <span></span>
+                            </a>
+                            <a class="list-group-item d-flex justify-content-between lh-condensed" id="rptid2" data-toggle="list" href="#" role="tab">
+                                <div>
+                                    <h6 class="my-0">Machine 2</h6>
+                                    <small>Component & Fault Type</small>
+                                </div>
+                                <span>Plan Action</span>
+                            </a>
+                            <a class="list-group-item d-flex justify-content-between lh-condensed" id="rptid3" data-toggle="list" href="#" role="tab">
+                                <div>
+                                    <h6 class="my-0">Machine 3</h6>
+                                    <small>Component & Fault Type</small>
+                                </div>
+                                <span>Trending</span>
+                            </a>
+                            <h5 class="ip-sub-header list-group-item d-flex justify-content-between">
+                                <span>Unit 1500</span>
+                                <strong>4 Reports</strong>
+                            </h5>
+                            <a class="list-group-item d-flex justify-content-between lh-condensed disabled" id="rptid5" data-toggle="list" href="#" role="tab">
+                                <div>
+                                    <h6 class="my-0">44GB403A</h6>
+                                    <small>Motor - Bearing Defect</small>
+                                </div>
+                                <span>Plan Action</span>
+                            </a>
+                            <a class="list-group-item d-flex justify-content-between lh-condensed" id="rptid6" data-toggle="list" href="#" role="tab">
+                                <div>
+                                    <h6 class="my-0">Machine 3</h6>
+                                    <small>Component & Fault Type</small>
+                                </div>
+                                <span>Trending</span>
+                            </a>
+                            <a class="list-group-item d-flex justify-content-between lh-condensed" id="rptid2" data-toggle="list" href="#" role="tab">
+                                <div>
+                                    <h6 class="my-0">Machine 3</h6>
+                                    <small>Component & Fault Type</small>
+                                </div>
+                                <span>No Action</span>
+                            </a>
+                            <a class="list-group-item d-flex justify-content-between lh-condensed" id="rptid2" data-toggle="list" href="#" role="tab">
+                                <div>
+                                    <h6 class="my-0">Machine 3</h6>
+                                    <small>Component & Fault Type</small>
+                                </div>
+                                <span>No Action</span>
+                            </a>*@
                         <div class="ip-sub-header list-group-item d-flex justify-content-between">
                             <button type="submit" class="btn btn-block" data-toggle="modal" data-target="#modalLoadReport">
                                 Load selected report
