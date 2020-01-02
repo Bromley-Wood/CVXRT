@@ -52,15 +52,6 @@ namespace Reportingtool.Models.Db
         public virtual DbSet<VRoutes> VRoutes { get; set; }
         public virtual DbSet<VTstReportSummary> VTstReportSummary { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=SVT-QLIKVIEW-D;Database=DEV_ClientProject;User Id=mhmuser;password=machinelearning2018");
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Action>(entity =>
