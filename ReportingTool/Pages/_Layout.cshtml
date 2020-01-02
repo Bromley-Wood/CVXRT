@@ -54,225 +54,219 @@
 
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
-        <div class="container">
-            <!-- Brand -->
-            <a class="navbar-brand" asp-area="" asp-page="/Index">
-                <strong>Home</strong>
-            </a>
+	<!-- Navbar -->
+	<nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+		<div class="container">
+			<!-- Brand -->
+			<a class="navbar-brand" asp-area="" asp-page="/Index">
+				<strong>Home</strong>
+			</a>
 
-            <!-- Collapse -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+			<!-- Collapse -->
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-            <!-- Links -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<!-- Links -->
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                <!-- Left -->
-                <ul class="navbar-nav mr-auto">
+				<!-- Left -->
+				<ul class="navbar-nav mr-auto">
 
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-page="/ScheduleMaintenance">Schedule Work</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-page="/CreateReports">Create Reports</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-page="/MachineNotes" asp-route-id="1">Machine Notes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-page="/ReviewReports">Review Reports</a>
-                    </li>
-                </ul>
+					<li class="nav-item">
+						<a class="nav-link" asp-area="" asp-page="/ScheduleMaintenance">Schedule Routes</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-area="" asp-page="/CreateReports">Generate Reports</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-area="" asp-page="/ReviewReports">Complete Reports</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-area="" asp-page="/MachineNotes" asp-route-id="1">Machine Notes</a>
+					</li>
+				</ul>
 
-                <!-- Right -->
-                <ul class="navbar-nav nav-flex-icons">
-                    <li class="nav-item">
-                        <a href="https://www.facebook.com/mdbootstrap" class="nav-link" target="_blank">
-                            <i class="fas fa-inbox"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded"
-                           target="_blank">
-                            <i class="fas fa-question-circle"></i> Help
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- Navbar -->
-
-
-    <div class="container">
-        @RenderBody()
-    </div>
-
-    <!--Footer-->
-    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
-        <!--Call to action-->
-        <div class="pt-4">
-            <a class="btn btn-outline-white" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank" role="button">
-                Download MDB
-                <i class="fas fa-download ml-2"></i>
-            </a>
-            <a class="btn btn-outline-white" href="https://mdbootstrap.com/education/bootstrap/" target="_blank" role="button">
-                Start free tutorial
-                <i class="fas fa-graduation-cap ml-2"></i>
-            </a>
-        </div>
-        <!--/.Call to action-->
-
-        <hr class="my-4">
-
-        <!-- Social icons -->
-        <div class="pb-4">
-            <a href="https://www.facebook.com/mdbootstrap" target="_blank">
-                <i class="fab fa-facebook-f mr-3"></i>
-            </a>
-
-            <a href="https://twitter.com/MDBootstrap" target="_blank">
-                <i class="fab fa-twitter mr-3"></i>
-            </a>
-
-            <a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
-                <i class="fab fa-youtube mr-3"></i>
-            </a>
-
-            <a href="https://plus.google.com/u/0/b/107863090883699620484" target="_blank">
-                <i class="fab fa-google-plus-g mr-3"></i>
-            </a>
-
-            <a href="https://dribbble.com/mdbootstrap" target="_blank">
-                <i class="fab fa-dribbble mr-3"></i>
-            </a>
-
-            <a href="https://pinterest.com/mdbootstrap" target="_blank">
-                <i class="fab fa-pinterest mr-3"></i>
-            </a>
-
-            <a href="https://github.com/mdbootstrap/bootstrap-material-design" target="_blank">
-                <i class="fab fa-github mr-3"></i>
-            </a>
-
-            <a href="http://codepen.io/mdbootstrap/" target="_blank">
-                <i class="fab fa-codepen mr-3"></i>
-            </a>
-        </div>
-        <!-- Social icons -->
-        <!--Copyright-->
-        <div class="footer-copyright py-3">
-            © 2019 Copyright:
-            <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>
-        </div>
-        <!--/.Copyright-->
-
-    </footer>
-    <!--/.Footer-->
-    <!-- SCRIPTS -->
-    <!-- JQuery -->
-    <script type="text/javascript" src="~/js/jquery-3.4.1.min.js"></script>
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="~/js/popper.min.js"></script>
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="~/js/mdb.min.js"></script>
-
-    <script type="text/javascript" src="~/js/site.js"></script>
-    <!-- Initializations -->
-    <script type="text/javascript">
-        // Animations initialization
-        new WOW().init();
-    </script>
-
-    <!-- Navbar -->
-    <script>
-        $(function () {
-            $('a').each(function () {
-                if ($(this).prop('href') == window.location.href) {
-                    $(this).addClass('active'); $(this).parents('li').addClass('active');
-                }
-            });
-        });
-    </script>
+				<!-- Right -->
+				<ul class="navbar-nav nav-flex-icons">
+					<li class="nav-item">
+						<a href="#" class="nav-link">
+							<i class="fas fa-inbox"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="#" class="nav-link">
+							<i class="fas fa-chart-bar"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link border border-light rounded">
+							<i class="fas fa-user-circle"></i> @Model.Current_User
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- Navbar -->
 
 
-    @if (ViewData["Title"].ToString().Contains("Create Reports"))
-    {
-        <script type="text/javascript" src="~/js/create_reports.js"></script>
-    }
-    @if (ViewData["Title"].ToString().Contains("Machine Notes"))
-    {
+		@RenderBody()
 
 
-        <!-- Dropzone JavaScript -->
-        <script type="text/javascript" src="~/js/dropzone.min.js"></script>
+	<!--Footer-->
+	<footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn">
 
-        @*<script>
-                function myParamName() {
-                    return "files";
-                }
+		<!--Call to action-->
+		<div class="pt-4">
+			<a class="btn btn-outline-white" href="#" target="_blank" role="button">
+				Go to sharepoint
+				<i class="fas fa-share-alt ml-2"></i>
+			</a>
+			<a class="btn btn-outline-white" href="#" target="_blank" role="button">
+				Start tutorial
+				<i class="fa fa-graduation-cap ml-2"></i>
+			</a>
+		</div>
+		<!--/.Call to action-->
 
-                Dropzone.options.uploadattachmentsform = {
-                    //autoProcessQueue: false,
-                    uploadMultiple: true,
-                    paramName: myParamName,
-                    maxFilesize: 20, //MB
-                    dictDefaultMessage: "Drop files here or Click to Upload",
-                    addRemoveLinks: true, // Allows for cancellation of file upload and remove thumbnail
-                    acceptedFiles: "image/*",
-                    init: function () {
-                        myDropzone = this;
-                        myDropzone.on("success", function (file, response) {
-                            myDropzone.removeFile(file);
-                        });
-                    }
+		<hr class="my-4">
 
-                }
-            </script>*@
+		<!-- Social icons -->
+		<div class="pb-4">
+			<a>
+				<i class="fas fa-rocket mr-3"></i>
+			</a>
+			<a>
+				<i class="fas fa-broom mr-3"></i>
+			</a>
+			<a>
+				<i class="fas fa-chart-area mr-3"></i>
+			</a>
+			<a>
+				<i class="fas fa-chess-knight mr-3"></i>
+			</a>
+			<a>
+				<i class="fas fa-crow mr-3"></i>
+			</a>
+			<a>
+				<i class="fas fa-dolly-flatbed mr-3"></i>
+			</a>
+			<a>
+				<i class="fas fa-kiwi-bird mr-3"></i>
+			</a>
+			<a>
+				<i class="fas fa-dragon mr-3"></i>
+			</a>
+			<a>
+				<i class="fas fa-fighter-jet mr-3"></i>
+			</a>
+		</div>
+		<!-- Social icons -->
+		<!--Copyright-->
+		<div class="footer-copyright py-3">
+			Last Updated 10 Jan 2020
+		</div>
+		<!--/.Copyright-->
 
-        <script>
-            Dropzone.options.uploadattachmentsform = {
-                autoProcessQueue: false,
-                url: '/MachineNotes?handler=UploadAttachments',
-                uploadMultiple: true,
-                addRemoveLinks: true, // Allows for cancellation of file upload and remove thumbnail
-                acceptedFiles: "image/*",
-                parallelUploads: 999,
+	</footer>
+	<!--/.Footer-->
+	<!-- SCRIPTS -->
+	<!-- JQuery -->
+	<script type="text/javascript" src="~/js/jquery-3.4.1.min.js"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" src="~/js/popper.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" src="~/js/mdb.min.js"></script>
 
-                init: function () {
+	<script type="text/javascript" src="~/js/site.js"></script>
+	<!-- Initializations -->
+	<script type="text/javascript">
+		// Animations initialization
+		new WOW().init();
+	</script>
 
-                    var myDropzone = this;
+	<!-- Navbar -->
+	<script>
+		$(function () {
+			$('a').each(function () {
+				if ($(this).prop('href') == window.location.href) {
+					$(this).addClass('active'); $(this).parents('li').addClass('active');
+				}
+			});
+		});
+	</script>
 
-                    // Update selector to match your button
-                    $("#btnUploadAttachmentPost").click(function (e) {
-                        e.preventDefault();
-                        myDropzone.processQueue();
-                    });
+
+	@if (ViewData["Title"].ToString().Contains("Create Reports"))
+	{
+		<script type="text/javascript" src="~/js/create_reports.js"></script>
+	}
+	@if (ViewData["Title"].ToString().Contains("Machine Notes"))
+	{
 
 
-                    this.on('success', function () {
-                        if (this.getQueuedFiles().length == 0 && this.getUploadingFiles().length == 0) {
-                            location.reload();
-                        }
-                    });
-                }
-            }
-        </script>
+		<!-- Dropzone JavaScript -->
+		<script type="text/javascript" src="~/js/dropzone.min.js"></script>
 
-        <!-- Droplist -->
-        <script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
-        <script>
+		@*<script>
+				function myParamName() {
+					return "files";
+				}
+
+				Dropzone.options.uploadattachmentsform = {
+					//autoProcessQueue: false,
+					uploadMultiple: true,
+					paramName: myParamName,
+					maxFilesize: 20, //MB
+					dictDefaultMessage: "Drop files here or Click to Upload",
+					addRemoveLinks: true, // Allows for cancellation of file upload and remove thumbnail
+					acceptedFiles: "image/*",
+					init: function () {
+						myDropzone = this;
+						myDropzone.on("success", function (file, response) {
+							myDropzone.removeFile(file);
+						});
+					}
+
+				}
+			</script>*@
+
+		<script>
+			Dropzone.options.uploadattachmentsform = {
+				autoProcessQueue: false,
+				url: '/MachineNotes?handler=UploadAttachments',
+				uploadMultiple: true,
+				addRemoveLinks: true, // Allows for cancellation of file upload and remove thumbnail
+				acceptedFiles: "image/*",
+				parallelUploads: 999,
+
+				init: function () {
+
+					var myDropzone = this;
+
+					// Update selector to match your button
+					$("#btnUploadAttachmentPost").click(function (e) {
+						e.preventDefault();
+						myDropzone.processQueue();
+					});
+
+
+					this.on('success', function () {
+						if (this.getQueuedFiles().length == 0 && this.getUploadingFiles().length == 0) {
+							location.reload();
+						}
+					});
+				}
+			}
+		</script>
+
+		<!-- Droplist -->
+		<script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
+		<script>
             $(function () {
 
                 $("#gotomachinetrainname").autocomplete({
@@ -286,8 +280,8 @@
 
 
             });
-        </script>
-    }
+		</script>
+	}
 </body>
 </html>
 
