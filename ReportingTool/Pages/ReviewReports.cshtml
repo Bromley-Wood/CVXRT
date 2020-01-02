@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id:int?}"
 @model Reportingtool.Pages.ReviewReportsModel
 
 @{
@@ -33,7 +33,26 @@
                     <span>Machine Notes</span>
                 </h4>
                 <div class="accordion" id="machineNotes">
-                    <div class="card">
+                    @for (int idx = 0; idx < Model.Current_Displayed_Report.Machine_Train_Entry.Machine_Train_Notes.Count; ++idx)
+                    {
+                        <div class="card">
+                            <div class="card-header" id="heading@(idx)">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed preview-note" type="button" data-toggle="collapse" data-target="#collapse@(idx)" aria-expanded="false" aria-controls="collapse@(idx)">
+                                        @Model.Current_Displayed_Report.Machine_Train_Entry.Machine_Train_Notes[idx].MachineTrainNote
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapse@(idx)" class="collapse" aria-labelledby="heading@(idx)" data-parent="#machineNotes">
+                                <div class="card-body">
+                                    @Model.Current_Displayed_Report.Machine_Train_Entry.Machine_Train_Notes[idx].MachineTrainNote
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                    @*<div class="card">
                         <div class="card-header" id="headingOne">
                             <h2 class="mb-0">
                                 <button class="btn btn-link collapsed preview-note" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
@@ -77,10 +96,8 @@
                                 The trick is to set a max-height equal to the maximum number of lines multiplied by the line-height.
                             </div>
                         </div>
-                    </div>
+                    </div>*@
                 </div>
-
-
 
                 <!-- Machine list-->
                 <div class="modal fade" id="modalMachineList" tabindex="-1" role="dialog" aria-labelledby="modalMachineNote"

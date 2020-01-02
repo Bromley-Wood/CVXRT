@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Reportingtool.Models.Db
 {
@@ -12,5 +13,7 @@ namespace Reportingtool.Models.Db
         public int FkAreaId { get; set; }
         public int? FkRouteId { get; set; }
         public bool MachineTrainIsActive { get; set; }
+
+        public IList<MachineTrainNotes> Machine_Train_Notes { get; set; }
     }
 }

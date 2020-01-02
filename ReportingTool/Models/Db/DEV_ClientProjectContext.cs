@@ -262,6 +262,9 @@ namespace Reportingtool.Models.Db
                     .IsRequired()
                     .HasColumnName("Machine_Train_Long_Name")
                     .HasMaxLength(255);
+
+                entity.HasMany(e => e.Machine_Train_Notes).WithOne().HasForeignKey(FK => FK.FkMachineTrainId);
+
             });
 
             modelBuilder.Entity<MachineTrainFiles>(entity =>
@@ -1364,6 +1367,9 @@ namespace Reportingtool.Models.Db
                     .HasMaxLength(4);
 
                 entity.Property(e => e.WorkOrderNo).HasColumnName("Work_Order_No");
+
+                entity.HasOne(e => e.Machine_Train_Entry).WithMany().HasForeignKey(FK => FK.MachineTrainId);
+
             });
 
             OnModelCreatingPartial(modelBuilder);

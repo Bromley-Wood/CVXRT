@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Reportingtool.Models.Db
 {
@@ -51,5 +52,8 @@ namespace Reportingtool.Models.Db
         public string ChangeInCondition { get; set; }
         public int? IsLatestReport { get; set; }
         public int? IsLastRecord { get; set; }
+
+        public MachineTrain Machine_Train_Entry { get; set; }
+
     }
 }
