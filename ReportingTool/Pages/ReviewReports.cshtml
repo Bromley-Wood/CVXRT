@@ -602,373 +602,219 @@
                         <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
                     </div>
                 </div>
-
-                <h4 class="mb-3 paddedHeader">Review</h4>
-                <p>Later will refashion this to a different type of form, severity, image, recommendation checkboxes can be converted to form validation </p>
-
-                <!--card-->
-                <div class="card mb-4 wow fadeIn">
-                    <!--Card content-->
-                    <div class="card-body">
-                        <form class="needs-validation" novalidate>
-                            <div class="form-group">
-                                <label class="small text-muted" for="formReviewNotes">Reviewer Notes</label>
-                                <textarea type="text" id="formReviewNotes" class="form-control" rows="3"></textarea>
-                            </div>
-                        </form>
-                        <hr class="mb-4">
-
-                        <div class="d-block my-3">
-                            <div class="custom-control custom-radio">
-                                <input id="credit" name="reviewProgress" type="radio" class="custom-control-input" checked required>
-                                <label class="custom-control-label" for="credit">Reviewed with comments</label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input id="paypal" name="reviewProgress" type="radio" class="custom-control-input" required>
-                                <label class="custom-control-label" for="paypal">Client Comments</label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input id="debit" name="reviewProgress" type="radio" class="custom-control-input" required>
-                                <label class="custom-control-label" for="debit">Released</label>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
-
-                    </div>
-                </div>
-
-
             </div>
         </div>
 
     </div>
     <!--Section: Report Form-->
+    <!--- buttons and forms  -->
+    <div class="row d-flex justify-content-center modalWrapper">
 
-    <div class="list-group  d-flex justify-content-center">
-        <!--- buttons and forms  -->
-        <div class="row d-flex justify-content-center modalWrapper">
-            <div class="modal fade addNewInputs" id="modalAddRoute" tabindex="-1" role="dialog" aria-labelledby="modalAddRoute"
-                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header text-center">
-                            <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add an Adhoc Route</h4>
-                            <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body mx-3">
-                            <h5 class="modal-title w-100 font-weight-bold text-primary ml-5"><i class="fas fa-tools"></i>  Under Construction  <i class="fas fa-mug-hot"></i></h5>
-                            <div class="md-form mb-5">
-                                <input type="text" id="formAddRoute" class="form-control validate">
-                                <label data-error="wrong" data-success="right" for="inputName">Route Name</label>
-                            </div>
-                            <div class="md-form mb-5">
-                                <input type="date" id="inputDate" class="form-control" placeholder="Select Date">
-                                <label data-error="wrong" data-success="right" for="inputDate">Schedule Date</label>
-                            </div>
-                            <div class="md-form mb-5">
-                                <input type="number" id="formAddLabour" class="form-control validate">
-                                <label data-error="wrong" data-success="right" for="formAddLabour">Labour Hours</label>
-                            </div>
-                            <div class="md-form mb-5">
-                                <span>Greater Area</span>
-                                <select class="custom-select d-block w-100" id="formAddGreaterArea" required>
-                                    <option>Inlet</option>
-                                    <option>LNG</option>
-                                    <option>DOMGAS</option>
-                                    <option>S&L</option>
-                                    <option>Utilities</option>
-                                </select>
+        <!--- end machines list -->
+        <div class="modal fade" id="modalLoadReport" tabindex="-1" role="dialog" aria-labelledby="modalLoadReport"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Load the selected report</h4>
+                        <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <p>
+                            If you load a new report, any changes that haven't been submitted will be lost.
+                        </p>
+                        <p>
+                            Are you sure you want to discard your changes?
+                        </p>
 
-                            </div>
-
-                            <div class="md-form mb-5">
-                                <input type="text" id="inputAge" class="form-control validate">
-                                <label data-error="wrong" data-success="right" for="inputAge">Machines</label>
-                            </div>
-
-                            <div class="mb-5">
-                                <ul class="ks-cboxtags">
-                                    <li><input type="checkbox" id="cbmach1" value="10"><label for="cbmach1">0A-0920-K1A</label></li>
-                                    <li><input type="checkbox" id="cbmach2" value="11"><label for="cbmach2">0A-0920-K1B</label></li>
-                                    <li><input type="checkbox" id="cbmach3" value="12"><label for="cbmach3">0A-0920-K1A</label></li>
-                                    <li><input type="checkbox" id="cbmach4" value="13"><label for="cbmach4">0A-0920-K1B</label></li>
-                                    <li><input type="checkbox" id="cbmach5" value="15"><label for="cbmach5">0A-0960-K1A</label></li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
-                            <button class="btn btn-outline-primary btn-block buttonAdd" data-dismiss="modal">
-                                Add form
-                                <i class="fas fa-paper-plane-o ml-1"></i>
-                            </button>
-                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
+                        <button type="button" class="btn btn-danger btnYesClass btnYesLoadSelectedReport" id="btnYesLoadSelectedReport" data-dismiss="modal">Yes</button>
+                        <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal">No</button>
                     </div>
                 </div>
             </div>
-
-            <div class="text-center">
-                <a href="" class="btn btn-info btn-rounded btn-sm" data-toggle="modal" data-target="#modalAddRoute">
-                    Add Route<i class="fas fa-plus-square ml-1"></i>
-                </a>
-            </div><!--- end add form -->
-
-            <div class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header text-center">
-                            <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit Route</h4>
-                            <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body mx-3">
-                            <div class="md-form mb-5">
-                                <span class="field-label">Route</span>
-                                <span class="field-data" id="formEditRoute">0900: Inlet - KJVG Common MEG plant [ GAA ]</span>
-                            </div>
-
-                            <div class="md-form mb-5">
-                                <span class="field-label">Cycle (days)</span>
-                                <span class="field-data" id="formEditCycle">56</span>
-                            </div>
-
-                            <div class="md-form mb-5">
-                                <span class="field-label">Labour Hours</span>
-                                <span class="field-data" id="formEditLabourHours">1</span>
-                            </div>
-
-                            <div class="md-form mb-5">
-                                <span class="field-label">Plan Date</span>
-                                <span class="field-data" id="formEditPlannedDate">4/12/2019</span>
-                            </div>
-
-                            <div class="md-form mb-5">
-                                <input type="date" id="formEditScheduleDate" class="form-control validate" value="2019-12-04">
-                                <label data-error="wrong" data-success="right" for="formEditScheduleDate">Schedule Date</label>
-                            </div>
-
-
-                        </div>
-                        <div class="modal-footer d-flex justify-content-center editInsideWrapper">
-                            <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal">
-                                Edit form
-                                <i class="fas fa-paper-plane-o ml-1"></i>
-                            </button>
-                            <!-- UPDATE Route_Call SET Schedule_Date = '2019-12-05'  WHERE PK_CallId = (this id);-->
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--- Edit form -->
-            <!--- end machines list -->
-            <div class="modal fade" id="modalLoadReport" tabindex="-1" role="dialog" aria-labelledby="modalLoadReport"
-                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header text-center">
-                            <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Load the selected report</h4>
-                            <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body mx-3">
-                            <p>
-                                If you load a new report, any changes that haven't been submitted will be lost.
-                            </p>
-                            <p>
-                                Are you sure you want to discard your changes?
-                            </p>
-
-                        </div>
-                        <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
-                            <button type="button" class="btn btn-danger btnYesClass btnYesLoadSelectedReport" id="btnYesLoadSelectedReport" data-dismiss="modal">Yes</button>
-                            <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal">No</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div><!--- end pop up forms -->
+        </div>
+    </div><!--- end pop up forms -->
 
 
 
-        @section Scripts{
+    @section Scripts{
 
-            <script type="text/javascript">
-                jQuery(document).ready(function () {
-                    setTimeout(updateScrollSpy, 1000);
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                setTimeout(updateScrollSpy, 1000);
+            });
+            function updateScrollSpy() {
+                jQuery('[data-spy="scroll"]').each(function () {
+                    var $spy = jQuery(this).scrollspy('refresh')
                 });
-                function updateScrollSpy() {
-                    jQuery('[data-spy="scroll"]').each(function () {
-                        var $spy = jQuery(this).scrollspy('refresh')
-                    });
-                }
-            </script>
-            <script>
-                //Custom select event listener
-                for (const dropdown of document.querySelectorAll(".rpt-select-wrapper")) {
-                    dropdown.addEventListener('click', function () {
-                        this.querySelector('.rpt-select').classList.toggle('open');
-                    })
-                }
+            }
+        </script>
+        <script>
+            //Custom select event listener
+            for (const dropdown of document.querySelectorAll(".rpt-select-wrapper")) {
+                dropdown.addEventListener('click', function () {
+                    this.querySelector('.rpt-select').classList.toggle('open');
+                })
+            }
 
-                for (const option of document.querySelectorAll(".rpt-option")) {
-                    option.addEventListener('click', function () {
-                        if (!this.classList.contains('selected')) {
-                            this.parentNode.querySelector('.rpt-option.selected').classList.remove('selected');
-                            this.classList.add('selected');
-                            this.closest('.rpt-select').querySelector('.rpt-select__trigger span').textContent = this.textContent;
-                            if (this.textContent == "Other") {
-                                document.querySelector('#customObservation').style.display = "block";
-                                document.querySelector('#btnAddCustomObservation').style.display = "block";
-                                document.querySelector('#selectObservation').style.display = "none";
-                                document.querySelector('#btnAddObservation').style.display = "none";
-                            } else {
-                                document.querySelector('#customObservation').style.display = "none";
-                                document.querySelector('#btnAddCustomObservation').style.display = "none";
-                                document.querySelector('#selectObservation').style.display = "block";
-                                document.querySelector('#btnAddObservation').style.display = "block";
-                            }
-                        }
-                    })
-                }
-
-                window.addEventListener('click', function (e) {
-                    for (const select of document.querySelectorAll('.rpt-select')) {
-                        if (!select.contains(e.target)) {
-                            select.classList.remove('open');
+            for (const option of document.querySelectorAll(".rpt-option")) {
+                option.addEventListener('click', function () {
+                    if (!this.classList.contains('selected')) {
+                        this.parentNode.querySelector('.rpt-option.selected').classList.remove('selected');
+                        this.classList.add('selected');
+                        this.closest('.rpt-select').querySelector('.rpt-select__trigger span').textContent = this.textContent;
+                        if (this.textContent == "Other") {
+                            document.querySelector('#customObservation').style.display = "block";
+                            document.querySelector('#btnAddCustomObservation').style.display = "block";
+                            document.querySelector('#selectObservation').style.display = "none";
+                            document.querySelector('#btnAddObservation').style.display = "none";
+                        } else {
+                            document.querySelector('#customObservation').style.display = "none";
+                            document.querySelector('#btnAddCustomObservation').style.display = "none";
+                            document.querySelector('#selectObservation').style.display = "block";
+                            document.querySelector('#btnAddObservation').style.display = "block";
                         }
                     }
-                });
+                })
+            }
 
-            </script>
-
-            <script>
-
-                ////add and remove list items
-                //// Get all the element references you'll need just once:
-                var actionList = document.querySelector("#actionList");
-                var actionSelected = document.querySelector("#actionSelected span");
-                var btnAddAction = document.querySelector("#btnAddAction");
-
-                //// Do all of your event binding in JavaScript, not with inline HTML event attributes
-                btnAddAction.addEventListener("click", addAction);
-
-                function addAction() {
-                    if (actionSelected.textContent !== "") {
-                        // Don't build new HTML by concatenating strings. Create elements and configure them as objects
-                        var li = document.createElement("li");
-                        li.textContent = actionSelected.textContent;
-                        li.classList.add("list-group-item");
-
-                        // Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
-                        var span = document.createElement("span");
-                        span.classList.add("close");
-                        span.textContent = "x";
-                        span.addEventListener("click", removeAction);
-                        li.appendChild(span);  // Add the span to the bullet
-                        actionList.appendChild(li); // Add the bullet to the list
-                        //newAction.textContent = "";
+            window.addEventListener('click', function (e) {
+                for (const select of document.querySelectorAll('.rpt-select')) {
+                    if (!select.contains(e.target)) {
+                        select.classList.remove('open');
                     }
                 }
+            });
 
-                // Remove the closest <li> ancestor to the <span> that got clicked
-                function removeAction() {
-                    actionList.removeChild(this.closest("li"));
+        </script>
+
+        <script>
+
+            ////add and remove list items
+            //// Get all the element references you'll need just once:
+            var actionList = document.querySelector("#actionList");
+            var actionSelected = document.querySelector("#actionSelected span");
+            var btnAddAction = document.querySelector("#btnAddAction");
+
+            //// Do all of your event binding in JavaScript, not with inline HTML event attributes
+            btnAddAction.addEventListener("click", addAction);
+
+            function addAction() {
+                if (actionSelected.textContent !== "") {
+                    // Don't build new HTML by concatenating strings. Create elements and configure them as objects
+                    var li = document.createElement("li");
+                    li.textContent = actionSelected.textContent;
+                    li.classList.add("list-group-item");
+
+                    // Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
+                    var span = document.createElement("span");
+                    span.classList.add("close");
+                    span.textContent = "x";
+                    span.addEventListener("click", removeAction);
+                    li.appendChild(span);  // Add the span to the bullet
+                    actionList.appendChild(li); // Add the bullet to the list
+                    //newAction.textContent = "";
                 }
+            }
 
-                // Add event listener on pre-existing actions
-                for (const listItem of document.querySelectorAll("#actionList li")) {
-                    listItem.addEventListener('click', removeAction);
+            // Remove the closest <li> ancestor to the <span> that got clicked
+            function removeAction() {
+                actionList.removeChild(this.closest("li"));
+            }
+
+            // Add event listener on pre-existing actions
+            for (const listItem of document.querySelectorAll("#actionList li")) {
+                listItem.addEventListener('click', removeAction);
+            }
+
+        </script>
+
+        <script>
+
+            ////add and remove list items
+            //// Get all the element references you'll need just once:
+            var observationList = document.querySelector("#observationList");
+            var observationSelected = document.querySelector("#observationSelected span");
+            var btnAddObservation = document.querySelector("#btnAddObservation");
+
+            //// Do all of your event binding in JavaScript, not with inline HTML event attributes
+            btnAddObservation.addEventListener("click", addObservation);
+
+            function addObservation() {
+                if (observationSelected.textContent !== "") {
+                    // Don't build new HTML by concatenating strings. Create elements and configure them as objects
+                    var li = document.createElement("li");
+                    li.textContent = observationSelected.textContent;
+                    li.classList.add("list-group-item");
+
+                    // Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
+                    var span = document.createElement("span");
+                    span.classList.add("close");
+                    span.textContent = "x";
+                    span.addEventListener("click", removeObservation);
+                    li.appendChild(span);  // Add the span to the bullet
+                    observationList.appendChild(li); // Add the bullet to the list
+                    //newObservation.textContent = "";
                 }
+            }
 
-            </script>
+            // Custom Observations
+            var inputObservation = document.querySelector("#inputCustomObservation");
+            var btnAddCustomObservation = document.querySelector("#btnAddCustomObservation");
+            btnAddCustomObservation.addEventListener("click", addCustomObservation);
 
-            <script>
+            function addCustomObservation() {
+                if (inputObservation.value !== "") {
+                    // Don't build new HTML by concatenating strings. Create elements and configure them as objects
+                    var li = document.createElement("li");
+                    li.textContent = inputObservation.value;
+                    li.classList.add("list-group-item");
 
-                ////add and remove list items
-                //// Get all the element references you'll need just once:
-                var observationList = document.querySelector("#observationList");
-                var observationSelected = document.querySelector("#observationSelected span");
-                var btnAddObservation = document.querySelector("#btnAddObservation");
-
-                //// Do all of your event binding in JavaScript, not with inline HTML event attributes
-                btnAddObservation.addEventListener("click", addObservation);
-
-                function addObservation() {
-                    if (observationSelected.textContent !== "") {
-                        // Don't build new HTML by concatenating strings. Create elements and configure them as objects
-                        var li = document.createElement("li");
-                        li.textContent = observationSelected.textContent;
-                        li.classList.add("list-group-item");
-
-                        // Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
-                        var span = document.createElement("span");
-                        span.classList.add("close");
-                        span.textContent = "x";
-                        span.addEventListener("click", removeObservation);
-                        li.appendChild(span);  // Add the span to the bullet
-                        observationList.appendChild(li); // Add the bullet to the list
-                        //newObservation.textContent = "";
-                    }
+                    // Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
+                    var span = document.createElement("span");
+                    span.classList.add("close");
+                    span.textContent = "x";
+                    span.addEventListener("click", removeAction);
+                    li.appendChild(span);  // Add the span to the bullet
+                    observationList.appendChild(li); // Add the bullet to the list
+                    //newAction.textContent = "";
                 }
+            }
 
-                // Custom Observations
-                var inputObservation = document.querySelector("#inputCustomObservation");
-                var btnAddCustomObservation = document.querySelector("#btnAddCustomObservation");
-                btnAddCustomObservation.addEventListener("click", addCustomObservation);
+            // Remove the closest <li> ancestor to the <span> that got clicked
+            function removeObservation() {
+                observationList.removeChild(this.closest("li"));
+            }
 
-                function addCustomObservation() {
-                    if (inputObservation.value !== "") {
-                        // Don't build new HTML by concatenating strings. Create elements and configure them as objects
-                        var li = document.createElement("li");
-                        li.textContent = inputObservation.value;
-                        li.classList.add("list-group-item");
+            // Add event listener on pre-existing observations
+            for (const listItem of document.querySelectorAll("#observationList li")) {
+                listItem.addEventListener('click', removeObservation);
+            }
 
-                        // Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
-                        var span = document.createElement("span");
-                        span.classList.add("close");
-                        span.textContent = "x";
-                        span.addEventListener("click", removeAction);
-                        li.appendChild(span);  // Add the span to the bullet
-                        observationList.appendChild(li); // Add the bullet to the list
-                        //newAction.textContent = "";
-                    }
+        </script>
+
+        <script>
+            // get selected report id and set the form input
+            var setReportIdInput = function () {
+                var id = this.getAttribute("id");
+                document.getElementById("selectedreportidtoload").value = id;
+            }
+
+            window.onload = function () {
+                var inputs = document.getElementsByClassName("in-queue-rpt-item");
+                for (var index = 0; index < inputs.length; ++index) {
+                    inputs[index].addEventListener('click', setReportIdInput, false);
                 }
+            }
 
-                // Remove the closest <li> ancestor to the <span> that got clicked
-                function removeObservation() {
-                    observationList.removeChild(this.closest("li"));
-                }
+            $(document).on("click", ".btnYesLoadSelectedReport", function () {
+                //alert("submitting form");
+                $('#loadselectedreportform').submit();
+            });
 
-                // Add event listener on pre-existing observations
-                for (const listItem of document.querySelectorAll("#observationList li")) {
-                    listItem.addEventListener('click', removeObservation);
-                }
-
-            </script>
-
-            <script>
-    // get selected report id and set the form input
-                var setReportIdInput = function () {
-                    var id = this.getAttribute("id");
-                    document.getElementById("selectedreportidtoload").value = id;
-                }
-
-                window.onload = function () {
-                    var inputs = document.getElementsByClassName("in-queue-rpt-item");
-                    for (var index = 0; index < inputs.length; ++index) {
-                        inputs[index].addEventListener('click', setReportIdInput, false);
-                    }
-                }
-
-                $(document).on("click", ".btnYesLoadSelectedReport", function () {
-                    //alert("submitting form");
-                    $('#loadselectedreportform').submit();
-                });
-
-            </script>
-        }
+        </script>
+    }
