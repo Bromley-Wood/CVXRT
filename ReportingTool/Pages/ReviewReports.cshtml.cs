@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ReportingTool.Models;
 using Reportingtool.Models.Db;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -21,6 +20,9 @@ namespace Reportingtool.Pages
             _context = context;
         }
 
+        [BindProperty]
+        public int SelectedReportId { get; set; }
+
         public IList<VTstReportSummary> VTstReportSummary_InProgress { get; set; }
         public IList<string> UnitReference_InProgress { get; set; }
         public IList<Technology> Technology_List { get; set; }
@@ -33,6 +35,8 @@ namespace Reportingtool.Pages
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+            
+
             VTstReportSummary_InProgress = await _context.VTstReportSummary
                 .Include(r => r.Machine_Train_Entry)
                     .ThenInclude(m => m.Machine_Train_Notes)
@@ -40,8 +44,6 @@ namespace Reportingtool.Pages
                 .AsNoTracking()
                 .ToListAsync();
 
-            //Console.WriteLine("-----------");
-            //Console.WriteLine(VTstReportSummary_InProgress.Count);
             //Console.WriteLine("-----------");
 
             if (VTstReportSummary_InProgress.Count == 0)
@@ -88,6 +90,11 @@ namespace Reportingtool.Pages
             //------------------------------------------------------------------//
 
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostLoadSelectedReport()
+        {
+            return RedirectToPage("/ReviewReports", new { id = SelectedReportId });
         }
 
     }

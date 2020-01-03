@@ -62,9 +62,12 @@
                 <div class="card mb-4 wow fadeIn">
                     <!--Card content-->
                     <div class="list-group" id="machinesInProgress" role="tablist">
+                        <form method="post" asp-page-handler="loadselectedreport" id="loadselectedreportform">
+                            <input id="selectedreportidtoload" type="hidden" asp-for="SelectedReportId">
+                        </form>
                         @for (int idx = 0; idx < Model.UnitReference_InProgress.Count; ++idx)
                         {
-                            var status_list = new List<string> {"", "active"};
+                            var status_list = new List<string> { "", "active" };
                             var unit_ref = Model.UnitReference_InProgress[idx];
                             var VTstReportSummary_InProgress_Per_Unit = Model.VTstReportSummary_InProgress.Where(r => r.UnitReference == @unit_ref).ToList();
                             <h5 class="ip-sub-header list-group-item d-flex justify-content-between">
@@ -74,7 +77,7 @@
 
                             foreach (var in_p_report in VTstReportSummary_InProgress_Per_Unit)
                             {
-                                <a class="list-group-item d-flex justify-content-between lh-condensed @status_list[Convert.ToInt32(in_p_report.ReportId == Model.Current_Displayed_Report.ReportId)]" id="rptid@(idx)" data-toggle="list" href="#" role="tab">
+                                <a class="in-queue-rpt-item list-group-item d-flex justify-content-between lh-condensed @status_list[Convert.ToInt32(in_p_report.ReportId == Model.Current_Displayed_Report.ReportId)]" id="@(in_p_report.ReportId)" data-toggle="list" href="#" role="tab">
                                     @{
                                         if (in_p_report.FaultTypeId == null)
                                         {
@@ -782,7 +785,7 @@
 
                         </div>
                         <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
-                            <button type="button" class="btn btn-danger btnYesClass" id="btnYes" data-dismiss="modal">Yes</button>
+                            <button type="button" class="btn btn-danger btnYesClass btnYesLoadSelectedReport" id="btnYesLoadSelectedReport" data-dismiss="modal">Yes</button>
                             <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal">No</button>
                         </div>
                     </div>
@@ -793,7 +796,7 @@
 
 
         @section Scripts{
-            
+
             <script type="text/javascript">
                 jQuery(document).ready(function () {
                     setTimeout(updateScrollSpy, 1000);
@@ -945,6 +948,27 @@
                 for (const listItem of document.querySelectorAll("#observationList li")) {
                     listItem.addEventListener('click', removeObservation);
                 }
+
+            </script>
+
+            <script>
+    // get selected report id and set the form input
+                var setReportIdInput = function () {
+                    var id = this.getAttribute("id");
+                    document.getElementById("selectedreportidtoload").value = id;
+                }
+
+                window.onload = function () {
+                    var inputs = document.getElementsByClassName("in-queue-rpt-item");
+                    for (var index = 0; index < inputs.length; ++index) {
+                        inputs[index].addEventListener('click', setReportIdInput, false);
+                    }
+                }
+
+                $(document).on("click", ".btnYesLoadSelectedReport", function () {
+                    //alert("submitting form");
+                    $('#loadselectedreportform').submit();
+                });
 
             </script>
         }
