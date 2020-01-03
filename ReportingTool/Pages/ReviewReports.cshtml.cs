@@ -23,6 +23,11 @@ namespace Reportingtool.Pages
 
         public IList<VTstReportSummary> VTstReportSummary_InProgress { get; set; }
         public IList<string> UnitReference_InProgress { get; set; }
+        public IList<Technology> Technology_List { get; set; }
+        public IList<PrimaryComponentType> PrimaryComponentType_List { get; set; }
+        public IList<PrimaryComponentSubtype> PrimaryComponentSubtype_List { get; set; }
+        public IList<FaultType> FaultType_List { get; set; }
+        public IList<FaultSubtype> FaultSubtype_List { get; set; }
 
         public VTstReportSummary Current_Displayed_Report { get; set; }
 
@@ -44,10 +49,10 @@ namespace Reportingtool.Pages
                 return RedirectToPage("/Noreports");
             }
 
-            if (id == null)
+            if (!(VTstReportSummary_InProgress.Select(r => r.ReportId).ToList().Contains(id)))
             {
-                id = VTstReportSummary_InProgress[0].ReportId;
-                Console.WriteLine("No ID Specified. The first in progress report is displayed.");
+                Console.WriteLine($"Report Not Found. The first in-progress report {VTstReportSummary_InProgress[0].ReportId} is displayed.");
+                return RedirectToPage("/ReviewReports", new { id = VTstReportSummary_InProgress[0].ReportId });
             }
 
             Console.WriteLine($"Displaying report {id}");
@@ -58,6 +63,29 @@ namespace Reportingtool.Pages
                 .ToList();
 
             Current_Displayed_Report = VTstReportSummary_InProgress.FirstOrDefault(r => r.ReportId == id);
+
+
+            //------------------------------------------------------------------//
+            Technology_List = await _context.Technology
+                .AsNoTracking()
+                .ToListAsync();
+
+            PrimaryComponentType_List = await _context.PrimaryComponentType
+                .AsNoTracking()
+                .ToListAsync();
+
+            PrimaryComponentSubtype_List = await _context.PrimaryComponentSubtype
+                .AsNoTracking()
+                .ToListAsync();
+
+            FaultType_List = await _context.FaultType
+                .AsNoTracking()
+                .ToListAsync();
+
+            FaultSubtype_List = await _context.FaultSubtype
+                .AsNoTracking()
+                .ToListAsync();
+            //------------------------------------------------------------------//
 
             return Page();
         }

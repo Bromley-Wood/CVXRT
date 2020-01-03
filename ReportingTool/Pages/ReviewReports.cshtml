@@ -64,6 +64,7 @@
                     <div class="list-group" id="machinesInProgress" role="tablist">
                         @for (int idx = 0; idx < Model.UnitReference_InProgress.Count; ++idx)
                         {
+                            var status_list = new List<string> {"", "active"};
                             var unit_ref = Model.UnitReference_InProgress[idx];
                             var VTstReportSummary_InProgress_Per_Unit = Model.VTstReportSummary_InProgress.Where(r => r.UnitReference == @unit_ref).ToList();
                             <h5 class="ip-sub-header list-group-item d-flex justify-content-between">
@@ -73,7 +74,7 @@
 
                             foreach (var in_p_report in VTstReportSummary_InProgress_Per_Unit)
                             {
-                                <a class="list-group-item d-flex justify-content-between lh-condensed" id="rptid@(idx)" data-toggle="list" href="#" role="tab">
+                                <a class="list-group-item d-flex justify-content-between lh-condensed @status_list[Convert.ToInt32(in_p_report.ReportId == Model.Current_Displayed_Report.ReportId)]" id="rptid@(idx)" data-toggle="list" href="#" role="tab">
                                     @{
                                         if (in_p_report.FaultTypeId == null)
                                         {
@@ -84,7 +85,7 @@
                                             <span></span>
                                         }
                                         else
-                                        {   <div>
+                                        { <div>
                                                 <h6 class="my-0">@in_p_report.MachineTrain</h6>
                                                 <small>@in_p_report.PrimaryComponentType & @in_p_report.FaultType</small>
                                             </div>
@@ -105,167 +106,127 @@
             <!--Report Body-->
             <div class="col-md-8 order-md-1 py-5">
 
-                <!--DISPLAY: Fault Attribute card-->
-                <!-- This section to show if a report is being created on an existing fault -->
-                <div class="card mb-4 wow fadeIn">
-                    <!--Card content-->
-                    <div class="card-body" id="displayFaultAttributes">
-                        <h5 class="grey-text font-weight-light">Fault Details</h5>
-                        <h2 class="mb-3 breadcrumbs" id="machineTag">44GB403A</h2>
-                        <h5 class="mb-3 breadcrumbs" id="machineDescription">Fuel Gas KO Drum Pump A</h5>
-                        <hr />
-                        <form class="needs-validation" novalidate>
+                @if (Model.Current_Displayed_Report.FaultType != null)
+                {
+                    <!--DISPLAY: Fault Attribute card-->
+                    <!-- This section to show if a report is being created on an existing fault -->
+                    <div class="card mb-4 wow fadeIn">
+                        <!--Card content-->
+                        <div class="card-body" id="displayFaultAttributes">
+                            <h5 class="grey-text font-weight-light">Fault Details</h5>
+                            <h2 class="mb-3 breadcrumbs" id="machineTag">@Model.Current_Displayed_Report.MachineTrain</h2>
+                            <h5 class="mb-3 breadcrumbs" id="machineDescription">@Model.Current_Displayed_Report.MachineTrainLongName</h5>
+                            <hr />
+                            <form class="needs-validation" novalidate>
 
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Technology</span>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Technology</span>
+                                    </div>
+                                    <span class="infolabel">Vibration</span>
                                 </div>
-                                <span class="infolabel">Vibration</span>
-                            </div>
 
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text flex-fill">Component</span>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text flex-fill">Component</span>
+                                    </div>
+                                    <span class="infolabel" id="component">@Model.Current_Displayed_Report.PrimaryComponentType</span>
+                                    <span class="infolabel" id="componentType">@Model.Current_Displayed_Report.PrimaryComponentSubtype</span>
                                 </div>
-                                <span class="infolabel" id="component">Motor</span>
-                                <span class="infolabel" id="componentType">AC</span>
-                            </div>
 
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text flex-fill w-30">Fault Type</span>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text flex-fill w-30">Fault Type</span>
+                                    </div>
+                                    <span class="infolabel" id="faultType">@Model.Current_Displayed_Report.FaultType</span>
+                                    <span class="infolabel" id="faultSubtype">@Model.Current_Displayed_Report.FaultSubtype</span>
                                 </div>
-                                <span class="infolabel" id="faultType">Bearing Defect</span>
-                                <span class="infolabel" id="faultSubtype">Outer Race Defect</span>
-                            </div>
 
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">Fault Location</span>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Fault Location</span>
+                                    </div>
+                                    <span class="infolabel"> @Model.Current_Displayed_Report.FaultLocation</span>
                                 </div>
-                                <span class="infolabel"> Motor Drive End </span>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
-                </div><!--./DISPLAY: Fault Attribute card-->
-                <!--FORM: Fault card-->
-                <!-- This section to show if a new fault needs to be created -->
-                <div class="card mb-4 wow fadeIn">
-                    <div class="card-header font-weight-bold">Fault Attributes</div>
-                    <!--Card content-->
-                    <div class="card-body" id="formFaultAttributes">
-                        <label class="small text-muted" for="machine">Machine Train</label>
-                        <h2 class="mb-3 breadcrumbs" id="machineTag">44GB403A</h2>
-                        <h5 class="mb-3 breadcrumbs" id="machineDescription">Fuel Gas KO Drum Pump A</h5>
-                        <hr />
-                        <form class="needs-validation" novalidate>
-
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Technology</span>
+                    <!--./DISPLAY: Fault Attribute card-->
+                }
+                else
+                {
+                    <!--FORM: Fault card-->
+                    <!-- This section to show if a new fault needs to be created -->
+                    <div class="card mb-4 wow fadeIn">
+                        <div class="card-header font-weight-bold">Fault Attributes</div>
+                        <!--Card content-->
+                        <div class="card-body" id="formFaultAttributes">
+                            <label class="small text-muted" for="machine">Machine Train</label>
+                            <h2 class="mb-3 breadcrumbs" id="machineTag">@Model.Current_Displayed_Report.MachineTrain</h2>
+                            <h5 class="mb-3 breadcrumbs" id="machineDescription">@Model.Current_Displayed_Report.MachineTrainLongName</h5>
+                            <hr />
+                            <form class="needs-validation" novalidate>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Technology</span>
+                                    </div>
+                                    <select class="custom-select d-block " id="reportType" required>
+                                        @foreach (var item in Model.Technology_List)
+                                        {
+                                            <option value="@(item.PkTechnologyId)">@item.Technology1</option>
+                                        }
+                                    </select>
                                 </div>
-                                <select class="custom-select d-block " id="reportType" required>
-                                    <option selected value="1">Vibration</option>
-                                    <option value="2">Lubrication</option>
-                                    <option value="3">Thermography</option>
-                                </select>
-                            </div>
 
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Component</span>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Component</span>
+                                    </div>
+                                    <select class="custom-select d-block " required>
+                                        @foreach (var item in Model.PrimaryComponentType_List)
+                                        {
+                                            <option value="@(item.PkPrimaryComponentTypeId)">@item.PrimaryComponentType1</option>
+                                        }
+                                    </select>
+                                    <select class="custom-select d-block ">
+                                        @foreach (var item in Model.PrimaryComponentSubtype_List)
+                                        {
+                                            <option value="@(item.PkPrimaryComponentSubtypeId)">@item.PrimaryComponentSubtype1</option>
+                                        }
+                                    </select>
                                 </div>
-                                <select class="custom-select d-block " required>
-                                    <option>Open this select menu</option>
-                                    <option>Parent</option>
-                                    <option>Central Lube System</option>
-                                    <option>Centrifuge</option>
-                                    <option>Compressor</option>
-                                    <option>Coupling</option>
-                                    <option>Drive Belt</option>
-                                    <option>Drive Chain</option>
-                                    <option>Engine</option>
-                                    <option>Heat Exchanger</option>
-                                    <option>Fan</option>
-                                    <option>Gearbox</option>
-                                    <option>Generator</option>
-                                    <option selected>Motor</option>
-                                    <option>Pump</option>
-                                    <option>Turbine</option>
-                                    <option>Valve</option>
-                                    <option>Winch</option>
-                                    <option>Flywheel</option>
-                                    <option>Crane</option>
-                                    <option>Other</option>
 
-                                </select>
-                                <select class="custom-select d-block ">
-                                    <option value="">
-                                        3 Phase AC Induction
-                                    </option>
-                                    <option>
-                                        AC Synchronous
-                                    </option>
-                                    <option selected>
-                                        AC Single Phase
-                                    </option>
-                                    <option>
-                                        AC Variable Frequency
-                                    </option>
-                                    <option>
-                                        Air
-                                    </option>
-                                    <option>DC</option>
-                                </select>
-                            </div>
-
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Fault Type</span>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Fault Type</span>
+                                    </div>
+                                    <select class="custom-select d-block " required>
+                                        @foreach (var item in Model.FaultType_List)
+                                        {
+                                            <option value="@(item.PkFaultTypeId)">@item.FaultType1</option>
+                                        }
+                                    </select>
+                                    <select class="custom-select d-block">
+                                        @foreach (var item in Model.FaultSubtype_List)
+                                        {
+                                            <option value="@(item.PkFaultSubtypeId)">@item.FaultSubtype1</option>
+                                        }
+                                    </select>
                                 </div>
-                                <select class="custom-select d-block " required>
-                                    <option>No vibration fault detected</option>
-                                    <option selected>Antifriction bearing fault</option>
-                                    <option>Bad vibration data</option>
-                                    <option>Beating</option>
-                                    <option>Belt drive fault</option>
-                                    <option>Compressor fault</option>
-                                    <option>Coupling fault</option>
-                                    <option>Electrical motor fault</option>
-                                    <option>Engine fault</option>
-                                    <option>Fan fault</option>
-                                    <option>Rotor rub</option>
-                                    <option>Shaft fault</option>
-                                    <option>Transmitted vibration</option>
-                                    <option>Unidentified issue</option>
 
-                                </select>
-                                <select class="custom-select d-block">
-                                    <option selected>Outer race defect</option>
-                                    <option>Inner race defect</option>
-                                    <option>Rolling element defect</option>
-                                    <option>Cage defect</option>
-                                    <option>Multiple fault frequencies</option>
-                                    <option>Roller skidding</option>
-                                    <option>Bearing fluting (EDM)</option>
-                                    <option>Housing distortion / out of round</option>
-                                    <option>Outer race creep in housing</option>
-                                    <option>Cocked antifriction bearing</option>
-                                    <option>Poor bearing fit on shaft</option>
-                                    <option>Bearing temperature excessive</option>
-                                </select>
-                            </div>
-
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">Fault Location</span>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Fault Location</span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Add fault details here" aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
-                                <input type="text" class="form-control" placeholder="Add fault details here" aria-label="Username" aria-describedby="basic-addon1">
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
-                </div>
-                <!--./FORM: Fault card-->
+                    <!--./FORM: Fault card-->
+                }
+
+
                 <!---------------------------------------------------------------->
                 <!--FORM: Reports -------------------------------------------------------->
                 <!--For now all these sections should probably always be displayed -->
@@ -832,38 +793,7 @@
 
 
         @section Scripts{
-            <script>
-                $(function () {
-                    var availableTags = [
-                        "ActionScript",
-                        "AppleScript",
-                        "Asp",
-                        "BASIC",
-                        "C",
-                        "C++",
-                        "Clojure",
-                        "COBOL",
-                        "ColdFusion",
-                        "Erlang",
-                        "Fortran",
-                        "Groovy",
-                        "Haskell",
-                        "Java",
-                        "JavaScript",
-                        "Lisp",
-                        "Perl",
-                        "PHP",
-                        "Python",
-                        "Ruby",
-                        "Scala",
-                        "Scheme"
-                    ];
-                    $("#tags").autocomplete({
-                        source: availableTags
-                    });
-                });
-            </script>
-
+            
             <script type="text/javascript">
                 jQuery(document).ready(function () {
                     setTimeout(updateScrollSpy, 1000);
