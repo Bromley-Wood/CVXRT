@@ -22,7 +22,6 @@ namespace Reportingtool.Pages
 
         [BindProperty]
         public int SelectedReportId { get; set; }
-
         public IList<VTstReportSummary> VTstReportSummary_InProgress { get; set; }
         public IList<string> UnitReference_InProgress { get; set; }
         public IList<Technology> Technology_List { get; set; }
@@ -30,8 +29,13 @@ namespace Reportingtool.Pages
         public IList<PrimaryComponentSubtype> PrimaryComponentSubtype_List { get; set; }
         public IList<FaultType> FaultType_List { get; set; }
         public IList<FaultSubtype> FaultSubtype_List { get; set; }
-
         public VTstReportSummary Current_Displayed_Report { get; set; }
+
+        [BindProperty]
+        public TstReport Report_To_Update { get; set; }
+
+        [BindProperty]
+        public TstFault Fault_To_Update { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -89,12 +93,24 @@ namespace Reportingtool.Pages
                 .ToListAsync();
             //------------------------------------------------------------------//
 
+            Report_To_Update = _context.TstReport.FirstOrDefault(r => r.PkReportId == Current_Displayed_Report.ReportId);
+            Fault_To_Update = _context.TstFault.FirstOrDefault(f => f.PkFaultId == Current_Displayed_Report.FaultId);
+
             return Page();
         }
 
-        public async Task<IActionResult> OnPostLoadSelectedReport()
+        public IActionResult OnPostLoadSelectedReport()
         {
             return RedirectToPage("/ReviewReports", new { id = SelectedReportId });
+        }
+
+        public async Task<IActionResult> OnPostUpdateReportFault()
+        {
+            Console.WriteLine("******************");
+            Console.WriteLine(Fault_To_Update.PkFaultId);
+            Console.WriteLine("******************");
+
+            return RedirectToPage("/ReviewReports");
         }
 
     }

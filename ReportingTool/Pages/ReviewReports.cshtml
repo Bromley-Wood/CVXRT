@@ -107,6 +107,8 @@
                 </div>
             </div><!--./Queue-->
             <!--Report Body-->
+            <form method="post" asp-page-handler="updatereportfault" id="updatereportfaultform"></form>
+
             <div class="col-md-8 order-md-1 py-5">
 
                 @if (Model.Current_Displayed_Report.FaultType != null)
@@ -116,6 +118,9 @@
                     <div class="card mb-4 wow fadeIn">
                         <!--Card content-->
                         <div class="card-body" id="displayFaultAttributes">
+                            @*<input type="hidden" asp-for="Fault_To_Update.PkFaultId" value=@Model.Fault_To_Update.PkFaultId form="updatereportfaultform">*@
+                            
+
                             <h5 class="grey-text font-weight-light">Fault Details</h5>
                             <h2 class="mb-3 breadcrumbs" id="machineTag">@Model.Current_Displayed_Report.MachineTrain</h2>
                             <h5 class="mb-3 breadcrumbs" id="machineDescription">@Model.Current_Displayed_Report.MachineTrainLongName</h5>
@@ -599,7 +604,7 @@
                                 <label class="custom-control-label" for="readyforReview">Ready for Review</label>
                             </div>
                         </div>
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+                        <button class="btn btn-primary btn-lg btn-block btnUpdateReportFault" id="btnUpdateReportFault" type="submit">Submit</button>
                     </div>
                 </div>
             </div>
@@ -642,6 +647,8 @@
 
 
     @section Scripts{
+
+
 
         <script type="text/javascript">
             jQuery(document).ready(function () {
@@ -816,5 +823,11 @@
                 $('#loadselectedreportform').submit();
             });
 
+        </script>
+
+        <script>
+            $(document).on("click", ".btnUpdateReportFault", function () {
+                $('#updatereportfaultform').submit();
+            });
         </script>
     }
