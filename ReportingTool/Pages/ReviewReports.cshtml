@@ -132,7 +132,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Technology</span>
                                     </div>
-                                    <span class="infolabel">@Model.Technology_List[Model.Fault_To_Update.FkTechnologyId + 1]</span>
+                                    <span class="infolabel">@Model.Technology_List.FirstOrDefault(t => t.PkTechnologyId == Model.Fault_To_Update.FkTechnologyId).Technology1</span>
                                 </div>
 
                                 <div class="input-group mb-3">
@@ -227,7 +227,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Fault Location</span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Add fault details here" aria-label="Username" aria-describedby="basic-addon1">
+                                    <input type="text" asp-for="Fault_To_Update.FaultLocation" class="form-control" placeholder="Add fault details here" aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
                             </div>
                         </div>
