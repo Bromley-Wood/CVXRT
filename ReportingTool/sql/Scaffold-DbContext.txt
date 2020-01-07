@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "Data Source=SVT-QLIKVIEW-D;Database=DEV_ClientProject;User Id=mhmuser;password=machinelearning2018;Trusted_Connection=False" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models/Db

@@ -30,7 +30,7 @@ namespace Reportingtool.Pages
         public IList<FaultType> FaultType_List { get; set; }
         public IList<FaultSubtype> FaultSubtype_List { get; set; }
         public VTstReportSummary Current_Displayed_Report { get; set; }
-
+        
         [BindProperty]
         public TstReport Report_To_Update { get; set; }
 

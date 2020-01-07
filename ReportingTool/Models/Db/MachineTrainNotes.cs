@@ -12,7 +12,5 @@ namespace Reportingtool.Models.Db
         public int FkMachineTrainId { get; set; }
         public bool MachineTrainNoteShowOnReport { get; set; }
         public string AnalystName { get; set; }
-
-        //public MachineTrain Machine_Train { get; set; }
     }
 }

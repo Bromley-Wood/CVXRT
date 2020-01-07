@@ -107,31 +107,32 @@
                 </div>
             </div><!--./Queue-->
             <!--Report Body-->
-            <form method="post" asp-page-handler="updatereportfault" id="updatereportfaultform"></form>
+
 
             <div class="col-md-8 order-md-1 py-5">
+                <form method="post" asp-page-handler="updatereportfault" id="updatereportfaultform">
+                    <input type="hidden" asp-for="Fault_To_Update.PkFaultId" value=@Model.Fault_To_Update.PkFaultId>
+                    <input type="hidden" asp-for="Report_To_Update.PkReportId" value=@Model.Report_To_Update.PkReportId>
 
-                @if (Model.Current_Displayed_Report.FaultType != null)
-                {
-                    <!--DISPLAY: Fault Attribute card-->
-                    <!-- This section to show if a report is being created on an existing fault -->
-                    <div class="card mb-4 wow fadeIn">
-                        <!--Card content-->
-                        <div class="card-body" id="displayFaultAttributes">
-                            @*<input type="hidden" asp-for="Fault_To_Update.PkFaultId" value=@Model.Fault_To_Update.PkFaultId form="updatereportfaultform">*@
-                            
+                    @if (Model.Current_Displayed_Report.FaultType != null)
+                    {
+                        <!--DISPLAY: Fault Attribute card-->
+                        <!-- This section to show if a report is being created on an existing fault -->
+                        <div class="card mb-4 wow fadeIn">
+                            <!--Card content-->
+                            <div class="card-body" id="displayFaultAttributes">
 
-                            <h5 class="grey-text font-weight-light">Fault Details</h5>
-                            <h2 class="mb-3 breadcrumbs" id="machineTag">@Model.Current_Displayed_Report.MachineTrain</h2>
-                            <h5 class="mb-3 breadcrumbs" id="machineDescription">@Model.Current_Displayed_Report.MachineTrainLongName</h5>
-                            <hr />
-                            <form class="needs-validation" novalidate>
+                                <h5 class="grey-text font-weight-light">Fault Details</h5>
+                                <h2 class="mb-3 breadcrumbs" id="machineTag">@Model.Current_Displayed_Report.MachineTrain</h2>
+                                <h5 class="mb-3 breadcrumbs" id="machineDescription">@Model.Current_Displayed_Report.MachineTrainLongName</h5>
+                                <hr />
+
 
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Technology</span>
                                     </div>
-                                    <span class="infolabel">Vibration</span>
+                                    <span class="infolabel">@Model.Technology_List[Model.Fault_To_Update.FkTechnologyId + 1]</span>
                                 </div>
 
                                 <div class="input-group mb-3">
@@ -156,29 +157,29 @@
                                     </div>
                                     <span class="infolabel"> @Model.Current_Displayed_Report.FaultLocation</span>
                                 </div>
-                            </form>
+
+                            </div>
                         </div>
-                    </div>
-                    <!--./DISPLAY: Fault Attribute card-->
-                }
-                else
-                {
-                    <!--FORM: Fault card-->
-                    <!-- This section to show if a new fault needs to be created -->
-                    <div class="card mb-4 wow fadeIn">
-                        <div class="card-header font-weight-bold">Fault Attributes</div>
-                        <!--Card content-->
-                        <div class="card-body" id="formFaultAttributes">
-                            <label class="small text-muted" for="machine">Machine Train</label>
-                            <h2 class="mb-3 breadcrumbs" id="machineTag">@Model.Current_Displayed_Report.MachineTrain</h2>
-                            <h5 class="mb-3 breadcrumbs" id="machineDescription">@Model.Current_Displayed_Report.MachineTrainLongName</h5>
-                            <hr />
-                            <form class="needs-validation" novalidate>
+                        <!--./DISPLAY: Fault Attribute card-->
+                    }
+                    else
+                    {
+                        <!--FORM: Fault card-->
+                        <!-- This section to show if a new fault needs to be created -->
+                        <div class="card mb-4 wow fadeIn">
+                            <div class="card-header font-weight-bold">Fault Attributes</div>
+                            <!--Card content-->
+                            <div class="card-body" id="formFaultAttributes">
+                                <label class="small text-muted" for="machine">Machine Train</label>
+                                <h2 class="mb-3 breadcrumbs" id="machineTag">@Model.Current_Displayed_Report.MachineTrain</h2>
+                                <h5 class="mb-3 breadcrumbs" id="machineDescription">@Model.Current_Displayed_Report.MachineTrainLongName</h5>
+                                <hr />
+
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Technology</span>
                                     </div>
-                                    <select class="custom-select d-block " id="reportType" required>
+                                    <select class="custom-select d-block " asp-for="Fault_To_Update.FkTechnologyId" required>
                                         @foreach (var item in Model.Technology_List)
                                         {
                                             <option value="@(item.PkTechnologyId)">@item.Technology1</option>
@@ -190,13 +191,13 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Component</span>
                                     </div>
-                                    <select class="custom-select d-block " required>
+                                    <select class="custom-select d-block " asp-for="Fault_To_Update.FkPrimaryComponentTypeId" required>
                                         @foreach (var item in Model.PrimaryComponentType_List)
                                         {
                                             <option value="@(item.PkPrimaryComponentTypeId)">@item.PrimaryComponentType1</option>
                                         }
                                     </select>
-                                    <select class="custom-select d-block ">
+                                    <select class="custom-select d-block " asp-for="Fault_To_Update.FkPrimaryComponentSubtypeId">
                                         @foreach (var item in Model.PrimaryComponentSubtype_List)
                                         {
                                             <option value="@(item.PkPrimaryComponentSubtypeId)">@item.PrimaryComponentSubtype1</option>
@@ -208,13 +209,13 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Fault Type</span>
                                     </div>
-                                    <select class="custom-select d-block " required>
+                                    <select class="custom-select d-block " asp-for="Fault_To_Update.FkFaultTypeId" required>
                                         @foreach (var item in Model.FaultType_List)
                                         {
                                             <option value="@(item.PkFaultTypeId)">@item.FaultType1</option>
                                         }
                                     </select>
-                                    <select class="custom-select d-block">
+                                    <select class="custom-select d-block" asp-for="Fault_To_Update.FkPrimaryComponentSubtypeId">
                                         @foreach (var item in Model.FaultSubtype_List)
                                         {
                                             <option value="@(item.PkFaultSubtypeId)">@item.FaultSubtype1</option>
@@ -228,22 +229,20 @@
                                     </div>
                                     <input type="text" class="form-control" placeholder="Add fault details here" aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
-                    <!--./FORM: Fault card-->
-                }
+                        <!--./FORM: Fault card-->
+                    }
 
 
-                <!---------------------------------------------------------------->
-                <!--FORM: Reports -------------------------------------------------------->
-                <!--For now all these sections should probably always be displayed -->
-                <!--SUBFORM: Report Attributes -->
-                <div class="card mb-4 wow fadeIn">
-                    <!--Card content-->
-                    <div class="card-header font-weight-bold">Report Attributes</div>
-                    <div class="card-body">
-                        <form class="needs-validation" novalidate>
+                    <!---------------------------------------------------------------->
+                    <!--FORM: Reports -------------------------------------------------------->
+                    <!--For now all these sections should probably always be displayed -->
+                    <!--SUBFORM: Report Attributes -->
+                    <div class="card mb-4 wow fadeIn">
+                        <!--Card content-->
+                        <div class="card-header font-weight-bold">Report Attributes</div>
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4">
                                     <label class="small text-muted" for="reportType">Report Type</label>
@@ -280,133 +279,132 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                    <!--./SUBFORM: Report Attributes -->
-                    <!--SUBFORM: Observations -->
-                    <!--Card content-->
-
-                    <div class="card-body">
-                        <h1 class="line-through mb-4">Observations</h1>
-                        <div class="rpt-input-group input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Observation</span>
-                            </div>
-                            <div class="rpt-select-wrapper">
-                                <div class="rpt-select">
-                                    <div class="rpt-select__trigger">
-                                        <span>Select a category</span>
-                                        <div class="arrow"></div>
-                                    </div>
-                                    <div class="rpt-options">
-                                        <span class="rpt-header">Select an observation type</span>
-                                        <span class="rpt-option selected" data-value="Noises">Noises</span>
-                                        <span class="rpt-option" data-value="Data Collection Errors">Data Collection Errors</span>
-                                        <span class="rpt-option" data-value="Phase">Phase</span>
-                                        <span class="rpt-option" data-value="Physical / Visual">Physical / Visual</span>
-                                        <span class="rpt-option" data-value="Spectral Amplitude">Spectral Amplitude</span>
-                                        <span class="rpt-header">Custom Entry</span>
-                                        <span class="rpt-option" data-value="Other">Other</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="rpt-select-wrapper" id="selectObservation">
-                                <div class="rpt-select">
-                                    <div class="rpt-select__trigger" id="observationSelected">
-                                        <span>Select an observation</span>
-                                        <div class="arrow"></div>
-                                    </div>
-                                    <div class="rpt-options">
-                                        <span class="rpt-header">Select something</span>
-                                        <span class="rpt-option selected" data-value="the corresponding observation id">Component is noisy</span>
-                                        <span class="rpt-option" data-value="observationid">Machine has high pitched sound</span>
-                                        <span class="rpt-option" data-value="observationid">Machine has low rumble</span>
-                                        <span class="rpt-option" data-value="observationid">Rubbing sound</span>
-                                        <span class="rpt-option" data-value="observationid">Sounds like gravel through pump</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="rpt-select-wrapper" style="display: none;" id="customObservation">
-                                <input type="text" class="form-control" id="inputCustomObservation" placeholder="" value="" required>
-                            </div>
-                            <div class="input-group-append">
-                                <button type="button" id="btnAddObservation">+++</button>
-                                <button type="button" style="display: none;" id="btnAddCustomObservation">+</button>
-                            </div>
                         </div>
-                        <ul class="list-group list-group-flush" id="observationList">
-                            <li class="list-group-item">There is a rubbing sound <span class="close">x</span></li>
-                            <li class="list-group-item">The casing is hot <span class="close">x</span></li>
-                            <li class="list-group-item">This is a custom observation <span class="close">x</span></li>
-                        </ul>
-                    </div>
-                    <!--./SUBFORM: Observations -->
-                    <!--SUBFORM: Actions -->
-                    <!--Card content-->
+                        <!--./SUBFORM: Report Attributes -->
+                        <!--SUBFORM: Observations -->
+                        <!--Card content-->
 
-                    <div class="card-body">
-                        <h1 class="line-through mb-4">Actions</h1>
-                        <div class="rpt-input-group input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Action</span>
-                            </div>
-                            <div class="rpt-select-wrapper">
-                                <div class="rpt-select">
-                                    <div class="rpt-select__trigger" id="actionSelected">
-                                        <span>Select a category</span>
-                                        <div class="arrow"></div>
-                                    </div>
-                                    <div class="rpt-options">
-                                        <span class="rpt-header">Listed by least intrusive (top) to most intrusive (bottom)</span>
-                                        <span class="rpt-option selected" data-value="the-corresponding-actionid">1.  Lubricate and retake data</span>
-                                        <span class="rpt-option" data-value="actionid">2.  Reduce monitoring interval</span>
-                                        <span class="rpt-option" data-value="actionid">3.  Clean an repack bearing</span>
-                                        <span class="rpt-option" data-value="actionid">4.  Replace bearing</span>
-                                        <span class="rpt-option" data-value="actionid">5.  Review bearing selectione</span>
+                        <div class="card-body">
+                            <h1 class="line-through mb-4">Observations</h1>
+                            <div class="rpt-input-group input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Observation</span>
+                                </div>
+                                <div class="rpt-select-wrapper">
+                                    <div class="rpt-select">
+                                        <div class="rpt-select__trigger">
+                                            <span>Select a category</span>
+                                            <div class="arrow"></div>
+                                        </div>
+                                        <div class="rpt-options">
+                                            <span class="rpt-header">Select an observation type</span>
+                                            <span class="rpt-option selected" data-value="Noises">Noises</span>
+                                            <span class="rpt-option" data-value="Data Collection Errors">Data Collection Errors</span>
+                                            <span class="rpt-option" data-value="Phase">Phase</span>
+                                            <span class="rpt-option" data-value="Physical / Visual">Physical / Visual</span>
+                                            <span class="rpt-option" data-value="Spectral Amplitude">Spectral Amplitude</span>
+                                            <span class="rpt-header">Custom Entry</span>
+                                            <span class="rpt-option" data-value="Other">Other</span>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="rpt-select-wrapper" id="selectObservation">
+                                    <div class="rpt-select">
+                                        <div class="rpt-select__trigger" id="observationSelected">
+                                            <span>Select an observation</span>
+                                            <div class="arrow"></div>
+                                        </div>
+                                        <div class="rpt-options">
+                                            <span class="rpt-header">Select something</span>
+                                            <span class="rpt-option selected" data-value="the corresponding observation id">Component is noisy</span>
+                                            <span class="rpt-option" data-value="observationid">Machine has high pitched sound</span>
+                                            <span class="rpt-option" data-value="observationid">Machine has low rumble</span>
+                                            <span class="rpt-option" data-value="observationid">Rubbing sound</span>
+                                            <span class="rpt-option" data-value="observationid">Sounds like gravel through pump</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rpt-select-wrapper" style="display: none;" id="customObservation">
+                                    <input type="text" class="form-control" id="inputCustomObservation" placeholder="" value="" required>
+                                </div>
+                                <div class="input-group-append">
+                                    <button type="button" id="btnAddObservation">+++</button>
+                                    <button type="button" style="display: none;" id="btnAddCustomObservation">+</button>
+                                </div>
                             </div>
-                            <div class="input-group-append">
-                                <button type="button" id="btnAddAction">+</button>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <ul class="list-group list-group-flush" id="actionList">
-                                <li class="list-group-item">Lubricate and retake data <span class="close">x</span></li>
-                                <li class="list-group-item">Reduce monitoring interval <span class="close">x</span></li>
+                            <ul class="list-group list-group-flush" id="observationList">
+                                <li class="list-group-item">There is a rubbing sound <span class="close">x</span></li>
+                                <li class="list-group-item">The casing is hot <span class="close">x</span></li>
+                                <li class="list-group-item">This is a custom observation <span class="close">x</span></li>
                             </ul>
-                            <div class="invalid-feedback">
-                                You've already selected that action
-                            </div>
                         </div>
-                        <div class="form-group">
-                            <label class="small text-muted" for="formExternalNotes">Additional Recommendations</label>
-                            <textarea type="text" id="formExternalNotes" class="form-control" rows="3"></textarea>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="small text-muted" for="notification">Notification</label>
-                                <input type="number" class="form-control" id="notification" placeholder="" value="" required>
-                                <div class="invalid-feedback">
-                                    Valid number is required.
+                        <!--./SUBFORM: Observations -->
+                        <!--SUBFORM: Actions -->
+                        <!--Card content-->
+
+                        <div class="card-body">
+                            <h1 class="line-through mb-4">Actions</h1>
+                            <div class="rpt-input-group input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Action</span>
+                                </div>
+                                <div class="rpt-select-wrapper">
+                                    <div class="rpt-select">
+                                        <div class="rpt-select__trigger" id="actionSelected">
+                                            <span>Select a category</span>
+                                            <div class="arrow"></div>
+                                        </div>
+                                        <div class="rpt-options">
+                                            <span class="rpt-header">Listed by least intrusive (top) to most intrusive (bottom)</span>
+                                            <span class="rpt-option selected" data-value="the-corresponding-actionid">1.  Lubricate and retake data</span>
+                                            <span class="rpt-option" data-value="actionid">2.  Reduce monitoring interval</span>
+                                            <span class="rpt-option" data-value="actionid">3.  Clean an repack bearing</span>
+                                            <span class="rpt-option" data-value="actionid">4.  Replace bearing</span>
+                                            <span class="rpt-option" data-value="actionid">5.  Review bearing selectione</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-group-append">
+                                    <button type="button" id="btnAddAction">+</button>
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="small text-muted" for="workOrder">Work Order</label>
-                                <input type="number" class="form-control" id="workOrder" placeholder="" value="" required>
+
+                            <div class="mb-3">
+                                <ul class="list-group list-group-flush" id="actionList">
+                                    <li class="list-group-item">Lubricate and retake data <span class="close">x</span></li>
+                                    <li class="list-group-item">Reduce monitoring interval <span class="close">x</span></li>
+                                </ul>
                                 <div class="invalid-feedback">
-                                    Valid number is required.
+                                    You've already selected that action
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="small text-muted" for="formExternalNotes">Additional Recommendations</label>
+                                <textarea type="text" id="formExternalNotes" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="small text-muted" for="notification">Notification</label>
+                                    <input type="number" class="form-control" id="notification" placeholder="" value="" required>
+                                    <div class="invalid-feedback">
+                                        Valid number is required.
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="small text-muted" for="workOrder">Work Order</label>
+                                    <input type="number" class="form-control" id="workOrder" placeholder="" value="" required>
+                                    <div class="invalid-feedback">
+                                        Valid number is required.
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!--./SUBFORM: Actions -->
-                    <!--SUBFORM: Attachments -->
-                    <!--Card content-->
-                    <div class="card-body">
-                        <h1 class="line-through mb-4">Attachments</h1>
-                        <form class="needs-validation" novalidate>
+                        <!--./SUBFORM: Actions -->
+                        <!--SUBFORM: Attachments -->
+                        <!--Card content-->
+                        <div class="card-body">
+                            <h1 class="line-through mb-4">Attachments</h1>
+
                             <div class="form-group">
                                 <label class="small text-muted" for="formInternalNotes">Analyst Notes (internal)</label>
                                 <textarea type="text" id="formInternalNotes" class="form-control" rows="3"></textarea>
@@ -422,192 +420,194 @@
                                     <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                                 </div>
                             </div>
-                        </form>
+
+                        </div>
                     </div>
-                </div>
-                <!--./SUBFORM: Attachments -->
-                <!--DISPLAY:  Report Timeline -->
-                <div class="card mb-4" id="historicReports">
-                    <!--Card content-->
-                    <div class="card-body col-md-12">
-                        <h5 class="grey-text font-weight-light">Report Timeline</h5>
-                        <hr />
-                        <div class="row">
-                            <nav id="historicReportsNav" class="flex-column col-3 nav nav-pills">
-                                <!-- *** note the fas fa-square icon class needs to change with condition: Prompt = text-danger; Plan = text-alert; Trending = text-warning; No action = text-default; *** -->
-                                <div class="rpt-stepper"><a class="nav-link" href="#abc"> 18.05.19 <i class="fas fa-square text-danger pl-2"></i></a></div>
-                                <div class="rpt-stepper"><a class="nav-link" href="#def"> 18.04.08 <i class="fas fa-square text-alert pl-2"></i></a></div>
-                                <div class="rpt-stepper"><a class="nav-link" href="#ghi"> 18.03.28<i class="fas fa-square text-warning pl-2"></i></a></div>
-                                <div class="rpt-stepper"><a class="nav-link" href="#jkl"> 18.03.04<i class="fas fa-square text-warning pl-2"></i></a></div>
-                                <div class="rpt-stepper"><a class="nav-link" href="#mno"> 18.02.03 <i class="fas fa-square text-default pl-2"></i></a></div>
-                            </nav>
-                            <div id="historicReportsBody" data-spy="scroll" data-target="#historicReportsNav" data-offset="200" class="col-9">
-                                <!--Report 1-->
-                                <section id="abc">
-                                    <h4 class="border-danger">
-                                        <!-- *** note this class needs to change with condition: Prompt = border-danger; Plan = border-alert; Trending = border-warning; No action = border-default; ***-->
-                                        Prompt Action
-                                    </h4>
-                                    <span><i class="far fa-calendar-alt"></i> 18.05.19 </span>
+                    <!--./SUBFORM: Attachments -->
+                    <!--DISPLAY:  Report Timeline -->
+                    <div class="card mb-4" id="historicReports">
+                        <!--Card content-->
+                        <div class="card-body col-md-12">
+                            <h5 class="grey-text font-weight-light">Report Timeline</h5>
+                            <hr />
+                            <div class="row">
+                                <nav id="historicReportsNav" class="flex-column col-3 nav nav-pills">
+                                    <!-- *** note the fas fa-square icon class needs to change with condition: Prompt = text-danger; Plan = text-alert; Trending = text-warning; No action = text-default; *** -->
+                                    <div class="rpt-stepper"><a class="nav-link" href="#abc"> 18.05.19 <i class="fas fa-square text-danger pl-2"></i></a></div>
+                                    <div class="rpt-stepper"><a class="nav-link" href="#def"> 18.04.08 <i class="fas fa-square text-alert pl-2"></i></a></div>
+                                    <div class="rpt-stepper"><a class="nav-link" href="#ghi"> 18.03.28<i class="fas fa-square text-warning pl-2"></i></a></div>
+                                    <div class="rpt-stepper"><a class="nav-link" href="#jkl"> 18.03.04<i class="fas fa-square text-warning pl-2"></i></a></div>
+                                    <div class="rpt-stepper"><a class="nav-link" href="#mno"> 18.02.03 <i class="fas fa-square text-default pl-2"></i></a></div>
+                                </nav>
+                                <div id="historicReportsBody" data-spy="scroll" data-target="#historicReportsNav" data-offset="200" class="col-9">
+                                    <!--Report 1-->
+                                    <section id="abc">
+                                        <h4 class="border-danger">
+                                            <!-- *** note this class needs to change with condition: Prompt = border-danger; Plan = border-alert; Trending = border-warning; No action = border-default; ***-->
+                                            Prompt Action
+                                        </h4>
+                                        <span><i class="far fa-calendar-alt"></i> 18.05.19 </span>
 
-                                    <!-- ***  Can we make these blocks not render if the result is null? ***-->
-                                    <!-- Observation Block -->
-                                    <h5>Observations</h5>
-                                    <ul class="mb-3 font-small list-group">
-                                        <li class="list-group-item">There is a rubbing sound </li>
-                                        <li class="list-group-item">The casing is hot </li>
-                                        <li class="list-group-item">This is a custom observation </li>
-                                    </ul>
-                                    <!-- ./Observation Block -->
-                                    <!-- Action Block -->
-                                    <h5 for="Actions">Actions</h5>
-                                    <ul class="mb-4 unstyled-list  font-small list-group">
-                                        <li class="list-group-item">Reduce monitoring interval </li>
-                                    </ul>
-                                    <!-- ./Action Block -->
-                                    <!-- Recommendations Block -->
-                                    <h5 for="formAddRec">Additional Recommendations</h5>
-                                    <p class="mb-3 font-small list-group-item">
-                                        Recommend taking an oil sample ASAP to determine if any excessive wear metals are present.
-                                        If possible, conduct an inspection of the gear set while the machine is shutdown.
-                                        <br />If unit can’t be shut down in the short term, plan to monitor the unit every couple of days to track deterioration.
-                                        Recommend using this unit as a poor spare and avoid running if possible.
-                                    </p>
-                                    <!-- ./Recommendations Block -->
-                                    <!-- WO Block -->
-                                    <h5 class="d-inline" for="workOrder">Work Order : </h5>
-                                    <span> 123456789 </span>
-                                    <!-- ./WO Block -->
-                                    <!-- InternalNotes Block -->
-                                    <h5 for="formIntNotes">Analyst Notes (internal)</h5>
-                                    <p class="mb-3 font-small list-group-item">
-                                        2018.05.19 MM Motor velocity New 9.9x (485Hz) impacting frequency, strongest @@M2I.  NO MOTOR FAULTS CONFIGURED.  M2A Velocity - Idler DE BPFO  151.26Hz(3.77x) impacting fundamental at 0.346 mm/s in ( &lt;0.12 mm/s @@G1 & G2)... Idler shaft NDE appears to have a rub G2Accel demod/twf)  - may need WO to be discussed w/ EDSC
-                                    </p>
-                                    <!-- ./InternalNotes Block -->
-                                    <!-- Attachment Block -->
-                                    <h5>Attachments</h5>
-                                    <p> X X X</p>
-                                    <!-- ./Attachment Block -->
-                                </section>
-                                <hr />
-                                <!--Report 1-->
-                                <!--Report 2-->
-                                <section id="def">
-                                    <h4 class="border-alert"> Plan Action </h4>
-                                    <span><i class="far fa-calendar-alt"></i> 18.04.08 </span>
+                                        <!-- ***  Can we make these blocks not render if the result is null? ***-->
+                                        <!-- Observation Block -->
+                                        <h5>Observations</h5>
+                                        <ul class="mb-3 font-small list-group">
+                                            <li class="list-group-item">There is a rubbing sound </li>
+                                            <li class="list-group-item">The casing is hot </li>
+                                            <li class="list-group-item">This is a custom observation </li>
+                                        </ul>
+                                        <!-- ./Observation Block -->
+                                        <!-- Action Block -->
+                                        <h5 for="Actions">Actions</h5>
+                                        <ul class="mb-4 unstyled-list  font-small list-group">
+                                            <li class="list-group-item">Reduce monitoring interval </li>
+                                        </ul>
+                                        <!-- ./Action Block -->
+                                        <!-- Recommendations Block -->
+                                        <h5 for="formAddRec">Additional Recommendations</h5>
+                                        <p class="mb-3 font-small list-group-item">
+                                            Recommend taking an oil sample ASAP to determine if any excessive wear metals are present.
+                                            If possible, conduct an inspection of the gear set while the machine is shutdown.
+                                            <br />If unit can’t be shut down in the short term, plan to monitor the unit every couple of days to track deterioration.
+                                            Recommend using this unit as a poor spare and avoid running if possible.
+                                        </p>
+                                        <!-- ./Recommendations Block -->
+                                        <!-- WO Block -->
+                                        <h5 class="d-inline" for="workOrder">Work Order : </h5>
+                                        <span> 123456789 </span>
+                                        <!-- ./WO Block -->
+                                        <!-- InternalNotes Block -->
+                                        <h5 for="formIntNotes">Analyst Notes (internal)</h5>
+                                        <p class="mb-3 font-small list-group-item">
+                                            2018.05.19 MM Motor velocity New 9.9x (485Hz) impacting frequency, strongest @@M2I.  NO MOTOR FAULTS CONFIGURED.  M2A Velocity - Idler DE BPFO  151.26Hz(3.77x) impacting fundamental at 0.346 mm/s in ( &lt;0.12 mm/s @@G1 & G2)... Idler shaft NDE appears to have a rub G2Accel demod/twf)  - may need WO to be discussed w/ EDSC
+                                        </p>
+                                        <!-- ./InternalNotes Block -->
+                                        <!-- Attachment Block -->
+                                        <h5>Attachments</h5>
+                                        <p> X X X</p>
+                                        <!-- ./Attachment Block -->
+                                    </section>
+                                    <hr />
+                                    <!--Report 1-->
+                                    <!--Report 2-->
+                                    <section id="def">
+                                        <h4 class="border-alert"> Plan Action </h4>
+                                        <span><i class="far fa-calendar-alt"></i> 18.04.08 </span>
 
-                                    <h5 for="observationType">Observations</h5>
-                                    <ul class="mb-3 font-small">
-                                        <li>There is a rubbing sound </li>
-                                        <li>The casing is hot </li>
-                                    </ul>
+                                        <h5 for="observationType">Observations</h5>
+                                        <ul class="mb-3 font-small">
+                                            <li>There is a rubbing sound </li>
+                                            <li>The casing is hot </li>
+                                        </ul>
 
-                                    <h5 for="Actions">Actions</h5>
-                                    <ul class="mb-4 unstyled-list font-small">
-                                        <li>1.  Lubricate and retake data </li>
-                                    </ul>
+                                        <h5 for="Actions">Actions</h5>
+                                        <ul class="mb-4 unstyled-list font-small">
+                                            <li>1.  Lubricate and retake data </li>
+                                        </ul>
 
-                                    <h5 for="formAddRec">Additional Recommendations</h5>
-                                    <p class="mb-3 font-small">
-                                        Recommend taking an oil sample ASAP to determine if any excessive wear metals are present.
-                                        <br />If possible, conduct an inspection of the gear set while the machine is shutdown.
-                                        <br />If unit can’t be shut down in the short term, plan to monitor the unit every couple of days to track deterioration.
-                                        <br />Recommend using this unit as a poor spare and avoid running if possible.
-                                    </p>
+                                        <h5 for="formAddRec">Additional Recommendations</h5>
+                                        <p class="mb-3 font-small">
+                                            Recommend taking an oil sample ASAP to determine if any excessive wear metals are present.
+                                            <br />If possible, conduct an inspection of the gear set while the machine is shutdown.
+                                            <br />If unit can’t be shut down in the short term, plan to monitor the unit every couple of days to track deterioration.
+                                            <br />Recommend using this unit as a poor spare and avoid running if possible.
+                                        </p>
 
-                                    <h5 for="workOrder">Work Order</h5>
-                                    <span class="infolabel"> 123456789 </span>
+                                        <h5 for="workOrder">Work Order</h5>
+                                        <span class="infolabel"> 123456789 </span>
 
 
-                                    <h5 for="formIntNotes">Analyst Notes (internal)</h5>
-                                    <p class="mb-3 font-small">
-                                        No change
-                                    </p>
+                                        <h5 for="formIntNotes">Analyst Notes (internal)</h5>
+                                        <p class="mb-3 font-small">
+                                            No change
+                                        </p>
 
-                                    <h5>Attachments</h5>
-                                    <p> X X X</p>
-                                </section>
-                                <hr />
+                                        <h5>Attachments</h5>
+                                        <p> X X X</p>
+                                    </section>
+                                    <hr />
 
-                                <!--Report 3-->
-                                <section id="ghi">
-                                    <h4 class="border-warning"> Trending </h4>
-                                    <span><i class="far fa-calendar-alt"></i> 18.03.28 </span>
+                                    <!--Report 3-->
+                                    <section id="ghi">
+                                        <h4 class="border-warning"> Trending </h4>
+                                        <span><i class="far fa-calendar-alt"></i> 18.03.28 </span>
 
-                                    <h5>Observations</h5>
-                                    <ul class="mb-3 font-small">
-                                        <li>There is a rubbing sound </li>
-                                    </ul>
+                                        <h5>Observations</h5>
+                                        <ul class="mb-3 font-small">
+                                            <li>There is a rubbing sound </li>
+                                        </ul>
 
-                                    <h5 for="formIntNotes">Analyst Notes (internal)</h5>
-                                    <p class="mb-3 font-small">
-                                        2018.03.28 MM Impacting increasing in M2A, M2N, G1I velocity.  Likely 1x motor, but may also be IB Idler shaft BPFO (which is quite close to motor speed harmonics).   0.08mm/s fundamental in M2A & absent from demod.  TWF shows "Impact bundles" around 2x (100Hz), nothing definite at 1x or at 344hz however.  This signal is lower in G2 and gone in G3, no other changes, not severe impacting yet, ctm, 3
-                                    </p>
+                                        <h5 for="formIntNotes">Analyst Notes (internal)</h5>
+                                        <p class="mb-3 font-small">
+                                            2018.03.28 MM Impacting increasing in M2A, M2N, G1I velocity.  Likely 1x motor, but may also be IB Idler shaft BPFO (which is quite close to motor speed harmonics).   0.08mm/s fundamental in M2A & absent from demod.  TWF shows "Impact bundles" around 2x (100Hz), nothing definite at 1x or at 344hz however.  This signal is lower in G2 and gone in G3, no other changes, not severe impacting yet, ctm, 3
+                                        </p>
 
-                                    <h5>Attachments</h5>
-                                    <p> X X X</p>
+                                        <h5>Attachments</h5>
+                                        <p> X X X</p>
 
-                                </section>
-                                <hr />
+                                    </section>
+                                    <hr />
 
-                                <!--Report 4-->
-                                <section id="jkl" class="my-3">
-                                    <h4 class="border-warning">
-                                        <span>2018.03.04 </span> <span> Trending </span>
-                                    </h4>
-                                    <h5 for="observationType">Observations</h5>
-                                    <ul class="mb-3">
-                                        <li>There is a rubbing sound </li>
-                                    </ul>
+                                    <!--Report 4-->
+                                    <section id="jkl" class="my-3">
+                                        <h4 class="border-warning">
+                                            <span>2018.03.04 </span> <span> Trending </span>
+                                        </h4>
+                                        <h5 for="observationType">Observations</h5>
+                                        <ul class="mb-3">
+                                            <li>There is a rubbing sound </li>
+                                        </ul>
 
-                                    <h5 for="formIntNotes">Analyst Notes (internal)</h5>
-                                    <p class="mb-3 font-small">
-                                        2018.03.04 MM M1N velocity - 223.64 Hz frequency (4.5x) trended suddenly (up to 0.4mm/s).  This signal may be a mix of idler shaft 2nd harmonic of, BSF and BPFO contributions to this single spectral amplitude, but the ratio is uncertain (note the 1x idler signal is not present in accel spectrum & legitimate peaks are present in the time wave form at the 223Hz frequency (i.e. the spectral spike clearly has real components, and is not purely an artifact of the fourier transform  trying to cope with signal distortion of other frequencies));  M2N hi res spectum has TWO spikes at 50 right next to each other (possible electrical implications); lower of the two chosen as 1x, otherwise stable/ok, CTM -3-
-                                    </p>
+                                        <h5 for="formIntNotes">Analyst Notes (internal)</h5>
+                                        <p class="mb-3 font-small">
+                                            2018.03.04 MM M1N velocity - 223.64 Hz frequency (4.5x) trended suddenly (up to 0.4mm/s).  This signal may be a mix of idler shaft 2nd harmonic of, BSF and BPFO contributions to this single spectral amplitude, but the ratio is uncertain (note the 1x idler signal is not present in accel spectrum & legitimate peaks are present in the time wave form at the 223Hz frequency (i.e. the spectral spike clearly has real components, and is not purely an artifact of the fourier transform  trying to cope with signal distortion of other frequencies));  M2N hi res spectum has TWO spikes at 50 right next to each other (possible electrical implications); lower of the two chosen as 1x, otherwise stable/ok, CTM -3-
+                                        </p>
 
-                                </section>
-                                <hr />
+                                    </section>
+                                    <hr />
 
-                                <!--Report 5-->
-                                <section id="mno" class="my-3">
-                                    <h4 class="border-default">
-                                        <span>2018.02.03 </span> <span> No Action </span>
-                                    </h4>
-                                    <h5 for="observationType">Observations</h5>
-                                    <ul class="mb-3">
-                                        <li>There is a rubbing sound </li>
-                                    </ul>
+                                    <!--Report 5-->
+                                    <section id="mno" class="my-3">
+                                        <h4 class="border-default">
+                                            <span>2018.02.03 </span> <span> No Action </span>
+                                        </h4>
+                                        <h5 for="observationType">Observations</h5>
+                                        <ul class="mb-3">
+                                            <li>There is a rubbing sound </li>
+                                        </ul>
 
-                                    <h5 for="formIntNotes">Analyst Notes (internal)</h5>
-                                    <p class="mb-3 font-small">
-                                        JBKH - Vibration measurements are deemed low this survey. Slight noise coming from gearbox/coupling area. Specialists know about it and have accepted its OK. Possibly minor in service issue with the coupling.
-                                    </p>
+                                        <h5 for="formIntNotes">Analyst Notes (internal)</h5>
+                                        <p class="mb-3 font-small">
+                                            JBKH - Vibration measurements are deemed low this survey. Slight noise coming from gearbox/coupling area. Specialists know about it and have accepted its OK. Possibly minor in service issue with the coupling.
+                                        </p>
 
-                                </section>
-                                <hr />
+                                    </section>
+                                    <hr />
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!--./DISPLAY: Report Timeline-->
-                <!--card-->
-                <div class="card mb-4 wow fadeIn">
-                    <!--Card content-->
-                    <div class="card-body">
-                        <div class="d-block my-3">
-                            <div class="custom-control custom-radio">
-                                <input id="inProgress" name="reportProgress" type="radio" class="custom-control-input" checked required>
-                                <label class="custom-control-label" for="inProgress">In Progress</label>
+                    <!--./DISPLAY: Report Timeline-->
+                    <!--card-->
+                    <div class="card mb-4 wow fadeIn">
+                        <!--Card content-->
+                        <div class="card-body">
+                            <div class="d-block my-3">
+                                <div class="custom-control custom-radio">
+                                    <input id="inProgress" name="reportProgress" type="radio" class="custom-control-input" checked required>
+                                    <label class="custom-control-label" for="inProgress">In Progress</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input id="readyforReview" name="reportProgress" type="radio" class="custom-control-input" required>
+                                    <label class="custom-control-label" for="readyforReview">Ready for Review</label>
+                                </div>
                             </div>
-                            <div class="custom-control custom-radio">
-                                <input id="readyforReview" name="reportProgress" type="radio" class="custom-control-input" required>
-                                <label class="custom-control-label" for="readyforReview">Ready for Review</label>
-                            </div>
+                            <button class="btn btn-primary btn-lg btn-block btnUpdateReportFault" id="btnUpdateReportFault" type="submit">Submit</button>
                         </div>
-                        <button class="btn btn-primary btn-lg btn-block btnUpdateReportFault" id="btnUpdateReportFault" type="submit">Submit</button>
                     </div>
-                </div>
+                </form>
             </div>
+
         </div>
 
     </div>

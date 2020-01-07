@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -21,6 +21,7 @@ namespace Reportingtool.Models.Db
         public virtual DbSet<DimDate> DimDate { get; set; }
         public virtual DbSet<DrivenUnitType> DrivenUnitType { get; set; }
         public virtual DbSet<Fault> Fault { get; set; }
+        public virtual DbSet<FaultFiles> FaultFiles { get; set; }
         public virtual DbSet<FaultSubtype> FaultSubtype { get; set; }
         public virtual DbSet<FaultType> FaultType { get; set; }
         public virtual DbSet<MachineTrain> MachineTrain { get; set; }
@@ -45,7 +46,9 @@ namespace Reportingtool.Models.Db
         public virtual DbSet<VConditionDaily> VConditionDaily { get; set; }
         public virtual DbSet<VConditionWeekly> VConditionWeekly { get; set; }
         public virtual DbSet<VCreateReports> VCreateReports { get; set; }
+        public virtual DbSet<VGenerateReports> VGenerateReports { get; set; }
         public virtual DbSet<VLatestReportByFault> VLatestReportByFault { get; set; }
+        public virtual DbSet<VMachineTrainHierarchy> VMachineTrainHierarchy { get; set; }
         public virtual DbSet<VMachinesLastMeasured> VMachinesLastMeasured { get; set; }
         public virtual DbSet<VReportSummary> VReportSummary { get; set; }
         public virtual DbSet<VRouteMachines> VRouteMachines { get; set; }
@@ -201,6 +204,30 @@ namespace Reportingtool.Models.Db
                     .IsRequired()
                     .HasMaxLength(6)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<FaultFiles>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("Fault_Files");
+
+                entity.Property(e => e.FileName).IsRequired();
+
+                entity.Property(e => e.FkFaultId).HasColumnName("FK_FaultId");
+
+                entity.Property(e => e.PkFilePathId)
+                    .HasColumnName("PK_FilePathId")
+                    .ValueGeneratedOnAdd();
+
+                entity.Property(e => e.UploadDate)
+                    .HasColumnName("Upload_Date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.UploadedBy)
+                    .IsRequired()
+                    .HasColumnName("Uploaded_By")
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<FaultSubtype>(entity =>
@@ -948,6 +975,69 @@ namespace Reportingtool.Models.Db
                 entity.Property(e => e.Unit).HasMaxLength(16);
             });
 
+            modelBuilder.Entity<VGenerateReports>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("V_Generate_Reports");
+
+                entity.Property(e => e.Action)
+                    .HasMaxLength(51)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Area).HasMaxLength(64);
+
+                entity.Property(e => e.AreaIsActive).HasColumnName("Area_IsActive");
+
+                entity.Property(e => e.CycleDays).HasColumnName("Cycle_Days");
+
+                entity.Property(e => e.DrivenUnitType)
+                    .HasColumnName("Driven_Unit_Type")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.DrivenUnitTypeIsActive).HasColumnName("DrivenUnitType_IsActive");
+
+                entity.Property(e => e.FirstCallDate)
+                    .HasColumnName("First_Call_Date")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.GreaterArea)
+                    .HasColumnName("Greater_Area")
+                    .HasMaxLength(32);
+
+                entity.Property(e => e.LabourHours).HasColumnName("Labour_Hours");
+
+                entity.Property(e => e.MachineTrain)
+                    .IsRequired()
+                    .HasColumnName("Machine_Train")
+                    .HasMaxLength(32);
+
+                entity.Property(e => e.MachineTrainIsActive).HasColumnName("MachineTrain_IsActive");
+
+                entity.Property(e => e.MachineTrainLongName)
+                    .IsRequired()
+                    .HasColumnName("Machine_Train_Long_Name")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.ModuleCode)
+                    .HasColumnName("Module_Code")
+                    .HasMaxLength(16);
+
+                entity.Property(e => e.Route).HasMaxLength(255);
+
+                entity.Property(e => e.RouteIsActive).HasColumnName("Route_IsActive");
+
+                entity.Property(e => e.Site).HasMaxLength(50);
+
+                entity.Property(e => e.SiteIsActive).HasColumnName("Site_IsActive");
+
+                entity.Property(e => e.Unit).HasMaxLength(16);
+
+                entity.Property(e => e.UnitReference)
+                    .HasColumnName("Unit_Reference")
+                    .HasMaxLength(4);
+            });
+
             modelBuilder.Entity<VLatestReportByFault>(entity =>
             {
                 entity.HasNoKey();
@@ -963,6 +1053,65 @@ namespace Reportingtool.Models.Db
                 entity.Property(e => e.Status)
                     .HasMaxLength(6)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<VMachineTrainHierarchy>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("V_Machine_Train_Hierarchy");
+
+                entity.Property(e => e.Area).HasMaxLength(64);
+
+                entity.Property(e => e.AreaIsActive).HasColumnName("Area_IsActive");
+
+                entity.Property(e => e.CycleDays).HasColumnName("Cycle_Days");
+
+                entity.Property(e => e.DrivenUnitType)
+                    .HasColumnName("Driven_Unit_Type")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.DrivenUnitTypeIsActive).HasColumnName("DrivenUnitType_IsActive");
+
+                entity.Property(e => e.FirstCallDate)
+                    .HasColumnName("First_Call_Date")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.GreaterArea)
+                    .HasColumnName("Greater_Area")
+                    .HasMaxLength(32);
+
+                entity.Property(e => e.LabourHours).HasColumnName("Labour_Hours");
+
+                entity.Property(e => e.MachineTrain)
+                    .IsRequired()
+                    .HasColumnName("Machine_Train")
+                    .HasMaxLength(32);
+
+                entity.Property(e => e.MachineTrainIsActive).HasColumnName("MachineTrain_IsActive");
+
+                entity.Property(e => e.MachineTrainLongName)
+                    .IsRequired()
+                    .HasColumnName("Machine_Train_Long_Name")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.ModuleCode)
+                    .HasColumnName("Module_Code")
+                    .HasMaxLength(16);
+
+                entity.Property(e => e.Route).HasMaxLength(255);
+
+                entity.Property(e => e.RouteIsActive).HasColumnName("Route_IsActive");
+
+                entity.Property(e => e.Site).HasMaxLength(50);
+
+                entity.Property(e => e.SiteIsActive).HasColumnName("Site_IsActive");
+
+                entity.Property(e => e.Unit).HasMaxLength(16);
+
+                entity.Property(e => e.UnitReference)
+                    .HasColumnName("Unit_Reference")
+                    .HasMaxLength(4);
             });
 
             modelBuilder.Entity<VMachinesLastMeasured>(entity =>
@@ -1115,7 +1264,6 @@ namespace Reportingtool.Models.Db
                 entity.Property(e => e.Route).HasMaxLength(255);
 
                 entity.Property(e => e.Status)
-                    .IsRequired()
                     .HasMaxLength(6)
                     .IsUnicode(false);
 
