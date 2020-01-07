@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using System;
+using System.ComponentModel;
 
 namespace Reportingtool.Pages
 {
@@ -106,9 +107,16 @@ namespace Reportingtool.Pages
 
         public async Task<IActionResult> OnPostUpdateReportFault()
         {
-            Console.WriteLine("******************");
-            Console.WriteLine(Fault_To_Update.PkFaultId);
-            Console.WriteLine("******************");
+            //--------------- Update Fault if FaultType is null ----------------------------//
+            
+
+
+            foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(Fault_To_Update))
+            {
+                string name = descriptor.Name;
+                object value = descriptor.GetValue(Fault_To_Update);
+                Console.WriteLine($"{name} = {value}");
+            }
 
             return RedirectToPage("/ReviewReports");
         }
