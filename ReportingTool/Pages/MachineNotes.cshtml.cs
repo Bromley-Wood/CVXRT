@@ -205,6 +205,7 @@ namespace Reportingtool.Pages
                     }
                 }
                 string save_path = $"wwwroot\\MachineAttach\\{New_Machine_Train_File.FileName}";
+                //string save_path = $"c:\\MachineAttach\\{New_Machine_Train_File.FileName}";
                 using (var fileStream = new FileStream(save_path, FileMode.Create))
                 {
                     

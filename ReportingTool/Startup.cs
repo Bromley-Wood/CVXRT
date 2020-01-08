@@ -27,12 +27,14 @@ namespace Reportingtool
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(IISDefaults.AuthenticationScheme);
+            //services.AddAuthentication(IISDefaults.AuthenticationScheme);
 
             services.AddMvc(option => option.EnableEndpointRouting = false);
 
             var connection = configuration.GetConnectionString("CVXDevDb");
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
+
+            services.AddDbContext<Reportingtool.Models.Db.DEV_ClientProjectContext>(options => options.UseSqlServer(connection));
 
 
         }

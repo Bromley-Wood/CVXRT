@@ -116,176 +116,95 @@
 	<!-- Navbar -->
 
 
-		@RenderBody()
+    @RenderBody()
 
+    <!--Footer-->
+<footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn">
 
-	<!--Footer-->
-	<footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn">
+    <!--Call to action-->
+    <div class="pt-4">
+        <a class="btn btn-outline-white" href="#" target="_blank" role="button">
+            Go to sharepoint
+            <i class="fas fa-share-alt ml-2"></i>
+        </a>
+        <a class="btn btn-outline-white" href="#" target="_blank" role="button">
+            Start tutorial
+            <i class="fa fa-graduation-cap ml-2"></i>
+        </a>
+    </div>
+    <!--/.Call to action-->
+    <!--Footer-->
+    <footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn">
 
-		<!--Call to action-->
-		<div class="pt-4">
-			<a class="btn btn-outline-white" href="#" target="_blank" role="button">
-				Go to sharepoint
-				<i class="fas fa-share-alt ml-2"></i>
-			</a>
-			<a class="btn btn-outline-white" href="#" target="_blank" role="button">
-				Start tutorial
-				<i class="fa fa-graduation-cap ml-2"></i>
-			</a>
-		</div>
-		<!--/.Call to action-->
-
-		<hr class="my-4">
-
-		<!-- Social icons -->
-		<div class="pb-4">
-			<a>
-				<i class="fas fa-rocket mr-3"></i>
-			</a>
-			<a>
-				<i class="fas fa-broom mr-3"></i>
-			</a>
-			<a>
-				<i class="fas fa-chart-area mr-3"></i>
-			</a>
-			<a>
-				<i class="fas fa-chess-knight mr-3"></i>
-			</a>
-			<a>
-				<i class="fas fa-crow mr-3"></i>
-			</a>
-			<a>
-				<i class="fas fa-dolly-flatbed mr-3"></i>
-			</a>
-			<a>
-				<i class="fas fa-kiwi-bird mr-3"></i>
-			</a>
-			<a>
-				<i class="fas fa-dragon mr-3"></i>
-			</a>
-			<a>
-				<i class="fas fa-fighter-jet mr-3"></i>
-			</a>
-		</div>
-		<!-- Social icons -->
-		<!--Copyright-->
-		<div class="footer-copyright py-3">
-			Last Updated 10 Jan 2020
-		</div>
-		<!--/.Copyright-->
-
-	</footer>
-	<!--/.Footer-->
-	<!-- SCRIPTS -->
-	<!-- JQuery -->
-	<script type="text/javascript" src="~/js/jquery-3.4.1.min.js"></script>
-	<!-- Bootstrap tooltips -->
-	<script type="text/javascript" src="~/js/popper.min.js"></script>
-	<!-- Bootstrap core JavaScript -->
-	<script type="text/javascript" src="~/js/bootstrap.min.js"></script>
-	<!-- MDB core JavaScript -->
-	<script type="text/javascript" src="~/js/mdb.min.js"></script>
-
-	<script type="text/javascript" src="~/js/site.js"></script>
-	<!-- Initializations -->
-	<script type="text/javascript">
-		// Animations initialization
-		new WOW().init();
-	</script>
-
-	<!-- Navbar -->
-	<script>
-		$(function () {
-			$('a').each(function () {
-				if ($(this).prop('href') == window.location.href) {
-					$(this).addClass('active'); $(this).parents('li').addClass('active');
-				}
-			});
-		});
-	</script>
-
-
-	@if (ViewData["Title"].ToString().Contains("Create Reports"))
-	{
-		<script type="text/javascript" src="~/js/create_reports.js"></script>
-	}
-	@if (ViewData["Title"].ToString().Contains("Machine Notes"))
-	{
-
+        <!-- Social icons -->
+        <div class="pb-4">
+            <a>
+                <i class="fas fa-rocket mr-3"></i>
+            </a>
+            <a>
+                <i class="fas fa-broom mr-3"></i>
+            </a>
+            <a>
+                <i class="fas fa-chart-area mr-3"></i>
+            </a>
+            <a>
+                <i class="fas fa-chess-knight mr-3"></i>
+            </a>
+            <a>
+                <i class="fas fa-crow mr-3"></i>
+            </a>
+            <a>
+                <i class="fas fa-dolly-flatbed mr-3"></i>
+            </a>
+            <a>
+                <i class="fas fa-kiwi-bird mr-3"></i>
+            </a>
+            <a>
+                <i class="fas fa-dragon mr-3"></i>
+            </a>
+            <a>
+                <i class="fas fa-fighter-jet mr-3"></i>
+            </a>
+        </div>
+        <!-- Social icons -->
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+            Last Updated 10 Jan 2020
+        </div>
+        <!--/.Copyright-->
+    </footer>
+    <!--/.Footer-->
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="~/js/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="~/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="~/js/mdb.min.js"></script>
 
 		<!-- Dropzone JavaScript -->
 		<script type="text/javascript" src="~/js/dropzone.min.js"></script>
 
-		@*<script>
-				function myParamName() {
-					return "files";
-				}
+    <!-- Droplist -->
+    <script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
 
-				Dropzone.options.uploadattachmentsform = {
-					//autoProcessQueue: false,
-					uploadMultiple: true,
-					paramName: myParamName,
-					maxFilesize: 20, //MB
-					dictDefaultMessage: "Drop files here or Click to Upload",
-					addRemoveLinks: true, // Allows for cancellation of file upload and remove thumbnail
-					acceptedFiles: "image/*",
-					init: function () {
-						myDropzone = this;
-						myDropzone.on("success", function (file, response) {
-							myDropzone.removeFile(file);
-						});
-					}
+    <!-- Dropzone JavaScript -->
+    <script type="text/javascript" src="~/js/dropzone.min.js"></script>
 
-				}
-			</script>*@
-
-		<script>
-			Dropzone.options.uploadattachmentsform = {
-				autoProcessQueue: false,
-				url: '/MachineNotes?handler=UploadAttachments',
-				uploadMultiple: true,
-				addRemoveLinks: true, // Allows for cancellation of file upload and remove thumbnail
-				acceptedFiles: "image/*",
-				parallelUploads: 999,
-
-				init: function () {
-
-					var myDropzone = this;
-
-					// Update selector to match your button
-					$("#btnUploadAttachmentPost").click(function (e) {
-						e.preventDefault();
-						myDropzone.processQueue();
-					});
-
-
-					this.on('success', function () {
-						if (this.getQueuedFiles().length == 0 && this.getUploadingFiles().length == 0) {
-							location.reload();
-						}
-					});
-				}
-			}
-		</script>
-
-		<!-- Droplist -->
-		<script type="text/javascript" src="~/js/jquery-ui.min.js"></script>
-		<script>
-            $(function () {
-
-                $("#gotomachinetrainname").autocomplete({
-                    source: '@Url.Page("index", "search")',
-                    select: function (event, ui) {
-                        event.preventDefault();
-                        $('#gotomachinetrainname').val(ui.item.label);
-                        $('#gotomachinetrainid').val(ui.item.value);
-                    }
-                });
-
-
+    <!-- Navbar -->
+    <script>
+        $(function () {
+            $('a').each(function () {
+                if ($(this).prop('href') == window.location.href) {
+                    $(this).addClass('active'); $(this).parents('li').addClass('active');
+                }
             });
-		</script>
-	}
+        });
+    </script>
+    @RenderSection("Scripts", false/*required*/)
+
 </body>
 </html>
 

@@ -2,53 +2,53 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>Reporting Tool</title>
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-	<!-- Bootstrap core CSS -->
-	<link href="../wwwroot/css/bootstrap.min.css" type="text/css" rel="stylesheet">
-	<!-- Material Design Bootstrap -->
-	<link href="../wwwroot/css/mdb.min.css" rel="stylesheet">
-	<!-- Dropzone -->
-	<link href="../wwwroot/css/dropzone.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Reporting Tool</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="../wwwroot/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="../wwwroot/css/mdb.min.css" rel="stylesheet">
+    <!-- Dropzone -->
+    <link href="../wwwroot/css/dropzone.min.css" rel="stylesheet">
 
-	<!-- Your custom styles (optional) -->
-	<link href="../wwwroot/css/style.css" rel="stylesheet">
-	<style type="text/css">
-		html,
-		body,
-		header,
-		.view {
-			height: 100%;
-		}
+    <!-- Your custom styles (optional) -->
+    <link href="../wwwroot/css/style.css" rel="stylesheet">
+    <style type="text/css">
+        html,
+        body,
+        header,
+        .view {
+            height: 100%;
+        }
 
-		@@media (max-width: 740px) {
-			html,
-			body,
-			header,
-			.view {
-				height: 1000px;
-			}
-		}
+        @@media (max-width: 740px) {
+            html,
+            body,
+            header,
+            .view {
+                height: 1000px;
+            }
+        }
 
-		@@media (min-width: 800px) and (max-width: 850px) {
-			html,
-			body,
-			header,
-			.view {
-				height: 650px;
-			}
-		}
+        @@media (min-width: 800px) and (max-width: 850px) {
+            html,
+            body,
+            header,
+            .view {
+                height: 650px;
+            }
+        }
 
-		@@media (min-width: 800px) and (max-width: 850px) {
-			.navbar:not(.top-nav-collapse) {
-				background: #1C2331 !important;
-			}
-		}
-	</style>
+        @@media (min-width: 800px) and (max-width: 850px) {
+            .navbar:not(.top-nav-collapse) {
+                background: #1C2331 !important;
+            }
+        }
+    </style>
 
 
 
@@ -57,1259 +57,1269 @@
 <body>
 
 
-	<!-- Navbar -->
-	<nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
-		<div class="container">
-
-			<!-- Brand -->
-			<a class="navbar-brand" href="@Url.Page(" ./Pages/Index")" target="_blank">
-			<strong>Home</strong>
-			</a>
-
-			<!-- Collapse -->
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-					aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-
-			<!-- Links -->
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-				<!-- Left -->
-				<ul class="navbar-nav mr-auto">
-
-					<li class="nav-item">
-						<a class="nav-link" href="@Url.Page(" ./Pages/ScheduleMaintenance")">Schedule Work</a>
-					</li>
-					<li class="nav-item active">
-						<a class="nav-link" href="#">
-							Create Reports
-							<span class="sr-only">(current)</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="@Url.Page(" ./Pages/MachineNotes")">Add Machine Notes</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="@Url.Page(" ./Pages/CreateReports")">Review Reports</a>
-					</li>
-				</ul>
-
-				<!-- Right -->
-				<ul class="navbar-nav nav-flex-icons">
-					<li class="nav-item">
-						<a href="https://www.facebook.com/mdbootstrap" class="nav-link" target="_blank">
-							<i class="fas fa-inbox"></i>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
-							<i class="fas fa-envelope"></i>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded"
-						   target="_blank">
-							<i class="fas fa-question-circle"></i> Help
-						</a>
-					</li>
-				</ul>
-
-			</div>
-
-		</div>
-	</nav>
-	<!-- Navbar -->
-
-	<hr class="my-5">
-
-	<!--Intro-->
-	<section>
-		<div class="container-fluid border-bottom">
-
-			<!--Excerpt-->
-			<!-- Main Header -->
-				<h2 class="py-2 text-center">In Progress Reports</h2>
-				<p class="mb-5 lead text-center grey-text">Analyse and Diagnose Machinery Issues</p>
-
-		</div>
-	</section>
-	<!--/Intro-->
-	
-	<div class="container-fluid grey lighten-4">
-		<!--Section: Report Form-->
-		<div class="container">
-			<div class="row">
-
-				<!-- RHS Side Bar -->
-				<div class="col-md-4 order-md-2" id="RHS">
-					<!-- Machine Notes -->
-					<h4 class="d-flex justify-content-between align-items-center mt-5 mx-3">
-						<span>Machine Notes</span>
-					</h4>
-					<div class="accordion" id="machineNotes">
-						<div class="card">
-							<div class="card-header" id="headingOne">
-								<h2 class="mb-0">
-									<button class="btn btn-link collapsed preview-note" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-										Bootstrap only supports one modal window at a time. Nested modals aren’t supported as we believe them to be poor user experiences.
-										Modals use position: fixed, which can sometimes be a bit particular about its rendering. Whenever possible, place your modal HTML in a top-level position to avoid potential interference from other elements. You’ll likely run into issues when nesting a .modal within another fixed element.
-									</button>
-								</h2>
-							</div>
-
-							<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#machineNotes">
-								<div class="card-body">
-									Bootstrap only supports one modal window at a time. Nested modals aren’t supported as we believe them to be poor user experiences.
-									Modals use position: fixed, which can sometimes be a bit particular about its rendering. Whenever possible, place your modal HTML in a top-level position to avoid potential interference from other elements. You’ll likely run into issues when nesting a .modal within another fixed element.
-								</div>
-							</div>
-						</div>
-						<div class="card">
-							<div class="card-header" id="headingTwo">
-								<h2 class="mb-0">
-									<button class="btn btn-link collapsed preview-note" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-										To fade out the last line, we make a box (a pseudo element will work great) and overlay a transparent-to-background-color gradient over the top. Making it nearly as wide as the container is best in case the last line is short. Because we know the line-height, we can make the pseudo element box exactly one line tall.
-									</button>
-								</h2>
-							</div>
-							<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#machineNotes">
-								<div class="card-body">
-									To fade out the last line, we make a box (a pseudo element will work great) and overlay a transparent-to-background-color gradient over the top. Making it nearly as wide as the container is best in case the last line is short. Because we know the line-height, we can make the pseudo element box exactly one line tall.
-								</div>
-							</div>
-						</div>
-						<div class="card">
-							<div class="card-header" id="headingThree">
-								<h2 class="mb-0">
-									<button class="btn btn-link collapsed preview-note" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-										The trick is to set a max-height equal to the maximum number of lines multiplied by the line-height.
-									</button>
-								</h2>
-							</div>
-							<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#machineNotes">
-								<div class="card-body">
-									The trick is to set a max-height equal to the maximum number of lines multiplied by the line-height.
-								</div>
-							</div>
-						</div>
-					</div>
-
-
-
-					<!-- Machine list-->
-					<div class="modal fade" id="modalMachineList" tabindex="-1" role="dialog" aria-labelledby="modalMachineNote"
-						 aria-hidden="true">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header text-center">
-									<h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Machines</h4>
-									<button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body mx-3">
-									<table id="dtMachinesList" class="route-table table table-striped table-bordered table-top-margin" cellspacing="0" width="100%">
-										<thead>
-											<tr>
-												<th class="th-sm">Machine Train </th>
-												<th class="th-sm">Lasted Measured</th>
-												<th class="th-sm">Condition</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr><td>	1E-1201-K1	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	28/08/2019	</td><td>	No Action	<small>	(Unchanged)	</small></td></tr>
-											<tr><td>	1E-1201-K2	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	28/08/2019	</td><td>	No Action	<small>	(Unchanged)	</small></td></tr>
-											<tr><td>	1E-1201-K3	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	9/05/2019	</td><td>	No Action	<small>	(Unchanged)	</small></td></tr>
-											<tr><td>	1E-1201-K4	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	28/08/2019	</td><td>	Trending	<small>	(Unchanged)	</small></td></tr>
-											<tr><td>	1E-1201-K5	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	28/08/2019	</td><td>	Trending	<small>	(Unchanged)	</small></td></tr>
-											<tr><td>	1E-1201-K6	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	5/07/2019	</td><td>	No Action	<small>	(Unchanged)	</small></td></tr>
-										</tbody>
-
-									</table>
-
-								</div>
-								<div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
-									<button type="button" class="btn btn-info btnYesClass" id="btnYes" data-dismiss="modal">Done</button>
-								</div>
-							</div>
-						</div>
-					</div>
-
-
-					<!--./ Machine Notes-->
-					<!-- Queue -->
-					<h4 class="d-flex justify-content-between align-items-center mt-5 mx-3">
-						<span>In Queue</span>
-						<span class="badge badge-secondary badge-pill">7</span>
-					</h4>
-					<!--card-->
-					<div class="card mb-4 wow fadeIn">
-						<!--Card content-->
-						<div class="list-group" id="machinesInProgress" role="tablist">
-							<h5 class="ip-sub-header list-group-item d-flex justify-content-between">
-								<span>Unit 1000</span>
-								<strong>3 Reports</strong>
-							</h5>
-							<a class="list-group-item d-flex justify-content-between lh-condensed" id="rptid1" data-toggle="list" href="#" role="tab">
-								<div>
-									<h6 class="my-0">Machine 1</h6>
-									<small>New Fault</small>
-								</div>
-								<span></span>
-							</a>
-							<a class="list-group-item d-flex justify-content-between lh-condensed" id="rptid2" data-toggle="list" href="#" role="tab">
-								<div>
-									<h6 class="my-0">Machine 2</h6>
-									<small>Component & Fault Type</small>
-								</div>
-								<span>Plan Action</span>
-							</a>
-							<a class="list-group-item d-flex justify-content-between lh-condensed" id="rptid3" data-toggle="list" href="#" role="tab">
-								<div>
-									<h6 class="my-0">Machine 3</h6>
-									<small>Component & Fault Type</small>
-								</div>
-								<span>Trending</span>
-							</a>
-							<h5 class="ip-sub-header list-group-item d-flex justify-content-between">
-								<span>Unit 1500</span>
-								<strong>4 Reports</strong>
-							</h5>
-							<a class="list-group-item d-flex justify-content-between lh-condensed disabled" id="rptid5" data-toggle="list" href="#" role="tab">
-								<div>
-									<h6 class="my-0">44GB403A</h6>
-									<small>Motor - Bearing Defect</small>
-								</div>
-								<span>Plan Action</span>
-							</a>
-							<a class="list-group-item d-flex justify-content-between lh-condensed" id="rptid6" data-toggle="list" href="#" role="tab">
-								<div>
-									<h6 class="my-0">Machine 3</h6>
-									<small>Component & Fault Type</small>
-								</div>
-								<span>Trending</span>
-							</a>
-							<a class="list-group-item d-flex justify-content-between lh-condensed" id="rptid2" data-toggle="list" href="#" role="tab">
-								<div>
-									<h6 class="my-0">Machine 3</h6>
-									<small>Component & Fault Type</small>
-								</div>
-								<span>No Action</span>
-							</a>
-							<a class="list-group-item d-flex justify-content-between lh-condensed" id="rptid2" data-toggle="list" href="#" role="tab">
-								<div>
-									<h6 class="my-0">Machine 3</h6>
-									<small>Component & Fault Type</small>
-								</div>
-								<span>No Action</span>
-							</a>
-							<div class="ip-sub-header list-group-item d-flex justify-content-between">
-								<button type="submit" class="btn btn-block" data-toggle="modal" data-target="#modalLoadReport">
-									Load selected report</button>
-							</div>
-						</div>
-					</div>
-				</div><!--./Queue-->
-				<!--Report Body-->
-				<div class="col-md-8 order-md-1 py-5">
-
-					<!--DISPLAY: Fault Attribute card-->
-					<!-- This section to show if a report is being created on an existing fault -->
-					<div class="card mb-4 wow fadeIn">
-						<!--Card content-->
-						<div class="card-body" id="displayFaultAttributes">
-							<h5 class="grey-text font-weight-light">Fault Details</h5>
-							<h2 class="mb-3 breadcrumbs" id="machineTag">44GB403A</h2>
-							<h5 class="mb-3 breadcrumbs" id="machineDescription">Fuel Gas KO Drum Pump A</h5>
-							<hr />
-							<form class="needs-validation" novalidate>
-
-								<div class="input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text">Technology</span>
-									</div>
-									<span class="infolabel">Vibration</span>
-								</div>
-
-								<div class="input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text flex-fill">Component</span>
-									</div>
-									<span class="infolabel" id="component">Motor</span>
-									<span class="infolabel" id="componentType">AC</span>
-								</div>
-
-								<div class="input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text flex-fill w-30">Fault Type</span>
-									</div>
-									<span class="infolabel" id="faultType">Bearing Defect</span>
-									<span class="infolabel" id="faultSubtype">Outer Race Defect</span>
-								</div>
-
-								<div class="input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="basic-addon1">Fault Location</span>
-									</div>
-									<span class="infolabel"> Motor Drive End </span>
-								</div>
-							</form>
-						</div>
-					</div><!--./DISPLAY: Fault Attribute card-->
-					<!--FORM: Fault card-->
-					<!-- This section to show if a new fault needs to be created -->
-					<div class="card mb-4 wow fadeIn">
-						<div class="card-header font-weight-bold">Fault Attributes</div>
-						<!--Card content-->
-						<div class="card-body" id="formFaultAttributes">
-							<label class="small text-muted" for="machine">Machine Train</label>
-							<h2 class="mb-3 breadcrumbs" id="machineTag">44GB403A</h2>
-							<h5 class="mb-3 breadcrumbs" id="machineDescription">Fuel Gas KO Drum Pump A</h5>
-							<hr />
-							<form class="needs-validation" novalidate>
-
-								<div class="input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text">Technology</span>
-									</div>
-									<select class="custom-select d-block " id="reportType" required>
-										<option selected value="1">Vibration</option>
-										<option value="2">Lubrication</option>
-										<option value="3">Thermography</option>
-									</select>
-								</div>
-
-								<div class="input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text">Component</span>
-									</div>
-									<select class="custom-select d-block " required>
-										<option>Open this select menu</option>
-										<option>Parent</option>
-										<option>Central Lube System</option>
-										<option>Centrifuge</option>
-										<option>Compressor</option>
-										<option>Coupling</option>
-										<option>Drive Belt</option>
-										<option>Drive Chain</option>
-										<option>Engine</option>
-										<option>Heat Exchanger</option>
-										<option>Fan</option>
-										<option>Gearbox</option>
-										<option>Generator</option>
-										<option selected>Motor</option>
-										<option>Pump</option>
-										<option>Turbine</option>
-										<option>Valve</option>
-										<option>Winch</option>
-										<option>Flywheel</option>
-										<option>Crane</option>
-										<option>Other</option>
-
-									</select>
-									<select class="custom-select d-block ">
-										<option value="">
-											3 Phase AC Induction
-										</option>
-										<option>
-											AC Synchronous
-										</option>
-										<option selected>
-											AC Single Phase
-										</option>
-										<option>
-											AC Variable Frequency
-										</option>
-										<option>
-											Air
-										</option>
-										<option>DC</option>
-									</select>
-								</div>
-
-								<div class="input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text">Fault Type</span>
-									</div>
-									<select class="custom-select d-block " required>
-										<option>No vibration fault detected</option>
-										<option selected>Antifriction bearing fault</option>
-										<option>Bad vibration data</option>
-										<option>Beating</option>
-										<option>Belt drive fault</option>
-										<option>Compressor fault</option>
-										<option>Coupling fault</option>
-										<option>Electrical motor fault</option>
-										<option>Engine fault</option>
-										<option>Fan fault</option>
-										<option>Rotor rub</option>
-										<option>Shaft fault</option>
-										<option>Transmitted vibration</option>
-										<option>Unidentified issue</option>
-
-									</select>
-									<select class="custom-select d-block">
-										<option selected>Outer race defect</option>
-										<option>Inner race defect</option>
-										<option>Rolling element defect</option>
-										<option>Cage defect</option>
-										<option>Multiple fault frequencies</option>
-										<option>Roller skidding</option>
-										<option>Bearing fluting (EDM)</option>
-										<option>Housing distortion / out of round</option>
-										<option>Outer race creep in housing</option>
-										<option>Cocked antifriction bearing</option>
-										<option>Poor bearing fit on shaft</option>
-										<option>Bearing temperature excessive</option>
-									</select>
-								</div>
-
-								<div class="input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="basic-addon1">Fault Location</span>
-									</div>
-									<input type="text" class="form-control" placeholder="Add fault details here" aria-label="Username" aria-describedby="basic-addon1">
-								</div>
-							</form>
-						</div>
-					</div>
-					<!--./FORM: Fault card-->
-					<!---------------------------------------------------------------->
-					<!--FORM: Reports -------------------------------------------------------->
-					<!--For now all these sections should probably always be displayed -->
-					<!--SUBFORM: Report Attributes -->
-					<div class="card mb-4 wow fadeIn">
-						<!--Card content-->
-						<div class="card-header font-weight-bold">Report Attributes</div>
-						<div class="card-body">
-							<form class="needs-validation" novalidate>
-								<div class="row">
-									<div class="col-md-4">
-										<label class="small text-muted" for="reportType">Report Type</label>
-										<select class="custom-select d-block w-100" id="reportType" required>
-											<option value="">Routine</option>
-											<option>Baseline</option>
-											<option>Troubleshooting</option>
-										</select>
-									</div>
-									<div class="col-md-4">
-										<label class="small text-muted" for="severity">Severity</label>
-										<select class="custom-select d-block w-100" id="severity" required>
-											<option value="">Plan Action</option>
-											@*foreach (var item in Model.Action)
-											{
-											<option>@item.ActionDescription</option>
-											@Html.DisplayFor(modelItem => item.ActionDescription)
-											}*@
-										</select>
-										<div class="invalid-feedback">
-											Please select a valid severity.
-										</div>
-									</div>
-									<div class="col-md-4">
-										<label class="small text-muted" for="username">Report Date</label>
-										<div class="input-group">
-											<div class="input-group-prepend">
-												<span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-											</div>
-											<input type="date" class="form-control" id="username" placeholder="dd/mm/yyyy" required>
-											<div class="invalid-feedback" style="width: 100%;">
-												Your username is required.
-											</div>
-										</div>
-									</div>
-								</div>
-							</form>
-						</div>
-						<!--./SUBFORM: Report Attributes -->
-						<!--SUBFORM: Observations -->
-						<!--Card content-->
-
-						<div class="card-body">
-							<h1 class="line-through mb-4">Observations</h1>
-							<div class="rpt-input-group input-group mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text">Observation</span>
-								</div>
-								<div class="rpt-select-wrapper">
-									<div class="rpt-select">
-										<div class="rpt-select__trigger">
-											<span>Select a category</span>
-											<div class="arrow"></div>
-										</div>
-										<div class="rpt-options">
-											<span class="rpt-header">Select an observation type</span>
-											<span class="rpt-option selected" data-value="Noises">Noises</span>
-											<span class="rpt-option" data-value="Data Collection Errors">Data Collection Errors</span>
-											<span class="rpt-option" data-value="Phase">Phase</span>
-											<span class="rpt-option" data-value="Physical / Visual">Physical / Visual</span>
-											<span class="rpt-option" data-value="Spectral Amplitude">Spectral Amplitude</span>
-											<span class="rpt-header">Custom Entry</span>
-											<span class="rpt-option" data-value="Other">Other</span>
-										</div>
-									</div>
-								</div>
-								<div class="rpt-select-wrapper" id="selectObservation">
-									<div class="rpt-select">
-										<div class="rpt-select__trigger" id="observationSelected">
-											<span>Select an observation</span>
-											<div class="arrow"></div>
-										</div>
-										<div class="rpt-options">
-											<span class="rpt-header">Select something</span>
-											<span class="rpt-option selected" data-value="the corresponding observation id">Component is noisy</span>
-											<span class="rpt-option" data-value="observationid">Machine has high pitched sound</span>
-											<span class="rpt-option" data-value="observationid">Machine has low rumble</span>
-											<span class="rpt-option" data-value="observationid">Rubbing sound</span>
-											<span class="rpt-option" data-value="observationid">Sounds like gravel through pump</span>
-										</div>
-									</div>
-								</div>
-								<div class="rpt-select-wrapper" style="display: none;" id="customObservation">
-									<input type="text" class="form-control" id="inputCustomObservation" placeholder="" value="" required>
-								</div>
-								<div class="input-group-append">
-									<button type="button" id="btnAddObservation">+++</button>
-									<button type="button" style="display: none;" id="btnAddCustomObservation">+</button>
-								</div>
-							</div>
-							<ul class="list-group list-group-flush" id="observationList">
-								<li class="list-group-item">There is a rubbing sound <span class="close">x</span></li>
-								<li class="list-group-item">The casing is hot <span class="close">x</span></li>
-								<li class="list-group-item">This is a custom observation <span class="close">x</span></li>
-							</ul>
-						</div>
-						<!--./SUBFORM: Observations -->
-						<!--SUBFORM: Actions -->
-						<!--Card content-->
-
-						<div class="card-body">
-							<h1 class="line-through mb-4">Actions</h1>
-							<div class="rpt-input-group input-group mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text">Action</span>
-								</div>
-								<div class="rpt-select-wrapper">
-									<div class="rpt-select">
-										<div class="rpt-select__trigger" id="actionSelected">
-											<span>Select a category</span>
-											<div class="arrow"></div>
-										</div>
-										<div class="rpt-options">
-											<span class="rpt-header">Listed by least intrusive (top) to most intrusive (bottom)</span>
-											<span class="rpt-option selected" data-value="the-corresponding-actionid">1.  Lubricate and retake data</span>
-											<span class="rpt-option" data-value="actionid">2.  Reduce monitoring interval</span>
-											<span class="rpt-option" data-value="actionid">3.  Clean an repack bearing</span>
-											<span class="rpt-option" data-value="actionid">4.  Replace bearing</span>
-											<span class="rpt-option" data-value="actionid">5.  Review bearing selectione</span>
-										</div>
-									</div>
-								</div>
-								<div class="input-group-append">
-									<button type="button" id="btnAddAction">+</button>
-								</div>
-							</div>
-
-							<div class="mb-3">
-								<ul class="list-group list-group-flush" id="actionList">
-									<li class="list-group-item">Lubricate and retake data <span class="close">x</span></li>
-									<li class="list-group-item">Reduce monitoring interval <span class="close">x</span></li>
-								</ul>
-								<div class="invalid-feedback">
-									You've already selected that action
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="small text-muted" for="formExternalNotes">Additional Recommendations</label>
-								<textarea type="text" id="formExternalNotes" class="form-control" rows="3"></textarea>
-							</div>
-							<div class="row">
-								<div class="col-md-6 mb-3">
-									<label class="small text-muted" for="notification">Notification</label>
-									<input type="number" class="form-control" id="notification" placeholder="" value="" required>
-									<div class="invalid-feedback">
-										Valid number is required.
-									</div>
-								</div>
-								<div class="col-md-6 mb-3">
-									<label class="small text-muted" for="workOrder">Work Order</label>
-									<input type="number" class="form-control" id="workOrder" placeholder="" value="" required>
-									<div class="invalid-feedback">
-										Valid number is required.
-									</div>
-								</div>
-							</div>
-						</div>
-						<!--./SUBFORM: Actions -->
-						<!--SUBFORM: Attachments -->
-						<!--Card content-->
-						<div class="card-body">
-							<h1 class="line-through mb-4">Attachments</h1>
-							<form class="needs-validation" novalidate>
-								<div class="form-group">
-									<label class="small text-muted" for="formInternalNotes">Analyst Notes (internal)</label>
-									<textarea type="text" id="formInternalNotes" class="form-control" rows="3"></textarea>
-								</div>
-
-								<div class="input-group">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-									</div>
-									<div class="custom-file">
-										<input type="file" class="custom-file-input" id="inputGroupFile01"
-											   aria-describedby="inputGroupFileAddon01">
-										<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-									</div>
-								</div>
-							</form>
-						</div>
-					</div>
-					<!--./SUBFORM: Attachments -->
-					<!--DISPLAY:  Report Timeline -->
-					<div class="card mb-4" id="historicReports">
-						<!--Card content-->
-						<div class="card-body col-md-12">
-							<h5 class="grey-text font-weight-light">Report Timeline</h5>
-							<hr />
-							<div class="row">
-								<nav id="historicReportsNav" class="flex-column col-3 nav nav-pills">
-									<!-- *** note the fas fa-square icon class needs to change with condition: Prompt = text-danger; Plan = text-alert; Trending = text-warning; No action = text-default; *** -->
-									<div class="rpt-stepper"><a class="nav-link" href="#abc"> 18.05.19 <i class="fas fa-square text-danger pl-2"></i></a></div>
-									<div class="rpt-stepper"><a class="nav-link" href="#def"> 18.04.08 <i class="fas fa-square text-alert pl-2"></i></a></div>
-									<div class="rpt-stepper"><a class="nav-link" href="#ghi"> 18.03.28<i class="fas fa-square text-warning pl-2"></i></a></div>
-									<div class="rpt-stepper"><a class="nav-link" href="#jkl"> 18.03.04<i class="fas fa-square text-warning pl-2"></i></a></div>
-									<div class="rpt-stepper"><a class="nav-link" href="#mno"> 18.02.03 <i class="fas fa-square text-default pl-2"></i></a></div>
-								</nav>
-								<div id="historicReportsBody" data-spy="scroll" data-target="#historicReportsNav" data-offset="200" class="col-9">
-									<!--Report 1-->
-									<section id="abc">
-										<h4 class="border-danger">
-											<!-- *** note this class needs to change with condition: Prompt = border-danger; Plan = border-alert; Trending = border-warning; No action = border-default; ***-->
-											Prompt Action
-										</h4>
-										<span><i class="far fa-calendar-alt"></i> 18.05.19 </span>
-
-										<!-- ***  Can we make these blocks not render if the result is null? ***-->
-										<!-- Observation Block -->
-										<h5>Observations</h5>
-										<ul class="mb-3 font-small list-group">
-											<li class="list-group-item">There is a rubbing sound </li>
-											<li class="list-group-item">The casing is hot </li>
-											<li class="list-group-item">This is a custom observation </li>
-										</ul>
-										<!-- ./Observation Block -->
-										<!-- Action Block -->
-										<h5 for="Actions">Actions</h5>
-										<ul class="mb-4 unstyled-list  font-small list-group">
-											<li class="list-group-item">Reduce monitoring interval </li>
-										</ul>
-										<!-- ./Action Block -->
-										<!-- Recommendations Block -->
-										<h5 for="formAddRec">Additional Recommendations</h5>
-										<p class="mb-3 font-small list-group-item">
-											Recommend taking an oil sample ASAP to determine if any excessive wear metals are present.
-											If possible, conduct an inspection of the gear set while the machine is shutdown.
-											<br />If unit can’t be shut down in the short term, plan to monitor the unit every couple of days to track deterioration.
-											Recommend using this unit as a poor spare and avoid running if possible.
-										</p>
-										<!-- ./Recommendations Block -->
-										<!-- WO Block -->
-										<h5 class="d-inline" for="workOrder">Work Order : </h5>
-										<span> 123456789 </span>
-										<!-- ./WO Block -->
-										<!-- InternalNotes Block -->
-										<h5 for="formIntNotes">Analyst Notes (internal)</h5>
-										<p class="mb-3 font-small list-group-item">
-											2018.05.19 MM Motor velocity New 9.9x (485Hz) impacting frequency, strongest @M2I.  NO MOTOR FAULTS CONFIGURED.  M2A Velocity - Idler DE BPFO  151.26Hz(3.77x) impacting fundamental at 0.346 mm/s in ( &lt;0.12 mm/s @G1 & G2)... Idler shaft NDE appears to have a rub G2Accel demod/twf)  - may need WO to be discussed w/ EDSC
-										</p>
-										<!-- ./InternalNotes Block -->
-										<!-- Attachment Block -->
-										<h5>Attachments</h5>
-										<p> X X X</p>
-										<!-- ./Attachment Block -->
-									</section>
-									<hr />
-									<!--Report 1-->
-									<!--Report 2-->
-									<section id="def">
-										<h4 class="border-alert"> Plan Action </h4>
-										<span><i class="far fa-calendar-alt"></i> 18.04.08 </span>
-
-										<h5 for="observationType">Observations</h5>
-										<ul class="mb-3 font-small">
-											<li>There is a rubbing sound </li>
-											<li>The casing is hot </li>
-										</ul>
-
-										<h5 for="Actions">Actions</h5>
-										<ul class="mb-4 unstyled-list font-small">
-											<li>1.  Lubricate and retake data </li>
-										</ul>
-
-										<h5 for="formAddRec">Additional Recommendations</h5>
-										<p class="mb-3 font-small">
-											Recommend taking an oil sample ASAP to determine if any excessive wear metals are present.
-											<br />If possible, conduct an inspection of the gear set while the machine is shutdown.
-											<br />If unit can’t be shut down in the short term, plan to monitor the unit every couple of days to track deterioration.
-											<br />Recommend using this unit as a poor spare and avoid running if possible.
-										</p>
-
-										<h5 for="workOrder">Work Order</h5>
-										<span class="infolabel"> 123456789 </span>
-
-
-										<h5 for="formIntNotes">Analyst Notes (internal)</h5>
-										<p class="mb-3 font-small">
-											No change
-										</p>
-
-										<h5>Attachments</h5>
-										<p> X X X</p>
-									</section>
-									<hr />
-
-									<!--Report 3-->
-									<section id="ghi">
-										<h4 class="border-warning"> Trending </h4>
-										<span><i class="far fa-calendar-alt"></i> 18.03.28 </span>
-
-										<h5>Observations</h5>
-										<ul class="mb-3 font-small">
-											<li>There is a rubbing sound </li>
-										</ul>
-
-										<h5 for="formIntNotes">Analyst Notes (internal)</h5>
-										<p class="mb-3 font-small">
-											2018.03.28 MM Impacting increasing in M2A, M2N, G1I velocity.  Likely 1x motor, but may also be IB Idler shaft BPFO (which is quite close to motor speed harmonics).   0.08mm/s fundamental in M2A & absent from demod.  TWF shows "Impact bundles" around 2x (100Hz), nothing definite at 1x or at 344hz however.  This signal is lower in G2 and gone in G3, no other changes, not severe impacting yet, ctm, 3
-										</p>
-
-										<h5>Attachments</h5>
-										<p> X X X</p>
-
-									</section>
-									<hr />
-
-									<!--Report 4-->
-									<section id="jkl" class="my-3">
-										<h4 class="border-warning">
-											<span>2018.03.04 </span> <span> Trending </span>
-										</h4>
-										<h5 for="observationType">Observations</h5>
-										<ul class="mb-3">
-											<li>There is a rubbing sound </li>
-										</ul>
-
-										<h5 for="formIntNotes">Analyst Notes (internal)</h5>
-										<p class="mb-3 font-small">
-											2018.03.04 MM M1N velocity - 223.64 Hz frequency (4.5x) trended suddenly (up to 0.4mm/s).  This signal may be a mix of idler shaft 2nd harmonic of, BSF and BPFO contributions to this single spectral amplitude, but the ratio is uncertain (note the 1x idler signal is not present in accel spectrum & legitimate peaks are present in the time wave form at the 223Hz frequency (i.e. the spectral spike clearly has real components, and is not purely an artifact of the fourier transform  trying to cope with signal distortion of other frequencies));  M2N hi res spectum has TWO spikes at 50 right next to each other (possible electrical implications); lower of the two chosen as 1x, otherwise stable/ok, CTM -3-
-										</p>
-
-									</section>
-									<hr />
-
-									<!--Report 5-->
-									<section id="mno" class="my-3">
-										<h4 class="border-default">
-											<span>2018.02.03 </span> <span> No Action </span>
-										</h4>
-										<h5 for="observationType">Observations</h5>
-										<ul class="mb-3">
-											<li>There is a rubbing sound </li>
-										</ul>
-
-										<h5 for="formIntNotes">Analyst Notes (internal)</h5>
-										<p class="mb-3 font-small">
-											JBKH - Vibration measurements are deemed low this survey. Slight noise coming from gearbox/coupling area. Specialists know about it and have accepted its OK. Possibly minor in service issue with the coupling.
-										</p>
-
-									</section>
-									<hr />
-								</div>
-							</div>
-						</div>
-					</div>
-					<!--./DISPLAY: Report Timeline-->
-					<!--card-->
-					<div class="card mb-4 wow fadeIn">
-						<!--Card content-->
-						<div class="card-body">
-							<div class="d-block my-3">
-								<div class="custom-control custom-radio">
-									<input id="inProgress" name="reportProgress" type="radio" class="custom-control-input" checked required>
-									<label class="custom-control-label" for="inProgress">In Progress</label>
-								</div>
-								<div class="custom-control custom-radio">
-									<input id="readyforReview" name="reportProgress" type="radio" class="custom-control-input" required>
-									<label class="custom-control-label" for="readyforReview">Ready for Review</label>
-								</div>
-							</div>
-							<button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
-						</div>
-					</div>
-
-					<h4 class="mb-3 paddedHeader">Review</h4>
-					<p>Later will refashion this to a different type of form, severity, image, recommendation checkboxes can be converted to form validation </p>
-
-					<!--card-->
-					<div class="card mb-4 wow fadeIn">
-						<!--Card content-->
-						<div class="card-body">
-							<form class="needs-validation" novalidate>
-								<div class="form-group">
-									<label class="small text-muted" for="formReviewNotes">Reviewer Notes</label>
-									<textarea type="text" id="formReviewNotes" class="form-control" rows="3"></textarea>
-								</div>
-							</form>
-							<hr class="mb-4">
-
-							<div class="d-block my-3">
-								<div class="custom-control custom-radio">
-									<input id="credit" name="reviewProgress" type="radio" class="custom-control-input" checked required>
-									<label class="custom-control-label" for="credit">Reviewed with comments</label>
-								</div>
-								<div class="custom-control custom-radio">
-									<input id="paypal" name="reviewProgress" type="radio" class="custom-control-input" required>
-									<label class="custom-control-label" for="paypal">Client Comments</label>
-								</div>
-								<div class="custom-control custom-radio">
-									<input id="debit" name="reviewProgress" type="radio" class="custom-control-input" required>
-									<label class="custom-control-label" for="debit">Released</label>
-								</div>
-							</div>
-							<button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
-
-						</div>
-					</div>
-
-
-				</div>
-			</div>
-
-		</div>
-		<!--Section: Report Form-->
-
-		<div class="list-group  d-flex justify-content-center">
-			<!--- buttons and forms  -->
-			<div class="row d-flex justify-content-center modalWrapper">
-				<div class="modal fade addNewInputs" id="modalAddRoute" tabindex="-1" role="dialog" aria-labelledby="modalAddRoute"
-					 aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header text-center">
-								<h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add an Adhoc Route</h4>
-								<button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body mx-3">
-								<h5 class="modal-title w-100 font-weight-bold text-primary ml-5"><i class="fas fa-tools"></i>  Under Construction  <i class="fas fa-mug-hot"></i></h5>
-								<div class="md-form mb-5">
-									<input type="text" id="formAddRoute" class="form-control validate">
-									<label data-error="wrong" data-success="right" for="inputName">Route Name</label>
-								</div>
-								<div class="md-form mb-5">
-									<input type="date" id="inputDate" class="form-control" placeholder="Select Date">
-									<label data-error="wrong" data-success="right" for="inputDate">Schedule Date</label>
-								</div>
-								<div class="md-form mb-5">
-									<input type="number" id="formAddLabour" class="form-control validate">
-									<label data-error="wrong" data-success="right" for="formAddLabour">Labour Hours</label>
-								</div>
-								<div class="md-form mb-5">
-									<span>Greater Area</span>
-									<select class="custom-select d-block w-100" id="formAddGreaterArea" required>
-										<option>Inlet</option>
-										<option>LNG</option>
-										<option>DOMGAS</option>
-										<option>S&L</option>
-										<option>Utilities</option>
-									</select>
-
-								</div>
-
-								<div class="md-form mb-5">
-									<input type="text" id="inputAge" class="form-control validate">
-									<label data-error="wrong" data-success="right" for="inputAge">Machines</label>
-								</div>
-
-								<div class="mb-5">
-									<ul class="ks-cboxtags">
-										<li><input type="checkbox" id="cbmach1" value="10"><label for="cbmach1">0A-0920-K1A</label></li>
-										<li><input type="checkbox" id="cbmach2" value="11"><label for="cbmach2">0A-0920-K1B</label></li>
-										<li><input type="checkbox" id="cbmach3" value="12"><label for="cbmach3">0A-0920-K1A</label></li>
-										<li><input type="checkbox" id="cbmach4" value="13"><label for="cbmach4">0A-0920-K1B</label></li>
-										<li><input type="checkbox" id="cbmach5" value="15"><label for="cbmach5">0A-0960-K1A</label></li>
-									</ul>
-
-								</div>
-							</div>
-							<div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
-								<button class="btn btn-outline-primary btn-block buttonAdd" data-dismiss="modal">
-									Add form
-									<i class="fas fa-paper-plane-o ml-1"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="text-center">
-					<a href="" class="btn btn-info btn-rounded btn-sm" data-toggle="modal" data-target="#modalAddRoute">
-						Add Route<i class="fas fa-plus-square ml-1"></i>
-					</a>
-				</div><!--- end add form -->
-
-				<div class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header text-center">
-								<h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit Route</h4>
-								<button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body mx-3">
-								<div class="md-form mb-5">
-									<span class="field-label">Route</span>
-									<span class="field-data" id="formEditRoute">0900: Inlet - KJVG Common MEG plant [ GAA ]</span>
-								</div>
-
-								<div class="md-form mb-5">
-									<span class="field-label">Cycle (days)</span>
-									<span class="field-data" id="formEditCycle">56</span>
-								</div>
-
-								<div class="md-form mb-5">
-									<span class="field-label">Labour Hours</span>
-									<span class="field-data" id="formEditLabourHours">1</span>
-								</div>
-
-								<div class="md-form mb-5">
-									<span class="field-label">Plan Date</span>
-									<span class="field-data" id="formEditPlannedDate">4/12/2019</span>
-								</div>
-
-								<div class="md-form mb-5">
-									<input type="date" id="formEditScheduleDate" class="form-control validate" value="2019-12-04">
-									<label data-error="wrong" data-success="right" for="formEditScheduleDate">Schedule Date</label>
-								</div>
-
-
-							</div>
-							<div class="modal-footer d-flex justify-content-center editInsideWrapper">
-								<button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal">
-									Edit form
-									<i class="fas fa-paper-plane-o ml-1"></i>
-								</button>
-								<!-- UPDATE Route_Call SET Schedule_Date = '2019-12-05'  WHERE PK_CallId = (this id);-->
-
-							</div>
-						</div>
-					</div>
-				</div>
-				<!--- Edit form -->
-				<!--- end machines list -->
-				<div class="modal fade" id="modalLoadReport" tabindex="-1" role="dialog" aria-labelledby="modalLoadReport"
-					 aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header text-center">
-								<h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Load the selected report</h4>
-								<button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body mx-3">
-								<p>
-									If you load a new report, any changes that haven't been submitted will be lost.</p>
-								<p>	Are you sure you want to discard your changes? 
-								</p>
-
-							</div>
-							<div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
-								<button type="button" class="btn btn-danger btnYesClass" id="btnYes" data-dismiss="modal">Yes</button>
-								<button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal">No</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div><!--- end pop up forms -->
-
-
-		</div>
-		<!--Footer-->
-		<footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn">
-
-			<!--Call to action-->
-			<div class="pt-4">
-				<a class="btn btn-outline-white" href="#" target="_blank" role="button">
-					Go to sharepoint
-					<i class="fas fa-share-alt ml-2"></i>
-				</a>
-				<a class="btn btn-outline-white" href="#" target="_blank" role="button">
-					Start tutorial
-					<i class="fa fa-graduation-cap ml-2"></i>
-				</a>
-			</div>
-			<!--/.Call to action-->
-
-			<hr class="my-4">
-
-			<!-- Social icons -->
-			<div class="pb-4">
-				<a>
-					<i class="fas fa-rocket mr-3"></i>
-				</a>
-				<a>
-					<i class="fas fa-broom mr-3"></i>
-				</a>
-				<a>
-					<i class="fas fa-chart-area mr-3"></i>
-				</a>
-				<a>
-					<i class="fas fa-chess-knight mr-3"></i>
-				</a>
-				<a>
-					<i class="fas fa-crow mr-3"></i>
-				</a>
-				<a>
-					<i class="fas fa-dolly-flatbed mr-3"></i>
-				</a>
-				<a>
-					<i class="fas fa-kiwi-bird mr-3"></i>
-				</a>	
-				<a>
-					<i class="fas fa-dragon mr-3"></i>
-				</a>
-				<a>
-					<i class="fas fa-fighter-jet mr-3"></i>
-				</a>
-			</div>
-			<!-- Social icons -->
-			<!--Copyright-->
-			<div class="footer-copyright py-3">
-				Last Updated 10 Jan 2020
-			</div>
-			<!--/.Copyright-->
-
-		</footer>
-		<!--/.Footer-->
-		<!-- SCRIPTS -->
-		<!-- JQuery -->
-		<script type="text/javascript" src="../wwwroot/js/jquery-3.4.1.min.js"></script>
-
-		<!-- Bootstrap tooltips -->
-		<script type="text/javascript" src="../wwwroot/js/popper.min.js"></script>
-		<!-- Bootstrap core JavaScript -->
-		<script type="text/javascript" src="../wwwroot/js/bootstrap.min.js"></script>
-		<!-- MDB core JavaScript -->
-		<script type="text/javascript" src="../wwwroot/js/mdb.min.js"></script>
-		<!-- Dropzone JavaScript -->
-		<script type="text/javascript" src="../wwwroot/js/dropzone.min.js"></script>
-		<!-- Navbar -->
-		<script>
-			$(function () {
-				$('a').each(function () {
-					if ($(this).prop('href') == window.location.href) {
-						$(this).addClass('active'); $(this).parents('li').addClass('active');
-					}
-				});
-			});
-		</script>
-		<script type="text/javascript" src="../wwwroot/js/jquery-ui.min.js"></script>
-		<!--<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
-		<script>
-			$(function () {
-				var availableTags = [
-					"ActionScript",
-					"AppleScript",
-					"Asp",
-					"BASIC",
-					"C",
-					"C++",
-					"Clojure",
-					"COBOL",
-					"ColdFusion",
-					"Erlang",
-					"Fortran",
-					"Groovy",
-					"Haskell",
-					"Java",
-					"JavaScript",
-					"Lisp",
-					"Perl",
-					"PHP",
-					"Python",
-					"Ruby",
-					"Scala",
-					"Scheme"
-				];
-				$("#tags").autocomplete({
-					source: availableTags
-				});
-			});
-		</script>
-		<script type="text/javascript">
-			// Animations initialization
-			new WOW().init();
-		</script>
-		<script type="text/javascript">
-			jQuery(document).ready(function () {
-				setTimeout(updateScrollSpy, 1000);
-			});
-			function updateScrollSpy() {
-				jQuery('[data-spy="scroll"]').each(function () {
-					var $spy = jQuery(this).scrollspy('refresh')
-				});
-			}
-		</script>
-		<script>
-			//Custom select event listener
-			for (const dropdown of document.querySelectorAll(".rpt-select-wrapper")) {
-				dropdown.addEventListener('click', function () {
-					this.querySelector('.rpt-select').classList.toggle('open');
-				})
-			}
-
-			for (const option of document.querySelectorAll(".rpt-option")) {
-				option.addEventListener('click', function () {
-					if (!this.classList.contains('selected')) {
-						this.parentNode.querySelector('.rpt-option.selected').classList.remove('selected');
-						this.classList.add('selected');
-						this.closest('.rpt-select').querySelector('.rpt-select__trigger span').textContent = this.textContent;
-						if (this.textContent == "Other") {
-							document.querySelector('#customObservation').style.display = "block";
-							document.querySelector('#btnAddCustomObservation').style.display = "block";
-							document.querySelector('#selectObservation').style.display = "none";
-							document.querySelector('#btnAddObservation').style.display = "none";
-						} else {
-							document.querySelector('#customObservation').style.display = "none";
-							document.querySelector('#btnAddCustomObservation').style.display = "none";
-							document.querySelector('#selectObservation').style.display = "block";
-							document.querySelector('#btnAddObservation').style.display = "block";
-						}
-					}
-				})
-			}
-
-			window.addEventListener('click', function (e) {
-				for (const select of document.querySelectorAll('.rpt-select')) {
-					if (!select.contains(e.target)) {
-						select.classList.remove('open');
-					}
-				}
-			});
-
-		</script>
-
-		<script>
-
-			////add and remove list items
-			//// Get all the element references you'll need just once:
-			var actionList = document.querySelector("#actionList");
-			var actionSelected = document.querySelector("#actionSelected span");
-			var btnAddAction = document.querySelector("#btnAddAction");
-
-			//// Do all of your event binding in JavaScript, not with inline HTML event attributes
-			btnAddAction.addEventListener("click", addAction);
-
-			function addAction() {
-				if (actionSelected.textContent !== "") {
-					// Don't build new HTML by concatenating strings. Create elements and configure them as objects
-					var li = document.createElement("li");
-					li.textContent = actionSelected.textContent;
-					li.classList.add("list-group-item");
-
-					// Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
-					var span = document.createElement("span");
-					span.classList.add("close");
-					span.textContent = "x";
-					span.addEventListener("click", removeAction);
-					li.appendChild(span);  // Add the span to the bullet
-					actionList.appendChild(li); // Add the bullet to the list
-					//newAction.textContent = "";
-				}
-			}
-
-			// Remove the closest <li> ancestor to the <span> that got clicked
-			function removeAction() {
-				actionList.removeChild(this.closest("li"));
-			}
-
-			// Add event listener on pre-existing actions
-			for (const listItem of document.querySelectorAll("#actionList li")) {
-				listItem.addEventListener('click', removeAction);
-			}
-
-		</script>
-
-		<script>
-
-			////add and remove list items
-			//// Get all the element references you'll need just once:
-			var observationList = document.querySelector("#observationList");
-			var observationSelected = document.querySelector("#observationSelected span");
-			var btnAddObservation = document.querySelector("#btnAddObservation");
-
-			//// Do all of your event binding in JavaScript, not with inline HTML event attributes
-			btnAddObservation.addEventListener("click", addObservation);
-
-			function addObservation() {
-				if (observationSelected.textContent !== "") {
-					// Don't build new HTML by concatenating strings. Create elements and configure them as objects
-					var li = document.createElement("li");
-					li.textContent = observationSelected.textContent;
-					li.classList.add("list-group-item");
-
-					// Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
-					var span = document.createElement("span");
-					span.classList.add("close");
-					span.textContent = "x";
-					span.addEventListener("click", removeObservation);
-					li.appendChild(span);  // Add the span to the bullet
-					observationList.appendChild(li); // Add the bullet to the list
-					//newObservation.textContent = "";
-				}
-			}
-
-			// Custom Observations
-			var inputObservation = document.querySelector("#inputCustomObservation");
-			var btnAddCustomObservation = document.querySelector("#btnAddCustomObservation");
-			btnAddCustomObservation.addEventListener("click", addCustomObservation);
-
-			function addCustomObservation() {
-				if (inputObservation.value !== "") {
-					// Don't build new HTML by concatenating strings. Create elements and configure them as objects
-					var li = document.createElement("li");
-					li.textContent = inputObservation.value;
-					li.classList.add("list-group-item");
-
-					// Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
-					var span = document.createElement("span");
-					span.classList.add("close");
-					span.textContent = "x";
-					span.addEventListener("click", removeAction);
-					li.appendChild(span);  // Add the span to the bullet
-					observationList.appendChild(li); // Add the bullet to the list
-					//newAction.textContent = "";
-				}
-			}
-
-			// Remove the closest <li> ancestor to the <span> that got clicked
-			function removeObservation() {
-				observationList.removeChild(this.closest("li"));
-			}
-
-			// Add event listener on pre-existing observations
-			for (const listItem of document.querySelectorAll("#observationList li")) {
-				listItem.addEventListener('click', removeObservation);
-			}
-
-		</script>
-
-
-
-</body >
-
-</html >
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+        <div class="container">
+
+            <!-- Brand -->
+            <a class="navbar-brand" href="@Url.Page(" ./Pages/Index")" target="_blank">
+            <strong>Home</strong>
+            </a>
+
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Page(" ./Pages/ScheduleMaintenance")">Schedule Work</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">
+                            Create Reports
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Page(" ./Pages/MachineNotes")">Add Machine Notes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Page(" ./Pages/CreateReports")">Review Reports</a>
+                    </li>
+                </ul>
+
+                <!-- Right -->
+                <ul class="navbar-nav nav-flex-icons">
+                    <li class="nav-item">
+                        <a href="https://www.facebook.com/mdbootstrap" class="nav-link" target="_blank">
+                            <i class="fas fa-inbox"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded"
+                           target="_blank">
+                            <i class="fas fa-question-circle"></i> Help
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+    </nav>
+    <!-- Navbar -->
+
+    <hr class="my-5">
+
+    <!--Intro-->
+    <section>
+        <div class="container-fluid border-bottom">
+
+            <!--Excerpt-->
+            <!-- Main Header -->
+            <h2 class="py-2 text-center">In Progress Reports</h2>
+            <p class="mb-5 lead text-center grey-text">Analyse and Diagnose Machinery Issues</p>
+
+        </div>
+    </section>
+    <!--/Intro-->
+
+    <div class="container-fluid grey lighten-4">
+        <!--Section: Report Form-->
+        <div class="container">
+            <div class="row">
+
+                <!-- RHS Side Bar -->
+                <div class="col-md-4 order-md-2" id="RHS">
+                    <!-- Machine Notes -->
+                    <h4 class="d-flex justify-content-between align-items-center mt-5 mx-3">
+                        <span>Machine Notes</span>
+                    </h4>
+                    <div class="accordion" id="machineNotes">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed preview-note" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                        Bootstrap only supports one modal window at a time. Nested modals aren’t supported as we believe them to be poor user experiences.
+                                        Modals use position: fixed, which can sometimes be a bit particular about its rendering. Whenever possible, place your modal HTML in a top-level position to avoid potential interference from other elements. You’ll likely run into issues when nesting a .modal within another fixed element.
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#machineNotes">
+                                <div class="card-body">
+                                    Bootstrap only supports one modal window at a time. Nested modals aren’t supported as we believe them to be poor user experiences.
+                                    Modals use position: fixed, which can sometimes be a bit particular about its rendering. Whenever possible, place your modal HTML in a top-level position to avoid potential interference from other elements. You’ll likely run into issues when nesting a .modal within another fixed element.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed preview-note" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        To fade out the last line, we make a box (a pseudo element will work great) and overlay a transparent-to-background-color gradient over the top. Making it nearly as wide as the container is best in case the last line is short. Because we know the line-height, we can make the pseudo element box exactly one line tall.
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#machineNotes">
+                                <div class="card-body">
+                                    To fade out the last line, we make a box (a pseudo element will work great) and overlay a transparent-to-background-color gradient over the top. Making it nearly as wide as the container is best in case the last line is short. Because we know the line-height, we can make the pseudo element box exactly one line tall.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingThree">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed preview-note" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        The trick is to set a max-height equal to the maximum number of lines multiplied by the line-height.
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#machineNotes">
+                                <div class="card-body">
+                                    The trick is to set a max-height equal to the maximum number of lines multiplied by the line-height.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Machine list-->
+                    <div class="modal fade" id="modalMachineList" tabindex="-1" role="dialog" aria-labelledby="modalMachineNote"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header text-center">
+                                    <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Machines</h4>
+                                    <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body mx-3">
+                                    <table id="dtMachinesList" class="route-table table table-striped table-bordered table-top-margin" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="th-sm">Machine Train </th>
+                                                <th class="th-sm">Lasted Measured</th>
+                                                <th class="th-sm">Condition</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>	1E-1201-K1	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	28/08/2019	</td><td>	No Action	<small>	(Unchanged)	</small></td></tr>
+                                            <tr><td>	1E-1201-K2	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	28/08/2019	</td><td>	No Action	<small>	(Unchanged)	</small></td></tr>
+                                            <tr><td>	1E-1201-K3	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	9/05/2019	</td><td>	No Action	<small>	(Unchanged)	</small></td></tr>
+                                            <tr><td>	1E-1201-K4	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	28/08/2019	</td><td>	Trending	<small>	(Unchanged)	</small></td></tr>
+                                            <tr><td>	1E-1201-K5	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	28/08/2019	</td><td>	Trending	<small>	(Unchanged)	</small></td></tr>
+                                            <tr><td>	1E-1201-K6	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	5/07/2019	</td><td>	No Action	<small>	(Unchanged)	</small></td></tr>
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+                                <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
+                                    <button type="button" class="btn btn-info btnYesClass" id="btnYes" data-dismiss="modal">Done</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--./ Machine Notes-->
+                    <!-- Queue -->
+                    <h4 class="d-flex justify-content-between align-items-center mt-5 mx-3">
+                        <span>In Queue</span>
+                        <span class="badge badge-secondary badge-pill">7</span>
+                    </h4>
+                    <!--card-->
+                    <div class="card mb-4 wow fadeIn">
+                        <!--Card content-->
+                        <div class="list-group" id="machinesInProgress" role="tablist">
+                            <h5 class="ip-sub-header list-group-item d-flex justify-content-between">
+                                <span>Unit 1000</span>
+                                <strong>3 Reports</strong>
+                            </h5>
+                            <a class="list-group-item d-flex justify-content-between lh-condensed in-queue-rpt-item" id="rptid1" data-toggle="list" href="#" role="tab">
+                                <div>
+                                    <h6 class="my-0">Machine 1</h6>
+                                    <small>New Fault</small>
+                                </div>
+                                <span></span>
+                            </a>
+                            <a class="list-group-item d-flex justify-content-between lh-condensed in-queue-rpt-item" id="rptid2" data-toggle="list" href="#" role="tab">
+                                <div>
+                                    <h6 class="my-0">Machine 2</h6>
+                                    <small>Component & Fault Type</small>
+                                </div>
+                                <span>Plan Action</span>
+                            </a>
+                            <a class="list-group-item d-flex justify-content-between lh-condensed in-queue-rpt-item" id="rptid3" data-toggle="list" href="#" role="tab">
+                                <div>
+                                    <h6 class="my-0">Machine 3</h6>
+                                    <small>Component & Fault Type</small>
+                                </div>
+                                <span>Trending</span>
+                            </a>
+                            <h5 class="ip-sub-header list-group-item d-flex justify-content-between">
+                                <span>Unit 1500</span>
+                                <strong>4 Reports</strong>
+                            </h5>
+                            <a class="list-group-item d-flex justify-content-between lh-condensed disabled in-queue-rpt-item" id="rptid5" data-toggle="list" href="#" role="tab">
+                                <div>
+                                    <h6 class="my-0">44GB403A</h6>
+                                    <small>Motor - Bearing Defect</small>
+                                </div>
+                                <span>Plan Action</span>
+                            </a>
+                            <a class="list-group-item d-flex justify-content-between lh-condensed in-queue-rpt-item" id="rptid6" data-toggle="list" href="#" role="tab">
+                                <div>
+                                    <h6 class="my-0">Machine 3</h6>
+                                    <small>Component & Fault Type</small>
+                                </div>
+                                <span>Trending</span>
+                            </a>
+                            <a class="list-group-item d-flex justify-content-between lh-condensed in-queue-rpt-item" id="rptid2" data-toggle="list" href="#" role="tab">
+                                <div>
+                                    <h6 class="my-0">Machine 3</h6>
+                                    <small>Component & Fault Type</small>
+                                </div>
+                                <span>No Action</span>
+                            </a>
+                            <a class="list-group-item d-flex justify-content-between lh-condensed in-queue-rpt-item" id="rptid2" data-toggle="list" href="#" role="tab">
+                                <div>
+                                    <h6 class="my-0">Machine 3</h6>
+                                    <small>Component & Fault Type</small>
+                                </div>
+                                <span>No Action</span>
+                            </a>
+                            <div class="ip-sub-header list-group-item d-flex justify-content-between">
+                                <button type="submit" class="btn btn-block" data-toggle="modal" data-target="#modalLoadReport">
+                                    Load selected report
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--./Queue-->
+                <!--Report Body-->
+                <div class="col-md-8 order-md-1 py-5">
+
+                    <!--DISPLAY: Fault Attribute card-->
+                    <!-- This section to show if a report is being created on an existing fault -->
+                    <div class="card mb-4 wow fadeIn">
+                        <!--Card content-->
+                        <div class="card-body" id="displayFaultAttributes">
+                            <h5 class="grey-text font-weight-light">Fault Details</h5>
+                            <h2 class="mb-3 breadcrumbs" id="machineTag">44GB403A</h2>
+                            <h5 class="mb-3 breadcrumbs" id="machineDescription">Fuel Gas KO Drum Pump A</h5>
+                            <hr />
+                            <form class="needs-validation" novalidate>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Technology</span>
+                                    </div>
+                                    <span class="infolabel">Vibration</span>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text flex-fill">Component</span>
+                                    </div>
+                                    <span class="infolabel" id="component">Motor</span>
+                                    <span class="infolabel" id="componentType">AC</span>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text flex-fill w-30">Fault Type</span>
+                                    </div>
+                                    <span class="infolabel" id="faultType">Bearing Defect</span>
+                                    <span class="infolabel" id="faultSubtype">Outer Race Defect</span>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Fault Location</span>
+                                    </div>
+                                    <span class="infolabel"> Motor Drive End </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div><!--./DISPLAY: Fault Attribute card-->
+                    <!--FORM: Fault card-->
+                    <!-- This section to show if a new fault needs to be created -->
+                    <div class="card mb-4 wow fadeIn">
+                        <div class="card-header font-weight-bold">Fault Attributes</div>
+                        <!--Card content-->
+                        <div class="card-body" id="formFaultAttributes">
+                            <label class="small text-muted" for="machine">Machine Train</label>
+                            <h2 class="mb-3 breadcrumbs" id="machineTag">44GB403A</h2>
+                            <h5 class="mb-3 breadcrumbs" id="machineDescription">Fuel Gas KO Drum Pump A</h5>
+                            <hr />
+                            <form class="needs-validation" novalidate>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Technology</span>
+                                    </div>
+                                    <select class="custom-select d-block " id="reportType" required>
+                                        <option selected value="1">Vibration</option>
+                                        <option value="2">Lubrication</option>
+                                        <option value="3">Thermography</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Component</span>
+                                    </div>
+                                    <select class="custom-select d-block " required>
+                                        <option>Open this select menu</option>
+                                        <option>Parent</option>
+                                        <option>Central Lube System</option>
+                                        <option>Centrifuge</option>
+                                        <option>Compressor</option>
+                                        <option>Coupling</option>
+                                        <option>Drive Belt</option>
+                                        <option>Drive Chain</option>
+                                        <option>Engine</option>
+                                        <option>Heat Exchanger</option>
+                                        <option>Fan</option>
+                                        <option>Gearbox</option>
+                                        <option>Generator</option>
+                                        <option selected>Motor</option>
+                                        <option>Pump</option>
+                                        <option>Turbine</option>
+                                        <option>Valve</option>
+                                        <option>Winch</option>
+                                        <option>Flywheel</option>
+                                        <option>Crane</option>
+                                        <option>Other</option>
+
+                                    </select>
+                                    <select class="custom-select d-block ">
+                                        <option value="">
+                                            3 Phase AC Induction
+                                        </option>
+                                        <option>
+                                            AC Synchronous
+                                        </option>
+                                        <option selected>
+                                            AC Single Phase
+                                        </option>
+                                        <option>
+                                            AC Variable Frequency
+                                        </option>
+                                        <option>
+                                            Air
+                                        </option>
+                                        <option>DC</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Fault Type</span>
+                                    </div>
+                                    <select class="custom-select d-block " required>
+                                        <option>No vibration fault detected</option>
+                                        <option selected>Antifriction bearing fault</option>
+                                        <option>Bad vibration data</option>
+                                        <option>Beating</option>
+                                        <option>Belt drive fault</option>
+                                        <option>Compressor fault</option>
+                                        <option>Coupling fault</option>
+                                        <option>Electrical motor fault</option>
+                                        <option>Engine fault</option>
+                                        <option>Fan fault</option>
+                                        <option>Rotor rub</option>
+                                        <option>Shaft fault</option>
+                                        <option>Transmitted vibration</option>
+                                        <option>Unidentified issue</option>
+
+                                    </select>
+                                    <select class="custom-select d-block">
+                                        <option selected>Outer race defect</option>
+                                        <option>Inner race defect</option>
+                                        <option>Rolling element defect</option>
+                                        <option>Cage defect</option>
+                                        <option>Multiple fault frequencies</option>
+                                        <option>Roller skidding</option>
+                                        <option>Bearing fluting (EDM)</option>
+                                        <option>Housing distortion / out of round</option>
+                                        <option>Outer race creep in housing</option>
+                                        <option>Cocked antifriction bearing</option>
+                                        <option>Poor bearing fit on shaft</option>
+                                        <option>Bearing temperature excessive</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Fault Location</span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Add fault details here" aria-label="Username" aria-describedby="basic-addon1">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!--./FORM: Fault card-->
+                    <!---------------------------------------------------------------->
+                    <!--FORM: Reports -------------------------------------------------------->
+                    <!--For now all these sections should probably always be displayed -->
+                    <!--SUBFORM: Report Attributes -->
+                    <div class="card mb-4 wow fadeIn">
+                        <!--Card content-->
+                        <div class="card-header font-weight-bold">Report Attributes</div>
+                        <div class="card-body">
+                            <form class="needs-validation" novalidate>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="small text-muted" for="reportType">Report Type</label>
+                                        <select class="custom-select d-block w-100" id="reportType" required>
+                                            <option value="">Routine</option>
+                                            <option>Baseline</option>
+                                            <option>Troubleshooting</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="small text-muted" for="severity">Severity</label>
+                                        <select class="custom-select d-block w-100" id="severity" required>
+                                            <option value="">Plan Action</option>
+                                            @*foreach (var item in Model.Action)
+                                            {
+                                            <option>@item.ActionDescription</option>
+                                            @Html.DisplayFor(modelItem => item.ActionDescription)
+                                            }*@
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please select a valid severity.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="small text-muted" for="username">Report Date</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                            </div>
+                                            <input type="date" class="form-control" id="username" placeholder="dd/mm/yyyy" required>
+                                            <div class="invalid-feedback" style="width: 100%;">
+                                                Your username is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!--./SUBFORM: Report Attributes -->
+                        <!--SUBFORM: Observations -->
+                        <!--Card content-->
+
+                        <div class="card-body">
+                            <h1 class="line-through mb-4">Observations</h1>
+                            <div class="rpt-input-group input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Observation</span>
+                                </div>
+                                <div class="rpt-select-wrapper">
+                                    <div class="rpt-select">
+                                        <div class="rpt-select__trigger">
+                                            <span>Select a category</span>
+                                            <div class="arrow"></div>
+                                        </div>
+                                        <div class="rpt-options">
+                                            <span class="rpt-header">Select an observation type</span>
+                                            <span class="rpt-option selected" data-value="Noises">Noises</span>
+                                            <span class="rpt-option" data-value="Data Collection Errors">Data Collection Errors</span>
+                                            <span class="rpt-option" data-value="Phase">Phase</span>
+                                            <span class="rpt-option" data-value="Physical / Visual">Physical / Visual</span>
+                                            <span class="rpt-option" data-value="Spectral Amplitude">Spectral Amplitude</span>
+                                            <span class="rpt-header">Custom Entry</span>
+                                            <span class="rpt-option" data-value="Other">Other</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rpt-select-wrapper" id="selectObservation">
+                                    <div class="rpt-select">
+                                        <div class="rpt-select__trigger" id="observationSelected">
+                                            <span>Select an observation</span>
+                                            <div class="arrow"></div>
+                                        </div>
+                                        <div class="rpt-options">
+                                            <span class="rpt-header">Select something</span>
+                                            <span class="rpt-option selected" data-value="the corresponding observation id">Component is noisy</span>
+                                            <span class="rpt-option" data-value="observationid">Machine has high pitched sound</span>
+                                            <span class="rpt-option" data-value="observationid">Machine has low rumble</span>
+                                            <span class="rpt-option" data-value="observationid">Rubbing sound</span>
+                                            <span class="rpt-option" data-value="observationid">Sounds like gravel through pump</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rpt-select-wrapper" style="display: none;" id="customObservation">
+                                    <input type="text" class="form-control" id="inputCustomObservation" placeholder="" value="" required>
+                                </div>
+                                <div class="input-group-append">
+                                    <button type="button" id="btnAddObservation">+++</button>
+                                    <button type="button" style="display: none;" id="btnAddCustomObservation">+</button>
+                                </div>
+                            </div>
+                            <ul class="list-group list-group-flush" id="observationList">
+                                <li class="list-group-item">There is a rubbing sound <span class="close">x</span></li>
+                                <li class="list-group-item">The casing is hot <span class="close">x</span></li>
+                                <li class="list-group-item">This is a custom observation <span class="close">x</span></li>
+                            </ul>
+                        </div>
+                        <!--./SUBFORM: Observations -->
+                        <!--SUBFORM: Actions -->
+                        <!--Card content-->
+
+                        <div class="card-body">
+                            <h1 class="line-through mb-4">Actions</h1>
+                            <div class="rpt-input-group input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Action</span>
+                                </div>
+                                <div class="rpt-select-wrapper">
+                                    <div class="rpt-select">
+                                        <div class="rpt-select__trigger" id="actionSelected">
+                                            <span>Select a category</span>
+                                            <div class="arrow"></div>
+                                        </div>
+                                        <div class="rpt-options">
+                                            <span class="rpt-header">Listed by least intrusive (top) to most intrusive (bottom)</span>
+                                            <span class="rpt-option selected" data-value="the-corresponding-actionid">1.  Lubricate and retake data</span>
+                                            <span class="rpt-option" data-value="actionid">2.  Reduce monitoring interval</span>
+                                            <span class="rpt-option" data-value="actionid">3.  Clean an repack bearing</span>
+                                            <span class="rpt-option" data-value="actionid">4.  Replace bearing</span>
+                                            <span class="rpt-option" data-value="actionid">5.  Review bearing selectione</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-group-append">
+                                    <button type="button" id="btnAddAction">+</button>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <ul class="list-group list-group-flush" id="actionList">
+                                    <li class="list-group-item">Lubricate and retake data <span class="close">x</span></li>
+                                    <li class="list-group-item">Reduce monitoring interval <span class="close">x</span></li>
+                                </ul>
+                                <div class="invalid-feedback">
+                                    You've already selected that action
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="small text-muted" for="formExternalNotes">Additional Recommendations</label>
+                                <textarea type="text" id="formExternalNotes" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="small text-muted" for="notification">Notification</label>
+                                    <input type="number" class="form-control" id="notification" placeholder="" value="" required>
+                                    <div class="invalid-feedback">
+                                        Valid number is required.
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="small text-muted" for="workOrder">Work Order</label>
+                                    <input type="number" class="form-control" id="workOrder" placeholder="" value="" required>
+                                    <div class="invalid-feedback">
+                                        Valid number is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--./SUBFORM: Actions -->
+                        <!--SUBFORM: Attachments -->
+                        <!--Card content-->
+                        <div class="card-body">
+                            <h1 class="line-through mb-4">Attachments</h1>
+                            <form class="needs-validation" novalidate>
+                                <div class="form-group">
+                                    <label class="small text-muted" for="formInternalNotes">Analyst Notes (internal)</label>
+                                    <textarea type="text" id="formInternalNotes" class="form-control" rows="3"></textarea>
+                                </div>
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                                    </div>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                               aria-describedby="inputGroupFileAddon01">
+                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!--./SUBFORM: Attachments -->
+                    <!--DISPLAY:  Report Timeline -->
+                    <div class="card mb-4" id="historicReports">
+                        <!--Card content-->
+                        <div class="card-body col-md-12">
+                            <h5 class="grey-text font-weight-light">Report Timeline</h5>
+                            <hr />
+                            <div class="row">
+                                <nav id="historicReportsNav" class="flex-column col-3 nav nav-pills">
+                                    <!-- *** note the fas fa-square icon class needs to change with condition: Prompt = text-danger; Plan = text-alert; Trending = text-warning; No action = text-default; *** -->
+                                    <div class="rpt-stepper"><a class="nav-link" href="#abc"> 18.05.19 <i class="fas fa-square text-danger pl-2"></i></a></div>
+                                    <div class="rpt-stepper"><a class="nav-link" href="#def"> 18.04.08 <i class="fas fa-square text-alert pl-2"></i></a></div>
+                                    <div class="rpt-stepper"><a class="nav-link" href="#ghi"> 18.03.28<i class="fas fa-square text-warning pl-2"></i></a></div>
+                                    <div class="rpt-stepper"><a class="nav-link" href="#jkl"> 18.03.04<i class="fas fa-square text-warning pl-2"></i></a></div>
+                                    <div class="rpt-stepper"><a class="nav-link" href="#mno"> 18.02.03 <i class="fas fa-square text-default pl-2"></i></a></div>
+                                </nav>
+                                <div id="historicReportsBody" data-spy="scroll" data-target="#historicReportsNav" data-offset="200" class="col-9">
+                                    <!--Report 1-->
+                                    <section id="abc">
+                                        <h4 class="border-danger">
+                                            <!-- *** note this class needs to change with condition: Prompt = border-danger; Plan = border-alert; Trending = border-warning; No action = border-default; ***-->
+                                            Prompt Action
+                                        </h4>
+                                        <span><i class="far fa-calendar-alt"></i> 18.05.19 </span>
+
+                                        <!-- ***  Can we make these blocks not render if the result is null? ***-->
+                                        <!-- Observation Block -->
+                                        <h5>Observations</h5>
+                                        <ul class="mb-3 font-small list-group">
+                                            <li class="list-group-item">There is a rubbing sound </li>
+                                            <li class="list-group-item">The casing is hot </li>
+                                            <li class="list-group-item">This is a custom observation </li>
+                                        </ul>
+                                        <!-- ./Observation Block -->
+                                        <!-- Action Block -->
+                                        <h5 for="Actions">Actions</h5>
+                                        <ul class="mb-4 unstyled-list  font-small list-group">
+                                            <li class="list-group-item">Reduce monitoring interval </li>
+                                        </ul>
+                                        <!-- ./Action Block -->
+                                        <!-- Recommendations Block -->
+                                        <h5 for="formAddRec">Additional Recommendations</h5>
+                                        <p class="mb-3 font-small list-group-item">
+                                            Recommend taking an oil sample ASAP to determine if any excessive wear metals are present.
+                                            If possible, conduct an inspection of the gear set while the machine is shutdown.
+                                            <br />If unit can’t be shut down in the short term, plan to monitor the unit every couple of days to track deterioration.
+                                            Recommend using this unit as a poor spare and avoid running if possible.
+                                        </p>
+                                        <!-- ./Recommendations Block -->
+                                        <!-- WO Block -->
+                                        <h5 class="d-inline" for="workOrder">Work Order : </h5>
+                                        <span> 123456789 </span>
+                                        <!-- ./WO Block -->
+                                        <!-- InternalNotes Block -->
+                                        <h5 for="formIntNotes">Analyst Notes (internal)</h5>
+                                        <p class="mb-3 font-small list-group-item">
+                                            2018.05.19 MM Motor velocity New 9.9x (485Hz) impacting frequency, strongest @M2I.  NO MOTOR FAULTS CONFIGURED.  M2A Velocity - Idler DE BPFO  151.26Hz(3.77x) impacting fundamental at 0.346 mm/s in ( &lt;0.12 mm/s @G1 & G2)... Idler shaft NDE appears to have a rub G2Accel demod/twf)  - may need WO to be discussed w/ EDSC
+                                        </p>
+                                        <!-- ./InternalNotes Block -->
+                                        <!-- Attachment Block -->
+                                        <h5>Attachments</h5>
+                                        <p> X X X</p>
+                                        <!-- ./Attachment Block -->
+                                    </section>
+                                    <hr />
+                                    <!--Report 1-->
+                                    <!--Report 2-->
+                                    <section id="def">
+                                        <h4 class="border-alert"> Plan Action </h4>
+                                        <span><i class="far fa-calendar-alt"></i> 18.04.08 </span>
+
+                                        <h5 for="observationType">Observations</h5>
+                                        <ul class="mb-3 font-small">
+                                            <li>There is a rubbing sound </li>
+                                            <li>The casing is hot </li>
+                                        </ul>
+
+                                        <h5 for="Actions">Actions</h5>
+                                        <ul class="mb-4 unstyled-list font-small">
+                                            <li>1.  Lubricate and retake data </li>
+                                        </ul>
+
+                                        <h5 for="formAddRec">Additional Recommendations</h5>
+                                        <p class="mb-3 font-small">
+                                            Recommend taking an oil sample ASAP to determine if any excessive wear metals are present.
+                                            <br />If possible, conduct an inspection of the gear set while the machine is shutdown.
+                                            <br />If unit can’t be shut down in the short term, plan to monitor the unit every couple of days to track deterioration.
+                                            <br />Recommend using this unit as a poor spare and avoid running if possible.
+                                        </p>
+
+                                        <h5 for="workOrder">Work Order</h5>
+                                        <span class="infolabel"> 123456789 </span>
+
+
+                                        <h5 for="formIntNotes">Analyst Notes (internal)</h5>
+                                        <p class="mb-3 font-small">
+                                            No change
+                                        </p>
+
+                                        <h5>Attachments</h5>
+                                        <p> X X X</p>
+                                    </section>
+                                    <hr />
+
+                                    <!--Report 3-->
+                                    <section id="ghi">
+                                        <h4 class="border-warning"> Trending </h4>
+                                        <span><i class="far fa-calendar-alt"></i> 18.03.28 </span>
+
+                                        <h5>Observations</h5>
+                                        <ul class="mb-3 font-small">
+                                            <li>There is a rubbing sound </li>
+                                        </ul>
+
+                                        <h5 for="formIntNotes">Analyst Notes (internal)</h5>
+                                        <p class="mb-3 font-small">
+                                            2018.03.28 MM Impacting increasing in M2A, M2N, G1I velocity.  Likely 1x motor, but may also be IB Idler shaft BPFO (which is quite close to motor speed harmonics).   0.08mm/s fundamental in M2A & absent from demod.  TWF shows "Impact bundles" around 2x (100Hz), nothing definite at 1x or at 344hz however.  This signal is lower in G2 and gone in G3, no other changes, not severe impacting yet, ctm, 3
+                                        </p>
+
+                                        <h5>Attachments</h5>
+                                        <p> X X X</p>
+
+                                    </section>
+                                    <hr />
+
+                                    <!--Report 4-->
+                                    <section id="jkl" class="my-3">
+                                        <h4 class="border-warning">
+                                            <span>2018.03.04 </span> <span> Trending </span>
+                                        </h4>
+                                        <h5 for="observationType">Observations</h5>
+                                        <ul class="mb-3">
+                                            <li>There is a rubbing sound </li>
+                                        </ul>
+
+                                        <h5 for="formIntNotes">Analyst Notes (internal)</h5>
+                                        <p class="mb-3 font-small">
+                                            2018.03.04 MM M1N velocity - 223.64 Hz frequency (4.5x) trended suddenly (up to 0.4mm/s).  This signal may be a mix of idler shaft 2nd harmonic of, BSF and BPFO contributions to this single spectral amplitude, but the ratio is uncertain (note the 1x idler signal is not present in accel spectrum & legitimate peaks are present in the time wave form at the 223Hz frequency (i.e. the spectral spike clearly has real components, and is not purely an artifact of the fourier transform  trying to cope with signal distortion of other frequencies));  M2N hi res spectum has TWO spikes at 50 right next to each other (possible electrical implications); lower of the two chosen as 1x, otherwise stable/ok, CTM -3-
+                                        </p>
+
+                                    </section>
+                                    <hr />
+
+                                    <!--Report 5-->
+                                    <section id="mno" class="my-3">
+                                        <h4 class="border-default">
+                                            <span>2018.02.03 </span> <span> No Action </span>
+                                        </h4>
+                                        <h5 for="observationType">Observations</h5>
+                                        <ul class="mb-3">
+                                            <li>There is a rubbing sound </li>
+                                        </ul>
+
+                                        <h5 for="formIntNotes">Analyst Notes (internal)</h5>
+                                        <p class="mb-3 font-small">
+                                            JBKH - Vibration measurements are deemed low this survey. Slight noise coming from gearbox/coupling area. Specialists know about it and have accepted its OK. Possibly minor in service issue with the coupling.
+                                        </p>
+
+                                    </section>
+                                    <hr />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--./DISPLAY: Report Timeline-->
+                    <!--card-->
+                    <div class="card mb-4 wow fadeIn">
+                        <!--Card content-->
+                        <div class="card-body">
+                            <div class="d-block my-3">
+                                <div class="custom-control custom-radio">
+                                    <input id="inProgress" name="reportProgress" type="radio" class="custom-control-input" checked required>
+                                    <label class="custom-control-label" for="inProgress">In Progress</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input id="readyforReview" name="reportProgress" type="radio" class="custom-control-input" required>
+                                    <label class="custom-control-label" for="readyforReview">Ready for Review</label>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+                        </div>
+                    </div>
+
+                    <h4 class="mb-3 paddedHeader">Review</h4>
+                    <p>Later will refashion this to a different type of form, severity, image, recommendation checkboxes can be converted to form validation </p>
+
+                    <!--card-->
+                    <div class="card mb-4 wow fadeIn">
+                        <!--Card content-->
+                        <div class="card-body">
+                            <form class="needs-validation" novalidate>
+                                <div class="form-group">
+                                    <label class="small text-muted" for="formReviewNotes">Reviewer Notes</label>
+                                    <textarea type="text" id="formReviewNotes" class="form-control" rows="3"></textarea>
+                                </div>
+                            </form>
+                            <hr class="mb-4">
+
+                            <div class="d-block my-3">
+                                <div class="custom-control custom-radio">
+                                    <input id="credit" name="reviewProgress" type="radio" class="custom-control-input" checked required>
+                                    <label class="custom-control-label" for="credit">Reviewed with comments</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input id="paypal" name="reviewProgress" type="radio" class="custom-control-input" required>
+                                    <label class="custom-control-label" for="paypal">Client Comments</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input id="debit" name="reviewProgress" type="radio" class="custom-control-input" required>
+                                    <label class="custom-control-label" for="debit">Released</label>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+        <!--Section: Report Form-->
+
+        <div class="list-group  d-flex justify-content-center">
+            <!--- buttons and forms  -->
+            <div class="row d-flex justify-content-center modalWrapper">
+                <div class="modal fade addNewInputs" id="modalAddRoute" tabindex="-1" role="dialog" aria-labelledby="modalAddRoute"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add an Adhoc Route</h4>
+                                <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body mx-3">
+                                <h5 class="modal-title w-100 font-weight-bold text-primary ml-5"><i class="fas fa-tools"></i>  Under Construction  <i class="fas fa-mug-hot"></i></h5>
+                                <div class="md-form mb-5">
+                                    <input type="text" id="formAddRoute" class="form-control validate">
+                                    <label data-error="wrong" data-success="right" for="inputName">Route Name</label>
+                                </div>
+                                <div class="md-form mb-5">
+                                    <input type="date" id="inputDate" class="form-control" placeholder="Select Date">
+                                    <label data-error="wrong" data-success="right" for="inputDate">Schedule Date</label>
+                                </div>
+                                <div class="md-form mb-5">
+                                    <input type="number" id="formAddLabour" class="form-control validate">
+                                    <label data-error="wrong" data-success="right" for="formAddLabour">Labour Hours</label>
+                                </div>
+                                <div class="md-form mb-5">
+                                    <span>Greater Area</span>
+                                    <select class="custom-select d-block w-100" id="formAddGreaterArea" required>
+                                        <option>Inlet</option>
+                                        <option>LNG</option>
+                                        <option>DOMGAS</option>
+                                        <option>S&L</option>
+                                        <option>Utilities</option>
+                                    </select>
+
+                                </div>
+
+                                <div class="md-form mb-5">
+                                    <input type="text" id="inputAge" class="form-control validate">
+                                    <label data-error="wrong" data-success="right" for="inputAge">Machines</label>
+                                </div>
+
+                                <div class="mb-5">
+                                    <ul class="ks-cboxtags">
+                                        <li><input type="checkbox" id="cbmach1" value="10"><label for="cbmach1">0A-0920-K1A</label></li>
+                                        <li><input type="checkbox" id="cbmach2" value="11"><label for="cbmach2">0A-0920-K1B</label></li>
+                                        <li><input type="checkbox" id="cbmach3" value="12"><label for="cbmach3">0A-0920-K1A</label></li>
+                                        <li><input type="checkbox" id="cbmach4" value="13"><label for="cbmach4">0A-0920-K1B</label></li>
+                                        <li><input type="checkbox" id="cbmach5" value="15"><label for="cbmach5">0A-0960-K1A</label></li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
+                                <button class="btn btn-outline-primary btn-block buttonAdd" data-dismiss="modal">
+                                    Add form
+                                    <i class="fas fa-paper-plane-o ml-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit Route</h4>
+                                <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body mx-3">
+                                <div class="md-form mb-5">
+                                    <span class="field-label">Route</span>
+                                    <span class="field-data" id="formEditRoute">0900: Inlet - KJVG Common MEG plant [ GAA ]</span>
+                                </div>
+
+                                <div class="md-form mb-5">
+                                    <span class="field-label">Cycle (days)</span>
+                                    <span class="field-data" id="formEditCycle">56</span>
+                                </div>
+
+                                <div class="md-form mb-5">
+                                    <span class="field-label">Labour Hours</span>
+                                    <span class="field-data" id="formEditLabourHours">1</span>
+                                </div>
+
+                                <div class="md-form mb-5">
+                                    <span class="field-label">Plan Date</span>
+                                    <span class="field-data" id="formEditPlannedDate">4/12/2019</span>
+                                </div>
+
+                                <div class="md-form mb-5">
+                                    <input type="date" id="formEditScheduleDate" class="form-control validate" value="2019-12-04">
+                                    <label data-error="wrong" data-success="right" for="formEditScheduleDate">Schedule Date</label>
+                                </div>
+
+
+                            </div>
+                            <div class="modal-footer d-flex justify-content-center editInsideWrapper">
+                                <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal">
+                                    Edit form
+                                    <i class="fas fa-paper-plane-o ml-1"></i>
+                                </button>
+                                <!-- UPDATE Route_Call SET Schedule_Date = '2019-12-05'  WHERE PK_CallId = (this id);-->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--- Edit form -->
+                <!--- end machines list -->
+                <div class="modal fade" id="modalLoadReport" tabindex="-1" role="dialog" aria-labelledby="modalLoadReport"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Load the selected report</h4>
+                                <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body mx-3">
+                                <p>
+                                    If you load a new report, any changes that haven't been submitted will be lost.
+                                </p>
+                                <p>
+                                    Are you sure you want to discard your changes?
+                                </p>
+
+                            </div>
+                            <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
+                                <button type="button" class="btn btn-danger btnYesClass" id="btnYes" data-dismiss="modal">Yes</button>
+                                <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--- end pop up forms -->
+
+
+        </div>
+        <!--Footer-->
+        <footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn">
+
+            <!--Call to action-->
+            <div class="pt-4">
+                <a class="btn btn-outline-white" href="#" target="_blank" role="button">
+                    Go to sharepoint
+                    <i class="fas fa-share-alt ml-2"></i>
+                </a>
+                <a class="btn btn-outline-white" href="#" target="_blank" role="button">
+                    Start tutorial
+                    <i class="fa fa-graduation-cap ml-2"></i>
+                </a>
+            </div>
+            <!--/.Call to action-->
+
+            <hr class="my-4">
+
+            <!-- Social icons -->
+            <div class="pb-4">
+                <a>
+                    <i class="fas fa-rocket mr-3"></i>
+                </a>
+                <a>
+                    <i class="fas fa-broom mr-3"></i>
+                </a>
+                <a>
+                    <i class="fas fa-chart-area mr-3"></i>
+                </a>
+                <a>
+                    <i class="fas fa-chess-knight mr-3"></i>
+                </a>
+                <a>
+                    <i class="fas fa-crow mr-3"></i>
+                </a>
+                <a>
+                    <i class="fas fa-dolly-flatbed mr-3"></i>
+                </a>
+                <a>
+                    <i class="fas fa-kiwi-bird mr-3"></i>
+                </a>
+                <a>
+                    <i class="fas fa-dragon mr-3"></i>
+                </a>
+                <a>
+                    <i class="fas fa-fighter-jet mr-3"></i>
+                </a>
+            </div>
+            <!-- Social icons -->
+            <!--Copyright-->
+            <div class="footer-copyright py-3">
+                Last Updated 10 Jan 2020
+            </div>
+            <!--/.Copyright-->
+
+        </footer>
+        <!--/.Footer-->
+        <!-- SCRIPTS -->
+        <!-- JQuery -->
+        <script type="text/javascript" src="../wwwroot/js/jquery-3.4.1.min.js"></script>
+
+        <!-- Bootstrap tooltips -->
+        <script type="text/javascript" src="../wwwroot/js/popper.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript" src="../wwwroot/js/bootstrap.min.js"></script>
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript" src="../wwwroot/js/mdb.min.js"></script>
+        <!-- Dropzone JavaScript -->
+        <script type="text/javascript" src="../wwwroot/js/dropzone.min.js"></script>
+        <!-- Navbar -->
+        <script>
+            $(function () {
+                $('a').each(function () {
+                    if ($(this).prop('href') == window.location.href) {
+                        $(this).addClass('active'); $(this).parents('li').addClass('active');
+                    }
+                });
+            });
+        </script>
+        <script type="text/javascript" src="../wwwroot/js/jquery-ui.min.js"></script>
+        <!--<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+        <script>
+            $(function () {
+                var availableTags = [
+                    "ActionScript",
+                    "AppleScript",
+                    "Asp",
+                    "BASIC",
+                    "C",
+                    "C++",
+                    "Clojure",
+                    "COBOL",
+                    "ColdFusion",
+                    "Erlang",
+                    "Fortran",
+                    "Groovy",
+                    "Haskell",
+                    "Java",
+                    "JavaScript",
+                    "Lisp",
+                    "Perl",
+                    "PHP",
+                    "Python",
+                    "Ruby",
+                    "Scala",
+                    "Scheme"
+                ];
+                $("#tags").autocomplete({
+                    source: availableTags
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            // Animations initialization
+            new WOW().init();
+        </script>
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                setTimeout(updateScrollSpy, 1000);
+            });
+            function updateScrollSpy() {
+                jQuery('[data-spy="scroll"]').each(function () {
+                    var $spy = jQuery(this).scrollspy('refresh')
+                });
+            }
+        </script>
+        <script>
+            //Custom select event listener
+            for (const dropdown of document.querySelectorAll(".rpt-select-wrapper")) {
+                dropdown.addEventListener('click', function () {
+                    this.querySelector('.rpt-select').classList.toggle('open');
+                })
+            }
+
+            for (const option of document.querySelectorAll(".rpt-option")) {
+                option.addEventListener('click', function () {
+                    if (!this.classList.contains('selected')) {
+                        this.parentNode.querySelector('.rpt-option.selected').classList.remove('selected');
+                        this.classList.add('selected');
+                        this.closest('.rpt-select').querySelector('.rpt-select__trigger span').textContent = this.textContent;
+                        if (this.textContent == "Other") {
+                            document.querySelector('#customObservation').style.display = "block";
+                            document.querySelector('#btnAddCustomObservation').style.display = "block";
+                            document.querySelector('#selectObservation').style.display = "none";
+                            document.querySelector('#btnAddObservation').style.display = "none";
+                        } else {
+                            document.querySelector('#customObservation').style.display = "none";
+                            document.querySelector('#btnAddCustomObservation').style.display = "none";
+                            document.querySelector('#selectObservation').style.display = "block";
+                            document.querySelector('#btnAddObservation').style.display = "block";
+                        }
+                    }
+                })
+            }
+
+            window.addEventListener('click', function (e) {
+                for (const select of document.querySelectorAll('.rpt-select')) {
+                    if (!select.contains(e.target)) {
+                        select.classList.remove('open');
+                    }
+                }
+            });
+
+        </script>
+
+        <script>
+
+            ////add and remove list items
+            //// Get all the element references you'll need just once:
+            var actionList = document.querySelector("#actionList");
+            var actionSelected = document.querySelector("#actionSelected span");
+            var btnAddAction = document.querySelector("#btnAddAction");
+
+            //// Do all of your event binding in JavaScript, not with inline HTML event attributes
+            btnAddAction.addEventListener("click", addAction);
+
+            function addAction() {
+                if (actionSelected.textContent !== "") {
+                    // Don't build new HTML by concatenating strings. Create elements and configure them as objects
+                    var li = document.createElement("li");
+                    li.textContent = actionSelected.textContent;
+                    li.classList.add("list-group-item");
+
+                    // Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
+                    var span = document.createElement("span");
+                    span.classList.add("close");
+                    span.textContent = "x";
+                    span.addEventListener("click", removeAction);
+                    li.appendChild(span);  // Add the span to the bullet
+                    actionList.appendChild(li); // Add the bullet to the list
+                    //newAction.textContent = "";
+                }
+            }
+
+            // Remove the closest <li> ancestor to the <span> that got clicked
+            function removeAction() {
+                actionList.removeChild(this.closest("li"));
+            }
+
+            // Add event listener on pre-existing actions
+            for (const listItem of document.querySelectorAll("#actionList li")) {
+                listItem.addEventListener('click', removeAction);
+            }
+
+        </script>
+
+        <script>
+
+            ////add and remove list items
+            //// Get all the element references you'll need just once:
+            var observationList = document.querySelector("#observationList");
+            var observationSelected = document.querySelector("#observationSelected span");
+            var btnAddObservation = document.querySelector("#btnAddObservation");
+
+            //// Do all of your event binding in JavaScript, not with inline HTML event attributes
+            btnAddObservation.addEventListener("click", addObservation);
+
+            function addObservation() {
+                if (observationSelected.textContent !== "") {
+                    // Don't build new HTML by concatenating strings. Create elements and configure them as objects
+                    var li = document.createElement("li");
+                    li.textContent = observationSelected.textContent;
+                    li.classList.add("list-group-item");
+
+                    // Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
+                    var span = document.createElement("span");
+                    span.classList.add("close");
+                    span.textContent = "x";
+                    span.addEventListener("click", removeObservation);
+                    li.appendChild(span);  // Add the span to the bullet
+                    observationList.appendChild(li); // Add the bullet to the list
+                    //newObservation.textContent = "";
+                }
+            }
+
+            // Custom Observations
+            var inputObservation = document.querySelector("#inputCustomObservation");
+            var btnAddCustomObservation = document.querySelector("#btnAddCustomObservation");
+            btnAddCustomObservation.addEventListener("click", addCustomObservation);
+
+            function addCustomObservation() {
+                if (inputObservation.value !== "") {
+                    // Don't build new HTML by concatenating strings. Create elements and configure them as objects
+                    var li = document.createElement("li");
+                    li.textContent = inputObservation.value;
+                    li.classList.add("list-group-item");
+
+                    // Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
+                    var span = document.createElement("span");
+                    span.classList.add("close");
+                    span.textContent = "x";
+                    span.addEventListener("click", removeAction);
+                    li.appendChild(span);  // Add the span to the bullet
+                    observationList.appendChild(li); // Add the bullet to the list
+                    //newAction.textContent = "";
+                }
+            }
+
+            // Remove the closest <li> ancestor to the <span> that got clicked
+            function removeObservation() {
+                observationList.removeChild(this.closest("li"));
+            }
+
+            // Add event listener on pre-existing observations
+            for (const listItem of document.querySelectorAll("#observationList li")) {
+                listItem.addEventListener('click', removeObservation);
+            }
+
+        </script>
+
+        <script>
+            var setReportIdInput = function () {
+                var id = this.getAttribute("id");
+                alert(id);
+            }
+
+            window.onload = function () {
+                var inputs = document.getElementsByClassName("in-queue-rpt-item");
+                for (var index = 0; index < inputs.length; ++index) {
+                    inputs[index].addEventListener('click', setReportIdInput, false);
+                }
+            }
+
+        </script>
+
+</body>
+
+</html>

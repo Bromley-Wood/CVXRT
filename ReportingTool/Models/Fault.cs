@@ -12,9 +12,9 @@ namespace ReportingTool.Models
         [Key] public int FaultId { get; set; }
 
         public int FK_MachineTrainId { get; set; }
-        public int FK_PrimaryComponentTypeId { get; set; }
+        
         public int FK_TechnologyId { get; set; }
-        public int FK_FaultTypeId { get; set; }
+        
         [DataType(DataType.Date)] public DateTime Create_Date { get; set; }
         public bool Fault_IsActive { get; set; }
 
@@ -23,6 +23,8 @@ namespace ReportingTool.Models
         public ICollection<Report> Report_List { get; set; }
 
         #nullable enable
+        public int? FK_PrimaryComponentTypeId { get; set; }
+        public int? FK_FaultTypeId { get; set; }
         public int? FK_PrimaryComponentSubtypeId { get; set; }
         public int? FK_FaultSubtypeId { get; set; }
         [DataType(DataType.Date)] public DateTime? Close_Date { get; set; }
