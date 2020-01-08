@@ -108,38 +108,52 @@ namespace Reportingtool.Pages
         public async Task<IActionResult> OnPostUpdateReportFault()
         {
             //--------------- Update Fault if FaultType is null ----------------------------//
-            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(Fault_To_Update))
+            if (Current_Displayed_Report.FaultType == null)
+            {
+                
+                //foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(Fault_To_Update))
+                //{
+                //    string name = descriptor.Name;
+                //    object value = descriptor.GetValue(Fault_To_Update);
+                //    Console.WriteLine($"{name} = {value}");
+                //}
+
+                var Updated_Fault = await _context.TstFault.FirstOrDefaultAsync(f => f.PkFaultId == Fault_To_Update.PkFaultId);
+                Updated_Fault.FkTechnologyId = Fault_To_Update.FkTechnologyId;
+                Updated_Fault.FkPrimaryComponentTypeId = Fault_To_Update.FkPrimaryComponentTypeId;
+                Updated_Fault.FkPrimaryComponentSubtypeId = Fault_To_Update.FkPrimaryComponentSubtypeId;
+                Updated_Fault.FkFaultTypeId = Fault_To_Update.FkFaultTypeId;
+                Updated_Fault.FkFaultSubtypeId = Fault_To_Update.FkFaultSubtypeId;
+                Updated_Fault.FaultLocation = Fault_To_Update.FaultLocation;
+
+                _context.Attach(Updated_Fault).State = EntityState.Modified;
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!FaultExists(Fault_To_Update.PkFaultId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+            //--------------- Update Fault if FaultType is null ----------------------------//
+
+            //--------------- Update Report----------------------------//
+            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(Report_To_Update))
             {
                 string name = descriptor.Name;
-                object value = descriptor.GetValue(Fault_To_Update);
+                object value = descriptor.GetValue(Report_To_Update);
                 Console.WriteLine($"{name} = {value}");
             }
-
-            var Updated_Fault = await _context.TstFault.FirstOrDefaultAsync(f => f.PkFaultId == Fault_To_Update.PkFaultId);
-            Updated_Fault.FkTechnologyId = Fault_To_Update.FkTechnologyId;
-            Updated_Fault.FkPrimaryComponentTypeId = Fault_To_Update.FkPrimaryComponentTypeId;
-            Updated_Fault.FkPrimaryComponentSubtypeId = Fault_To_Update.FkPrimaryComponentSubtypeId;
-            Updated_Fault.FkFaultTypeId = Fault_To_Update.FkFaultTypeId;
-            Updated_Fault.FkFaultSubtypeId = Fault_To_Update.FkFaultSubtypeId;
-            Updated_Fault.FaultLocation = Fault_To_Update.FaultLocation;
-
-            _context.Attach(Updated_Fault).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FaultExists(Fault_To_Update.PkFaultId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            //--------------- Update Report----------------------------//
 
 
             return RedirectToPage("/ReviewReports", new { id = Report_To_Update.PkReportId });
