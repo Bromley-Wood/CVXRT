@@ -25,11 +25,20 @@ namespace Reportingtool.Pages
         public int SelectedReportId { get; set; }
         public IList<VTstReportSummary> VTstReportSummary_InProgress { get; set; }
         public IList<string> UnitReference_InProgress { get; set; }
+
+        //------------------- Select List------------------------------------//
         public IList<Technology> Technology_List { get; set; }
         public IList<PrimaryComponentType> PrimaryComponentType_List { get; set; }
         public IList<PrimaryComponentSubtype> PrimaryComponentSubtype_List { get; set; }
         public IList<FaultType> FaultType_List { get; set; }
         public IList<FaultSubtype> FaultSubtype_List { get; set; }
+        public IList<ReportType> ReportType_List { get; set; }
+        public IList<Condition> Condition_List { get; set; }
+        public IList<Observation> Observation_List { get; set; }
+        public IList<ObservationType> ObservationType_List { get; set; }
+        public IList<Models.Db.Action> Action_List { get; set; }
+        //------------------- Select List------------------------------------//
+
         public VTstReportSummary Current_Displayed_Report { get; set; }
 
         [BindProperty]
@@ -38,7 +47,10 @@ namespace Reportingtool.Pages
         [BindProperty]
         public TstFault Fault_To_Update { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public List<string> selected_status_list = new List<string> { "", "selected" };
+        public List<string> active_status_list = new List<string> { "", "active" };
+
+    public async Task<IActionResult> OnGetAsync(int? id)
         {
 
 
@@ -92,6 +104,26 @@ namespace Reportingtool.Pages
             FaultSubtype_List = await _context.FaultSubtype
                 .AsNoTracking()
                 .ToListAsync();
+
+            ReportType_List = await _context.ReportType
+                    .AsNoTracking()
+                    .ToListAsync();
+
+            Condition_List = await _context.Condition
+                .AsNoTracking()
+                .ToListAsync();
+            Observation_List = await _context.Observation
+                .AsNoTracking()
+                .ToListAsync();
+            ObservationType_List = await _context.ObservationType
+                .AsNoTracking()
+                .ToListAsync();
+            Action_List = await _context.Action
+                .AsNoTracking()
+                .ToListAsync();
+
+
+
             //------------------------------------------------------------------//
 
             Report_To_Update = _context.TstReport.FirstOrDefault(r => r.PkReportId == Current_Displayed_Report.ReportId);
@@ -108,9 +140,9 @@ namespace Reportingtool.Pages
         public async Task<IActionResult> OnPostUpdateReportFault()
         {
             //--------------- Update Fault if FaultType is null ----------------------------//
-            if (Current_Displayed_Report.FaultType == null)
+            if (Fault_To_Update.FkFaultTypeId == null)
             {
-                
+
                 //foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(Fault_To_Update))
                 //{
                 //    string name = descriptor.Name;
@@ -162,6 +194,11 @@ namespace Reportingtool.Pages
         private bool FaultExists(int id)
         {
             return _context.TstFault.Any(e => e.PkFaultId == id);
+        }
+
+        private bool ReportExists(int id)
+        {
+            return _context.TstReport.Any(e => e.PkReportId == id);
         }
 
     }

@@ -35,20 +35,23 @@
                 <div class="accordion" id="machineNotes">
                     @for (int idx = 0; idx < Model.Current_Displayed_Report.Machine_Train_Entry.Machine_Train_Notes.Count; ++idx)
                     {
-                        <div class="card">
-                            <div class="card-header" id="heading@(idx)">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed preview-note" type="button" data-toggle="collapse" data-target="#collapse@(idx)" aria-expanded="false" aria-controls="collapse@(idx)">
+                        @if (Model.Current_Displayed_Report.Machine_Train_Entry.Machine_Train_Notes[idx].MachineTrainNoteShowOnReport)
+                        {
+                            <div class="card">
+                                <div class="card-header" id="heading@(idx)">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link collapsed preview-note" type="button" data-toggle="collapse" data-target="#collapse@(idx)" aria-expanded="false" aria-controls="collapse@(idx)">
+                                            @Model.Current_Displayed_Report.Machine_Train_Entry.Machine_Train_Notes[idx].MachineTrainNote
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapse@(idx)" class="collapse" aria-labelledby="heading@(idx)" data-parent="#machineNotes">
+                                    <div class="card-body">
                                         @Model.Current_Displayed_Report.Machine_Train_Entry.Machine_Train_Notes[idx].MachineTrainNote
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapse@(idx)" class="collapse" aria-labelledby="heading@(idx)" data-parent="#machineNotes">
-                                <div class="card-body">
-                                    @Model.Current_Displayed_Report.Machine_Train_Entry.Machine_Train_Notes[idx].MachineTrainNote
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     }
                 </div>
 
@@ -67,17 +70,16 @@
                         </form>
                         @for (int idx = 0; idx < Model.UnitReference_InProgress.Count; ++idx)
                         {
-                            var status_list = new List<string> { "", "active" };
                             var unit_ref = Model.UnitReference_InProgress[idx];
                             var VTstReportSummary_InProgress_Per_Unit = Model.VTstReportSummary_InProgress.Where(r => r.UnitReference == @unit_ref).ToList();
                             <h5 class="ip-sub-header list-group-item d-flex justify-content-between">
-                                <span>Unit @unit_ref</span>
+                                <span>Unit @(unit_ref)00</span>
                                 <strong>@VTstReportSummary_InProgress_Per_Unit.Count Reports</strong>
                             </h5>
 
                             foreach (var in_p_report in VTstReportSummary_InProgress_Per_Unit)
                             {
-                                <a class="in-queue-rpt-item list-group-item d-flex justify-content-between lh-condensed @status_list[Convert.ToInt32(in_p_report.ReportId == Model.Current_Displayed_Report.ReportId)]" id="@(in_p_report.ReportId)" data-toggle="list" href="#" role="tab">
+                                <a class="in-queue-rpt-item list-group-item d-flex justify-content-between lh-condensed @Model.active_status_list[Convert.ToInt32(in_p_report.ReportId == Model.Current_Displayed_Report.ReportId)]" id="@(in_p_report.ReportId)" data-toggle="list" href="#" role="tab">
                                     @{
                                         if (in_p_report.FaultTypeId == null)
                                         {
@@ -112,6 +114,7 @@
             <div class="col-md-8 order-md-1 py-5">
                 <form method="post" asp-page-handler="updatereportfault" id="updatereportfaultform">
                     <input type="hidden" asp-for="Fault_To_Update.PkFaultId" value=@Model.Fault_To_Update.PkFaultId>
+                    <input type="hidden" asp-for="Fault_To_Update.FkFaultTypeId" value=@Model.Fault_To_Update.FkFaultTypeId>
                     <input type="hidden" asp-for="Report_To_Update.PkReportId" value=@Model.Report_To_Update.PkReportId>
 
                     @if (Model.Current_Displayed_Report.FaultType != null)
@@ -250,21 +253,35 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <label class="small text-muted" for="reportType">Report Type</label>
-                                    <select class="custom-select d-block w-100" id="reportType" required>
-                                        <option value="">Routine</option>
-                                        <option>Baseline</option>
-                                        <option>Troubleshooting</option>
+                                    <select class="custom-select d-block w-100" asp-for="Report_To_Update.FkReportTypeId" id="reportTypeselect" required>
+                                        @foreach (var item in Model.ReportType_List)
+                                        {
+                                            if (item.PkReportTypeId == Model.Report_To_Update.FkReportTypeId)
+                                            {
+                                                <option value="@(item.PkReportTypeId)" selected>@item.ReportType1</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@(item.PkReportTypeId)">@item.ReportType1</option>
+                                            }
+
+                                        }
                                     </select>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="small text-muted" for="severity">Severity</label>
-                                    <select class="custom-select d-block w-100" id="severity" required>
-                                        <option value="">Plan Action</option>
-                                        @*foreach (var item in Model.Action)
+                                    <select class="custom-select d-block w-100" asp-for="Report_To_Update.FkConditionId" id="conditionselect" required>
+                                        @foreach (var item in Model.Condition_List)
+                                        {
+                                            if (item.PkConditionId == Model.Report_To_Update.FkConditionId)
                                             {
-                                            <option>@item.ActionDescription</option>
-                                            @Html.DisplayFor(modelItem => item.ActionDescription)
-                                            }*@
+                                                <option value="@(item.PkConditionId)" selected>@item.Condition1</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@(item.PkConditionId)">@item.Condition1</option>
+                                            }
+                                        }
                                     </select>
                                     <div class="invalid-feedback">
                                         Please select a valid severity.
@@ -276,9 +293,9 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
-                                        <input type="date" class="form-control" id="username" placeholder="dd/mm/yyyy" required>
+                                        <input type="date" asp-for="Report_To_Update.ReportDate" class="form-control" id="username" placeholder="dd/mm/yyyy" required>
                                         <div class="invalid-feedback" style="width: 100%;">
-                                            Your username is required.
+                                            Report date is required.
                                         </div>
                                     </div>
                                 </div>
@@ -329,7 +346,7 @@
                                     </div>
                                 </div>
                                 <div class="rpt-select-wrapper" style="display: none;" id="customObservation">
-                                    <input type="text" class="form-control" id="inputCustomObservation" placeholder="" value="" required>
+                                    <input type="text" asp-for="Report_To_Update.Observations" class="form-control" id="inputCustomObservation" placeholder="" value="">
                                 </div>
                                 <div class="input-group-append">
                                     <button type="button" id="btnAddObservation">+++</button>
@@ -384,19 +401,19 @@
                             </div>
                             <div class="form-group">
                                 <label class="small text-muted" for="formExternalNotes">Additional Recommendations</label>
-                                <textarea type="text" id="formExternalNotes" class="form-control" rows="3"></textarea>
+                                <textarea type="text" id="formExternalNotes" asp-for="Report_To_Update.ExternalNotes" class="form-control" rows="3"></textarea>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="small text-muted" for="notification">Notification</label>
-                                    <input type="number" class="form-control" id="notification" placeholder="" value="" required>
+                                    <input type="number" class="form-control" id="notification" asp-for="Report_To_Update.NotificationNo" placeholder="" value="">
                                     <div class="invalid-feedback">
                                         Valid number is required.
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="small text-muted" for="workOrder">Work Order</label>
-                                    <input type="number" class="form-control" id="workOrder" placeholder="" value="" required>
+                                    <input type="number" class="form-control" id="workOrder" asp-for="Report_To_Update.WorkOrderNo" placeholder="" value="">
                                     <div class="invalid-feedback">
                                         Valid number is required.
                                     </div>
@@ -411,7 +428,7 @@
 
                             <div class="form-group">
                                 <label class="small text-muted" for="formInternalNotes">Analyst Notes (internal)</label>
-                                <textarea type="text" id="formInternalNotes" class="form-control" rows="3"></textarea>
+                                <textarea type="text" id="formInternalNotes" asp-for="Report_To_Update.AnalystNotes" class="form-control" rows="3"></textarea>
                             </div>
 
                             <div class="input-group">
@@ -598,11 +615,11 @@
                         <div class="card-body">
                             <div class="d-block my-3">
                                 <div class="custom-control custom-radio">
-                                    <input id="inProgress" name="reportProgress" type="radio" class="custom-control-input" checked required>
+                                    <input value="1" asp-for="Report_To_Update.FkReportStageId" id="inProgress" name="reportProgress" type="radio" class="custom-control-input" checked>
                                     <label class="custom-control-label" for="inProgress">In Progress</label>
                                 </div>
                                 <div class="custom-control custom-radio">
-                                    <input id="readyforReview" name="reportProgress" type="radio" class="custom-control-input" required>
+                                    <input value="2" asp-for="Report_To_Update.FkReportStageId" id="readyforReview" name="reportProgress" type="radio" class="custom-control-input">
                                     <label class="custom-control-label" for="readyforReview">Ready for Review</label>
                                 </div>
                             </div>
@@ -828,6 +845,20 @@
             });
 
         </script>
+
+        @*<script>
+            //disable submit button until required are filled out
+            var form = document.getElementById('updatereportfaultform')
+            var submitBtn = document.getElementById('btnUpdateReportFault')
+
+            submitBtn.disabled = true
+
+            form.addEventListener('input', function () {
+                submitBtn.disabled = !form.checkValidity()
+            })
+
+
+        </script>*@
 
         <script>
             // submit form
