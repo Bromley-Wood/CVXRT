@@ -191,16 +191,18 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Component</span>
                                     </div>
-                                    <select class="custom-select d-block " asp-for="Fault_To_Update.FkPrimaryComponentTypeId" required>
+                                    <select class="custom-select d-block " asp-for="Fault_To_Update.FkPrimaryComponentTypeId" required id="componenttypeselect">
+                                        <option value="" selected disabled hidden>Select the component type</option>
                                         @foreach (var item in Model.PrimaryComponentType_List)
                                         {
                                             <option value="@(item.PkPrimaryComponentTypeId)">@item.PrimaryComponentType1</option>
                                         }
                                     </select>
-                                    <select class="custom-select d-block " asp-for="Fault_To_Update.FkPrimaryComponentSubtypeId">
+                                    <select class="custom-select d-block " asp-for="Fault_To_Update.FkPrimaryComponentSubtypeId" id="componentsubtypeselect">
+                                        <option value="" selected disabled hidden>Select the component subtype</option>
                                         @foreach (var item in Model.PrimaryComponentSubtype_List)
                                         {
-                                            <option value="@(item.PkPrimaryComponentSubtypeId)">@item.PrimaryComponentSubtype1</option>
+                                            <option typeid="@(item.FkPrimaryComponentTypeId)" value="@(item.PkPrimaryComponentSubtypeId)">@item.PrimaryComponentSubtype1</option>
                                         }
                                     </select>
                                 </div>
@@ -209,16 +211,18 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Fault Type</span>
                                     </div>
-                                    <select class="custom-select d-block " asp-for="Fault_To_Update.FkFaultTypeId" required>
+                                    <select class="custom-select d-block " asp-for="Fault_To_Update.FkFaultTypeId" required id="faulttypeselect">
+                                        <option value="" selected disabled hidden>Select the fault type</option>
                                         @foreach (var item in Model.FaultType_List)
                                         {
                                             <option value="@(item.PkFaultTypeId)">@item.FaultType1</option>
                                         }
                                     </select>
-                                    <select class="custom-select d-block" asp-for="Fault_To_Update.FkPrimaryComponentSubtypeId">
+                                    <select class="custom-select d-block" asp-for="Fault_To_Update.FkPrimaryComponentSubtypeId" id="faultsubtypeselect">
+                                        <option value="" selected disabled hidden>Select the fault subtype</option>
                                         @foreach (var item in Model.FaultSubtype_List)
                                         {
-                                            <option value="@(item.PkFaultSubtypeId)">@item.FaultSubtype1</option>
+                                            <option typeid="@(item.FkFaultTypeId)" value="@(item.PkFaultSubtypeId)">@item.FaultSubtype1</option>
                                         }
                                     </select>
                                 </div>
@@ -826,8 +830,32 @@
         </script>
 
         <script>
+            // submit form
             $(document).on("click", ".btnUpdateReportFault", function () {
                 $('#updatereportfaultform').submit();
             });
+        </script>
+
+        <script>
+            // change select list
+            $("#componenttypeselect").change(function () {
+                if ($(this).data('options') == undefined) {
+                    $(this).data('options', $('#componentsubtypeselect option').clone());
+                }
+                var id = $(this).val();
+                var options = $(this).data('options').filter('[typeid=' + id + ']');
+                $('#componentsubtypeselect').html(options).show();
+            });
+
+            $("#faulttypeselect").change(function () {
+                if ($(this).data('options') == undefined) {
+                    $(this).data('options', $('#faultsubtypeselect option').clone());
+                }
+                var id = $(this).val();
+                var options = $(this).data('options').filter('[typeid=' + id + ']');
+                $('#faultsubtypeselect').html(options).show();
+            });
+
+
         </script>
     }
