@@ -681,9 +681,11 @@ namespace Reportingtool.Models.Db
 
             modelBuilder.Entity<TstFault>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.PkFaultId);
 
                 entity.ToTable("tst_Fault");
+
+                entity.Property(e => e.PkFaultId).HasColumnName("PK_FaultId");
 
                 entity.Property(e => e.CloseDate)
                     .HasColumnName("Close_Date")
@@ -711,23 +713,25 @@ namespace Reportingtool.Models.Db
 
                 entity.Property(e => e.FkTechnologyId).HasColumnName("FK_TechnologyId");
 
-                entity.Property(e => e.PkFaultId)
-                    .HasColumnName("PK_FaultId")
-                    .ValueGeneratedOnAdd();
-
                 entity.Property(e => e.ProductionImpactCost).HasColumnName("Production_Impact_Cost");
 
                 entity.Property(e => e.Status)
                     .IsRequired()
                     .HasMaxLength(6)
                     .IsUnicode(false);
+
+                entity.Property(e => e.Status)
+                .HasComputedColumnSql("Status");
+
             });
 
             modelBuilder.Entity<TstReport>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.PkReportId);
 
                 entity.ToTable("tst_Report");
+
+                entity.Property(e => e.PkReportId).HasColumnName("PK_ReportId");
 
                 entity.Property(e => e.Actions).HasMaxLength(2500);
 
@@ -759,10 +763,6 @@ namespace Reportingtool.Models.Db
 
                 entity.Property(e => e.OriginCallId).HasColumnName("Origin_CallId");
 
-                entity.Property(e => e.PkReportId)
-                    .HasColumnName("PK_ReportId")
-                    .ValueGeneratedOnAdd();
-
                 entity.Property(e => e.ReportDate)
                     .HasColumnName("Report_Date")
                     .HasColumnType("date");
@@ -782,9 +782,11 @@ namespace Reportingtool.Models.Db
 
             modelBuilder.Entity<TstRouteCall>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.PkCallId);
 
                 entity.ToTable("tst_Route_Call");
+
+                entity.Property(e => e.PkCallId).HasColumnName("PK_CallId");
 
                 entity.Property(e => e.CallNo).HasColumnName("Call_No");
 
@@ -803,10 +805,6 @@ namespace Reportingtool.Models.Db
                 entity.Property(e => e.ModifiedDate)
                     .HasColumnName("Modified_Date")
                     .HasColumnType("datetime");
-
-                entity.Property(e => e.PkCallId)
-                    .HasColumnName("PK_CallId")
-                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.PlanDate)
                     .HasColumnName("Plan_Date")

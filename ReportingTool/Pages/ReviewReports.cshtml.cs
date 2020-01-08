@@ -115,42 +115,39 @@ namespace Reportingtool.Pages
                 Console.WriteLine($"{name} = {value}");
             }
 
-            var faultToUpdate =  _context.TstFault.FirstOrDefault(f => f.PkFaultId == Fault_To_Update.PkFaultId);
+            var Updated_Fault = await _context.TstFault.FirstOrDefaultAsync(f => f.PkFaultId == Fault_To_Update.PkFaultId);
+            Updated_Fault.FkTechnologyId = Fault_To_Update.FkTechnologyId;
+            Updated_Fault.FkPrimaryComponentTypeId = Fault_To_Update.FkPrimaryComponentTypeId;
+            Updated_Fault.FkPrimaryComponentSubtypeId = Fault_To_Update.FkPrimaryComponentSubtypeId;
+            Updated_Fault.FkFaultTypeId = Fault_To_Update.FkFaultTypeId;
+            Updated_Fault.FkFaultSubtypeId = Fault_To_Update.FkFaultSubtypeId;
+            Updated_Fault.FaultLocation = Fault_To_Update.FaultLocation;
 
-            if (faultToUpdate == null)
+            _context.Attach(Updated_Fault).State = EntityState.Modified;
+
+            try
             {
-                return NotFound();
+                await _context.SaveChangesAsync();
             }
-
-            if (faultToUpdate.FkFaultTypeId == null)
+            catch (DbUpdateConcurrencyException)
             {
-                Console.WriteLine("---------------");
-                foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(faultToUpdate))
+                if (!FaultExists(Fault_To_Update.PkFaultId))
                 {
-                    string name = descriptor.Name;
-                    object value = descriptor.GetValue(faultToUpdate);
-                    Console.WriteLine($"{name} = {value}");
+                    return NotFound();
                 }
-
-                Console.WriteLine("---------------");
-                if (await TryUpdateModelAsync<TstFault>(
-                faultToUpdate,
-                "Fault_To_Update",
-                f => f.FkTechnologyId,
-                f => f.FkPrimaryComponentTypeId,
-                f => f.FkPrimaryComponentSubtypeId,
-                f => f.FkFaultTypeId,
-                f => f.FkFaultSubtypeId,
-                f => f.FaultLocation))
+                else
                 {
-                    Console.WriteLine("---------------");
-                    Console.WriteLine("Saving changes");
-                    Console.WriteLine("---------------");
-                    await _context.SaveChangesAsync();
+                    throw;
                 }
             }
+
 
             return RedirectToPage("/ReviewReports", new { id = Report_To_Update.PkReportId });
+        }
+
+        private bool FaultExists(int id)
+        {
+            return _context.TstFault.Any(e => e.PkFaultId == id);
         }
 
     }
