@@ -3,116 +3,117 @@
 <html>
 <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title> @ViewData["Title"]</title>
+	<title> @ViewData["Title"]</title>
 
-    <link rel="icon" href="~/logo.ico" type="image/x-icon">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-    <!-- Bootstrap core CSS -->
-    <link href="~/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="~/css/mdb.min.css" rel="stylesheet">
-    <!-- Your custom styles (optional) -->
-    <link href="~/css/style.css" rel="stylesheet">
-    <!-- Dropzone -->
-    <link href="~/css/dropzone.min.css" rel="stylesheet">
-    <style type="text/css">
-        html,
-        body,
-        header,
-        .view {
-            height: 100%;
-        }
+	<link rel="icon" href="~/logo.ico" type="image/x-icon">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+	<!-- Bootstrap core CSS -->
+	<link href="~/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Material Design Bootstrap -->
+	<link href="~/css/mdb.min.css" rel="stylesheet">
+	<!-- Dropzone -->
+	<link href="~/css/dropzone.min.css" rel="stylesheet">
+	<!-- Your custom styles (optional) -->
+	<link href="~/css/style.css" rel="stylesheet">
 
-        @@media (max-width: 740px) {
-            html,
-            body,
-            header,
-            .view {
-                height: 1000px;
-            }
-        }
 
-        @@media (min-width: 800px) and (max-width: 850px) {
-            html,
-            body,
-            header,
-            .view {
-                height: 650px;
-            }
-        }
+	<style type="text/css">
+		html,
+		body,
+		header,
+		.view {
+			height: 100%;
+		}
 
-        @@media (min-width: 800px) and (max-width: 850px) {
-            .navbar:not(.top-nav-collapse) {
-                background: #1C2331 !important;
-            }
-        }
-    </style>
+		@@media (max-width: 740px) {
+			html,
+			body,
+			header,
+			.view {
+				height: 1000px;
+			}
+		}
+
+		@@media (min-width: 800px) and (max-width: 850px) {
+			html,
+			body,
+			header,
+			.view {
+				height: 650px;
+			}
+		}
+
+		@@media (min-width: 800px) and (max-width: 850px) {
+			.navbar:not(.top-nav-collapse) {
+				background: #1C2331 !important;
+			}
+		}
+	</style>
 </head>
 
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
-        <div class="container">
-            <!-- Brand -->
-            <a class="navbar-brand" asp-area="" asp-page="/Index">
-                <strong>Home</strong>
-            </a>
+	<!-- Navbar -->
+	<nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+		<div class="container">
+			<!-- Brand -->
+			<a class="navbar-brand" asp-area="" asp-page="/Index">
+				<strong>Home</strong>
+			</a>
 
-            <!-- Collapse -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+			<!-- Collapse -->
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-            <!-- Links -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<!-- Links -->
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                <!-- Left -->
-                <ul class="navbar-nav mr-auto">
+				<!-- Left -->
+				<ul class="navbar-nav mr-auto">
 
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-page="/ScheduleMaintenance">Schedule Work</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-page="/CreateReports">Create Reports</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-page="/MachineNotes" asp-route-id="1">Machine Notes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-page="/ReviewReports">Review Reports</a>
-                    </li>
-                </ul>
+					<li class="nav-item">
+						<a class="nav-link" asp-area="" asp-page="/ScheduleMaintenance">Schedule Routes</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-area="" asp-page="/CreateReports">Generate Reports</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-area="" asp-page="/ReviewReports">Complete Reports</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-area="" asp-page="/MachineNotes" asp-route-id="1">Machine Notes</a>
+					</li>
+				</ul>
 
-                <!-- Right -->
-                <ul class="navbar-nav nav-flex-icons">
-                    <li class="nav-item">
-                        <a href="https://www.facebook.com/mdbootstrap" class="nav-link" target="_blank">
-                            <i class="fas fa-inbox"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded"
-                           target="_blank">
-                            <i class="fas fa-question-circle"></i> Help
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- Navbar -->
+				<!-- Right -->
+				<ul class="navbar-nav nav-flex-icons">
+					<li class="nav-item">
+						<a href="#" class="nav-link">
+							<i class="fas fa-inbox"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="#" class="nav-link">
+							<i class="fas fa-chart-bar"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link border border-light rounded">
+							<i class="fas fa-user-circle"></i> @Model.Current_User
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- Navbar -->
 
 
     @RenderBody()
@@ -133,7 +134,8 @@
         </div>
         <!--/.Call to action-->
 
-        <hr class="my-4">
+	<!--Footer-->
+	<footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn">
 
         <!-- Social icons -->
         <div class="pb-4">
@@ -172,24 +174,9 @@
         </div>
         <!--/.Copyright-->
 
-    </footer>
-    <!--/.Footer-->
-    <!-- SCRIPTS -->
-    <!-- JQuery -->
-    <script type="text/javascript" src="~/js/jquery-3.4.1.min.js"></script>
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="~/js/popper.min.js"></script>
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="~/js/mdb.min.js"></script>
 
-    <script type="text/javascript" src="~/js/site.js"></script>
-    <!-- Initializations -->
-    <script type="text/javascript">
-        // Animations initialization
-        new WOW().init();
-    </script>
+		<!-- Dropzone JavaScript -->
+		<script type="text/javascript" src="~/js/dropzone.min.js"></script>
 
     <!-- Droplist -->
     <script type="text/javascript" src="~/js/jquery-ui.min.js"></script>

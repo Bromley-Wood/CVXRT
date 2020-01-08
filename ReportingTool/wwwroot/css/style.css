@@ -56,6 +56,53 @@ body,
 
 /* Reporting Tool generic styles */
 
+
+
+/*
+Nicer scroll bar 
+https://codepen.io/abhishekp1996/pen/JXYBmp
+ */
+
+.sb-style-1 {
+	background: #F5F5F5;
+	overflow-y: scroll;
+	color: red;
+	padding: 0;
+}
+
+	.sb-style-1 > div {
+		min-height: 246px;
+		height: 246px;
+	}
+
+	.sb-style-1::-webkit-scrollbar-track {
+		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+		border-radius: 10px;
+		background-color: #F5F5F5;
+	}
+
+	.sb-style-1::-webkit-scrollbar {
+		width: 6px;
+		background-color: #F5F5F5;
+	}
+
+	.sb-style-1::-webkit-scrollbar-thumb {
+		border-radius: 0px;
+		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+		background-color: lightgrey;
+	}
+
+
+
+
+
+.rt-text-icon {
+	font-size: 1.3rem;
+	padding: 0.5rem;
+	width: 50px;
+	text-align: center;
+}
+
 .rt-table .custom-switch {
 	text-align: center;
 }
@@ -845,3 +892,4 @@ h1.line-through {
 .list-group.list-group-flush li:last-child {
 	border-bottom: 0;
 }
+

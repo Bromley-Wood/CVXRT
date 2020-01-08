@@ -159,7 +159,7 @@ INSERT INTO report([FK_FaultId]
       ,[Analyst_Name]
       ,[Reviewer_Name]
       ,[Report_IsActive])
-SELECT ,[FK_FaultId]
+SELECT [FK_FaultId]
       ,sysdatetime()
       ,sysdatetime()
       ,[FK_ConditionId]
@@ -182,30 +182,20 @@ where [PK_ReportId] = <latest release report id>
 
 -- Anomaly - No Existing Report
 
-... in progress 
-SELECT 
+--... in progress 
+
 INSERT INTO [DEV_ClientProject].[dbo].[Fault] (
       [FK_MachineTrainId]
       ,[FK_PrimaryComponentTypeId]
-      ,[FK_PrimaryComponentSubtypeId]
       ,[FK_TechnologyId]
       ,[FK_FaultTypeId]
-      ,[FK_FaultSubtypeId]
       ,[Create_Date]
-      ,[Close_Date]
-      ,[Fault_Location]
-      ,[Production_Impact_Cost]
       ,[Fault_IsActive])
 VALUES (<this machine id>
-	  ,1 -- aka. parent
-      ,NULL
-      ,1 -- aka. Vibes
-      ,1 -- aka. No vib Fault
-      ,NULL
+	  ,1 -- aka. Initialise as parent
+      ,1 -- aka. Initialise as Vibes
+      ,1 -- aka. Initialise as No vib Fault
       ,SYSDATETIME()
-      ,NULL
-      ,NULL
-      ,NULL
       ,1) ; 
 	  
 INSERT INTO report([FK_FaultId] 
@@ -214,34 +204,16 @@ INSERT INTO report([FK_FaultId]
       ,[FK_ConditionId]
       ,[FK_ReportTypeId]
       ,[FK_ReportStageId]
-      ,[Observations]
-      ,[Actions]
-      ,[Analyst_Notes]
-      ,[External_Notes]
-      ,[Notification_No]
-      ,[Work_Order_No]
-      ,[Review_Comments]
       ,[Analyst_Name]
-      ,[Reviewer_Name]
       ,[Report_IsActive])
-SELECT <Fault_ID from above>
+values ( SCOPE_IDENTITY(); -- aka get Fault Id from above
       ,sysdatetime()
       ,sysdatetime()
-      ,1 -- aka. No Fault
-      ,1 -- aka. Routine
-      ,4 -- aka. Released 
-      ,NULL
-      ,NULL
-      ,NULL
-      ,NULL
-      ,NULL
-      ,NULL
-      ,NULL
+      ,3 -- aka. Initialise as Trending
+      ,2 -- aka. Initialise as Baseline
+      ,1 -- aka. In progress 
       ,<current user>
-      ,NULL
-      ,1
-  FROM [DEV_ClientProject].[dbo].[Report]
-where [PK_ReportId] = <latest release report id>
+      ,1);
 
 
 
