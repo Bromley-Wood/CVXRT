@@ -21,7 +21,6 @@ namespace Reportingtool.Models.Db
         public virtual DbSet<DimDate> DimDate { get; set; }
         public virtual DbSet<DrivenUnitType> DrivenUnitType { get; set; }
         public virtual DbSet<Fault> Fault { get; set; }
-        public virtual DbSet<FaultFiles> FaultFiles { get; set; }
         public virtual DbSet<FaultSubtype> FaultSubtype { get; set; }
         public virtual DbSet<FaultType> FaultType { get; set; }
         public virtual DbSet<MachineTrain> MachineTrain { get; set; }
@@ -33,6 +32,7 @@ namespace Reportingtool.Models.Db
         public virtual DbSet<PrimaryComponentSubtype> PrimaryComponentSubtype { get; set; }
         public virtual DbSet<PrimaryComponentType> PrimaryComponentType { get; set; }
         public virtual DbSet<Report> Report { get; set; }
+        public virtual DbSet<ReportFiles> ReportFiles { get; set; }
         public virtual DbSet<ReportStage> ReportStage { get; set; }
         public virtual DbSet<ReportType> ReportType { get; set; }
         public virtual DbSet<Route> Route { get; set; }
@@ -204,30 +204,6 @@ namespace Reportingtool.Models.Db
                     .IsRequired()
                     .HasMaxLength(6)
                     .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<FaultFiles>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToTable("Fault_Files");
-
-                entity.Property(e => e.FileName).IsRequired();
-
-                entity.Property(e => e.FkFaultId).HasColumnName("FK_FaultId");
-
-                entity.Property(e => e.PkFilePathId)
-                    .HasColumnName("PK_FilePathId")
-                    .ValueGeneratedOnAdd();
-
-                entity.Property(e => e.UploadDate)
-                    .HasColumnName("Upload_Date")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.UploadedBy)
-                    .IsRequired()
-                    .HasColumnName("Uploaded_By")
-                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<FaultSubtype>(entity =>
@@ -486,6 +462,30 @@ namespace Reportingtool.Models.Db
                     .HasMaxLength(100);
 
                 entity.Property(e => e.WorkOrderNo).HasColumnName("Work_Order_No");
+            });
+
+            modelBuilder.Entity<ReportFiles>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("Report_Files");
+
+                entity.Property(e => e.FileName).IsRequired();
+
+                entity.Property(e => e.FkReportId).HasColumnName("FK_ReportId");
+
+                entity.Property(e => e.PkFilePathId)
+                    .HasColumnName("PK_FilePathId")
+                    .ValueGeneratedOnAdd();
+
+                entity.Property(e => e.UploadDate)
+                    .HasColumnName("Upload_Date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.UploadedBy)
+                    .IsRequired()
+                    .HasColumnName("Uploaded_By")
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<ReportStage>(entity =>
