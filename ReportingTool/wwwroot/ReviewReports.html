@@ -309,6 +309,7 @@
                                     Load selected report
                                 </button>
                             </div>
+                            <button class="btn btn-primary btn-lg btn-block " id="testbutton">Test</button>
                         </div>
                     </div>
                 </div><!--./Queue-->
@@ -567,12 +568,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="rpt-select-wrapper" style="display: none;" id="customObservation">
                                     <input type="text" class="form-control" id="inputCustomObservation" placeholder="" value="" required>
                                 </div>
                                 <div class="input-group-append">
                                     <button type="button" id="btnAddObservation">+++</button>
-                                    <button type="button" style="display: none;" id="btnAddCustomObservation">+</button>
+                                    <!--<button type="button" style="display: none;" id="btnAddCustomObservation">+</button>-->
                                 </div>
                             </div>
                             <ul class="list-group list-group-flush" id="observationList">
@@ -606,6 +608,9 @@
                                             <span class="rpt-option" data-value="actionid">5.  Review bearing selectione</span>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="rpt-select-wrapper" style="display: none;" id="customAction">
+                                    <input type="text" class="form-control" id="inputCustomAction" placeholder="" value="" required>
                                 </div>
                                 <div class="input-group-append">
                                     <button type="button" id="btnAddAction">+</button>
@@ -1175,14 +1180,15 @@
                         this.parentNode.querySelector('.rpt-option.selected').classList.remove('selected');
                         this.classList.add('selected');
                         this.closest('.rpt-select').querySelector('.rpt-select__trigger span').textContent = this.textContent;
+
                         if (this.textContent == "Other") {
                             document.querySelector('#customObservation').style.display = "block";
-                            document.querySelector('#btnAddCustomObservation').style.display = "block";
+                            //document.querySelector('#btnAddCustomObservation').style.display = "block";
                             document.querySelector('#selectObservation').style.display = "none";
                             document.querySelector('#btnAddObservation').style.display = "none";
                         } else {
                             document.querySelector('#customObservation').style.display = "none";
-                            document.querySelector('#btnAddCustomObservation').style.display = "none";
+                            //document.querySelector('#btnAddCustomObservation').style.display = "none";
                             document.querySelector('#selectObservation').style.display = "block";
                             document.querySelector('#btnAddObservation').style.display = "block";
                         }
@@ -1254,6 +1260,7 @@
 
             function addObservation() {
                 if (observationSelected.textContent !== "") {
+
                     // Don't build new HTML by concatenating strings. Create elements and configure them as objects
                     var li = document.createElement("li");
                     li.textContent = observationSelected.textContent;
@@ -1270,28 +1277,29 @@
                 }
             }
 
-            // Custom Observations
-            var inputObservation = document.querySelector("#inputCustomObservation");
-            var btnAddCustomObservation = document.querySelector("#btnAddCustomObservation");
-            btnAddCustomObservation.addEventListener("click", addCustomObservation);
+            //// Custom Observations
+            //var inputObservation = document.querySelector("#inputCustomObservation");
+            //var btnAddCustomObservation = document.querySelector("#btnAddCustomObservation");
+            //btnAddCustomObservation.addEventListener("click", addCustomObservation);
 
-            function addCustomObservation() {
-                if (inputObservation.value !== "") {
-                    // Don't build new HTML by concatenating strings. Create elements and configure them as objects
-                    var li = document.createElement("li");
-                    li.textContent = inputObservation.value;
-                    li.classList.add("list-group-item");
+            //function addCustomObservation() {
+            //    if (inputObservation.value !== "") {
 
-                    // Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
-                    var span = document.createElement("span");
-                    span.classList.add("close");
-                    span.textContent = "x";
-                    span.addEventListener("click", removeAction);
-                    li.appendChild(span);  // Add the span to the bullet
-                    observationList.appendChild(li); // Add the bullet to the list
-                    //newAction.textContent = "";
-                }
-            }
+            //        // Don't build new HTML by concatenating strings. Create elements and configure them as objects
+            //        var li = document.createElement("li");
+            //        li.textContent = inputObservation.value;
+            //        li.classList.add("list-group-item");
+
+            //        // Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
+            //        var span = document.createElement("span");
+            //        span.classList.add("close");
+            //        span.textContent = "x";
+            //        span.addEventListener("click", removeAction);
+            //        li.appendChild(span);  // Add the span to the bullet
+            //        observationList.appendChild(li); // Add the bullet to the list
+            //        //newAction.textContent = "";
+            //    }
+            //}
 
             // Remove the closest <li> ancestor to the <span> that got clicked
             function removeObservation() {
@@ -1319,6 +1327,30 @@
             }
 
         </script>
+
+        <script type="text/javascript">
+            var reply_click = function () {
+                var allObservations = "";
+                for (const listItem of document.querySelectorAll("#observationList li")) {
+                    allObservations = allObservations + listItem.textContent + ";"
+                }
+                inputObservation = document.getElementById('inputCustomObservation');
+                inputObservation.val = allObservations;
+                alert(inputObservation.val);
+
+                var allActions = "";
+                for (const listItem of document.querySelectorAll("#actionList li")) {
+                    allActions = allActions + listItem.textContent + ";"
+                }
+                inputAction = document.getElementById('inputCustomAction');
+                inputAction.val = allActions;
+                alert(inputAction.val);
+            }
+            
+
+            document.getElementById('testbutton').onclick = reply_click;
+        </script>
+
 
 </body>
 

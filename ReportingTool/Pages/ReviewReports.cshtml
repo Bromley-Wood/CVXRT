@@ -346,11 +346,11 @@
                                     </div>
                                 </div>
                                 <div class="rpt-select-wrapper" style="display: none;" id="customObservation">
-                                    <input type="text" asp-for="Report_To_Update.Observations" class="form-control" id="inputCustomObservation" placeholder="" value="">
+                                    <input type="text" name="Report_To_Update.Observations" class="form-control" id="inputCustomObservation">
                                 </div>
                                 <div class="input-group-append">
                                     <button type="button" id="btnAddObservation">+++</button>
-                                    <button type="button" style="display: none;" id="btnAddCustomObservation">+</button>
+                                    @*<button type="button" style="display: none;" id="btnAddCustomObservation">+</button>*@
                                 </div>
                             </div>
                             <ul class="list-group list-group-flush" id="observationList">
@@ -384,6 +384,9 @@
                                             <span class="rpt-option" data-value="actionid">5.  Review bearing selectione</span>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="rpt-select-wrapper" style="display: none;" id="customAction">
+                                    <input type="text" name="Report_To_Update.Actions" class="form-control" id="inputCustomAction">
                                 </div>
                                 <div class="input-group-append">
                                     <button type="button" id="btnAddAction">+</button>
@@ -615,7 +618,7 @@
                         <div class="card-body">
                             <div class="d-block my-3">
                                 <div class="custom-control custom-radio">
-                                    <input value="1" name="Report_To_Update.FkReportStageId" id="inProgress"  type="radio" class="custom-control-input" checked>
+                                    <input value="1" name="Report_To_Update.FkReportStageId" id="inProgress" type="radio" class="custom-control-input" checked>
                                     <label class="custom-control-label" for="inProgress">In Progress</label>
                                 </div>
                                 <div class="custom-control custom-radio">
@@ -697,12 +700,12 @@
                         this.closest('.rpt-select').querySelector('.rpt-select__trigger span').textContent = this.textContent;
                         if (this.textContent == "Other") {
                             document.querySelector('#customObservation').style.display = "block";
-                            document.querySelector('#btnAddCustomObservation').style.display = "block";
+                            //document.querySelector('#btnAddCustomObservation').style.display = "block";
                             document.querySelector('#selectObservation').style.display = "none";
                             document.querySelector('#btnAddObservation').style.display = "none";
                         } else {
                             document.querySelector('#customObservation').style.display = "none";
-                            document.querySelector('#btnAddCustomObservation').style.display = "none";
+                            //document.querySelector('#btnAddCustomObservation').style.display = "none";
                             document.querySelector('#selectObservation').style.display = "block";
                             document.querySelector('#btnAddObservation').style.display = "block";
                         }
@@ -791,27 +794,28 @@
             }
 
             // Custom Observations
-            var inputObservation = document.querySelector("#inputCustomObservation");
-            var btnAddCustomObservation = document.querySelector("#btnAddCustomObservation");
-            btnAddCustomObservation.addEventListener("click", addCustomObservation);
+            //var inputObservation = document.querySelector("#inputCustomObservation");
+            //var btnAddCustomObservation = document.querySelector("#btnAddCustomObservation");
+            //btnAddCustomObservation.addEventListener("click", addCustomObservation);
 
-            function addCustomObservation() {
-                if (inputObservation.value !== "") {
-                    // Don't build new HTML by concatenating strings. Create elements and configure them as objects
-                    var li = document.createElement("li");
-                    li.textContent = inputObservation.value;
-                    li.classList.add("list-group-item");
+            //function addCustomObservation() {
+            //    if (inputObservation.value !== "") {
 
-                    // Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
-                    var span = document.createElement("span");
-                    span.classList.add("close");
-                    span.textContent = "x";
-                    span.addEventListener("click", removeAction);
-                    li.appendChild(span);  // Add the span to the bullet
-                    observationList.appendChild(li); // Add the bullet to the list
-                    //newAction.textContent = "";
-                }
-            }
+            //        // Don't build new HTML by concatenating strings. Create elements and configure them as objects
+            //        var li = document.createElement("li");
+            //        li.textContent = inputObservation.value;
+            //        li.classList.add("list-group-item");
+
+            //        // Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
+            //        var span = document.createElement("span");
+            //        span.classList.add("close");
+            //        span.textContent = "x";
+            //        span.addEventListener("click", removeAction);
+            //        li.appendChild(span);  // Add the span to the bullet
+            //        observationList.appendChild(li); // Add the bullet to the list
+            //        //newAction.textContent = "";
+            //    }
+            //}
 
             // Remove the closest <li> ancestor to the <span> that got clicked
             function removeObservation() {
@@ -847,22 +851,39 @@
         </script>
 
         @*<script>
-            //disable submit button until required are filled out
-            var form = document.getElementById('updatereportfaultform')
-            var submitBtn = document.getElementById('btnUpdateReportFault')
+                //disable submit button until required are filled out
+                var form = document.getElementById('updatereportfaultform')
+                var submitBtn = document.getElementById('btnUpdateReportFault')
 
-            submitBtn.disabled = true
+                submitBtn.disabled = true
 
-            form.addEventListener('input', function () {
-                submitBtn.disabled = !form.checkValidity()
-            })
+                form.addEventListener('input', function () {
+                    submitBtn.disabled = !form.checkValidity()
+                })
 
 
-        </script>*@
+            </script>*@
 
         <script>
-            // submit form
+            // click the button btnUpdateReportFault
+
             $(document).on("click", ".btnUpdateReportFault", function () {
+
+                // get all the observations and actions before submitting the form
+                var allObservations = "";
+                for (const listItem of document.querySelectorAll("#observationList li")) {
+                    allObservations = allObservations + listItem.textContent + ";"
+                }
+                document.getElementById('inputCustomObservation').setAttribute('value', allObservations);
+
+                var allActions = "";
+                for (const listItem of document.querySelectorAll("#actionList li")) {
+                    allActions = allActions + listItem.textContent + ";"
+                }
+                document.getElementById('inputCustomAction').setAttribute('value', allActions);
+                
+
+                // submit form
                 $('#updatereportfaultform').submit();
             });
         </script>
