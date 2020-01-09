@@ -751,9 +751,9 @@
 									<span class="input-group-text">Observation</span>
 								</div>
 								<div class="rpt-select-wrapper">
-									<div class="rpt-select">
+									<div class="rpt-select" id="selectObservationType">
 										<div class="rpt-select__trigger">
-											<span>Select a category</span>
+											<span data-value="">Select a category</span>
 											<div class="arrow"></div>
 										</div>
 										<div class="rpt-options">
@@ -771,16 +771,16 @@
 								<div class="rpt-select-wrapper" id="selectObservation">
 									<div class="rpt-select">
 										<div class="rpt-select__trigger" id="observationSelected">
-											<span>Select an observation</span>
+											<span data-value="">Select an observation</span>
 											<div class="arrow"></div>
 										</div>
 										<div class="rpt-options">
 											<span class="rpt-header">Select something</span>
-											<span class="rpt-option selected" data-value="the corresponding observation id">Component is noisy</span>
-											<span class="rpt-option" data-value="observationid">Machine has high pitched sound</span>
-											<span class="rpt-option" data-value="observationid">Machine has low rumble</span>
-											<span class="rpt-option" data-value="observationid">Rubbing sound</span>
-											<span class="rpt-option" data-value="observationid">Sounds like gravel through pump</span>
+											<span class="rpt-option selected" data-value="Noises">Component is noisy</span>
+											<span class="rpt-option" data-value="Data Collection Errors">Machine has high pitched sound</span>
+											<span class="rpt-option" data-value="Phase">Machine has low rumble</span>
+											<span class="rpt-option" data-value="Physical / Visual">Rubbing sound</span>
+											<span class="rpt-option" data-value="Spectral Amplitude">Sounds like gravel through pump</span>
 										</div>
 									</div>
 								</div>
@@ -1378,6 +1378,9 @@
                     this.parentNode.querySelector('.rpt-option.selected').classList.remove('selected');
                     this.classList.add('selected');
                     this.closest('.rpt-select').querySelector('.rpt-select__trigger span').textContent = this.textContent;
+                    this.closest('.rpt-select').querySelector('.rpt-select__trigger span').setAttribute('data-value', this.getAttribute('data-value'));
+                    //alert(this.closest('.rpt-select').querySelector('.rpt-select__trigger span').getAttribute('data-value'));
+
                     if (this.textContent == "Other") {
                         document.querySelector('#customObservation').style.display = "block";
                         document.querySelector('#btnAddCustomObservation').style.display = "block";
@@ -1400,6 +1403,39 @@
                 }
             }
         });
+
+
+        // filter observations
+        var selectedObservationType = document.getElementById('selectObservationType').querySelector('.rpt-select__trigger span');
+        var observer = new MutationObserver(function(mutations) {
+            //alert(selectedObservationType.getAttribute('data-value'));
+
+            var selectedObservation = document.getElementById('selectObservation');
+            selectedObservation.querySelector('.rpt-select__trigger span').textContent = "Select an Observation";
+
+            for (const option of selectedObservation.querySelectorAll('.rpt-option')) {
+                if (option.getAttribute('data-value') !== selectedObservationType.getAttribute('data-value')) {
+                    option.style.display = 'none';
+                }
+                else {
+                    option.style.display = null;
+                }
+                //alert(selectedObservationType.getAttribute('data-value'));
+                //if (option.getAttribute('data-value') !== selectedObservationType.getAttribute('data-value'))
+                //{
+                //    option.style.display = 'none';
+                //}
+            }
+
+        });
+        observer.observe(selectedObservationType, { 
+            attributes: true, 
+            attributeFilter: ['data-value']
+        });
+
+
+
+
 
     </script>
 
