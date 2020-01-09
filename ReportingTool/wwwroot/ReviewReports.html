@@ -143,6 +143,7 @@
 
                 <!-- RHS Side Bar -->
                 <div class="col-md-4 order-md-2" id="RHS">
+
                     <!-- Machine Notes -->
                     <h4 class="d-flex justify-content-between align-items-center mt-5 mx-3">
                         <span>Machine Notes</span>
@@ -309,10 +310,225 @@
                                     Load selected report
                                 </button>
                             </div>
-                            <button class="btn btn-primary btn-lg btn-block " id="testbutton">Test</button>
                         </div>
+                    </div><!--./Queue-->
+                    <h4 class="d-flex justify-content-between align-items-center mt-5 mx-3">
+                        <span>Add or Edit </span>
+                    </h4>
+                    <!--Card-->
+                    <div class="card">
+
+                        <!--Card content-->
+                        <div class="card-body">
+
+                            <!-- Heading -->
+                            <p class="grey-text">
+                                Raise a new fault, or edit an existing report on a machine train
+                            </p>
+
+                            <!-- Search for a machine -->
+                            <form>
+                                <div class="input-group mb-3 ui-widget w-100">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-search ml-1"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" id="machineslist" placeholder="Machine Train" aria-label="Machine Train"
+                                           aria-describedby="button-addon2">
+                                </div>
+                            </form>
+                            <!-- /.Search for a machine -->
+
+                            <div class="list-group  d-flex justify-content-center">
+                                <!--- buttons and forms  -->
+                                <div class="row d-flex justify-content-center modalWrapper">
+                                    <div class="modal fade addNewInputs" id="modalAddNewFault" tabindex="-1" role="dialog" aria-labelledby="modalAddNewFault"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header text-center">
+                                                    <h4 class="modal-title w-100 font-weight-bold ml-5 text-default">Raise a new fault</h4>
+                                                    <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body mx-3">
+                                                    Are you sure you want to create a new fault?   <br />
+                                                    A new fault will be added to the queue against <strong>{this machine name}.</strong>
+                                                    <code>
+                                                        <br />-- Anomaly - No Existing Report
+
+                                                        INSERT INTO [DEV_ClientProject].[dbo].[Fault] (
+                                                        [FK_MachineTrainId]
+                                                        ,[FK_TechnologyId]
+                                                        ,[Create_Date]
+                                                        ,[Fault_IsActive])
+                                                        VALUES (<this machine id>
+                                                            ,1 -- aka. Initialise as Vibes
+                                                            ,SYSDATETIME()
+                                                            ,1) ;
+
+                                                            INSERT INTO report([FK_FaultId]
+                                                            ,[Report_Date]
+                                                            ,[Measurement_Date]
+                                                            ,[FK_ConditionId]
+                                                            ,[FK_ReportTypeId]
+                                                            ,[FK_ReportStageId]
+                                                            ,[Analyst_Name]
+                                                            ,[Report_IsActive])
+                                                            values ( SCOPE_IDENTITY() -- aka get Fault Id from above
+                                                            ,sysdatetime()
+                                                            ,sysdatetime()
+                                                            ,3 -- aka. Initialise as Trending
+                                                            ,3 -- aka. Initialise as Troubleshooting
+                                                            ,1 -- aka. In progress
+                                                            ,<current user>
+                                                                ,1);
+                                                    </code>
+                                                </div>
+                                                <div class="modal-footer d-flex justify-content-center">
+                                                    <button type="button" class="btn btn-danger btnYesClass" id="btnYes" data-dismiss="modal">Yes</button>
+                                                    <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal">No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <a href="" class="btn btn-info btn-rounded btn-sm" data-toggle="modal" data-target="#modalAddNewFault">
+                                            New fault<i class="fas fa-plus-square ml-1"></i>
+                                        </a>
+                                    </div>
+
+
+                                    <!--- end add form -->
+                                    <div class="modal fade" id="modalCloseRoutes" tabindex="-1" role="dialog" aria-labelledby="modalCloseRoutes"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header text-center">
+                                                    <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Complete Routes</h4>
+                                                    <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body mx-3">
+                                                    <p class="text-center">
+                                                        Are you sure you want to complete these routes?  <br />
+                                                        These routes will be removed from the displayed schedule.
+                                                    </p>
+
+                                                </div>
+                                                <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
+                                                    <button type="button" class="btn btn-danger btnYesClass" id="btnYes" data-dismiss="modal">Yes</button>
+                                                    <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal">No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseEditForm"
+                                                aria-expanded="false" aria-controls="collapseEditForm">
+                                            Edit existing report <i class="fas fa-edit ml-1"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="treeview-animated w-20 border mx-4 my-4 collapse multi-collapse" id="collapseEditForm">
+                                        <h6 class="text-center py-3 blue-grey lighten-5 border-bottom border-light">0E-2420A-K02</h6>
+                                        <ul class="treeview-animated-list mb-3">
+                                            <li class="treeview-animated-items">
+                                                <a class="closed">
+                                                    <i class="fas fa-angle-right mr-1"></i>
+                                                    <span><i class="fas fa-folder-open mr-2"></i>No Fault Detected</span>
+                                                </a>
+                                                <ul class="nested">
+                                                    <li class="treeview-animated-element">
+                                                        <span class="badge default-color mr-2">2</span> 30-Apr-2019
+                                                    </li>
+                                                    <li class="treeview-animated-element">
+                                                        <span class="badge default-color mr-2">2</span> 31-Mar-2019
+                                                    </li>
+                                                    <li class="treeview-animated-element">
+                                                        <span class="badge default-color mr-2">2</span> 28-Feb-2019
+                                                    </li>
+                                                    <li class="treeview-animated-element">
+                                                        <span class="badge default-color mr-2">2</span> 30-Nov-2018
+                                                    </li>
+                                                    <li class="treeview-animated-element">
+                                                        <span class="badge default-color mr-2">2</span> 31-Oct-2018
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li class="treeview-animated-items">
+                                                <a class="closed">
+                                                    <i class="fas fa-angle-right mr-2"></i>
+                                                    <span><i class="fas fa-folder mr-2"></i>Fan fault</span>
+                                                </a>
+                                                <ul class="nested">
+                                                    <li class="treeview-animated-element">
+                                                        <span class="badge warning-color mr-2">3</span> 30-Apr-2018
+                                                    </li>
+                                                    <li class="treeview-animated-element">
+                                                        <span class="badge warning-color mr-2">3</span> 31-Mar-2018
+                                                    </li>
+                                                    <li class="treeview-animated-element">
+                                                        <span class="badge warning-color mr-2">3</span> 28-Feb-2018
+                                                    </li>
+                                                    <li class="treeview-animated-element">
+                                                        <span class="badge warning-color mr-2">3</span> 30-Nov-2017
+                                                    </li>
+                                                    <li class="treeview-animated-element">
+                                                        <span class="badge warning-color mr-2">3</span> 31-Oct-2017
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li class="treeview-animated-items">
+                                                <a class="closed">
+                                                    <i class="fas fa-angle-right mr-2"></i>
+                                                    <span><i class="fas fa-folder mr-2"></i>Looseness (Structural) this is some very long text here</span>
+                                                </a>
+                                                <ul class="nested">
+                                                    <li class="treeview-animated-element">
+                                                        <span class="badge danger-color mr-2">5</span> 30-Sep-2017
+                                                    </li>
+                                                    <li class="treeview-animated-element">
+                                                        <span class="badge warning-color mr-2">3</span> 31-Aug-2017
+                                                    </li>
+                                                    <li class="treeview-animated-element">
+                                                        <span class="badge alert-color mr-2">4</span> 31-May-2017
+                                                    </li>
+                                                    <li class="treeview-animated-element">
+                                                        <span class="badge alert-color mr-2">4</span> 06-Apr-2017
+                                                    </li>
+                                                    <li class="treeview-animated-element">
+                                                        <span class="badge alert-color mr-2">4</span> 01-Feb-2017
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+                                        </ul>
+                                        <hr class="p-0 m-0" />
+                                        <div class="text-center">
+                                            <button class="btn btn-outline-blue btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseEditForm"
+                                                    aria-expanded="false" aria-controls="collapseEditForm">
+                                                Add back into queue <i class="fas fa-plus-square ml-1"></i>
+                                            </button>
+                                            <cite><br />Hi Cheng! if we can just retrieve the selected report id and update the record to set it back to Report Stage = 1 (in progress)</cite>
+                                        </div>
+                                    </div>
+
+
+
+                                </div><!--- end pop up forms -->
+                            </div>
+
+                        </div>
+
                     </div>
-                </div><!--./Queue-->
+                    <!--/.Card-->
+
+
+                </div><!--./RHS-->
                 <!--Report Body-->
                 <div class="col-md-8 order-md-1 py-5">
 
@@ -535,17 +751,19 @@
                                     <span class="input-group-text">Observation</span>
                                 </div>
                                 <div class="rpt-select-wrapper">
-                                    <div class="rpt-select" id="selectObservationType">
+                                    <div class="rpt-select">
                                         <div class="rpt-select__trigger">
-                                            <span  data-value="">Select a category</span>
+                                            <span>Select a category</span>
                                             <div class="arrow"></div>
                                         </div>
                                         <div class="rpt-options">
+                                            <span class="rpt-header">Select an observation type</span>
                                             <span class="rpt-option selected" data-value="Noises">Noises</span>
                                             <span class="rpt-option" data-value="Data Collection Errors">Data Collection Errors</span>
                                             <span class="rpt-option" data-value="Phase">Phase</span>
                                             <span class="rpt-option" data-value="Physical / Visual">Physical / Visual</span>
                                             <span class="rpt-option" data-value="Spectral Amplitude">Spectral Amplitude</span>
+                                            <span class="rpt-header">Custom Entry</span>
                                             <span class="rpt-option" data-value="Other">Other</span>
                                         </div>
                                     </div>
@@ -557,17 +775,17 @@
                                             <div class="arrow"></div>
                                         </div>
                                         <div class="rpt-options">
-                                            <span class="rpt-option selected" data-value="Noises">Component is noisy</span>
-                                            <span class="rpt-option" data-value="Phase">Machine has high pitched sound</span>
-                                            <span class="rpt-option" data-value="Physical">Machine has low rumble</span>
-                                            <span class="rpt-option" data-value="Physical">Rubbing sound</span>
-                                            <span class="rpt-option" data-value="Other">Sounds like gravel through pump</span>
+                                            <span class="rpt-header">Select something</span>
+                                            <span class="rpt-option selected" data-value="the corresponding observation id">Component is noisy</span>
+                                            <span class="rpt-option" data-value="observationid">Machine has high pitched sound</span>
+                                            <span class="rpt-option" data-value="observationid">Machine has low rumble</span>
+                                            <span class="rpt-option" data-value="observationid">Rubbing sound</span>
+                                            <span class="rpt-option" data-value="observationid">Sounds like gravel through pump</span>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="rpt-select-wrapper" style="display: none;" id="customObservation">
-                                    <input type="text" class="form-control" id="inputCustomObservation">
+                                    <input type="text" class="form-control" id="inputCustomObservation" placeholder="" value="" required>
                                 </div>
                                 <div class="input-group-append">
                                     <button type="button" id="btnAddObservation">+++</button>
@@ -579,7 +797,6 @@
                                 <li class="list-group-item">The casing is hot <span class="close">x</span></li>
                                 <li class="list-group-item">This is a custom observation <span class="close">x</span></li>
                             </ul>
-                            <input type="hidden" class="form-control" id="allObservations">
                         </div>
                         <!--./SUBFORM: Observations -->
                         <!--SUBFORM: Actions -->
@@ -604,7 +821,6 @@
                                             <span class="rpt-option" data-value="actionid">3.  Clean an repack bearing</span>
                                             <span class="rpt-option" data-value="actionid">4.  Replace bearing</span>
                                             <span class="rpt-option" data-value="actionid">5.  Review bearing selectione</span>
-                                            <span class="rpt-option" data-value="actionid">Other</span>
                                         </div>
                                     </div>
                                 </div>
@@ -618,7 +834,6 @@
                                     <li class="list-group-item">Lubricate and retake data <span class="close">x</span></li>
                                     <li class="list-group-item">Reduce monitoring interval <span class="close">x</span></li>
                                 </ul>
-                                <input type="hidden" class="form-control" id="allObservations">
                                 <div class="invalid-feedback">
                                     You've already selected that action
                                 </div>
@@ -895,7 +1110,7 @@
         <div class="list-group  d-flex justify-content-center">
             <!--- buttons and forms  -->
             <div class="row d-flex justify-content-center modalWrapper">
-                <div class="modal fade addNewInputs" id="modalAddRoute" tabindex="-1" role="dialog" aria-labelledby="modalAddRoute"
+                <div class="modal fade addNewInputs" id="modalAddNewFault" tabindex="-1" role="dialog" aria-labelledby="modalAddNewFault"
                      aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -1034,329 +1249,299 @@
                     </div>
                 </div>
             </div><!--- end pop up forms -->
-
-
         </div>
-        <!--Footer-->
-        <footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn">
 
-            <!--Call to action-->
-            <div class="pt-4">
-                <a class="btn btn-outline-white" href="#" target="_blank" role="button">
-                    Go to sharepoint
-                    <i class="fas fa-share-alt ml-2"></i>
-                </a>
-                <a class="btn btn-outline-white" href="#" target="_blank" role="button">
-                    Start tutorial
-                    <i class="fa fa-graduation-cap ml-2"></i>
-                </a>
-            </div>
-            <!--/.Call to action-->
+    </div>
+    <!--Footer-->
+    <footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn">
 
-            <hr class="my-4">
+        <!--Call to action-->
+        <div class="pt-4">
+            <a class="btn btn-outline-white" href="#" target="_blank" role="button">
+                Go to sharepoint
+                <i class="fas fa-share-alt ml-2"></i>
+            </a>
+            <a class="btn btn-outline-white" href="#" target="_blank" role="button">
+                Start tutorial
+                <i class="fa fa-graduation-cap ml-2"></i>
+            </a>
+        </div>
+        <!--/.Call to action-->
 
-            <!-- Social icons -->
-            <div class="pb-4">
-                <a>
-                    <i class="fas fa-rocket mr-3"></i>
-                </a>
-                <a>
-                    <i class="fas fa-broom mr-3"></i>
-                </a>
-                <a>
-                    <i class="fas fa-chart-area mr-3"></i>
-                </a>
-                <a>
-                    <i class="fas fa-chess-knight mr-3"></i>
-                </a>
-                <a>
-                    <i class="fas fa-crow mr-3"></i>
-                </a>
-                <a>
-                    <i class="fas fa-dolly-flatbed mr-3"></i>
-                </a>
-                <a>
-                    <i class="fas fa-kiwi-bird mr-3"></i>
-                </a>
-                <a>
-                    <i class="fas fa-dragon mr-3"></i>
-                </a>
-                <a>
-                    <i class="fas fa-fighter-jet mr-3"></i>
-                </a>
-            </div>
-            <!-- Social icons -->
-            <!--Copyright-->
-            <div class="footer-copyright py-3">
-                Last Updated 10 Jan 2020
-            </div>
-            <!--/.Copyright-->
+        <hr class="my-4">
 
-        </footer>
-        <!--/.Footer-->
-        <!-- SCRIPTS -->
-        <!-- JQuery -->
-        <script type="text/javascript" src="../wwwroot/js/jquery-3.4.1.min.js"></script>
+        <!-- Social icons -->
+        <div class="pb-4">
+            <a>
+                <i class="fas fa-rocket mr-3"></i>
+            </a>
+            <a>
+                <i class="fas fa-broom mr-3"></i>
+            </a>
+            <a>
+                <i class="fas fa-chart-area mr-3"></i>
+            </a>
+            <a>
+                <i class="fas fa-chess-knight mr-3"></i>
+            </a>
+            <a>
+                <i class="fas fa-crow mr-3"></i>
+            </a>
+            <a>
+                <i class="fas fa-dolly-flatbed mr-3"></i>
+            </a>
+            <a>
+                <i class="fas fa-kiwi-bird mr-3"></i>
+            </a>
+            <a>
+                <i class="fas fa-dragon mr-3"></i>
+            </a>
+            <a>
+                <i class="fas fa-fighter-jet mr-3"></i>
+            </a>
+        </div>
+        <!-- Social icons -->
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+            Last Updated 10 Jan 2020
+        </div>
+        <!--/.Copyright-->
 
-        <!-- Bootstrap tooltips -->
-        <script type="text/javascript" src="../wwwroot/js/popper.min.js"></script>
-        <!-- Bootstrap core JavaScript -->
-        <script type="text/javascript" src="../wwwroot/js/bootstrap.min.js"></script>
-        <!-- MDB core JavaScript -->
-        <script type="text/javascript" src="../wwwroot/js/mdb.min.js"></script>
-        <!-- Dropzone JavaScript -->
-        <script type="text/javascript" src="../wwwroot/js/dropzone.min.js"></script>
-        <!-- Navbar -->
-        <script>
-            $(function () {
-                $('a').each(function () {
-                    if ($(this).prop('href') == window.location.href) {
-                        $(this).addClass('active'); $(this).parents('li').addClass('active');
-                    }
-                });
+    </footer>
+    <!--/.Footer-->
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="../wwwroot/js/jquery-3.4.1.min.js"></script>
+
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="../wwwroot/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="../wwwroot/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="../wwwroot/js/mdb.min.js"></script>
+    <!-- Dropzone JavaScript -->
+    <script type="text/javascript" src="../wwwroot/js/dropzone.min.js"></script>
+    <!-- Navbar -->
+    <script>
+        $(function () {
+            $('a').each(function () {
+                if ($(this).prop('href') == window.location.href) {
+                    $(this).addClass('active'); $(this).parents('li').addClass('active');
+                }
             });
-        </script>
-        <script type="text/javascript" src="../wwwroot/js/jquery-ui.min.js"></script>
-        <!--<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
-        <script>
-            $(function () {
-                var availableTags = [
-                    "ActionScript",
-                    "AppleScript",
-                    "Asp",
-                    "BASIC",
-                    "C",
-                    "C++",
-                    "Clojure",
-                    "COBOL",
-                    "ColdFusion",
-                    "Erlang",
-                    "Fortran",
-                    "Groovy",
-                    "Haskell",
-                    "Java",
-                    "JavaScript",
-                    "Lisp",
-                    "Perl",
-                    "PHP",
-                    "Python",
-                    "Ruby",
-                    "Scala",
-                    "Scheme"
-                ];
-                $("#tags").autocomplete({
-                    source: availableTags
-                });
+        });
+    </script>
+    <script type="text/javascript" src="../wwwroot/js/jquery-ui.min.js"></script>
+    <!--<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+    <script>
+        $(function () {
+            var availableTags = [
+                "ActionScript",
+                "AppleScript",
+                "Asp",
+                "BASIC",
+                "C",
+                "C++",
+                "Clojure",
+                "COBOL",
+                "ColdFusion",
+                "Erlang",
+                "Fortran",
+                "Groovy",
+                "Haskell",
+                "Java",
+                "JavaScript",
+                "Lisp",
+                "Perl",
+                "PHP",
+                "Python",
+                "Ruby",
+                "Scala",
+                "Scheme"
+            ];
+            $("#tags").autocomplete({
+                source: availableTags
             });
-        </script>
-        <script type="text/javascript">
-            // Animations initialization
-            new WOW().init();
-        </script>
-        <script type="text/javascript">
-            jQuery(document).ready(function () {
-                setTimeout(updateScrollSpy, 1000);
+        });
+    </script>
+    <script type="text/javascript">
+        // Animations initialization
+        new WOW().init();
+    </script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            setTimeout(updateScrollSpy, 1000);
+        });
+        function updateScrollSpy() {
+            jQuery('[data-spy="scroll"]').each(function () {
+                var $spy = jQuery(this).scrollspy('refresh')
             });
-            function updateScrollSpy() {
-                jQuery('[data-spy="scroll"]').each(function () {
-                    var $spy = jQuery(this).scrollspy('refresh')
-                });
-            }
-        </script>
-        <script>
-            //Custom select event listener
-            // open list
-            for (const dropdown of document.querySelectorAll(".rpt-select-wrapper")) {
-                dropdown.addEventListener('click', function () {
-                    this.querySelector('.rpt-select').classList.toggle('open');
-                })
-            }
+        }
+    </script>
+    <script>
+        //Custom select event listener
+        for (const dropdown of document.querySelectorAll(".rpt-select-wrapper")) {
+            dropdown.addEventListener('click', function () {
+                this.querySelector('.rpt-select').classList.toggle('open');
+            })
+        }
 
-            // set selected item. display custom textbox
-            for (const option of document.querySelectorAll(".rpt-option")) {
-                option.addEventListener('click', function () {
-                    if (!this.classList.contains('selected')) {
-                        this.parentNode.querySelector('.rpt-option.selected').classList.remove('selected');
-                        this.classList.add('selected');
-                        this.closest('.rpt-select').querySelector('.rpt-select__trigger span').textContent = this.textContent;
-                        alert(this.getAttribute('data-value'));
-
-
-                        if (this.textContent == "Other") {
-                            document.querySelector('#customObservation').style.display = "block";
-                            document.querySelector('#btnAddCustomObservation').style.display = "block";
-                            document.querySelector('#selectObservation').style.display = "none";
-                            document.querySelector('#btnAddObservation').style.display = "none";
-                        } else {
-                            document.querySelector('#customObservation').style.display = "none";
-                            document.querySelector('#btnAddCustomObservation').style.display = "none";
-                            document.querySelector('#selectObservation').style.display = "block";
-                            document.querySelector('#btnAddObservation').style.display = "block";
-                        }
-                    }
-                })
-            }
-
-            //filter observations
-            document.getElementById()
-
-            //filter action
-
-
-            window.addEventListener('click', function (e) {
-                for (const select of document.querySelectorAll('.rpt-select')) {
-                    if (!select.contains(e.target)) {
-                        select.classList.remove('open');
+        for (const option of document.querySelectorAll(".rpt-option")) {
+            option.addEventListener('click', function () {
+                if (!this.classList.contains('selected')) {
+                    this.parentNode.querySelector('.rpt-option.selected').classList.remove('selected');
+                    this.classList.add('selected');
+                    this.closest('.rpt-select').querySelector('.rpt-select__trigger span').textContent = this.textContent;
+                    if (this.textContent == "Other") {
+                        document.querySelector('#customObservation').style.display = "block";
+                        document.querySelector('#btnAddCustomObservation').style.display = "block";
+                        document.querySelector('#selectObservation').style.display = "none";
+                        document.querySelector('#btnAddObservation').style.display = "none";
+                    } else {
+                        document.querySelector('#customObservation').style.display = "none";
+                        document.querySelector('#btnAddCustomObservation').style.display = "none";
+                        document.querySelector('#selectObservation').style.display = "block";
+                        document.querySelector('#btnAddObservation').style.display = "block";
                     }
                 }
-            });
+            })
+        }
 
-        </script>
-
-        <script>
-
-            ////add and remove list items
-            //// Get all the element references you'll need just once:
-            var actionList = document.querySelector("#actionList");
-            var actionSelected = document.querySelector("#actionSelected span");
-            var btnAddAction = document.querySelector("#btnAddAction");
-
-            //// Do all of your event binding in JavaScript, not with inline HTML event attributes
-            btnAddAction.addEventListener("click", addAction);
-
-            function addAction() {
-                if (actionSelected.textContent !== "") {
-                    // Don't build new HTML by concatenating strings. Create elements and configure them as objects
-                    var li = document.createElement("li");
-                    li.textContent = actionSelected.textContent;
-                    li.classList.add("list-group-item");
-
-                    // Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
-                    var span = document.createElement("span");
-                    span.classList.add("close");
-                    span.textContent = "x";
-                    span.addEventListener("click", removeAction);
-                    li.appendChild(span);  // Add the span to the bullet
-                    actionList.appendChild(li); // Add the bullet to the list
-                    //newAction.textContent = "";
+        window.addEventListener('click', function (e) {
+            for (const select of document.querySelectorAll('.rpt-select')) {
+                if (!select.contains(e.target)) {
+                    select.classList.remove('open');
                 }
             }
+        });
 
-            // Remove the closest <li> ancestor to the <span> that got clicked
-            function removeAction() {
-                actionList.removeChild(this.closest("li"));
+    </script>
+
+    <script>
+
+        ////add and remove list items
+        //// Get all the element references you'll need just once:
+        var actionList = document.querySelector("#actionList");
+        var actionSelected = document.querySelector("#actionSelected span");
+        var btnAddAction = document.querySelector("#btnAddAction");
+
+        //// Do all of your event binding in JavaScript, not with inline HTML event attributes
+        btnAddAction.addEventListener("click", addAction);
+
+        function addAction() {
+            if (actionSelected.textContent !== "") {
+                // Don't build new HTML by concatenating strings. Create elements and configure them as objects
+                var li = document.createElement("li");
+                li.textContent = actionSelected.textContent;
+                li.classList.add("list-group-item");
+
+                // Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
+                var span = document.createElement("span");
+                span.classList.add("close");
+                span.textContent = "x";
+                span.addEventListener("click", removeAction);
+                li.appendChild(span);  // Add the span to the bullet
+                actionList.appendChild(li); // Add the bullet to the list
+                //newAction.textContent = "";
             }
+        }
 
-            // Add event listener on pre-existing actions
-            for (const listItem of document.querySelectorAll("#actionList li")) {
-                listItem.addEventListener('click', removeAction);
+        // Remove the closest <li> ancestor to the <span> that got clicked
+        function removeAction() {
+            actionList.removeChild(this.closest("li"));
+        }
+
+        // Add event listener on pre-existing actions
+        for (const listItem of document.querySelectorAll("#actionList li")) {
+            listItem.addEventListener('click', removeAction);
+        }
+
+    </script>
+
+    <script>
+
+        ////add and remove list items
+        //// Get all the element references you'll need just once:
+        var observationList = document.querySelector("#observationList");
+        var observationSelected = document.querySelector("#observationSelected span");
+        var btnAddObservation = document.querySelector("#btnAddObservation");
+
+        //// Do all of your event binding in JavaScript, not with inline HTML event attributes
+        btnAddObservation.addEventListener("click", addObservation);
+
+        function addObservation() {
+            if (observationSelected.textContent !== "") {
+                // Don't build new HTML by concatenating strings. Create elements and configure them as objects
+                var li = document.createElement("li");
+                li.textContent = observationSelected.textContent;
+                li.classList.add("list-group-item");
+
+                // Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
+                var span = document.createElement("span");
+                span.classList.add("close");
+                span.textContent = "x";
+                span.addEventListener("click", removeObservation);
+                li.appendChild(span);  // Add the span to the bullet
+                observationList.appendChild(li); // Add the bullet to the list
+                //newObservation.textContent = "";
             }
+        }
 
-        </script>
+        // Custom Observations
+        var inputObservation = document.querySelector("#inputCustomObservation");
+        var btnAddCustomObservation = document.querySelector("#btnAddCustomObservation");
+        btnAddCustomObservation.addEventListener("click", addCustomObservation);
 
-        <script>
+        function addCustomObservation() {
+            if (inputObservation.value !== "") {
+                // Don't build new HTML by concatenating strings. Create elements and configure them as objects
+                var li = document.createElement("li");
+                li.textContent = inputObservation.value;
+                li.classList.add("list-group-item");
 
-            ////add and remove list items
-            //// Get all the element references you'll need just once:
-            var observationList = document.querySelector("#observationList");
-            var observationSelected = document.querySelector("#observationSelected span");
-            var btnAddObservation = document.querySelector("#btnAddObservation");
-
-            //// Do all of your event binding in JavaScript, not with inline HTML event attributes
-            btnAddObservation.addEventListener("click", addObservation);
-
-            function addObservation() {
-                if (observationSelected.textContent !== "") {
-
-                    // Don't build new HTML by concatenating strings. Create elements and configure them as objects
-                    var li = document.createElement("li");
-                    li.textContent = observationSelected.textContent;
-                    li.classList.add("list-group-item");
-
-                    // Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
-                    var span = document.createElement("span");
-                    span.classList.add("close");
-                    span.textContent = "x";
-                    span.addEventListener("click", removeObservation);
-                    li.appendChild(span);  // Add the span to the bullet
-                    observationList.appendChild(li); // Add the bullet to the list
-                    //newObservation.textContent = "";
-                }
+                // Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
+                var span = document.createElement("span");
+                span.classList.add("close");
+                span.textContent = "x";
+                span.addEventListener("click", removeAction);
+                li.appendChild(span);  // Add the span to the bullet
+                observationList.appendChild(li); // Add the bullet to the list
+                //newAction.textContent = "";
             }
+        }
 
-            // Custom Observations
-            var inputObservation = document.querySelector("#inputCustomObservation");
-            var btnAddCustomObservation = document.querySelector("#btnAddCustomObservation");
-            btnAddCustomObservation.addEventListener("click", addCustomObservation);
+        // Remove the closest <li> ancestor to the <span> that got clicked
+        function removeObservation() {
+            observationList.removeChild(this.closest("li"));
+        }
 
-            function addCustomObservation() {
-                if (inputObservation.value !== "") {
+        // Add event listener on pre-existing observations
+        for (const listItem of document.querySelectorAll("#observationList li")) {
+            listItem.addEventListener('click', removeObservation);
+        }
 
-                    // Don't build new HTML by concatenating strings. Create elements and configure them as objects
-                    var li = document.createElement("li");
-                    li.textContent = inputObservation.value;
-                    li.classList.add("list-group-item");
+    </script>
 
-                    // Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
-                    var span = document.createElement("span");
-                    span.classList.add("close");
-                    span.textContent = "x";
-                    span.addEventListener("click", removeObservation);
-                    li.appendChild(span);  // Add the span to the bullet
-                    observationList.appendChild(li); // Add the bullet to the list
-                    //newAction.textContent = "";
-                }
+    <script>
+        var setReportIdInput = function () {
+            var id = this.getAttribute("id");
+            alert(id);
+        }
+
+        window.onload = function () {
+            var inputs = document.getElementsByClassName("in-queue-rpt-item");
+            for (var index = 0; index < inputs.length; ++index) {
+                inputs[index].addEventListener('click', setReportIdInput, false);
             }
+        }
 
-            // Remove the closest <li> ancestor to the <span> that got clicked
-            function removeObservation() {
-                observationList.removeChild(this.closest("li"));
-            }
-
-            // Add event listener on pre-existing observations
-            for (const listItem of document.querySelectorAll("#observationList li")) {
-                listItem.addEventListener('click', removeObservation);
-            }
-
-        </script>
-
-        <script>
-            var setReportIdInput = function () {
-                var id = this.getAttribute("id");
-                alert(id);
-            }
-
-            window.onload = function () {
-                var inputs = document.getElementsByClassName("in-queue-rpt-item");
-                for (var index = 0; index < inputs.length; ++index) {
-                    inputs[index].addEventListener('click', setReportIdInput, false);
-                }
-            }
-
-        </script>
-
-        <script type="text/javascript">
-            var reply_click = function () {
-                var allObservations = "";
-                for (const listItem of document.querySelectorAll("#observationList li")) {
-                    allObservations = allObservations + listItem.textContent + ";"
-                }
-                inputObservation = document.getElementById('inputCustomObservation');
-                inputObservation.val = allObservations;
-                alert(inputObservation.val);
-
-                var allActions = "";
-                for (const listItem of document.querySelectorAll("#actionList li")) {
-                    allActions = allActions + listItem.textContent + ";"
-                }
-                inputAction = document.getElementById('inputCustomAction');
-                inputAction.val = allActions;
-                alert(inputAction.val);
-            }
-            
-
-            document.getElementById('testbutton').onclick = reply_click;
-        </script>
+    </script>
+    <script>
+        // Treeview Initialization
+        $(document).ready(function () {
+            $('.treeview-animated').mdbTreeview();
+        });
+    </script>
 
 
 </body>
