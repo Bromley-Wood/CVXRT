@@ -293,7 +293,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
-                                        <input type="date" asp-for="Report_To_Update.ReportDate" class="form-control" id="username" placeholder="dd/mm/yyyy" required>
+                                        <input type="date" name="Report_To_Update.ReportDate" class="form-control" id="reportdate" value="@DateTime.Today.ToString("yyyy-MM-dd")" required>
                                         <div class="invalid-feedback" style="width: 100%;">
                                             Report date is required.
                                         </div>
@@ -615,11 +615,11 @@
                         <div class="card-body">
                             <div class="d-block my-3">
                                 <div class="custom-control custom-radio">
-                                    <input value="1" asp-for="Report_To_Update.FkReportStageId" id="inProgress" name="reportProgress" type="radio" class="custom-control-input" checked>
+                                    <input value="1" name="Report_To_Update.FkReportStageId" id="inProgress"  type="radio" class="custom-control-input" checked>
                                     <label class="custom-control-label" for="inProgress">In Progress</label>
                                 </div>
                                 <div class="custom-control custom-radio">
-                                    <input value="2" asp-for="Report_To_Update.FkReportStageId" id="readyforReview" name="reportProgress" type="radio" class="custom-control-input">
+                                    <input value="2" name="Report_To_Update.FkReportStageId" id="readyforReview" type="radio" class="custom-control-input">
                                     <label class="custom-control-label" for="readyforReview">Ready for Review</label>
                                 </div>
                             </div>
