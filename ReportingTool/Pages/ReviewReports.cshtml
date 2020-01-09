@@ -336,8 +336,8 @@
                                             <div class="arrow"></div>
                                         </div>
                                         <div class="rpt-options">
-                                            <span class="rpt-header">Select something</span>
-                                            <span class="rpt-option selected" data-value="the corresponding observation id">Component is noisy</span>
+                                            @*<span class="rpt-header">Select something</span>*@
+                                            <span class="rpt-option" data-value="the corresponding observation id">Component is noisy</span>
                                             <span class="rpt-option" data-value="observationid">Machine has high pitched sound</span>
                                             <span class="rpt-option" data-value="observationid">Machine has low rumble</span>
                                             <span class="rpt-option" data-value="observationid">Rubbing sound</span>
@@ -409,14 +409,14 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="small text-muted" for="notification">Notification</label>
-                                    <input type="number" class="form-control" id="notification" asp-for="Report_To_Update.NotificationNo" placeholder="" value="">
+                                    <input type="number" class="form-control" id="notification" asp-for="Report_To_Update.NotificationNo">
                                     <div class="invalid-feedback">
                                         Valid number is required.
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="small text-muted" for="workOrder">Work Order</label>
-                                    <input type="number" class="form-control" id="workOrder" asp-for="Report_To_Update.WorkOrderNo" placeholder="" value="">
+                                    <input type="number" class="form-control" id="workOrder" asp-for="Report_To_Update.WorkOrderNo">
                                     <div class="invalid-feedback">
                                         Valid number is required.
                                     </div>
@@ -881,7 +881,7 @@
                     allActions = allActions + listItem.textContent + ";"
                 }
                 document.getElementById('inputCustomAction').setAttribute('value', allActions);
-                
+
 
                 // submit form
                 $('#updatereportfaultform').submit();
