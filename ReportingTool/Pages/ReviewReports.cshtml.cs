@@ -25,11 +25,20 @@ namespace Reportingtool.Pages
         public int SelectedReportId { get; set; }
         public IList<VTstReportSummary> VTstReportSummary_InProgress { get; set; }
         public IList<string> UnitReference_InProgress { get; set; }
+
+        //------------------- Select List------------------------------------//
         public IList<Technology> Technology_List { get; set; }
         public IList<PrimaryComponentType> PrimaryComponentType_List { get; set; }
         public IList<PrimaryComponentSubtype> PrimaryComponentSubtype_List { get; set; }
         public IList<FaultType> FaultType_List { get; set; }
         public IList<FaultSubtype> FaultSubtype_List { get; set; }
+        public IList<ReportType> ReportType_List { get; set; }
+        public IList<Condition> Condition_List { get; set; }
+        public IList<Observation> Observation_List { get; set; }
+        public IList<ObservationType> ObservationType_List { get; set; }
+        public IList<Models.Db.Action> Action_List { get; set; }
+        //------------------- Select List------------------------------------//
+
         public VTstReportSummary Current_Displayed_Report { get; set; }
 
         [BindProperty]
@@ -38,7 +47,10 @@ namespace Reportingtool.Pages
         [BindProperty]
         public TstFault Fault_To_Update { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public List<string> selected_status_list = new List<string> { "", "selected" };
+        public List<string> active_status_list = new List<string> { "", "active" };
+
+    public async Task<IActionResult> OnGetAsync(int? id)
         {
 
 
@@ -92,6 +104,26 @@ namespace Reportingtool.Pages
             FaultSubtype_List = await _context.FaultSubtype
                 .AsNoTracking()
                 .ToListAsync();
+
+            ReportType_List = await _context.ReportType
+                    .AsNoTracking()
+                    .ToListAsync();
+
+            Condition_List = await _context.Condition
+                .AsNoTracking()
+                .ToListAsync();
+            Observation_List = await _context.Observation
+                .AsNoTracking()
+                .ToListAsync();
+            ObservationType_List = await _context.ObservationType
+                .AsNoTracking()
+                .ToListAsync();
+            Action_List = await _context.Action
+                .AsNoTracking()
+                .ToListAsync();
+
+
+
             //------------------------------------------------------------------//
 
             Report_To_Update = _context.TstReport.FirstOrDefault(r => r.PkReportId == Current_Displayed_Report.ReportId);
@@ -108,49 +140,65 @@ namespace Reportingtool.Pages
         public async Task<IActionResult> OnPostUpdateReportFault()
         {
             //--------------- Update Fault if FaultType is null ----------------------------//
-            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(Fault_To_Update))
+            if (Fault_To_Update.FkFaultTypeId == null)
             {
-                string name = descriptor.Name;
-                object value = descriptor.GetValue(Fault_To_Update);
-                Console.WriteLine($"{name} = {value}");
-            }
 
-            var faultToUpdate =  _context.TstFault.FirstOrDefault(f => f.PkFaultId == Fault_To_Update.PkFaultId);
+                //foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(Fault_To_Update))
+                //{
+                //    string name = descriptor.Name;
+                //    object value = descriptor.GetValue(Fault_To_Update);
+                //    Console.WriteLine($"{name} = {value}");
+                //}
 
-            if (faultToUpdate == null)
-            {
-                return NotFound();
-            }
+                var Updated_Fault = await _context.TstFault.FirstOrDefaultAsync(f => f.PkFaultId == Fault_To_Update.PkFaultId);
+                Updated_Fault.FkTechnologyId = Fault_To_Update.FkTechnologyId;
+                Updated_Fault.FkPrimaryComponentTypeId = Fault_To_Update.FkPrimaryComponentTypeId;
+                Updated_Fault.FkPrimaryComponentSubtypeId = Fault_To_Update.FkPrimaryComponentSubtypeId;
+                Updated_Fault.FkFaultTypeId = Fault_To_Update.FkFaultTypeId;
+                Updated_Fault.FkFaultSubtypeId = Fault_To_Update.FkFaultSubtypeId;
+                Updated_Fault.FaultLocation = Fault_To_Update.FaultLocation;
 
-            if (faultToUpdate.FkFaultTypeId == null)
-            {
-                Console.WriteLine("---------------");
-                foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(faultToUpdate))
+                _context.Attach(Updated_Fault).State = EntityState.Modified;
+
+                try
                 {
-                    string name = descriptor.Name;
-                    object value = descriptor.GetValue(faultToUpdate);
-                    Console.WriteLine($"{name} = {value}");
-                }
-
-                Console.WriteLine("---------------");
-                if (await TryUpdateModelAsync<TstFault>(
-                faultToUpdate,
-                "Fault_To_Update",
-                f => f.FkTechnologyId,
-                f => f.FkPrimaryComponentTypeId,
-                f => f.FkPrimaryComponentSubtypeId,
-                f => f.FkFaultTypeId,
-                f => f.FkFaultSubtypeId,
-                f => f.FaultLocation))
-                {
-                    Console.WriteLine("---------------");
-                    Console.WriteLine("Saving changes");
-                    Console.WriteLine("---------------");
                     await _context.SaveChangesAsync();
                 }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!FaultExists(Fault_To_Update.PkFaultId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
             }
+            //--------------- Update Fault if FaultType is null ----------------------------//
+
+            //--------------- Update Report----------------------------//
+            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(Report_To_Update))
+            {
+                string name = descriptor.Name;
+                object value = descriptor.GetValue(Report_To_Update);
+                Console.WriteLine($"{name} = {value}");
+            }
+            //--------------- Update Report----------------------------//
+
 
             return RedirectToPage("/ReviewReports", new { id = Report_To_Update.PkReportId });
+        }
+
+        private bool FaultExists(int id)
+        {
+            return _context.TstFault.Any(e => e.PkFaultId == id);
+        }
+
+        private bool ReportExists(int id)
+        {
+            return _context.TstReport.Any(e => e.PkReportId == id);
         }
 
     }
