@@ -74,7 +74,6 @@ where [PK_ReportId] = <latest release report id>
 -- Set this report to no fault, routine and released
 
 
-SELECT 
 INSERT INTO [DEV_ClientProject].[dbo].[Fault] (
       [FK_MachineTrainId]
       ,[FK_PrimaryComponentTypeId]
@@ -138,9 +137,6 @@ where [PK_ReportId] = <latest release report id>
 
 -- Anomoly -- 
 -- IN PROGRESS ---- 	
--- If the above returns a report that is condition 3 then ????	  
-	  
-	  
 	  
 --Anomaly -- Existing Report
 INSERT INTO report([FK_FaultId] 
@@ -155,14 +151,12 @@ INSERT INTO report([FK_FaultId]
       ,[External_Notes]
       ,[Notification_No]
       ,[Work_Order_No]
-      ,[Review_Comments]
       ,[Analyst_Name]
-      ,[Reviewer_Name]
       ,[Report_IsActive])
 SELECT [FK_FaultId]
       ,sysdatetime()
       ,sysdatetime()
-      ,[FK_ConditionId]
+      ,[FK_ConditionId]  -- whatever the last condition was
       ,1 -- aka. Routine
       ,1 -- aka. In progress 
       ,[Observations]
@@ -171,9 +165,7 @@ SELECT [FK_FaultId]
       ,[External_Notes]
       ,[Notification_No]
       ,[Work_Order_No]
-      ,NULL
       ,<current user>
-      ,NULL
       ,[Report_IsActive]
   FROM [DEV_ClientProject].[dbo].[Report]
 where [PK_ReportId] = <latest release report id>
@@ -182,19 +174,13 @@ where [PK_ReportId] = <latest release report id>
 
 -- Anomaly - No Existing Report
 
---... in progress 
-
 INSERT INTO [DEV_ClientProject].[dbo].[Fault] (
       [FK_MachineTrainId]
-      ,[FK_PrimaryComponentTypeId]
       ,[FK_TechnologyId]
-      ,[FK_FaultTypeId]
       ,[Create_Date]
       ,[Fault_IsActive])
 VALUES (<this machine id>
-	  ,1 -- aka. Initialise as parent
       ,1 -- aka. Initialise as Vibes
-      ,1 -- aka. Initialise as No vib Fault
       ,SYSDATETIME()
       ,1) ; 
 	  
@@ -206,7 +192,7 @@ INSERT INTO report([FK_FaultId]
       ,[FK_ReportStageId]
       ,[Analyst_Name]
       ,[Report_IsActive])
-values ( SCOPE_IDENTITY(); -- aka get Fault Id from above
+values ( SCOPE_IDENTITY() -- aka get Fault Id from above
       ,sysdatetime()
       ,sysdatetime()
       ,3 -- aka. Initialise as Trending
@@ -214,6 +200,4 @@ values ( SCOPE_IDENTITY(); -- aka get Fault Id from above
       ,1 -- aka. In progress 
       ,<current user>
       ,1);
-
-
 

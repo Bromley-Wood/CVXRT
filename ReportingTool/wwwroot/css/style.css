@@ -683,6 +683,14 @@ ul.ks-cboxtags {
 	border-color: #f57c00 !important;
 }
 
+.alert-color {
+	background-color: #f57c00 !important;
+}
+
+.treeview-animated .badge {
+	box-shadow: none;
+}
+
 /* attempt to fix scrollspy*/
 :target::before {
 	content: "";
