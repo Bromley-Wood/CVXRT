@@ -535,19 +535,17 @@
                                     <span class="input-group-text">Observation</span>
                                 </div>
                                 <div class="rpt-select-wrapper">
-                                    <div class="rpt-select">
+                                    <div class="rpt-select" id="selectObservationType">
                                         <div class="rpt-select__trigger">
-                                            <span>Select a category</span>
+                                            <span  data-value="">Select a category</span>
                                             <div class="arrow"></div>
                                         </div>
                                         <div class="rpt-options">
-                                            <span class="rpt-header">Select an observation type</span>
                                             <span class="rpt-option selected" data-value="Noises">Noises</span>
                                             <span class="rpt-option" data-value="Data Collection Errors">Data Collection Errors</span>
                                             <span class="rpt-option" data-value="Phase">Phase</span>
                                             <span class="rpt-option" data-value="Physical / Visual">Physical / Visual</span>
                                             <span class="rpt-option" data-value="Spectral Amplitude">Spectral Amplitude</span>
-                                            <span class="rpt-header">Custom Entry</span>
                                             <span class="rpt-option" data-value="Other">Other</span>
                                         </div>
                                     </div>
@@ -559,22 +557,21 @@
                                             <div class="arrow"></div>
                                         </div>
                                         <div class="rpt-options">
-                                            <span class="rpt-header">Select something</span>
-                                            <span class="rpt-option selected" data-value="the corresponding observation id">Component is noisy</span>
-                                            <span class="rpt-option" data-value="observationid">Machine has high pitched sound</span>
-                                            <span class="rpt-option" data-value="observationid">Machine has low rumble</span>
-                                            <span class="rpt-option" data-value="observationid">Rubbing sound</span>
-                                            <span class="rpt-option" data-value="observationid">Sounds like gravel through pump</span>
+                                            <span class="rpt-option selected" data-value="Noises">Component is noisy</span>
+                                            <span class="rpt-option" data-value="Phase">Machine has high pitched sound</span>
+                                            <span class="rpt-option" data-value="Physical">Machine has low rumble</span>
+                                            <span class="rpt-option" data-value="Physical">Rubbing sound</span>
+                                            <span class="rpt-option" data-value="Other">Sounds like gravel through pump</span>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="rpt-select-wrapper" style="display: none;" id="customObservation">
-                                    <input type="text" class="form-control" id="inputCustomObservation" placeholder="" value="" required>
+                                    <input type="text" class="form-control" id="inputCustomObservation">
                                 </div>
                                 <div class="input-group-append">
                                     <button type="button" id="btnAddObservation">+++</button>
-                                    <!--<button type="button" style="display: none;" id="btnAddCustomObservation">+</button>-->
+                                    <button type="button" style="display: none;" id="btnAddCustomObservation">+</button>
                                 </div>
                             </div>
                             <ul class="list-group list-group-flush" id="observationList">
@@ -582,6 +579,7 @@
                                 <li class="list-group-item">The casing is hot <span class="close">x</span></li>
                                 <li class="list-group-item">This is a custom observation <span class="close">x</span></li>
                             </ul>
+                            <input type="hidden" class="form-control" id="allObservations">
                         </div>
                         <!--./SUBFORM: Observations -->
                         <!--SUBFORM: Actions -->
@@ -606,11 +604,9 @@
                                             <span class="rpt-option" data-value="actionid">3.  Clean an repack bearing</span>
                                             <span class="rpt-option" data-value="actionid">4.  Replace bearing</span>
                                             <span class="rpt-option" data-value="actionid">5.  Review bearing selectione</span>
+                                            <span class="rpt-option" data-value="actionid">Other</span>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="rpt-select-wrapper" style="display: none;" id="customAction">
-                                    <input type="text" class="form-control" id="inputCustomAction" placeholder="" value="" required>
                                 </div>
                                 <div class="input-group-append">
                                     <button type="button" id="btnAddAction">+</button>
@@ -622,6 +618,7 @@
                                     <li class="list-group-item">Lubricate and retake data <span class="close">x</span></li>
                                     <li class="list-group-item">Reduce monitoring interval <span class="close">x</span></li>
                                 </ul>
+                                <input type="hidden" class="form-control" id="allObservations">
                                 <div class="invalid-feedback">
                                     You've already selected that action
                                 </div>
@@ -1168,33 +1165,43 @@
         </script>
         <script>
             //Custom select event listener
+            // open list
             for (const dropdown of document.querySelectorAll(".rpt-select-wrapper")) {
                 dropdown.addEventListener('click', function () {
                     this.querySelector('.rpt-select').classList.toggle('open');
                 })
             }
 
+            // set selected item. display custom textbox
             for (const option of document.querySelectorAll(".rpt-option")) {
                 option.addEventListener('click', function () {
                     if (!this.classList.contains('selected')) {
                         this.parentNode.querySelector('.rpt-option.selected').classList.remove('selected');
                         this.classList.add('selected');
                         this.closest('.rpt-select').querySelector('.rpt-select__trigger span').textContent = this.textContent;
+                        alert(this.getAttribute('data-value'));
+
 
                         if (this.textContent == "Other") {
                             document.querySelector('#customObservation').style.display = "block";
-                            //document.querySelector('#btnAddCustomObservation').style.display = "block";
+                            document.querySelector('#btnAddCustomObservation').style.display = "block";
                             document.querySelector('#selectObservation').style.display = "none";
                             document.querySelector('#btnAddObservation').style.display = "none";
                         } else {
                             document.querySelector('#customObservation').style.display = "none";
-                            //document.querySelector('#btnAddCustomObservation').style.display = "none";
+                            document.querySelector('#btnAddCustomObservation').style.display = "none";
                             document.querySelector('#selectObservation').style.display = "block";
                             document.querySelector('#btnAddObservation').style.display = "block";
                         }
                     }
                 })
             }
+
+            //filter observations
+            document.getElementById()
+
+            //filter action
+
 
             window.addEventListener('click', function (e) {
                 for (const select of document.querySelectorAll('.rpt-select')) {
@@ -1277,29 +1284,29 @@
                 }
             }
 
-            //// Custom Observations
-            //var inputObservation = document.querySelector("#inputCustomObservation");
-            //var btnAddCustomObservation = document.querySelector("#btnAddCustomObservation");
-            //btnAddCustomObservation.addEventListener("click", addCustomObservation);
+            // Custom Observations
+            var inputObservation = document.querySelector("#inputCustomObservation");
+            var btnAddCustomObservation = document.querySelector("#btnAddCustomObservation");
+            btnAddCustomObservation.addEventListener("click", addCustomObservation);
 
-            //function addCustomObservation() {
-            //    if (inputObservation.value !== "") {
+            function addCustomObservation() {
+                if (inputObservation.value !== "") {
 
-            //        // Don't build new HTML by concatenating strings. Create elements and configure them as objects
-            //        var li = document.createElement("li");
-            //        li.textContent = inputObservation.value;
-            //        li.classList.add("list-group-item");
+                    // Don't build new HTML by concatenating strings. Create elements and configure them as objects
+                    var li = document.createElement("li");
+                    li.textContent = inputObservation.value;
+                    li.classList.add("list-group-item");
 
-            //        // Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
-            //        var span = document.createElement("span");
-            //        span.classList.add("close");
-            //        span.textContent = "x";
-            //        span.addEventListener("click", removeAction);
-            //        li.appendChild(span);  // Add the span to the bullet
-            //        observationList.appendChild(li); // Add the bullet to the list
-            //        //newAction.textContent = "";
-            //    }
-            //}
+                    // Only use hyperlinks for navigation, not to have something to click on. Any element can be clicked
+                    var span = document.createElement("span");
+                    span.classList.add("close");
+                    span.textContent = "x";
+                    span.addEventListener("click", removeObservation);
+                    li.appendChild(span);  // Add the span to the bullet
+                    observationList.appendChild(li); // Add the bullet to the list
+                    //newAction.textContent = "";
+                }
+            }
 
             // Remove the closest <li> ancestor to the <span> that got clicked
             function removeObservation() {
