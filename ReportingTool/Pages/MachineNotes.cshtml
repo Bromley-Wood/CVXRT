@@ -74,23 +74,20 @@
                         <div class="card-body">
 
                             <!-- Default form reply -->
-                            <form method="post" asp-page-handler="createnewmachinenote" id="createnewmachinenote">
-                                <input type="hidden" asp-for="New_Machine_Note.MachineTrainId" value=@Model.Current_Machine_Train.MachineTrainId>
-                                <!-- Comment -->
-                                <div class="form-group">
-                                    <label for="replyFormComment">Your comment</label>
-                                    <textarea maxlength="300" class="form-control" id="replyFormComment" rows="5" asp-for="New_Machine_Note.MachineTrain_Note"></textarea>
-                                </div>
-                                <hr>
-                                <fieldset class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="checkbox-shownonreport" asp-for="New_Machine_Note.MachineTrainNote_ShowOnReport">
-                                    <label for="checkbox-shownonreport" class="form-check-label dark-grey-text">Show this note when raising reports</label>
-                                </fieldset>
-                                <!-- Subtmit Post -->
-                                <div class="text-center mt-4">
-                                    <button class="btn btn-info btn-md btnCreateNewMachineNote" type="submit">Post</button>
-                                </div>
-                            </form>
+							<form method="post" asp-page-handler="createnewmachinenote" id="createnewmachinenote">
+								<input type="hidden" asp-for="New_Machine_Note.MachineTrainId" value=@Model.Current_Machine_Train.MachineTrainId>
+								<!-- Comment -->
+								<div class="form-group">
+									<label for="replyFormComment">Your comment</label>
+									<textarea maxlength="300" class="form-control" id="replyFormComment" rows="5" asp-for="New_Machine_Note.MachineTrain_Note"></textarea>
+								</div>
+								<hr class="mb-1" />
+								<fieldset class="form-check ks-cbox">
+									<input type="checkbox" class="form-check-input" id="checkbox-shownonreport" asp-for="New_Machine_Note.MachineTrainNote_ShowOnReport">
+									<label for="checkbox-shownonreport" class="form-check-label dark-grey-text">Show this note when raising reports</label>
+									<button class="btn btn-info btn-sm btnCreateNewMachineNote float-right" type="submit">Post</button>
+								</fieldset>
+							</form>
                         </div>
                     </div>
                     <!--Create New Machine Note-->
@@ -188,32 +185,30 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header text-center">
-                        <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit Route</h4>
+                        <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit Note</h4>
                         <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body mx-3">
-                        <!-- Comment -->
-                        <div class="form-group">
-                            <label for="replyFormComment">Your comment</label>
-                            <textarea maxlength="300" class="form-control" id="editmachinenotecontent" rows="5" asp-for="Machine_Train_Note_Content" form="editmachinenoteform"></textarea>
-                        </div>
+					<div class="modal-body mx-3">
+						<input type="hidden" class="form-control" id="machinetrainnoteid" asp-for="Machine_Train_Note_Id" form="editmachinenoteform">
+						<!-- Comment -->
+						<div class="form-group">
+							<label for="replyFormComment">Your comment</label>
+							<textarea maxlength="300" class="form-control" id="editmachinenotecontent" rows="5" asp-for="Machine_Train_Note_Content" form="editmachinenoteform"></textarea>
+						</div>
 
-                        <input type="hidden" class="form-control" id="machinetrainnoteid" asp-for="Machine_Train_Note_Id" form="editmachinenoteform">
-
-                        <fieldset class="form-check">
-                            <input type="checkbox" class="form-check-input" id="showmachinenoteonreport" asp-for="Machine_Train_Note_ShowOnReport" form="editmachinenoteform">
-                            <label for="showmachinenoteonreport" class="form-check-label dark-grey-text">Show this note when raising reports</label>
-                        </fieldset>
-                    </div>
+						<fieldset class="form-check ks-cbox">
+							<input type="checkbox" class="form-check-input" name="Machine_Train_Note_ShowOnReport" id="Machine_Train_Note_ShowOnReport" form="editmachinenoteform"><!-- asp-for="Machine_Train_Note_ShowOnReport"-->
+							<label for="Machine_Train_Note_ShowOnReport" class="form-check-label dark-grey-text">Show this note when raising reports</label>
+						</fieldset>
+					</div>
                     <div class="modal-footer d-flex justify-content-center editInsideWrapper">
                         <button class="btn btn-outline-secondary btn-block editInside btnYesEditMachineNote" id="btnYesEditMachineNote" data-dismiss="modal">
                             Edit form
                             <i class="fas fa-paper-plane-o ml-1"></i>
                         </button>
-                        <!-- UPDATE Route_Call SET Schedule_Date = '2019-12-05'  WHERE PK_CallId = (this id);-->
-
+                
                     </div>
                 </div>
             </div>
@@ -255,3 +250,55 @@
 
     </div>
 </main>
+
+
+@section Scripts{
+
+    <!-- Dropzone JavaScript -->
+
+    <script>
+        Dropzone.options.uploadattachmentsform = {
+            autoProcessQueue: false,
+            url: '/MachineNotes?handler=UploadAttachments',
+            uploadMultiple: true,
+            addRemoveLinks: true, // Allows for cancellation of file upload and remove thumbnail
+            acceptedFiles: "image/*",
+            parallelUploads: 999,
+
+            init: function () {
+
+                var myDropzone = this;
+
+                // Update selector to match your button
+                $("#btnUploadAttachmentPost").click(function (e) {
+                    e.preventDefault();
+                    myDropzone.processQueue();
+                });
+
+
+                this.on('success', function () {
+                    if (this.getQueuedFiles().length == 0 && this.getUploadingFiles().length == 0) {
+                        location.reload();
+                    }
+                });
+            }
+        }
+    </script>
+
+    <!-- Droplist -->
+    <script>
+            $(function () {
+
+                $("#gotomachinetrainname").autocomplete({
+                    source: '@Url.Page("index", "search")',
+                    select: function (event, ui) {
+                        event.preventDefault();
+                        $('#gotomachinetrainname').val(ui.item.label);
+                        $('#gotomachinetrainid').val(ui.item.value);
+                    }
+                });
+
+
+            });
+    </script>
+}
