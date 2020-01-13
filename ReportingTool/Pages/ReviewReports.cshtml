@@ -1,4 +1,4 @@
-﻿@page "{id:int?}"
+@page "{id:int?}"
 @model Reportingtool.Pages.ReviewReportsModel
 
 @{
@@ -822,6 +822,10 @@
 
             function addAction() {
                 if (actionSelected.textContent !== "") {
+                    // do not add default item
+                    if (actionSelected.textContent.includes("Select a category")) {
+                        return;
+                    }
                     // Don't build new HTML by concatenating strings. Create elements and configure them as objects
                     var li = document.createElement("li");
                     li.textContent = actionSelected.textContent;
@@ -863,6 +867,12 @@
 
             function addObservation() {
                 if (observationSelected.textContent !== "") {
+                    // do not add default item
+                    if (observationSelected.textContent.includes("Select an observation")) {
+                        return;
+                    }
+
+
                     // Don't build new HTML by concatenating strings. Create elements and configure them as objects
                     var li = document.createElement("li");
                     li.textContent = observationSelected.textContent;
