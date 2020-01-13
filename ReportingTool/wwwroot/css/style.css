@@ -327,11 +327,58 @@ ul.ks-cboxtags {
 				border: 2px solid #e9a1ff;
 			}
 
+
+.ks-cbox label {
+	display: inline-block;
+	background-color: rgba(255, 255, 255, .9);
+	color: #adadad;
+	border-radius: 25px;
+	margin: 3px 0px;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+	transition: all .2s;
+	cursor: pointer;
+}
+
+
+	.ks-cbox label::before {
+		display: inline-block;
+		font-style: normal;
+		font-variant: normal;
+		text-rendering: auto;
+		-webkit-font-smoothing: antialiased;
+		font-family: "Font Awesome 5 Free";
+		font-weight: 900;
+		font-size: 12px;
+		padding: 2px 6px 2px 2px;
+		content: "\f065";
+		transition: transform .3s ease-in-out;
+	}
+
+	.ks-cbox input[type="checkbox"]:checked + label::before {
+		content: "\f00c";
+		transform: rotate(-360deg);
+		transition: transform .3s ease-in-out;
+	}
+
+	.ks-cbox input[type="checkbox"] {
+		position: absolute;
+		opacity: 0;
+	}
+
+	.ks-cbox input[type="checkbox"]:checked + label {
+		color: #4abde8 !important;
+	}
+
+
 /* column hiding 
 	https://phppot.com/css/automatic-column-hiding-using-css-in-responsive-table/
 
 */
-
 @media (max-width: 1225px) and (min-width: 1045px) {
 	/* lowest priority */
 	.route-table > * > tr > *:nth-child(2) {
@@ -404,6 +451,18 @@ ul.ks-cboxtags {
 .rgba-black-lighter {
 	background: rgba(0,0,0,0.15);
 }
+
+/* Generate Reports */
+#machinesOnRoute th:nth-child(2),
+#machinesOnRoute td:nth-child(2) {
+	max-width: 300px;
+}
+
+#machinesOnRoute th:first-child {
+	width: 15%;
+	text-align: center;
+}
+
 
 /* machine notes */
 .dropzone.dz-clickable {
@@ -534,11 +593,6 @@ ul.ks-cboxtags {
 	.list-group-item .close:hover {
 		transform: scale(1.1);
 	}
-
-#machinesOnRoute th:first-child {
-	width: 15%;
-	text-align: center;
-}
 
 
 
