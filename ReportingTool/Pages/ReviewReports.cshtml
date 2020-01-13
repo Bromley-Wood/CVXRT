@@ -690,7 +690,7 @@
             for (const option of selectedObservationType.querySelectorAll('.rpt-option')) {
                 option.addEventListener('click', function () {
                     //reset selected observation
-                    //selectedObservation.querySelector('.rpt-select__trigger span').textContent = "Select an Observation";
+                    selectedObservation.querySelector('.rpt-select__trigger span').textContent = "Select an Observation";
 
                     //filter the observations
                     var index = 0;
@@ -826,6 +826,14 @@
                     if (actionSelected.textContent.includes("Select a category")) {
                         return;
                     }
+
+                    // do not add duplicated item
+                    for (const listItem of document.querySelectorAll("#actionList li")) {
+                        if (actionSelected.textContent === listItem.textContent.slice(0, -1)) {
+                            return;
+                        }
+                    }
+
                     // Don't build new HTML by concatenating strings. Create elements and configure them as objects
                     var li = document.createElement("li");
                     li.textContent = actionSelected.textContent;
@@ -870,6 +878,13 @@
                     // do not add default item
                     if (observationSelected.textContent.includes("Select an observation")) {
                         return;
+                    }
+
+                    // do not add duplicated item
+                    for (const listItem of document.querySelectorAll("#observationList li")) {
+                        if (observationSelected.textContent === listItem.textContent.slice(0, -1)) {
+                            return;
+                        }
                     }
 
 
