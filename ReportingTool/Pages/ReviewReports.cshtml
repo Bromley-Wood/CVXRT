@@ -318,18 +318,13 @@
                                             <div class="arrow"></div>
                                         </div>
                                         <div class="rpt-options">
-                                            @for (int idx = 0; idx < Model.ObservationType_List.Count; ++idx)
+                                            <span class="rpt-header">Observation Category</span>
+                                            <span class="rpt-option selected" observationtypeid="default">Select an observation category</span>
+                                            @foreach (var item in Model.ObservationType_List)
                                             {
-                                                var item = Model.ObservationType_List[idx];
-                                                if (idx == 0)
-                                                {
-                                                    <span class="rpt-option selected" observationtypeid="@(item.PkObservationTypeId)">@item.ObservationType1</span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="rpt-option" observationtypeid="@(item.PkObservationTypeId)">@item.ObservationType1</span>
-                                                }
+                                                <span class="rpt-option" observationtypeid="@(item.PkObservationTypeId)">@item.ObservationType1</span>   
                                             }
+                                            <span class="rpt-header">Custom Entry</span>
                                             <span class="rpt-option" observationtypeid="Other">Other</span>
                                         </div>
                                     </div>
@@ -341,6 +336,7 @@
                                             <div class="arrow"></div>
                                         </div>
                                         <div class="rpt-options">
+                                            <span class="rpt-option selected" observationtypeid="default">Select an observation</span>
                                             @foreach (var item in Model.Observation_List)
                                             {
                                                 <span class="rpt-option" observationtypeid="@(item.FkObservationTypeId)">@item.Observation1</span>
@@ -377,6 +373,7 @@
                                             <div class="arrow"></div>
                                         </div>
                                         <div class="rpt-options">
+                                            <span class="rpt-header">Listed by least intrusive (top) to most intrusive (bottom)</span>
                                             @foreach (var item in Model.Action_List)
                                             {
                                                 <span class="rpt-option" faulttype="@item.FkFaultTypeId">@item.Action1</span>
@@ -700,6 +697,9 @@
                             if (index == 0) {
                                 option1.classList.add('selected');
                             }
+                            else {
+                                option1.classList.remove('selected');
+                            }
                             index++;
                         }
                         else {
@@ -734,6 +734,9 @@
                             if (index == 0) {
                                 option.classList.add('selected');
                             }
+                            else {
+                                option.classList.remove('selected');
+                            }
                             index++;
                         }
                         else {
@@ -753,6 +756,9 @@
                         option.style.display = 'none';
                         if (index == 0) {
                             option.classList.add('selected');
+                        }
+                        else {
+                            option.classList.remove('selected');
                         }
                         index++;
                     }
@@ -822,18 +828,7 @@
 
             function addAction() {
                 if (actionSelected.textContent !== "") {
-                    // do not add default item
-                    if (actionSelected.textContent.includes("Select a category")) {
-                        return;
-                    }
-
-                    // do not add duplicated item
-                    for (const listItem of document.querySelectorAll("#actionList li")) {
-                        if (actionSelected.textContent === listItem.textContent.slice(0, -1)) {
-                            return;
-                        }
-                    }
-
+                    
                     // Don't build new HTML by concatenating strings. Create elements and configure them as objects
                     var li = document.createElement("li");
                     li.textContent = actionSelected.textContent;
@@ -845,6 +840,15 @@
                     span.textContent = "x";
                     span.addEventListener("click", removeAction);
                     li.appendChild(span);  // Add the span to the bullet
+
+                    // do not add duplicated item
+                    for (const listItem of document.querySelectorAll("#actionList li")) {
+                        if (actionSelected.textContent.includes("Select a category") || actionSelected.textContent === listItem.textContent.slice(0, -1)) {
+                            return;
+                        }
+                    }
+
+
                     actionList.appendChild(li); // Add the bullet to the list
                     //newAction.textContent = "";
                 }
@@ -875,19 +879,7 @@
 
             function addObservation() {
                 if (observationSelected.textContent !== "") {
-                    // do not add default item
-                    if (observationSelected.textContent.includes("Select an observation")) {
-                        return;
-                    }
-
-                    // do not add duplicated item
-                    for (const listItem of document.querySelectorAll("#observationList li")) {
-                        if (observationSelected.textContent === listItem.textContent.slice(0, -1)) {
-                            return;
-                        }
-                    }
-
-
+                    
                     // Don't build new HTML by concatenating strings. Create elements and configure them as objects
                     var li = document.createElement("li");
                     li.textContent = observationSelected.textContent;
@@ -899,6 +891,14 @@
                     span.textContent = "x";
                     span.addEventListener("click", removeObservation);
                     li.appendChild(span);  // Add the span to the bullet
+
+                    // do not add duplicated item
+                    for (const listItem of document.querySelectorAll("#observationList li")) {
+                        if (observationSelected.textContent.includes("Select an observation") || observationSelected.textContent === listItem.textContent.slice(0, -1)) {
+                            return;
+                        }
+                    }
+
                     observationList.appendChild(li); // Add the bullet to the list
                     //newObservation.textContent = "";
                 }
