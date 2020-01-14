@@ -1,586 +1,614 @@
-﻿<html lang="en"><head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>Reporting Tool</title>
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-	<!-- Bootstrap core CSS -->
-	<link href="../wwwroot/css/bootstrap.min.css" type="text/css" rel="stylesheet">
-	<!-- Material Design Bootstrap -->
-	<link href="../wwwroot/css/mdb.min.css" rel="stylesheet">
-	<!-- Your custom styles (optional) -->
-	<link href="../wwwroot/css/style.css" rel="stylesheet">
-	<style type="text/css">
-		html,
-		body,
-		header,
-		.view {
-			height: 100%;
-		}
+﻿<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Reporting Tool</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="../wwwroot/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="../wwwroot/css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="../wwwroot/css/style.css" rel="stylesheet">
+    <style type="text/css">
+        html,
+        body,
+        header,
+        .view {
+            height: 100%;
+        }
 
-		@@media (max-width: 740px) {
-			html,
-			body,
-			header,
-			.view {
-				height: 1000px;
-			}
-		}
+        @@media (max-width: 740px) {
+            html,
+            body,
+            header,
+            .view {
+                height: 1000px;
+            }
+        }
 
-		@@media (min-width: 800px) and (max-width: 850px) {
-			html,
-			body,
-			header,
-			.view {
-				height: 650px;
-			}
-		}
+        @@media (min-width: 800px) and (max-width: 850px) {
+            html,
+            body,
+            header,
+            .view {
+                height: 650px;
+            }
+        }
 
-		@@media (min-width: 800px) and (max-width: 850px) {
-			.navbar:not(.top-nav-collapse) {
-				background: #1C2331 !important;
-			}
-		}
-	</style>
-<style type="text/css">/* Chart.js */
-@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style></head>
+        @@media (min-width: 800px) and (max-width: 850px) {
+            .navbar:not(.top-nav-collapse) {
+                background: #1C2331 !important;
+            }
+        }
+    </style>
+    <style type="text/css">
+        /* Chart.js */
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+    </style>
+</head>
 
 <body>
 
-	<!-- Navbar -->
-	<nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar top-nav-collapse">
-		<div class="container">
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar top-nav-collapse">
+        <div class="container">
 
-			<!-- Brand -->
-			<a class="navbar-brand" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
-				<strong>Home</strong>
-			</a>
+            <!-- Brand -->
+            <a class="navbar-brand" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
+                <strong>Home</strong>
+            </a>
 
-			<!-- Collapse -->
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-			<!-- Links -->
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-				<!-- Left -->
-				<ul class="navbar-nav mr-auto">
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
 
-					<li class="nav-item">
-						<a class="nav-link waves-effect waves-light" href="https://mdbootstrap.com/docs/jquery/" target="_blank">Schedule Work</a>
-					</li>
-					<li class="nav-item active">
-						<a class="nav-link waves-effect waves-light" href="#">
-							Create Reports
-							<span class="sr-only">(current)</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link waves-effect waves-light" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank">Add Machine Notes</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link waves-effect waves-light" href="https://mdbootstrap.com/education/bootstrap/" target="_blank">Review Reports</a>
-					</li>
-				</ul>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light" href="https://mdbootstrap.com/docs/jquery/" target="_blank">Schedule Work</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link waves-effect waves-light" href="#">
+                            Create Reports
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank">Add Machine Notes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light" href="https://mdbootstrap.com/education/bootstrap/" target="_blank">Review Reports</a>
+                    </li>
+                </ul>
 
-				<!-- Right -->
-				<ul class="navbar-nav nav-flex-icons">
-					<li class="nav-item">
-						<a href="https://www.facebook.com/mdbootstrap" class="nav-link waves-effect waves-light" target="_blank">
-							<i class="fas fa-inbox"></i>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect waves-light" target="_blank">
-							<i class="fas fa-envelope"></i>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded waves-effect waves-light" target="_blank">
-							<i class="fas fa-question-circle"></i> Help
-						</a>
-					</li>
-				</ul>
+                <!-- Right -->
+                <ul class="navbar-nav nav-flex-icons">
+                    <li class="nav-item">
+                        <a href="https://www.facebook.com/mdbootstrap" class="nav-link waves-effect waves-light" target="_blank">
+                            <i class="fas fa-inbox"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect waves-light" target="_blank">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded waves-effect waves-light" target="_blank">
+                            <i class="fas fa-question-circle"></i> Help
+                        </a>
+                    </li>
+                </ul>
 
-			</div>
+            </div>
 
-		</div>
-	</nav>
-	<!-- Navbar -->
-	<!--Main layout-->
-	<main>
-		<div class="container">
-
-
-			<hr class="my-5">
-
-			<!--Section: Sched Maint Header-->
-			<section class="mt-5 wow fadeIn" style="visibility: visible; animation-name: fadeIn;">
-
-				<!--Grid row-->
-				<div class="row">
-
-					<!--Grid column-->
-					<div class="col-md-6 mb-4">
-
-						<!-- Main heading -->
-						<h2 class=" mb-3">Create Reports</h2>
-						<p>
-							At auctor urna nunc id cursus metus aliquam. Aliquam ut porttitor leo a diam.
-							Arcu vitae elementum curabitur vitae nunc. In egestas erat imperdiet sed euismod nisi porta lorem mollis.
-						</p>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-							Faucibus vitae aliquet nec ullamcorper. Blandit volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque.
-						</p>
-						<!-- Main heading -->
-
-					</div>
-					<!--Grid column-->
-					<!--Grid column-->
-					<div class="col-md-6 col-xl-5 mb-4">
-
-						<!--Card-->
-						<div class="card">
-
-							<!--Card content-->
-							<div class="card-body">
-
-								<!-- Heading -->
-								<h4 class="text-muted text-center">
-									Controls
-								</h4>
-								<hr>
-								<h6 class="feature-title">At auctor urna nunc id cursus metus aliquam.</h6>
-								<p class="grey-text">
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-									Faucibus vitae aliquet nec ullamcorper. Blandit volutpat maecenas volutpat blandit aliquam.
-								</p>
-
-								<div class="list-group  d-flex justify-content-center">
-									<!--- buttons and forms  -->
-									<div class="row d-flex justify-content-center modalWrapper">
-										<div class="modal fade addNewInputs" id="modalAddRoute" tabindex="-1" role="dialog" aria-labelledby="modalAddRoute" aria-hidden="true">
-											<div class="modal-dialog" role="document">
-												<div class="modal-content">
-													<div class="modal-header text-center">
-														<h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add an Adhoc Route</h4>
-														<button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
-															<span aria-hidden="true">×</span>
-														</button>
-													</div>
-													<div class="modal-body mx-3">
-														<h5 class="modal-title w-100 font-weight-bold text-primary ml-5"><i class="fas fa-tools"></i>  Under Construction  <i class="fas fa-mug-hot"></i></h5>
-														<div class="md-form mb-5">
-															<input type="text" id="formAddRoute" class="form-control validate">
-															<label data-error="wrong" data-success="right" for="inputName">Route Name</label>
-														</div>
-														<div class="md-form mb-5">
-															<input type="date" id="inputDate" class="form-control" placeholder="Select Date">
-															<label data-error="wrong" data-success="right" for="inputDate">Schedule Date</label>
-														</div>
-														<div class="md-form mb-5">
-															<input type="number" id="formAddLabour" class="form-control validate">
-															<label data-error="wrong" data-success="right" for="formAddLabour">Labour Hours</label>
-														</div>
-														<div class="md-form mb-5">
-															<span>Greater Area</span>
-															<select class="custom-select d-block w-100" id="formAddGreaterArea" required="">
-																<option>Inlet</option>
-																<option>LNG</option>
-																<option>DOMGAS</option>
-																<option>S&amp;L</option>
-																<option>Utilities</option>
-															</select>
-
-														</div>
-
-														<div class="md-form mb-5">
-															<input type="text" id="inputAge" class="form-control validate">
-															<label data-error="wrong" data-success="right" for="inputAge">Machines</label>
-														</div>
-
-														<div class="mb-5">
-															<ul class="ks-cboxtags">
-																<li><input type="checkbox" id="cbmach1" value="10"><label for="cbmach1">0A-0920-K1A</label></li>
-																<li><input type="checkbox" id="cbmach2" value="11"><label for="cbmach2">0A-0920-K1B</label></li>
-																<li><input type="checkbox" id="cbmach3" value="12"><label for="cbmach3">0A-0920-K1A</label></li>
-																<li><input type="checkbox" id="cbmach4" value="13"><label for="cbmach4">0A-0920-K1B</label></li>
-																<li><input type="checkbox" id="cbmach5" value="15"><label for="cbmach5">0A-0960-K1A</label></li>
-																<li><input type="checkbox" id="cbmach6" value="16"><label for="cbmach6">0A-0960-K1B</label></li>
-																<li><input type="checkbox" id="cbmach7" value="17"><label for="cbmach7">0A-0990-K1A</label></li>
-																<li><input type="checkbox" id="cbmach8" value="18"><label for="cbmach8">0A-0990-K1B</label></li>
-															</ul>
-
-														</div>
-													</div>
-													<div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
-														<button class="btn btn-outline-primary btn-block buttonAdd waves-effect waves-light" data-dismiss="modal">
-															Add form
-															<i class="fas fa-paper-plane-o ml-1"></i>
-														</button>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<div class="text-center">
-											<a href="" class="btn btn-info btn-rounded btn-sm waves-effect waves-light" data-toggle="modal" data-target="#modalAddRoute">
-												#### ####<i class="fas fa-plus-square ml-1"></i>
-											</a>
-										</div><!--- end add form -->
-
-										<div class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
-											<div class="modal-dialog" role="document">
-												<div class="modal-content">
-													<div class="modal-header text-center">
-														<h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit Route</h4>
-														<button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
-															<span aria-hidden="true">×</span>
-														</button>
-													</div>
-													<div class="modal-body mx-3">
-														<div class="md-form mb-5">
-															<span class="field-label">Route</span>
-															<span class="field-data" id="formEditRoute">0900: Inlet - KJVG Common MEG plant [ GAA ]</span>
-														</div>
-
-														<div class="md-form mb-5">
-															<span class="field-label">Cycle (days)</span>
-															<span class="field-data" id="formEditCycle">56</span>
-														</div>
-
-														<div class="md-form mb-5">
-															<span class="field-label">Labour Hours</span>
-															<span class="field-data" id="formEditLabourHours">1</span>
-														</div>
-
-														<div class="md-form mb-5">
-															<span class="field-label">Plan Date</span>
-															<span class="field-data" id="formEditPlannedDate">4/12/2019</span>
-														</div>
-
-														<div class="md-form mb-5">
-															<input type="date" id="formEditScheduleDate" class="form-control validate" value="2019-12-04">
-															<label data-error="wrong" data-success="right" for="formEditScheduleDate">Schedule Date</label>
-														</div>
+        </div>
+    </nav>
+    <!-- Navbar -->
+    <!--Main layout-->
+    <main>
+        <div class="container">
 
 
-													</div>
-													<div class="modal-footer d-flex justify-content-center editInsideWrapper">
-														<button class="btn btn-outline-secondary btn-block editInside waves-effect waves-light" data-dismiss="modal">
-															Edit form
-															<i class="fas fa-paper-plane-o ml-1"></i>
-														</button>
-														<!-- UPDATE Route_Call SET Schedule_Date = '2019-12-05'  WHERE PK_CallId = (this id);-->
+            <hr class="my-5">
 
-													</div>
-												</div>
-											</div>
-										</div>
-										<!--- Edit form -->
-										<!-- Machine list-->
-										<div class="modal fade" id="modalMachineList" tabindex="-1" role="dialog" aria-labelledby="modalMachineList" aria-hidden="true">
-											<div class="modal-dialog" role="document">
-												<div class="modal-content">
-													<div class="modal-header text-center">
-														<h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Machines</h4>
-														<button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
-															<span aria-hidden="true">×</span>
-														</button>
-													</div>
-													<div class="modal-body mx-3">
-														<table id="dtMachinesList" class="route-table table table-striped table-bordered table-top-margin" cellspacing="0" width="100%">
-															<thead>
-																<tr>
-																	<th class="th-sm">Machine Train </th>
-																	<th class="th-sm">Lasted Measured</th>
-																	<th class="th-sm">Condition</th>
-																</tr>
-															</thead>
-															<tbody>
-																<tr><td>	1E-1201-K1	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	28/08/2019	</td><td>	No Action	<small>	(Unchanged)	</small></td></tr>
-																<tr><td>	1E-1201-K2	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	28/08/2019	</td><td>	No Action	<small>	(Unchanged)	</small></td></tr>
-																<tr><td>	1E-1201-K3	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	9/05/2019	</td><td>	No Action	<small>	(Unchanged)	</small></td></tr>
-																<tr><td>	1E-1201-K4	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	28/08/2019	</td><td>	Trending	<small>	(Unchanged)	</small></td></tr>
-																<tr><td>	1E-1201-K5	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	28/08/2019	</td><td>	Trending	<small>	(Unchanged)	</small></td></tr>
-																<tr><td>	1E-1201-K6	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	5/07/2019	</td><td>	No Action	<small>	(Unchanged)	</small></td></tr>
-															</tbody>
+            <!--Section: Sched Maint Header-->
+            <section class="mt-5 wow fadeIn" style="visibility: visible; animation-name: fadeIn;">
 
-														</table>
+                <!--Grid row-->
+                <div class="row">
 
-													</div>
-													<div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
-														<button type="button" class="btn btn-info btnYesClass waves-effect waves-light" id="btnYes" data-dismiss="modal">Done</button>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!--- end machines list -->
-										<div class="modal fade" id="modalCloseRoutes" tabindex="-1" role="dialog" aria-labelledby="modalCloseRoutes" aria-hidden="true">
-											<div class="modal-dialog" role="document">
-												<div class="modal-content">
-													<div class="modal-header text-center">
-														<h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Complete Routes</h4>
-														<button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
-															<span aria-hidden="true">×</span>
-														</button>
-													</div>
-													<div class="modal-body mx-3">
-														<p class="text-center">
-															Are you sure you want to complete these routes?  <br>
-															These routes will be removed from the displayed schedule.
-														</p>
+                    <!--Grid column-->
+                    <div class="col-md-6 mb-4">
 
-													</div>
-													<div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
-														<button type="button" class="btn btn-danger btnYesClass waves-effect waves-light" id="btnYes" data-dismiss="modal">Yes</button>
-														<button type="button" class="btn btn-primary btnNoClass waves-effect waves-light" id="btnNo" data-dismiss="modal">No</button>
-													</div>
-												</div>
-											</div>
-										</div>
+                        <!-- Main heading -->
+                        <h2 class=" mb-3">Create Reports</h2>
+                        <p>
+                            At auctor urna nunc id cursus metus aliquam. Aliquam ut porttitor leo a diam.
+                            Arcu vitae elementum curabitur vitae nunc. In egestas erat imperdiet sed euismod nisi porta lorem mollis.
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            Faucibus vitae aliquet nec ullamcorper. Blandit volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque.
+                        </p>
+                        <!-- Main heading -->
 
-										<div class="text-center">
-											<button class="btn btn-danger btn-sm waves-effect waves-light" data-toggle="modal" data-target="#modalCloseRoutes">
-												#### #### <i class="fas fa-times ml-1"></i>
-											</button> <!-- when clicked, query: update Route_Call set Close_Date = SYSDATETIME() where RouteId in (<data-routeid1>, <data-routeid2>)  -->
-										</div>
+                    </div>
+                    <!--Grid column-->
+                    <!--Grid column-->
+                    <div class="col-md-6 col-xl-5 mb-4">
 
+                        <!--Card-->
+                        <div class="card">
 
-									</div><!--- end pop up forms -->
-								</div>
+                            <!--Card content-->
+                            <div class="card-body">
 
-							</div>
+                                <!-- Heading -->
+                                <h4 class="text-muted text-center">
+                                    Controls
+                                </h4>
+                                <hr>
+                                <h6 class="feature-title">At auctor urna nunc id cursus metus aliquam.</h6>
+                                <p class="grey-text">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                    Faucibus vitae aliquet nec ullamcorper. Blandit volutpat maecenas volutpat blandit aliquam.
+                                </p>
 
-						</div>
-						<!--/.Card-->
+                                <div class="list-group  d-flex justify-content-center">
+                                    <!--- buttons and forms  -->
+                                    <div class="row d-flex justify-content-center modalWrapper">
+                                        <div class="modal fade addNewInputs" id="modalAddRoute" tabindex="-1" role="dialog" aria-labelledby="modalAddRoute" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header text-center">
+                                                        <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add an Adhoc Route</h4>
+                                                        <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body mx-3">
+                                                        <h5 class="modal-title w-100 font-weight-bold text-primary ml-5"><i class="fas fa-tools"></i>  Under Construction  <i class="fas fa-mug-hot"></i></h5>
+                                                        <div class="md-form mb-5">
+                                                            <input type="text" id="formAddRoute" class="form-control validate">
+                                                            <label data-error="wrong" data-success="right" for="inputName">Route Name</label>
+                                                        </div>
+                                                        <div class="md-form mb-5">
+                                                            <input type="date" id="inputDate" class="form-control" placeholder="Select Date">
+                                                            <label data-error="wrong" data-success="right" for="inputDate">Schedule Date</label>
+                                                        </div>
+                                                        <div class="md-form mb-5">
+                                                            <input type="number" id="formAddLabour" class="form-control validate">
+                                                            <label data-error="wrong" data-success="right" for="formAddLabour">Labour Hours</label>
+                                                        </div>
+                                                        <div class="md-form mb-5">
+                                                            <span>Greater Area</span>
+                                                            <select class="custom-select d-block w-100" id="formAddGreaterArea" required="">
+                                                                <option>Inlet</option>
+                                                                <option>LNG</option>
+                                                                <option>DOMGAS</option>
+                                                                <option>S&amp;L</option>
+                                                                <option>Utilities</option>
+                                                            </select>
 
-					</div>
-					<!--Grid column-->
+                                                        </div>
 
+                                                        <div class="md-form mb-5">
+                                                            <input type="text" id="inputAge" class="form-control validate">
+                                                            <label data-error="wrong" data-success="right" for="inputAge">Machines</label>
+                                                        </div>
 
-				</div>
-				<!--Grid row-->
+                                                        <div class="mb-5">
+                                                            <ul class="ks-cboxtags">
+                                                                <li><input type="checkbox" id="cbmach1" value="10"><label for="cbmach1">0A-0920-K1A</label></li>
+                                                                <li><input type="checkbox" id="cbmach2" value="11"><label for="cbmach2">0A-0920-K1B</label></li>
+                                                                <li><input type="checkbox" id="cbmach3" value="12"><label for="cbmach3">0A-0920-K1A</label></li>
+                                                                <li><input type="checkbox" id="cbmach4" value="13"><label for="cbmach4">0A-0920-K1B</label></li>
+                                                                <li><input type="checkbox" id="cbmach5" value="15"><label for="cbmach5">0A-0960-K1A</label></li>
+                                                                <li><input type="checkbox" id="cbmach6" value="16"><label for="cbmach6">0A-0960-K1B</label></li>
+                                                                <li><input type="checkbox" id="cbmach7" value="17"><label for="cbmach7">0A-0990-K1A</label></li>
+                                                                <li><input type="checkbox" id="cbmach8" value="18"><label for="cbmach8">0A-0990-K1B</label></li>
+                                                            </ul>
 
-			</section>
-			<!--Section: Sched Maint Header-->
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
+                                                        <button class="btn btn-outline-primary btn-block buttonAdd waves-effect waves-light" data-dismiss="modal">
+                                                            Add form
+                                                            <i class="fas fa-paper-plane-o ml-1"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-			<hr class="my-5">
+                                        <div class="text-center">
+                                            <a href="" class="btn btn-info btn-rounded btn-sm waves-effect waves-light" data-toggle="modal" data-target="#modalAddRoute">
+                                                #### ####<i class="fas fa-plus-square ml-1"></i>
+                                            </a>
+                                        </div><!--- end add form -->
 
-			<!--Grid column-->
-			<div class="col-md-12 mb-4">
+                                        <div class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header text-center">
+                                                        <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit Route</h4>
+                                                        <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body mx-3">
+                                                        <div class="md-form mb-5">
+                                                            <span class="field-label">Route</span>
+                                                            <span class="field-data" id="formEditRoute">0900: Inlet - KJVG Common MEG plant [ GAA ]</span>
+                                                        </div>
 
+                                                        <div class="md-form mb-5">
+                                                            <span class="field-label">Cycle (days)</span>
+                                                            <span class="field-data" id="formEditCycle">56</span>
+                                                        </div>
 
-				<h4 class="text-muted text-center">
-					Select a Completed Route
-				</h4>
-				<!-- <hr>-->
-				<!-- List group -->
-				<div class="list-group py-3" id="myList" role="tablist">
-					<a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center active" data-toggle="list" href="#completedRoute1" role="tab" aria-selected="true">
-						0900: Inlet - KJVG Common MEG plant  [ GAA ]
-						<span class="badge mdb-color white-text badge-pill">3</span>
-					</a>
-					<a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" data-toggle="list" href="#completedRoute2" role="tab" aria-selected="false">
-						0900: Inlet - KJVG Common MEG plant  [ GAH ]
-						<span class="badge mdb-color white-text badge-pill">17</span>
-					</a>
-					<a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" data-toggle="list" href="#completedRoute3" role="tab" aria-selected="false">
-						1901: Inlet - Carbon Dioxide Re-injection Unit Pipe Line and Wells  [ CAA ]
-						<span class="badge mdb-color white-text badge-pill">40</span>
-					</a>
-				</div>
+                                                        <div class="md-form mb-5">
+                                                            <span class="field-label">Labour Hours</span>
+                                                            <span class="field-data" id="formEditLabourHours">1</span>
+                                                        </div>
 
-			</div>
-			<!--Grid column-->
-			<!--Section: Maintenance Table-->
-			<section>
-				<!--Grid row-->
+                                                        <div class="md-form mb-5">
+                                                            <span class="field-label">Plan Date</span>
+                                                            <span class="field-data" id="formEditPlannedDate">4/12/2019</span>
+                                                        </div>
 
-				<div class="row wow fadeIn justify-content-center" style="visibility: visible; animation-name: fadeIn;">
-
-					<!-- Tab panes -->
-					<div class="tab-content col-md-12 py-2" id="machinesOnRoute">
-						<div class="tab-pane active" id="completedRoute1" role="tabpanel">
-							<div class="table-responsive-md">
-								<table id="dtCompletedRoute1" class="rt-table table table-striped table-bordered" cellspacing="0" width="100%">
-									<caption class="text-center text-muted border border-bottom-0 border-light py-3 rgba-grey-slight">
-										0900: Inlet - KJVG Common MEG plant  [ GAA ]
-									</caption>
-									<thead>
-										<tr>
-											<th class="th-sm">Missed | No Action | Anomaly</th>
-											<th class="th-sm">Machine Name</th>
-											<th class="th-sm">Condition</th>
-											<th class="th-sm">Reason</th>
-											<th class="th-sm">Comments</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>
-												<div class="btn-group btn-group-lg" data-toggle="buttons">
-													<label class="rt-radio rt-radio-unique btn btn-sm form-check-label waves-effect waves-light active">
-														<input class="form-check-input" type="radio" name="mt548" id="mt548-missed" checked="">
-														<i class="fas fa-times-circle"></i>
-													</label>
-													<label class="rt-radio rt-radio-default btn btn-sm form-check-label waves-effect waves-light">
-														<input class="form-check-input" type="radio" name="mt548" id="mt548-good"> <i class="fas fa-check-circle"></i>
-													</label>
-													<label class="rt-radio rt-radio-amber btn btn-sm form-check-label waves-effect waves-light">
-														<input class="form-check-input" type="radio" name="mt548" id="mt548-anomaly"> <i class="fas fa-exclamation-triangle"></i>
-													</label>
-												</div>
-											</td>
-											<td>
-												<strong>0PM-0953A</strong> <br> JANSZ Well Head Injection Pump
-</td>
-											<td>
-												No Action<br>
-												<small>	(Unchanged)	</small>
-											</td>
-											<td>
-												<select class="custom-select custom-select-sm">
-													<option selected="">Select a Reason</option>
-													<option value="1">No Access</option>
-													<option value="2">Out of Service</option>
-													<option value="3">Not Running</option>
-												</select>
-											</td>
-											<td><input class="form-control form-control-sm" type="text" placeholder="Additional Comments"></td>
-										</tr>
-										<tr>
-											<td>
-												<div class="btn-group btn-group-lg" data-toggle="buttons">
-													<label class="rt-radio rt-radio-unique btn btn-sm form-check-label waves-effect waves-light active">
-														<input class="form-check-input" type="radio" name="mt548" id="option1" autocomplete="off" checked="">
-														<i class="fas fa-times-circle"></i>
-													</label>
-													<label class="rt-radio rt-radio-default btn btn-sm form-check-label waves-effect waves-light">
-														<input class="form-check-input" type="radio" name="mt548" id="option2" autocomplete="off"> <i class="fas fa-check-circle"></i>
-													</label>
-													<label class="rt-radio rt-radio-amber btn btn-sm form-check-label waves-effect waves-light">
-														<input class="form-check-input" type="radio" name="mt548" id="option3" autocomplete="off"> <i class="fas fa-exclamation-triangle"></i>
-													</label>
-												</div>
-											</td>
-											<td>
-												<strong>0PM-0953B</strong><br> JANSZ Well Head Injection Pump
-</td>
-											<td>
-												No Action<br>
-												<small>	(Unchanged)	</small>
-											</td>
-											<td>
-												<select class="custom-select custom-select-sm">
-													<option selected="">Select a Reason</option>
-													<option value="1">No Access</option>
-													<option value="2">Out of Service</option>
-													<option value="3">Not Running</option>
-												</select>
-											</td>
-											<td><input class="form-control form-control-sm" type="text" placeholder="Additional Comments"></td>
-										</tr>
-										<tr>
-											<td>
-												<div class="btn-group btn-group-lg" data-toggle="buttons">
-													<label class="rt-radio rt-radio-unique btn btn-sm form-check-label waves-effect waves-light">
-														<input class="form-check-input" type="radio" name="mt548" id="option1" autocomplete="off" checked="">
-														<i class="fas fa-times-circle"></i>
-													</label>
-													<label class="rt-radio rt-radio-default btn btn-sm form-check-label waves-effect waves-light">
-														<input class="form-check-input" type="radio" name="mt548" id="option2" autocomplete="off"> <i class="fas fa-check-circle"></i>
-													</label>
-													<label class="rt-radio rt-radio-amber btn btn-sm form-check-label waves-effect waves-light active">
-														<input class="form-check-input" type="radio" name="mt548" id="option3" autocomplete="off"> <i class="fas fa-exclamation-triangle"></i>
-													</label>
-												</div>
-											</td>
-											<td>
-												<strong>0PM-0953C</strong><br> JANSZ Well Head Injection Pump
-											</td>
-											<td>
-												No Action<br>
-												<small>	(Unchanged)	</small>
-											</td>
-											<td>
-												<select class="custom-select custom-select-sm" disabled="">
-													<option selected="">Select a Reason</option>
-													<option value="1">No Access</option>
-													<option value="2">Out of Service</option>
-													<option value="3">Not Running</option>
-												</select>
-											</td>
-											<td><input class="form-control form-control-sm" type="text" placeholder="Additional Comments" disabled=""></td>
-										</tr>
-
-									</tbody>
-									<tfoot>
-										<tr>
-											<th class="th-sm">Missed | No Action | Anomaly</th>
-											<th class="th-sm">Machine Name</th>
-											<th class="th-sm">Condition</th>
-											<th class="th-sm">Inputs</th>
-										</tr>
-									</tfoot>
-								</table>
-
-							</div>
-						</div>
-						<div class="tab-pane" id="completedRoute2" role="tabpanel">
-												x
-						</div>
-						<div class="tab-pane" id="completedRoute3" role="tabpanel">
-												x
-						</div>
-					</div>
-					<!-- Tab panes -->
-					<div class="py-3 col-md-12 ">
-						<button type="submit" class="btn btn-outline-primary waves-effect btn-block">Submit</button>
-					</div>
-				</div>
-				<!-- Tab panes -->
-			</section>
-			<!--Section: Missed Machines -->
-			<hr class="my-5">
-		</div>
-	</main>
-
-			<!-- SCRIPTS -->
-			<!-- JQuery -->
-			<script type="text/javascript" src="../wwwroot/js/jquery-3.4.1.min.js"></script>
-			<!-- Bootstrap tooltips -->
-			<script type="text/javascript" src="../wwwroot/js/popper.min.js"></script>
-			<!-- Bootstrap core JavaScript -->
-			<script type="text/javascript" src="../wwwroot/js/bootstrap.min.js"></script>
-			<!-- MDB core JavaScript -->
-			<script type="text/javascript" src="../wwwroot/js/mdb.min.js"></script><div class="hiddendiv common"></div>
-			<!-- Initializations -->
-			<script type="text/javascript">
-				// Animations initialization
-				new WOW().init();
-			</script>
-			<script type="text/javascript">
-				$(document).on("change","#machinesOnRoute tbody .rt-radio-unique input[type='radio']", function(){
-					$(this).closest("tr").find("input.form-control.form-control-sm").not(this).prop('disabled', false);
-					$(this).closest("tr").find("select").not(this).prop('disabled', false);
-				});
-
-				$(document).on("change","#machinesOnRoute tbody .rt-radio-default input[type='radio']", function(){
-					$(this).closest("tr").find("input.form-control.form-control-sm").not(this).prop('disabled', true);
-					$(this).closest("tr").find("select").not(this).prop('disabled', true);
-				});
-
-				$(document).on("change","#machinesOnRoute tbody .rt-radio-amber input[type='radio']", function(){
-					$(this).closest("tr").find("input.form-control.form-control-sm").not(this).prop('disabled', true);
-					$(this).closest("tr").find("select").not(this).prop('disabled', true);
-				});
-
-			</script>
+                                                        <div class="md-form mb-5">
+                                                            <input type="date" id="formEditScheduleDate" class="form-control validate" value="2019-12-04">
+                                                            <label data-error="wrong" data-success="right" for="formEditScheduleDate">Schedule Date</label>
+                                                        </div>
 
 
+                                                    </div>
+                                                    <div class="modal-footer d-flex justify-content-center editInsideWrapper">
+                                                        <button class="btn btn-outline-secondary btn-block editInside waves-effect waves-light" data-dismiss="modal">
+                                                            Edit form
+                                                            <i class="fas fa-paper-plane-o ml-1"></i>
+                                                        </button>
+                                                        <!-- UPDATE Route_Call SET Schedule_Date = '2019-12-05'  WHERE PK_CallId = (this id);-->
 
-</body></html>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--- Edit form -->
+                                        <!-- Machine list-->
+                                        <div class="modal fade" id="modalMachineList" tabindex="-1" role="dialog" aria-labelledby="modalMachineList" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header text-center">
+                                                        <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Machines</h4>
+                                                        <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body mx-3">
+                                                        <table id="dtMachinesList" class="route-table table table-striped table-bordered table-top-margin" cellspacing="0" width="100%">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="th-sm">Machine Train </th>
+                                                                    <th class="th-sm">Lasted Measured</th>
+                                                                    <th class="th-sm">Condition</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr><td>	1E-1201-K1	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	28/08/2019	</td><td>	No Action	<small>	(Unchanged)	</small></td></tr>
+                                                                <tr><td>	1E-1201-K2	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	28/08/2019	</td><td>	No Action	<small>	(Unchanged)	</small></td></tr>
+                                                                <tr><td>	1E-1201-K3	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	9/05/2019	</td><td>	No Action	<small>	(Unchanged)	</small></td></tr>
+                                                                <tr><td>	1E-1201-K4	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	28/08/2019	</td><td>	Trending	<small>	(Unchanged)	</small></td></tr>
+                                                                <tr><td>	1E-1201-K5	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	28/08/2019	</td><td>	Trending	<small>	(Unchanged)	</small></td></tr>
+                                                                <tr><td>	1E-1201-K6	<br>	Feed Gas Air Pre-cooler - Fan	</td><td>	5/07/2019	</td><td>	No Action	<small>	(Unchanged)	</small></td></tr>
+                                                            </tbody>
+
+                                                        </table>
+
+                                                    </div>
+                                                    <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
+                                                        <button type="button" class="btn btn-info btnYesClass waves-effect waves-light" id="btnYes" data-dismiss="modal">Done</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--- end machines list -->
+                                        <div class="modal fade" id="modalCloseRoutes" tabindex="-1" role="dialog" aria-labelledby="modalCloseRoutes" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header text-center">
+                                                        <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Complete Routes</h4>
+                                                        <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body mx-3">
+                                                        <p class="text-center">
+                                                            Are you sure you want to complete these routes?  <br>
+                                                            These routes will be removed from the displayed schedule.
+                                                        </p>
+
+                                                    </div>
+                                                    <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
+                                                        <button type="button" class="btn btn-danger btnYesClass waves-effect waves-light" id="btnYes" data-dismiss="modal">Yes</button>
+                                                        <button type="button" class="btn btn-primary btnNoClass waves-effect waves-light" id="btnNo" data-dismiss="modal">No</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <button class="btn btn-danger btn-sm waves-effect waves-light" data-toggle="modal" data-target="#modalCloseRoutes">
+                                                #### #### <i class="fas fa-times ml-1"></i>
+                                            </button> <!-- when clicked, query: update Route_Call set Close_Date = SYSDATETIME() where RouteId in (<data-routeid1>, <data-routeid2>)  -->
+                                        </div>
+
+
+                                    </div><!--- end pop up forms -->
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+                    </div>
+                    <!--Grid column-->
+
+
+                </div>
+                <!--Grid row-->
+
+            </section>
+            <!--Section: Sched Maint Header-->
+
+            <hr class="my-5">
+
+            <!--Grid column-->
+            <div class="col-md-12 mb-4">
+
+
+                <h4 class="text-muted text-center">
+                    Select a Completed Route
+                </h4>
+                <!-- <hr>-->
+                <!-- List group -->
+                <div class="list-group py-3" id="myList" role="tablist">
+                    <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center active" data-toggle="list" href="#completedRoute1" role="tab" aria-selected="true">
+                        0900: Inlet - KJVG Common MEG plant  [ GAA ]
+                        <span class="badge mdb-color white-text badge-pill">3</span>
+                    </a>
+                    <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" data-toggle="list" href="#completedRoute2" role="tab" aria-selected="false">
+                        0900: Inlet - KJVG Common MEG plant  [ GAH ]
+                        <span class="badge mdb-color white-text badge-pill">17</span>
+                    </a>
+                    <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" data-toggle="list" href="#completedRoute3" role="tab" aria-selected="false">
+                        1901: Inlet - Carbon Dioxide Re-injection Unit Pipe Line and Wells  [ CAA ]
+                        <span class="badge mdb-color white-text badge-pill">40</span>
+                    </a>
+                </div>
+
+            </div>
+            <!--Grid column-->
+            <!--Section: Maintenance Table-->
+            <section>
+                <!--Grid row-->
+
+                <div class="row wow fadeIn justify-content-center" style="visibility: visible; animation-name: fadeIn;">
+
+                    <!-- Tab panes -->
+                    <div class="tab-content col-md-12 py-2" id="machinesOnRoute">
+                        <div class="tab-pane active" id="completedRoute1" role="tabpanel">
+                            <div class="table-responsive-md">
+                                <table id="dtCompletedRoute1" class="rt-table table table-striped table-bordered" cellspacing="0" width="100%">
+                                    <caption class="text-center text-muted border border-bottom-0 border-light py-3 rgba-grey-slight">
+                                        0900: Inlet - KJVG Common MEG plant  [ GAA ]
+                                    </caption>
+                                    <thead>
+                                        <tr>
+                                            <th class="th-sm">Missed | No Action | Anomaly</th>
+                                            <th class="th-sm">Machine Name</th>
+                                            <th class="th-sm">Condition</th>
+                                            <th class="th-sm">Reason</th>
+                                            <th class="th-sm">Comments</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="btn-group btn-group-lg" data-toggle="buttons">
+                                                    <label class="rt-radio rt-radio-unique btn btn-sm form-check-label waves-effect waves-light active">
+                                                        <input class="form-check-input" type="radio" name="mt548" id="mt548-missed" checked="">
+                                                        <i class="fas fa-times-circle"></i>
+                                                    </label>
+                                                    <label class="rt-radio rt-radio-default btn btn-sm form-check-label waves-effect waves-light">
+                                                        <input class="form-check-input" type="radio" name="mt548" id="mt548-good"> <i class="fas fa-check-circle"></i>
+                                                    </label>
+                                                    <label class="rt-radio rt-radio-amber btn btn-sm form-check-label waves-effect waves-light">
+                                                        <input class="form-check-input" type="radio" name="mt548" id="mt548-anomaly"> <i class="fas fa-exclamation-triangle"></i>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <strong>0PM-0953A</strong> <br> JANSZ Well Head Injection Pump
+                                            </td>
+                                            <td>
+                                                No Action<br>
+                                                <small>	(Unchanged)	</small>
+                                            </td>
+                                            <td>
+                                                <select class="custom-select custom-select-sm">
+                                                    <option selected="">Select a Reason</option>
+                                                    <option value="1">No Access</option>
+                                                    <option value="2">Out of Service</option>
+                                                    <option value="3">Not Running</option>
+                                                </select>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text" placeholder="Additional Comments"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="btn-group btn-group-lg" data-toggle="buttons">
+                                                    <label class="rt-radio rt-radio-unique btn btn-sm form-check-label waves-effect waves-light active">
+                                                        <input class="form-check-input" type="radio" name="mt548" id="option1" autocomplete="off" checked="">
+                                                        <i class="fas fa-times-circle"></i>
+                                                    </label>
+                                                    <label class="rt-radio rt-radio-default btn btn-sm form-check-label waves-effect waves-light">
+                                                        <input class="form-check-input" type="radio" name="mt548" id="option2" autocomplete="off"> <i class="fas fa-check-circle"></i>
+                                                    </label>
+                                                    <label class="rt-radio rt-radio-amber btn btn-sm form-check-label waves-effect waves-light">
+                                                        <input class="form-check-input" type="radio" name="mt548" id="option3" autocomplete="off"> <i class="fas fa-exclamation-triangle"></i>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <strong>0PM-0953B</strong><br> JANSZ Well Head Injection Pump
+                                            </td>
+                                            <td>
+                                                No Action<br>
+                                                <small>	(Unchanged)	</small>
+                                            </td>
+                                            <td>
+                                                <select class="custom-select custom-select-sm">
+                                                    <option selected="">Select a Reason</option>
+                                                    <option value="1">No Access</option>
+                                                    <option value="2">Out of Service</option>
+                                                    <option value="3">Not Running</option>
+                                                </select>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text" placeholder="Additional Comments"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="btn-group btn-group-lg" data-toggle="buttons">
+                                                    <label class="rt-radio rt-radio-unique btn btn-sm form-check-label waves-effect waves-light">
+                                                        <input class="form-check-input" type="radio" name="mt548" id="option1" autocomplete="off" checked="">
+                                                        <i class="fas fa-times-circle"></i>
+                                                    </label>
+                                                    <label class="rt-radio rt-radio-default btn btn-sm form-check-label waves-effect waves-light">
+                                                        <input class="form-check-input" type="radio" name="mt548" id="option2" autocomplete="off"> <i class="fas fa-check-circle"></i>
+                                                    </label>
+                                                    <label class="rt-radio rt-radio-amber btn btn-sm form-check-label waves-effect waves-light active">
+                                                        <input class="form-check-input" type="radio" name="mt548" id="option3" autocomplete="off"> <i class="fas fa-exclamation-triangle"></i>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <strong>0PM-0953C</strong><br> JANSZ Well Head Injection Pump
+                                            </td>
+                                            <td>
+                                                No Action<br>
+                                                <small>	(Unchanged)	</small>
+                                            </td>
+                                            <td>
+                                                <select class="custom-select custom-select-sm" disabled="">
+                                                    <option selected="">Select a Reason</option>
+                                                    <option value="1">No Access</option>
+                                                    <option value="2">Out of Service</option>
+                                                    <option value="3">Not Running</option>
+                                                </select>
+                                            </td>
+                                            <td><input class="form-control form-control-sm" type="text" placeholder="Additional Comments" disabled=""></td>
+                                        </tr>
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th class="th-sm">Missed | No Action | Anomaly</th>
+                                            <th class="th-sm">Machine Name</th>
+                                            <th class="th-sm">Condition</th>
+                                            <th class="th-sm">Inputs</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="completedRoute2" role="tabpanel">
+                            x
+                        </div>
+                        <div class="tab-pane" id="completedRoute3" role="tabpanel">
+                            x
+                        </div>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="py-3 col-md-12 ">
+                        <button type="submit" class="btn btn-outline-primary waves-effect btn-block">Submit</button>
+                    </div>
+                </div>
+                <!-- Tab panes -->
+            </section>
+            <!--Section: Missed Machines -->
+            <hr class="my-5">
+        </div>
+    </main>
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="../wwwroot/js/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="../wwwroot/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="../wwwroot/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="../wwwroot/js/mdb.min.js"></script><div class="hiddendiv common"></div>
+    <!-- Initializations -->
+    <script type="text/javascript">
+        // Animations initialization
+        new WOW().init();
+    </script>
+    <script type="text/javascript">
+        $(document).on("change", "#machinesOnRoute tbody .rt-radio-unique input[type='radio']", function () {
+            $(this).closest("tr").find("input.form-control.form-control-sm").not(this).prop('disabled', false);
+            $(this).closest("tr").find("select").not(this).prop('disabled', false);
+        });
+
+        $(document).on("change", "#machinesOnRoute tbody .rt-radio-default input[type='radio']", function () {
+            $(this).closest("tr").find("input.form-control.form-control-sm").not(this).prop('disabled', true);
+            $(this).closest("tr").find("select").not(this).prop('disabled', true);
+        });
+
+        $(document).on("change", "#machinesOnRoute tbody .rt-radio-amber input[type='radio']", function () {
+            $(this).closest("tr").find("input.form-control.form-control-sm").not(this).prop('disabled', true);
+            $(this).closest("tr").find("select").not(this).prop('disabled', true);
+        });
+
+    </script>
+
+
+
+</body>
+</html>
