@@ -322,7 +322,7 @@
                                             <span class="rpt-option selected" observationtypeid="default">Select an observation category</span>
                                             @foreach (var item in Model.ObservationType_List)
                                             {
-                                                <span class="rpt-option" observationtypeid="@(item.PkObservationTypeId)">@item.ObservationType1</span>   
+                                                <span class="rpt-option" observationtypeid="@(item.PkObservationTypeId)">@item.ObservationType1</span>
                                             }
                                             <span class="rpt-header">Custom Entry</span>
                                             <span class="rpt-option" observationtypeid="Other">Other</span>
@@ -437,7 +437,29 @@
                             </div>
 
                         </div>
+
+                        <!--Card content-->
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                @foreach (var item in Model.ReportFiles_All)
+                                {
+                                    <li class="media">
+                                        <img class="d-flex mr-3" src="~/MachineAttach/@(item.FileName)" alt="Generic placeholder image" width=25%, height=25%>
+                                        <div class="media-body">
+                                            Uploaded By: @item.UploadedBy
+                                            <br />
+                                            Uploaded Date: @item.UploadDate
+                                            <br />
+                                            <button reportfileid="@item.PkFilePathId" class="btn btn-primary btn-lg btn-block btnDeleteReportFile"  type="submit" form="deletereportfileform">Delete This Attachment</button>
+                                        </div>
+                                    </li>
+                                    <br />
+                                }
+                            </ul>
+                        </div>
                     </div>
+
+
                     <!--./SUBFORM: Attachments -->
                     <!--DISPLAY:  Report Timeline -->
                     <div class="card mb-4" id="historicReports">
@@ -626,6 +648,11 @@
         </div>
 
     </div>
+
+    <form method="post" asp-page-handler="deletereportfile" id="deletereportfileform">
+        <input type="hidden" asp-for="ReportFileID_ToDelete" id="ReportFileID_ToDelete" />
+        <input type="hidden" asp-for="SelectedReportId" value="@Model.Current_Displayed_Report.ReportId" />
+    </form>
     <!--Section: Report Form-->
     <!--- buttons and forms  -->
     <div class="row d-flex justify-content-center modalWrapper">
@@ -722,9 +749,9 @@
 
                 selectedFaultType.addEventListener('change', function () {
                     // must select a fault type
-                
+
                     selectedAction.querySelector('.rpt-select__trigger span').textContent = "Please Select An Action";
-                    
+
                     var index = 0;
                     for (const option of selectedAction.querySelectorAll('.rpt-option')) {
                         if (option.getAttribute('faulttype') !== this.value) {
@@ -826,7 +853,7 @@
 
             function addAction() {
                 if (actionSelected.textContent !== "") {
-                    
+
                     // Don't build new HTML by concatenating strings. Create elements and configure them as objects
                     var li = document.createElement("li");
                     li.textContent = actionSelected.textContent;
@@ -881,7 +908,7 @@
 
             function addObservation() {
                 if (observationSelected.textContent !== "") {
-                    
+
                     // Don't build new HTML by concatenating strings. Create elements and configure them as objects
                     var li = document.createElement("li");
                     li.textContent = observationSelected.textContent;
@@ -1019,6 +1046,19 @@
             });
         </script>
 
+        <script>
+            $(document).on("click", ".btnDeleteReportFile", function () {
+                //alert("123456");
+                //alert($(this)[0]);
+                var id = $(this)[0].getAttribute('reportfileid');
+                //alert(id);
+                document.getElementById('ReportFileID_ToDelete').setAttribute('value', id);
+                //alert(document.getElementById('ReportFileID_ToDelete').getAttribute('value'));
+                // submit form
+                $('#deletereportfileform').submit();
+            });
+
+        </script>
         <script>
             // change select list
             $("#componenttypeselect").change(function () {

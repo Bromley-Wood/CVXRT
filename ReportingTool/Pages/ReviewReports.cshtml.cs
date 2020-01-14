@@ -53,6 +53,11 @@ namespace Reportingtool.Pages
         public List<string> selected_status_list = new List<string> { "", "selected" };
         public List<string> active_status_list = new List<string> { "", "active" };
 
+        public List<ReportFiles> ReportFiles_All { get; set; }
+
+        [BindProperty]
+        public int ReportFileID_ToDelete { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
 
@@ -132,12 +137,45 @@ namespace Reportingtool.Pages
             Report_To_Update = _context.TstReport.FirstOrDefault(r => r.PkReportId == Current_Displayed_Report.ReportId);
             Fault_To_Update = _context.TstFault.FirstOrDefault(f => f.PkFaultId == Current_Displayed_Report.FaultId);
 
+            //------------------------------------------------------------------//
+
+            ReportFiles_All = await _context.ReportFiles
+                .Where(f => f.FkReportId == Current_Displayed_Report.ReportId)
+                .AsNoTracking()
+                .ToListAsync();
+
             return Page();
         }
 
         public IActionResult OnPostLoadSelectedReport()
         {
             return RedirectToPage("/ReviewReports", new { id = SelectedReportId });
+        }
+
+
+        public async Task<IActionResult> OnPostDeleteReportFile()
+
+        {
+            Console.WriteLine("HelloHelloHelloHelloHello");
+            Console.WriteLine(ReportFileID_ToDelete);
+            Console.WriteLine("HelloHelloHelloHelloHello");
+            var ReportFile = await _context.ReportFiles.FindAsync(ReportFileID_ToDelete);
+
+            if (ReportFile == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                _context.ReportFiles.Remove(ReportFile);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("/ReviewReports", new { id = SelectedReportId });
+            }
+            catch (DbUpdateException /* ex */)
+            {
+                throw;
+            }
         }
 
         public async Task<IActionResult> OnPostUpdateReportFault()
@@ -255,7 +293,7 @@ namespace Reportingtool.Pages
                     file.CopyTo(fileStream);
                 }
             }
-            
+
             //--------------- Upload Attachments----------------------------//
             return RedirectToPage("/ReviewReports", new { id = Report_To_Update.PkReportId });
         }
