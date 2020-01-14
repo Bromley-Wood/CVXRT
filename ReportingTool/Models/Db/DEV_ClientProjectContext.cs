@@ -176,6 +176,10 @@ namespace Reportingtool.Models.Db
                     .HasColumnName("Close_Date")
                     .HasColumnType("datetime");
 
+                entity.Property(e => e.ClosureComment)
+                    .HasColumnName("Closure_Comment")
+                    .HasMaxLength(255);
+
                 entity.Property(e => e.CreateDate)
                     .HasColumnName("Create_Date")
                     .HasColumnType("datetime");
@@ -466,17 +470,15 @@ namespace Reportingtool.Models.Db
 
             modelBuilder.Entity<ReportFiles>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.PkFilePathId);
 
                 entity.ToTable("Report_Files");
+
+                entity.Property(e => e.PkFilePathId).HasColumnName("PK_FilePathId");
 
                 entity.Property(e => e.FileName).IsRequired();
 
                 entity.Property(e => e.FkReportId).HasColumnName("FK_ReportId");
-
-                entity.Property(e => e.PkFilePathId)
-                    .HasColumnName("PK_FilePathId")
-                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.UploadDate)
                     .HasColumnName("Upload_Date")
@@ -690,6 +692,10 @@ namespace Reportingtool.Models.Db
                 entity.Property(e => e.CloseDate)
                     .HasColumnName("Close_Date")
                     .HasColumnType("datetime");
+
+                entity.Property(e => e.ClosureComment)
+                    .HasColumnName("Closure_Comment")
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.CreateDate)
                     .HasColumnName("Create_Date")

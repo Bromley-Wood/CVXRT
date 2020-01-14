@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Linq;
 using System;
 using System.ComponentModel;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace Reportingtool.Pages
 {
@@ -47,10 +49,11 @@ namespace Reportingtool.Pages
         [BindProperty]
         public TstFault Fault_To_Update { get; set; }
 
+
         public List<string> selected_status_list = new List<string> { "", "selected" };
         public List<string> active_status_list = new List<string> { "", "active" };
 
-    public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
 
 
@@ -179,15 +182,81 @@ namespace Reportingtool.Pages
             //--------------- Update Fault if FaultType is null ----------------------------//
 
             //--------------- Update Report----------------------------//
-            foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(Report_To_Update))
+            //foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(Report_To_Update))
+            //{
+            //    string name = descriptor.Name;
+            //    object value = descriptor.GetValue(Report_To_Update);
+            //    Console.WriteLine($"{name} = {value}");
+            //}
+            var Updated_Report = await _context.TstReport.FirstOrDefaultAsync(f => f.PkReportId == Report_To_Update.PkReportId);
+            Updated_Report.FkReportTypeId = Report_To_Update.FkReportTypeId;
+            Updated_Report.FkConditionId = Report_To_Update.FkConditionId;
+            Updated_Report.ReportDate = Report_To_Update.ReportDate;
+            Updated_Report.Observations = Report_To_Update.Observations;
+            Updated_Report.Actions = Report_To_Update.Actions;
+            Updated_Report.ExternalNotes = Report_To_Update.ExternalNotes;
+            Updated_Report.NotificationNo = Report_To_Update.NotificationNo;
+            Updated_Report.WorkOrderNo = Report_To_Update.WorkOrderNo;
+            Updated_Report.AnalystNotes = Report_To_Update.AnalystNotes;
+            Updated_Report.FkReportStageId = Report_To_Update.FkReportStageId;
+
+            _context.Attach(Updated_Report).State = EntityState.Modified;
+
+            try
             {
-                string name = descriptor.Name;
-                object value = descriptor.GetValue(Report_To_Update);
-                Console.WriteLine($"{name} = {value}");
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ReportExists(Report_To_Update.PkReportId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
             //--------------- Update Report----------------------------//
 
+            //--------------- Upload Attachments----------------------------//
+            var UploadFileList = HttpContext.Request.Form.Files;
+            foreach (var file in UploadFileList)
+            {
 
+                ReportFiles New_ReportFile = new ReportFiles();
+
+                Console.WriteLine(file.FileName);
+                New_ReportFile.FileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file.FileName);
+                New_ReportFile.FkReportId = Report_To_Update.PkReportId;
+                New_ReportFile.UploadDate = DateTime.Now;
+                New_ReportFile.UploadedBy = Current_User;
+
+                _context.ReportFiles.Add(New_ReportFile);
+                try
+                {
+                    _context.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ReportFileExists(New_ReportFile.PkFilePathId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                string save_path = $"wwwroot\\MachineAttach\\{New_ReportFile.FileName}";
+                //string save_path = $"c:\\MachineAttach\\{New_Machine_Train_File.FileName}";
+                using (var fileStream = new FileStream(save_path, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+            }
+            
+            //--------------- Upload Attachments----------------------------//
             return RedirectToPage("/ReviewReports", new { id = Report_To_Update.PkReportId });
         }
 
@@ -199,6 +268,11 @@ namespace Reportingtool.Pages
         private bool ReportExists(int id)
         {
             return _context.TstReport.Any(e => e.PkReportId == id);
+        }
+
+        private bool ReportFileExists(int id)
+        {
+            return _context.ReportFiles.Any(e => e.PkFilePathId == id);
         }
 
     }

@@ -18,5 +18,6 @@ namespace Reportingtool.Models.Db
         public double? ProductionImpactCost { get; set; }
         public bool FaultIsActive { get; set; }
         public string Status { get; set; }
+        public string ClosureComment { get; set; }
     }
 }
