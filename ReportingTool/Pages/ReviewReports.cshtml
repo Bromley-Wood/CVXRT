@@ -94,7 +94,7 @@
                                                 <h6 class="my-0">@in_p_report.MachineTrain</h6>
                                                 <small>@in_p_report.PrimaryComponentType & @in_p_report.FaultType</small>
                                             </div>
-                                            <span>@in_p_report.Condition</span>
+                                            <small>@in_p_report.Condition</small>
                                         }
                                     }
                                 </a>
@@ -112,13 +112,17 @@
 
 
             <div class="col-md-8 order-md-1 py-5">
+                <!--add multipart/form-data for submitting files-->
+
                 <form method="post" asp-page-handler="updatereportfault" id="updatereportfaultform" enctype="multipart/form-data">
+
                     <input type="hidden" asp-for="Fault_To_Update.PkFaultId" value=@Model.Fault_To_Update.PkFaultId>
-                    <input type="hidden" asp-for="Fault_To_Update.FkFaultTypeId" value=@Model.Fault_To_Update.FkFaultTypeId>
+
                     <input type="hidden" asp-for="Report_To_Update.PkReportId" value=@Model.Report_To_Update.PkReportId>
 
                     @if (Model.Current_Displayed_Report.FaultType != null)
                     {
+                        <input type="hidden" asp-for="Fault_To_Update.FkFaultTypeId" value=@Model.Fault_To_Update.FkFaultTypeId>
                         <!--DISPLAY: Fault Attribute card-->
                         <!-- This section to show if a report is being created on an existing fault -->
                         <div class="card mb-4 wow fadeIn">
@@ -427,9 +431,9 @@
                             </div>
 
                             <div class="input-group">
-                                <div class="input-group-prepend">
+                                @*<div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                                </div>
+                                </div>*@
                                 <div class="custom-file">
                                     <input type="file" name="reportAttachments" id="reportAttachments" multiple="multiple" accept="image/*">
                                     <label class="custom-file-label" for="reportAttachments">Choose file</label>
@@ -450,7 +454,7 @@
                                             <br />
                                             Uploaded Date: @item.UploadDate
                                             <br />
-                                            <button reportfileid="@item.PkFilePathId" class="btn btn-primary btn-lg btn-block btnDeleteReportFile"  type="submit" form="deletereportfileform">Delete This Attachment</button>
+                                            <button reportfileid="@item.PkFilePathId" class="btn btn-primary btn-lg btn-block btnDeleteReportFile" type="submit" form="deletereportfileform">Delete This Attachment</button>
                                         </div>
                                     </li>
                                     <br />
@@ -739,7 +743,7 @@
         <script>
             // filter actions
 
-            if (document.getElementById('Fault_To_Update_FkFaultTypeId').value == "") { // create a new fault
+            if (document.getElementById('Fault_To_Update_FkFaultTypeId') == null) { // create a new fault
 
 
                 var selectedFaultType = document.getElementById('faulttypeselect');

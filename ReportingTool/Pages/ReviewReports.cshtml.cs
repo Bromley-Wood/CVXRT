@@ -180,16 +180,18 @@ namespace Reportingtool.Pages
 
         public async Task<IActionResult> OnPostUpdateReportFault()
         {
-            //--------------- Update Fault if FaultType is null ----------------------------//
-            if (Fault_To_Update.FkFaultTypeId == null)
-            {
+            Current_Displayed_Report = _context.VTstReportSummary.FirstOrDefault(r => r.ReportId == Report_To_Update.PkReportId);
 
-                //foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(Fault_To_Update))
-                //{
-                //    string name = descriptor.Name;
-                //    object value = descriptor.GetValue(Fault_To_Update);
-                //    Console.WriteLine($"{name} = {value}");
-                //}
+
+            //--------------- Update Fault if FaultType is null ----------------------------//
+            if (Current_Displayed_Report.FaultTypeId == null)
+            {
+                foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(Fault_To_Update))
+                {
+                    string name = descriptor.Name;
+                    object value = descriptor.GetValue(Fault_To_Update);
+                    Console.WriteLine($"{name} = {value}");
+                }
 
                 var Updated_Fault = await _context.TstFault.FirstOrDefaultAsync(f => f.PkFaultId == Fault_To_Update.PkFaultId);
                 Updated_Fault.FkTechnologyId = Fault_To_Update.FkTechnologyId;
