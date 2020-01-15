@@ -557,7 +557,7 @@
                                             <span class="rpt-option selected" observationtypeid="default">Select an observation</span>
                                             @foreach (var item in Model.Observation_List)
                                             {
-                                                <span class="rpt-option" observationtypeid="@(item.FkObservationTypeId)">@item.Observation1</span>
+                                                <span class="rpt-option" style="display: none;" observationtypeid="@(item.FkObservationTypeId)">@item.Observation1</span>
                                             }
                                         </div>
                                     </div>
@@ -594,7 +594,7 @@
                                             <span class="rpt-header">Listed by least intrusive (top) to most intrusive (bottom)</span>
                                             @foreach (var item in Model.Action_List)
                                             {
-                                                <span class="rpt-option" faulttype="@item.FkFaultTypeId">@item.Action1</span>
+                                                <span class="rpt-option" style="display: none;" faulttype="@item.FkFaultTypeId">@item.Action1</span>
                                             }
                                         </div>
                                     </div>
