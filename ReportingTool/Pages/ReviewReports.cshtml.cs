@@ -23,8 +23,7 @@ namespace Reportingtool.Pages
             _context = context;
         }
 
-        [BindProperty]
-        public int SelectedReportId { get; set; }
+        [BindProperty] public int SelectedReportId { get; set; }
         public IList<VTstReportSummary> VTstReportSummary_InProgress { get; set; }
         public IList<string> UnitReference_InProgress { get; set; }
 
@@ -43,11 +42,9 @@ namespace Reportingtool.Pages
 
         public VTstReportSummary Current_Displayed_Report { get; set; }
 
-        [BindProperty]
-        public TstReport Report_To_Update { get; set; }
+        [BindProperty] public TstReport Report_To_Update { get; set; }
 
-        [BindProperty]
-        public TstFault Fault_To_Update { get; set; }
+        [BindProperty] public TstFault Fault_To_Update { get; set; }
 
 
         public List<string> selected_status_list = new List<string> { "", "selected" };
@@ -55,8 +52,9 @@ namespace Reportingtool.Pages
 
         public List<ReportFiles> ReportFiles_All { get; set; }
 
-        [BindProperty]
-        public int ReportFileID_ToDelete { get; set; }
+        [BindProperty] public int ReportFileID_ToDelete { get; set; }
+
+        public List<TstReport> ReportHistoryList { get; set; } 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -141,6 +139,13 @@ namespace Reportingtool.Pages
 
             ReportFiles_All = await _context.ReportFiles
                 .Where(f => f.FkReportId == Current_Displayed_Report.ReportId)
+                .AsNoTracking()
+                .ToListAsync();
+
+            //------------------------------------------------------------------//
+
+            ReportHistoryList = await _context.TstReport
+                .Where(r => r.FkFaultId == Current_Displayed_Report.FaultId)
                 .AsNoTracking()
                 .ToListAsync();
 
