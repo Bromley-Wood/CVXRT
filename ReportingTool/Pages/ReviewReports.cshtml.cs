@@ -146,6 +146,7 @@ namespace Reportingtool.Pages
 
             ReportHistoryList = await _context.TstReport
                 .Where(r => r.FkFaultId == Current_Displayed_Report.FaultId)
+                .OrderByDescending(r => r.ReportDate)
                 .AsNoTracking()
                 .ToListAsync();
 

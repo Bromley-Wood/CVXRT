@@ -680,23 +680,24 @@
                             <hr />
                             <div class="row">
                                 <nav id="historicReportsNav" class="flex-column col-3 nav nav-pills">
-                                    @foreach (var item in Model.ReportHistoryList)
+                                    @for (int idx = 0; idx < Model.ReportHistoryList.Count; ++idx)
                                     {
+                                        var item = Model.ReportHistoryList[idx];
                                         if (item.FkConditionId == 1) // Magnitude 2; No Action
                                         {
-                                            <div class="rpt-stepper"><a class="nav-link" href="#@(item.PkReportId)"> @(((DateTime)item.ReportDate).ToString("MM/dd/yyyy")) <i class="fas fa-square text-default pl-2"></i></a></div>
+                                            <div class="rpt-stepper"><a class="nav-link @Model.active_status_list[Convert.ToInt32(idx == 0)]" href="#@(item.PkReportId)"> @(((DateTime)item.ReportDate).ToString("dd/MM/yyyy")) <i class="fas fa-square text-default pl-2"></i></a></div>
                                         }
                                         else if (item.FkConditionId == 2) // Magnitude 3; Trending
                                         {
-                                            <div class="rpt-stepper"><a class="nav-link" href="#@(item.PkReportId)"> @(((DateTime)item.ReportDate).ToString("MM/dd/yyyy")) <i class="fas fa-square text-warning pl-2"></i></a></div>
+                                            <div class="rpt-stepper"><a class="nav-link @Model.active_status_list[Convert.ToInt32(idx == 0)]" href="#@(item.PkReportId)"> @(((DateTime)item.ReportDate).ToString("dd/MM/yyyy")) <i class="fas fa-square text-warning pl-2"></i></a></div>
                                         }
                                         else if (item.FkConditionId == 3) // Magnitude 4; Plan Intervention
                                         {
-                                            <div class="rpt-stepper"><a class="nav-link" href="#@(item.PkReportId)"> @(((DateTime)item.ReportDate).ToString("MM/dd/yyyy")) <i class="fas fa-square text-alert pl-2"></i></a></div>
+                                            <div class="rpt-stepper"><a class="nav-link @Model.active_status_list[Convert.ToInt32(idx == 0)]" href="#@(item.PkReportId)"> @(((DateTime)item.ReportDate).ToString("dd/MM/yyyy")) <i class="fas fa-square text-alert pl-2"></i></a></div>
                                         }
                                         else if (item.FkConditionId == 4) // Magnitude 5; Prompt Intervention
                                         {
-                                            <div class="rpt-stepper"><a class="nav-link" href="#@(item.PkReportId)"> @(((DateTime)item.ReportDate).ToString("MM/dd/yyyy")) <i class="fas fa-square text-danger pl-2"></i></a></div>
+                                            <div class="rpt-stepper"><a class="nav-link @Model.active_status_list[Convert.ToInt32(idx == 0)]" href="#@(item.PkReportId)"> @(((DateTime)item.ReportDate).ToString("dd/MM/yyyy")) <i class="fas fa-square text-danger pl-2"></i></a></div>
                                         }
                                     }
                                 </nav>
@@ -730,7 +731,7 @@
                                                     </h4>
                                                 }
                                             }
-                                        <span><i class="far fa-calendar-alt"></i> @(((DateTime)item.ReportDate).ToString("MM/dd/yyyy")) </span>
+                                            <span><i class="far fa-calendar-alt"></i> @(((DateTime)item.ReportDate).ToString("dd/MM/yyyy")) </span>
 
                                         </section>
                                         <hr />
