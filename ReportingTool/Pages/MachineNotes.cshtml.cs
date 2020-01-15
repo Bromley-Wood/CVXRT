@@ -239,7 +239,13 @@ namespace Reportingtool.Pages
 
         public async Task<IActionResult> OnPostGoToMachineTrain()
         {
-            return RedirectToPage("/Machinenotes", new { id = Machine_Train_Id });
+            if (_context.Machine_Train.Any(m => m.MachineTrainId == Machine_Train_Id))
+            {
+                return RedirectToPage("/Machinenotes", new { id = Machine_Train_Id });
+            }
+            else {
+                return RedirectToPage("/Machinenotes", new { id = 1 });
+            }
         }
 
 
