@@ -23,5 +23,7 @@ namespace Reportingtool.Models.Db
         public string ReviewerName { get; set; }
         public bool ReportIsActive { get; set; }
         public int? OriginCallId { get; set; }
+
+        public List<ReportFiles> ReportFile_List { get; set; }
     }
 }

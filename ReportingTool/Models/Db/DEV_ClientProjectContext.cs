@@ -466,6 +466,8 @@ namespace Reportingtool.Models.Db
                     .HasMaxLength(100);
 
                 entity.Property(e => e.WorkOrderNo).HasColumnName("Work_Order_No");
+
+                entity.HasMany(e => e.ReportFile_List).WithOne().HasForeignKey(FK => FK.FkReportId);
             });
 
             modelBuilder.Entity<ReportFiles>(entity =>
@@ -784,6 +786,8 @@ namespace Reportingtool.Models.Db
                     .HasMaxLength(100);
 
                 entity.Property(e => e.WorkOrderNo).HasColumnName("Work_Order_No");
+
+                entity.HasMany(e => e.ReportFile_List).WithOne().HasForeignKey(FK => FK.FkReportId);
             });
 
             modelBuilder.Entity<TstRouteCall>(entity =>

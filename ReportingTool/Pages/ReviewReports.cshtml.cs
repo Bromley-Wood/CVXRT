@@ -146,6 +146,8 @@ namespace Reportingtool.Pages
 
             ReportHistoryList = await _context.TstReport
                 .Where(r => r.FkFaultId == Current_Displayed_Report.FaultId)
+                .Where(r => r.PkReportId != Current_Displayed_Report.ReportId)
+                .Include(r => r.ReportFile_List)
                 .OrderByDescending(r => r.ReportDate)
                 .AsNoTracking()
                 .ToListAsync();
@@ -320,6 +322,7 @@ namespace Reportingtool.Pages
         {
             return _context.ReportFiles.Any(e => e.PkFilePathId == id);
         }
+
 
     }
 }
