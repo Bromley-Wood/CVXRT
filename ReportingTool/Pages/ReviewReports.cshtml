@@ -644,9 +644,14 @@
                                 <textarea type="text" id="formInternalNotes" asp-for="Report_To_Update.AnalystNotes" class="form-control" rows="3"></textarea>
                             </div>
                             <br />
-
-                            <input id="btnChooseFile" type="button" class="btn btn-primary btn-lg btn-block waves-effect waves-light" value="Click here to upload files" onclick="document.getElementById('reportAttachments').click();" />
-                            <input type="file" name="reportAttachments" id="reportAttachments" multiple="multiple" accept="image/*" style="display: none" />
+                            
+                                
+                            <div class="card-body">
+                                @*<input id="btnChooseFile" type="button" class="btn btn-primary btn-lg btn-block" value="Click here to upload files" onclick="document.getElementById('reportAttachments').click();" />*@
+                                <input type="file" name="reportAttachments" id="reportAttachments" multiple="multiple" accept="image/*" style="display: none" />
+                                <button type="button" class="btn btn-primary btn-lg btn-block" id="btnChooseFile" onclick="document.getElementById('reportAttachments').click();">Click here to upload files</button>
+                            </div>
+                            
 
                             <div class="input-group">
                                 <!--Card content-->
@@ -661,7 +666,7 @@
                                                     <br />
                                                     Uploaded Date: @item.UploadDate
                                                     <br />
-                                                    <button reportfileid="@item.PkFilePathId" class="btn btn-lg btn-block btnDeleteReportFile" type="submit" form="deletereportfileform">Delete This Attachment</button>
+                                                    <button reportfileid="@item.PkFilePathId" class="btn btn-info btn-rounded btn-sm btnDeleteReportFile" style="color:black; font-size:10pt" type="submit" form="deletereportfileform">Delete This Attachment</button>
                                                 </div>
                                             </li>
                                             <br />
@@ -1311,7 +1316,7 @@
 
         <script>
             $("#reportAttachments").change(function () {
-                document.getElementById('btnChooseFile').value = document.getElementById('reportAttachments').files.length + " image(s) will be uploaded";
+                document.getElementById('btnChooseFile').textContent = document.getElementById('reportAttachments').files.length + " image(s) will be uploaded";
             });
         </script>
     }
