@@ -1,0 +1,10 @@
+﻿@model List<ReportingTool.Models.Report>
+
+<table class="table table-striped">
+    @foreach (var report in Model)
+    {
+        <tr>
+            <td>@report.Measurement_Date</td>
+        </tr>
+    }
+</table>

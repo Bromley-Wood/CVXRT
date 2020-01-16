@@ -30,6 +30,10 @@
                         </div>
                     </div>
                     <!--/.Featured Image-->
+
+                    <p><button class="btn btn-primary" id="btntestpartialview">Load</button></p>
+                    <div id="testpartialview"></div>
+
                     <!--Display Machine Notes-->
                     <div class="card mb-4 wow fadeIn">
 
@@ -300,5 +304,13 @@
 
 
             });
+    </script>
+
+    <script>
+        $(function () {
+            $('#btntestpartialview').on('click', function () {
+                $('#testpartialview').load('/MachineNotes?handler=ReportsPartial');
+            });
+        });
     </script>
 }
