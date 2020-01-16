@@ -1337,12 +1337,18 @@
 
         <script>
             $(document).ready(function () {
-                document.getElementById('AddNewFaultMachineName').innerHTML  = document.getElementById('ModifyCustomMachineTrain1').value;
+                SetMachineTrainName();
             })
 
             $("#ModifyCustomMachineTrainId").change(function () {
-                alert(document.getElementById('ModifyCustomMachineTrainId').value);
-                document.getElementById('AddNewFaultMachineName').innerHTML  = document.getElementById('ModifyCustomMachineTrain1').value;
+                SetMachineTrainName();
             })
+
+
+
+
+            function SetMachineTrainName() {
+                document.getElementById('AddNewFaultMachineName').innerHTML  = document.getElementById('ModifyCustomMachineTrain1').value;
+            }
         </script>
     }
