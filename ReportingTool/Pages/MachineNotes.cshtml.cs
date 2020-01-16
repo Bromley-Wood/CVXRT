@@ -148,6 +148,10 @@ namespace Reportingtool.Pages
                 return NotFound();
             }
 
+            Console.WriteLine("**************");
+            Console.WriteLine(Machine_Train_Note_ShowOnReport);
+            Console.WriteLine("**************");
+
             Edit_Machine_Note.MachineTrain_Note = Machine_Train_Note_Content;
             Edit_Machine_Note.MachineTrainNote_ShowOnReport = Machine_Train_Note_ShowOnReport;
             Edit_Machine_Note.Note_Date = DateTime.Now;
