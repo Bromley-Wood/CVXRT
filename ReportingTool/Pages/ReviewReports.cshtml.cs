@@ -54,12 +54,14 @@ namespace Reportingtool.Pages
 
         [BindProperty] public int ReportFileID_ToDelete { get; set; }
 
-        public List<TstReport> ReportHistoryList { get; set; } 
+        public List<TstReport> ReportHistoryList { get; set; }
+
+        public List<TstReport> Report_All_List { get; set; }
+
+        public MachineTrain ModifyCustomMachineTrain { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-
-
             VTstReportSummary_InProgress = await _context.VTstReportSummary
                 .Include(r => r.Machine_Train_Entry)
                     .ThenInclude(m => m.Machine_Train_Notes)
@@ -67,7 +69,6 @@ namespace Reportingtool.Pages
                 .AsNoTracking()
                 .ToListAsync();
 
-            //Console.WriteLine("-----------");
 
             if (VTstReportSummary_InProgress.Count == 0)
             {
@@ -127,9 +128,6 @@ namespace Reportingtool.Pages
             Action_List = await _context.Action
                 .AsNoTracking()
                 .ToListAsync();
-
-
-
             //------------------------------------------------------------------//
 
             Report_To_Update = _context.TstReport.FirstOrDefault(r => r.PkReportId == Current_Displayed_Report.ReportId);
@@ -137,20 +135,29 @@ namespace Reportingtool.Pages
 
             //------------------------------------------------------------------//
 
-            ReportFiles_All = await _context.ReportFiles
-                .Where(f => f.FkReportId == Current_Displayed_Report.ReportId)
+            Report_All_List = await _context.TstReport
+                .Include(r => r.ReportFile_List)
+                .OrderByDescending(r => r.ReportDate)
                 .AsNoTracking()
                 .ToListAsync();
 
             //------------------------------------------------------------------//
 
-            ReportHistoryList = await _context.TstReport
+            ReportFiles_All = Report_All_List.FirstOrDefault(r => r.PkReportId == Current_Displayed_Report.ReportId).ReportFile_List;
+
+            //------------------------------------------------------------------//
+
+            ReportHistoryList = Report_All_List
                 .Where(r => r.FkFaultId == Current_Displayed_Report.FaultId)
                 .Where(r => r.PkReportId != Current_Displayed_Report.ReportId)
-                .Include(r => r.ReportFile_List)
                 .OrderByDescending(r => r.ReportDate)
-                .AsNoTracking()
-                .ToListAsync();
+                .ToList();
+
+            //------------------------------------------------------------------//
+
+            ModifyCustomMachineTrain = await _context.MachineTrain.FirstOrDefaultAsync(m => m.PkMachineTrainId == Current_Displayed_Report.MachineTrainId);
+
+            //------------------------------------------------------------------//
 
             return Page();
         }
