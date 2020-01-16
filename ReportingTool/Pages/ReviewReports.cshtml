@@ -645,7 +645,7 @@
                             </div>
                             <br />
 
-                            <input id="btnChooseFile" type="button" class="btn btn-primary btn-lg btn-block waves-effect waves-light" value="Choose file" onclick="document.getElementById('reportAttachments').click();" />
+                            <input id="btnChooseFile" type="button" class="btn btn-primary btn-lg btn-block waves-effect waves-light" value="Click here to upload files" onclick="document.getElementById('reportAttachments').click();" />
                             <input type="file" name="reportAttachments" id="reportAttachments" multiple="multiple" accept="image/*" style="display: none" />
 
                             <div class="input-group">
@@ -702,7 +702,12 @@
                                     }
                                 </nav>
 
-                                @{var bodyHeight = Model.ReportHistoryList.Count * 40 < 500 ? 500 : Model.ReportHistoryList.Count * 40; }
+                                @{var bodyHeight = Model.ReportHistoryList.Count * 40 < 500 ? 500 : Model.ReportHistoryList.Count * 40;
+                                    if (Model.ReportHistoryList.Count == 0)
+                                    {
+                                        bodyHeight = 0;
+                                    }
+                                    }
                                 <div id="historicReportsBody" data-spy="scroll" data-target="#historicReportsNav" data-offset="200" class="col-9" style="height: @(bodyHeight)px">
 
 
