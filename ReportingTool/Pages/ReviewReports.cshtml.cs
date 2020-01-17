@@ -315,6 +315,18 @@ namespace Reportingtool.Pages
             return RedirectToPage("/ReviewReports", new { id = Report_To_Update.PkReportId });
         }
 
+        public PartialViewResult OnGetReportsPartial(int machinetrainid)
+        {
+            Console.WriteLine("--------------");
+            Console.WriteLine(machinetrainid);
+            Console.WriteLine("--------------");
+            var all_reports = _context.VTstReportSummary
+                .Where(r => r.MachineTrainId == machinetrainid)
+                .AsNoTracking()
+                .ToList();
+            return Partial("_ReportsPartial", all_reports);
+        }
+
         private bool FaultExists(int id)
         {
             return _context.TstFault.Any(e => e.PkFaultId == id);

@@ -1,10 +1,37 @@
-﻿@model List<ReportingTool.Models.Report>
+﻿@model List<Reportingtool.Models.Db.VTstReportSummary>
 
-<table class="table table-striped">
-    @foreach (var report in Model)
+@{
+    var reportsByFault = Model
+        .GroupBy(r => r.FaultType)
+        .ToDictionary(grp => grp.Key, grp => grp.ToList());
+
+    List<string> faultTypes = reportsByFault.Keys.ToList();
+
+    Dictionary<int, string> badgeColor = new Dictionary<int, string>()
     {
-        <tr>
-            <td>@report.Measurement_Date</td>
-        </tr>
+        {2, "default-color" },
+        {3, "warning-color" },
+        {4, "alert-color" },
+        {5, "danger-color" },
+    };
+
+    foreach (var ft in faultTypes)
+    {
+        <li class="treeview-animated-items">
+            <a class="closed">
+                <i class="fas fa-angle-right mr-1"></i>
+                <span><i class="fas fa-folder-open mr-2"></i>@ft</span>
+            </a>
+        </li>
+        <ul class="nested">
+            @foreach (var r in reportsByFault[ft])
+            {
+                <li class="treeview-animated-element">
+                    <span class="badge @(badgeColor[(int)r.ConditionMagnitude]) mr-2">@r.ConditionMagnitude</span> @(((DateTime)r.ReportDate).ToString("dd-MM-yyyy"))
+                </li>
+            }
+        </ul>
     }
-</table>
+
+}
+

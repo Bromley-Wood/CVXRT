@@ -195,33 +195,8 @@
                                         New fault<i class="fas fa-plus-square ml-1"></i>
                                     </a>
                                 </div>
-
-
                                 <!--- end add form -->
-                                <div class="modal fade" id="modalCloseRoutes" tabindex="-1" role="dialog" aria-labelledby="modalCloseRoutes"
-                                     aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header text-center">
-                                                <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Complete Routes</h4>
-                                                <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body mx-3">
-                                                <p class="text-center">
-                                                    Are you sure you want to complete these routes?  <br />
-                                                    These routes will be removed from the displayed schedule.
-                                                </p>
 
-                                            </div>
-                                            <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
-                                                <button type="button" class="btn btn-danger btnYesClass" id="btnYes" data-dismiss="modal">Yes</button>
-                                                <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal">No</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
                                 <div class="text-center">
                                     <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseEditForm"
@@ -231,78 +206,8 @@
                                 </div>
 
                                 <div class="treeview-animated w-20 border mx-4 my-4 collapse multi-collapse" id="collapseEditForm">
-                                    <h6 class="text-center py-3 blue-grey lighten-5 border-bottom border-light">0E-2420A-K02</h6>
-                                    <ul class="treeview-animated-list mb-3">
-                                        <li class="treeview-animated-items">
-                                            <a class="closed">
-                                                <i class="fas fa-angle-right mr-1"></i>
-                                                <span><i class="fas fa-folder-open mr-2"></i>No Fault Detected</span>
-                                            </a>
-                                            <ul class="nested">
-                                                <li class="treeview-animated-element">
-                                                    <span class="badge default-color mr-2">2</span> 30-Apr-2019
-                                                </li>
-                                                <li class="treeview-animated-element">
-                                                    <span class="badge default-color mr-2">2</span> 31-Mar-2019
-                                                </li>
-                                                <li class="treeview-animated-element">
-                                                    <span class="badge default-color mr-2">2</span> 28-Feb-2019
-                                                </li>
-                                                <li class="treeview-animated-element">
-                                                    <span class="badge default-color mr-2">2</span> 30-Nov-2018
-                                                </li>
-                                                <li class="treeview-animated-element">
-                                                    <span class="badge default-color mr-2">2</span> 31-Oct-2018
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="treeview-animated-items">
-                                            <a class="closed">
-                                                <i class="fas fa-angle-right mr-2"></i>
-                                                <span><i class="fas fa-folder mr-2"></i>Fan fault</span>
-                                            </a>
-                                            <ul class="nested">
-                                                <li class="treeview-animated-element">
-                                                    <span class="badge warning-color mr-2">3</span> 30-Apr-2018
-                                                </li>
-                                                <li class="treeview-animated-element">
-                                                    <span class="badge warning-color mr-2">3</span> 31-Mar-2018
-                                                </li>
-                                                <li class="treeview-animated-element">
-                                                    <span class="badge warning-color mr-2">3</span> 28-Feb-2018
-                                                </li>
-                                                <li class="treeview-animated-element">
-                                                    <span class="badge warning-color mr-2">3</span> 30-Nov-2017
-                                                </li>
-                                                <li class="treeview-animated-element">
-                                                    <span class="badge warning-color mr-2">3</span> 31-Oct-2017
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="treeview-animated-items">
-                                            <a class="closed">
-                                                <i class="fas fa-angle-right mr-2"></i>
-                                                <span><i class="fas fa-folder mr-2"></i>Looseness (Structural) this is some very long text here</span>
-                                            </a>
-                                            <ul class="nested">
-                                                <li class="treeview-animated-element">
-                                                    <span class="badge danger-color mr-2">5</span> 30-Sep-2017
-                                                </li>
-                                                <li class="treeview-animated-element">
-                                                    <span class="badge warning-color mr-2">3</span> 31-Aug-2017
-                                                </li>
-                                                <li class="treeview-animated-element">
-                                                    <span class="badge alert-color mr-2">4</span> 31-May-2017
-                                                </li>
-                                                <li class="treeview-animated-element">
-                                                    <span class="badge alert-color mr-2">4</span> 06-Apr-2017
-                                                </li>
-                                                <li class="treeview-animated-element">
-                                                    <span class="badge alert-color mr-2">4</span> 01-Feb-2017
-                                                </li>
-                                            </ul>
-                                        </li>
-
+                                    <h6 class="text-center py-3 blue-grey lighten-5 border-bottom border-light" id="ReportListMachineTrainName">@Model.ModifyCustomMachineTrain.MachineTrain1</h6>
+                                    <ul class="treeview-animated-list mb-3" id="CustomMachineReportList">
                                     </ul>
                                     <hr class="p-0 m-0" />
                                     <div class="text-center">
@@ -1338,17 +1243,23 @@
         <script>
             $(document).ready(function () {
                 SetMachineTrainName();
+                LoadCustomMachineReportList();
             })
 
             $("#ModifyCustomMachineTrainId").change(function () {
                 SetMachineTrainName();
+                LoadCustomMachineReportList();
             })
 
 
-
-
             function SetMachineTrainName() {
-                document.getElementById('AddNewFaultMachineName').innerHTML  = document.getElementById('ModifyCustomMachineTrain1').value;
+                ReportListMachineTrainName
+                document.getElementById('AddNewFaultMachineName').innerHTML = document.getElementById('ModifyCustomMachineTrain1').value;
+                document.getElementById('ReportListMachineTrainName').innerHTML = document.getElementById('ModifyCustomMachineTrain1').value;
+            }
+
+            function LoadCustomMachineReportList() {
+                $('#CustomMachineReportList').load('/ReviewReports?handler=ReportsPartial&machinetrainid=' + document.getElementById('ModifyCustomMachineTrainId').value);
             }
         </script>
     }
