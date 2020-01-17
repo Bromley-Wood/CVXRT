@@ -1209,6 +1209,7 @@
         <script>
 
             $(document).ready(function () {
+                SetMachineTrainNameLoading();
                 LoadCustomMachineReportList();
                 var refreshId = setInterval(function () {
                     if (TreeviewInitialization()) {
@@ -1218,6 +1219,7 @@
             })
 
             $("#ModifyCustomMachineTrainId").change(function () {
+                SetMachineTrainNameLoading();
                 LoadCustomMachineReportList();
                 var refreshId = setInterval(function () {
                     if (TreeviewInitialization()) {
@@ -1232,12 +1234,14 @@
                 document.getElementById('ReportListMachineTrainName').innerHTML = document.getElementById('ModifyCustomMachineTrain1').value;
             }
 
+            function SetMachineTrainNameLoading() {
+                document.getElementById('AddNewFaultMachineName').innerHTML = "Loading " + document.getElementById('ModifyCustomMachineTrain1').value;
+                document.getElementById('ReportListMachineTrainName').innerHTML = "Loading " + document.getElementById('ModifyCustomMachineTrain1').value;
+            }
+
             function LoadCustomMachineReportList() {
                 $('#CustomMachineReportList').load('/ReviewReports?handler=ReportsPartial&machinetrainid=' + document.getElementById('ModifyCustomMachineTrainId').value);
             }
-
-
-
 
             function TreeviewInitialization() {
                 if (document.getElementById('CheckPartialViewLoadedMachineTrainId') != null) {
