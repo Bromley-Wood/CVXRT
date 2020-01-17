@@ -207,8 +207,7 @@
 
                                 <div class="treeview-animated w-20 border mx-4 my-4 collapse multi-collapse" id="collapseEditForm">
                                     <h6 class="text-center py-3 blue-grey lighten-5 border-bottom border-light" id="ReportListMachineTrainName">@Model.ModifyCustomMachineTrain.MachineTrain1</h6>
-                                    <ul class="treeview-animated-list mb-3" id="CustomMachineReportList">
-                                    </ul>
+                                    <ul class="treeview-animated-list mb-3" id="CustomMachineReportList"></ul>
                                     <hr class="p-0 m-0" />
                                     <div class="text-center">
                                         <button class="btn btn-outline-blue btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseEditForm"
@@ -1106,18 +1105,6 @@
         </script>
 
         <script>
-            //var selectedFaultType = document.getElementById('faulttypeselect');
-            //if (selectedFaultType !== null) {
-            //    selectedFaultType.addEventListener('change', function () {
-            //        if (this.value == '0') {
-            //            selectedAction.querySelector('.rpt-select__trigger span').textContent = "You Must Select A Fault Type First";
-            //            alert('You Must Select A Fault Type');
-            //            return;
-            //        }
-            //    }
-            //}
-
-
 
             // get selected report id and set the form input
             var setReportIdInput = function () {
@@ -1138,20 +1125,6 @@
             });
 
         </script>
-
-        @*<script>
-                //disable submit button until required are filled out
-                var form = document.getElementById('updatereportfaultform')
-                var submitBtn = document.getElementById('btnUpdateReportFault')
-
-                submitBtn.disabled = true
-
-                form.addEventListener('input', function () {
-                    submitBtn.disabled = !form.checkValidity()
-                })
-
-
-            </script>*@
 
         <script>
             // click the button btnUpdateReportFault
@@ -1214,13 +1187,6 @@
         </script>
 
         <script>
-            // Treeview Initialization
-            $(document).ready(function () {
-                $('.treeview-animated').mdbTreeview();
-            });
-        </script>
-
-        <script>
             $("#reportAttachments").change(function () {
                 document.getElementById('btnChooseFile').textContent = document.getElementById('reportAttachments').files.length + " image(s) will be uploaded";
             });
@@ -1241,25 +1207,48 @@
         </script>
 
         <script>
+
             $(document).ready(function () {
-                SetMachineTrainName();
                 LoadCustomMachineReportList();
+                var refreshId = setInterval(function () {
+                    if (TreeviewInitialization()) {
+                        clearInterval(refreshId);
+                    }
+                }, 500);
             })
 
             $("#ModifyCustomMachineTrainId").change(function () {
-                SetMachineTrainName();
                 LoadCustomMachineReportList();
+                var refreshId = setInterval(function () {
+                    if (TreeviewInitialization()) {
+                        clearInterval(refreshId);
+                    }
+                }, 500);
             })
 
 
             function SetMachineTrainName() {
-                ReportListMachineTrainName
                 document.getElementById('AddNewFaultMachineName').innerHTML = document.getElementById('ModifyCustomMachineTrain1').value;
                 document.getElementById('ReportListMachineTrainName').innerHTML = document.getElementById('ModifyCustomMachineTrain1').value;
             }
 
             function LoadCustomMachineReportList() {
                 $('#CustomMachineReportList').load('/ReviewReports?handler=ReportsPartial&machinetrainid=' + document.getElementById('ModifyCustomMachineTrainId').value);
+            }
+
+
+
+
+            function TreeviewInitialization() {
+                if (document.getElementById('CheckPartialViewLoadedMachineTrainId') != null) {
+                    if (document.getElementById('CheckPartialViewLoadedMachineTrainId').value == document.getElementById('ModifyCustomMachineTrainId').value) {
+                        $('.treeview-animated').mdbTreeview();
+                        SetMachineTrainName();
+                        return true;
+                    }
+                }
+                return false;
+
             }
         </script>
     }

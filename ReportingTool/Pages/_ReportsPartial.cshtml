@@ -8,12 +8,17 @@
     List<string> faultTypes = reportsByFault.Keys.ToList();
 
     Dictionary<int, string> badgeColor = new Dictionary<int, string>()
-    {
+{
         {2, "default-color" },
         {3, "warning-color" },
         {4, "alert-color" },
         {5, "danger-color" },
     };
+
+    if (faultTypes.Count > 0)
+    {
+        <input type="hidden" id="CheckPartialViewLoadedMachineTrainId" value="@(Model[0].MachineTrainId)">
+    }
 
     foreach (var ft in faultTypes)
     {
@@ -22,15 +27,15 @@
                 <i class="fas fa-angle-right mr-1"></i>
                 <span><i class="fas fa-folder-open mr-2"></i>@ft</span>
             </a>
+            <ul class="nested">
+                @foreach (var r in reportsByFault[ft])
+                {
+                    <li class="treeview-animated-element">
+                        <span class="badge @(badgeColor[(int)r.ConditionMagnitude]) mr-2">@r.ConditionMagnitude</span> @(((DateTime)r.ReportDate).ToString("dd-MM-yyyy"))
+                    </li>
+                }
+            </ul>
         </li>
-        <ul class="nested">
-            @foreach (var r in reportsByFault[ft])
-            {
-                <li class="treeview-animated-element">
-                    <span class="badge @(badgeColor[(int)r.ConditionMagnitude]) mr-2">@r.ConditionMagnitude</span> @(((DateTime)r.ReportDate).ToString("dd-MM-yyyy"))
-                </li>
-            }
-        </ul>
     }
 
 }
