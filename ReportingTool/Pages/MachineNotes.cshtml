@@ -31,9 +31,6 @@
                     </div>
                     <!--/.Featured Image-->
 
-                    <p><button class="btn btn-primary" id="btntestpartialview">Load</button></p>
-                    <div id="testpartialview"></div>
-
                     <!--Display Machine Notes-->
                     <div class="card mb-4 wow fadeIn">
 
@@ -307,10 +304,60 @@
     </script>
 
     <script>
+
+
+        //---------------------------Create New Machine Train Note ---------------------------//
         $(function () {
-            $('#btntestpartialview').on('click', function () {
-                $('#testpartialview').load('/MachineNotes?handler=ReportsPartial');
+            $(document).on("click", ".btnCreateNewMachineNote", function () {
+                $('#createnewmachinenote').submit();
             });
         });
+        //---------------------------Create New Machine Train Note ---------------------------//
+
+        //---------------------------for archive machine train note ---------------------------//
+        $('#modalArchiveNote').on('show.bs.modal', function (event) {
+
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var id = button.data('machinenoteid');
+            var modal = $(this);
+            modal.find('.modal-body input').val(id);
+        })
+
+        $(function () {
+            $(document).on("click", ".btnYesArachiveMachineNote", function () {
+                $('#archivemachinenoteform').submit();
+            });
+        });
+        //---------------------------for archive machine train note ---------------------------//
+
+
+        //---------------------------for edit machine train note ---------------------------//
+        $('#modalEditNote').on('show.bs.modal', function (event) {
+
+            var button = $(event.relatedTarget); // Button that triggered the modal
+
+            var id = button.data('machinenoteid');
+            var machine_train_note = button.data('machinenote');
+
+            var modal = $(this);
+            modal.find('.modal-body input#machinetrainnoteid').val(id);
+            modal.find('.modal-body textarea').val(machine_train_note);
+        })
+
+        $(function () {
+            $(document).on("click", ".btnYesEditMachineNote", function () {
+                $('#editmachinenoteform').submit();
+            });
+        });
+        //---------------------------for archive machine train note ---------------------------//
+
+        //---------------------------go to machine train ---------------------------//
+        $(function () {
+            $(document).on("click", ".btnGoToMachineTrain", function () {
+                $('#gotomachinetrainform').submit();
+            });
+        });
+//---------------------------go to machine train ---------------------------//
+
     </script>
 }

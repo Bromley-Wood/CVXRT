@@ -252,14 +252,6 @@ namespace Reportingtool.Pages
             }
         }
 
-        public  PartialViewResult OnGetReportsPartial() {
-            var all_reports =  _context.Report
-                .AsNoTracking()
-                .ToList();
-            return Partial("_ReportsPartial", all_reports);
-        }
-
-
     }
 
 
