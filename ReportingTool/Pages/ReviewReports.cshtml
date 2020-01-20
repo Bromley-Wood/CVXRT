@@ -1183,6 +1183,7 @@
         <script>
 
             $(document).ready(function () {
+                ClearReportList();
                 SetMachineTrainNameLoading();
                 LoadCustomMachineReportList();
                 var refreshId = setInterval(function () {
@@ -1193,6 +1194,7 @@
             })
 
             $("#ModifyCustomMachineTrainId").change(function () {
+                ClearReportList();
                 SetMachineTrainNameLoading();
                 LoadCustomMachineReportList();
                 var refreshId = setInterval(function () {
@@ -1202,6 +1204,10 @@
                 }, 500);
             })
 
+
+            function ClearReportList() {
+                $('#CustomMachineReportList').empty();
+            }
 
             function SetMachineTrainName() {
                 document.getElementById('AddNewFaultMachineName').innerHTML = document.getElementById('ModifyCustomMachineTrain1').value;
@@ -1213,13 +1219,18 @@
                 document.getElementById('ReportListMachineTrainName').innerHTML = "Loading " + document.getElementById('ModifyCustomMachineTrain1').value;
             }
 
+
+
             function LoadCustomMachineReportList() {
-                $('#CustomMachineReportList').load('/ReviewReports?handler=ReportsPartial&machinetrainid=' + document.getElementById('ModifyCustomMachineTrainId').value);
+                $('#CustomMachineReportList').load('/ReviewReports?handler=ReportsPartial&machinetrainid=' + document.getElementById('ModifyCustomMachineTrainId').value + '&reportid=' + @Model.Current_Displayed_Report.ReportId);
             }
 
             function TreeviewInitialization() {
+                
                 if (document.getElementById('CheckPartialViewLoadedMachineTrainId') != null) {
+                
                     if (document.getElementById('CheckPartialViewLoadedMachineTrainId').value == document.getElementById('ModifyCustomMachineTrainId').value) {
+                
                         $('.treeview-animated').mdbTreeview();
                         SetMachineTrainName();
                         return true;
@@ -1232,10 +1243,20 @@
 
         <script>
             function AddHistoryReportBackToQueue() {
-                alert("AddHistoryReportBackToQueue");
                 var selected_reportlist = document.querySelectorAll('li.treeview-animated-element.opened span');
                 if (selected_reportlist.length > 0) {
-                    document.getElementById('ReportIdBackToQueueId').value = selected_reportlist[0].getAttribute('data-reportid');
+                    var selected_report_id = selected_reportlist[0].getAttribute('data-reportid');
+                    // check if this report is alredy in queue or not
+                    var report_in_queue_list = document.querySelectorAll('.in-queue-rpt-item.list-group-item.d-flex.justify-content-between.lh-condensed');
+                    for (i = 0; i < report_in_queue_list.length; ++i) {
+                        if (report_in_queue_list[i].id == selected_report_id) {
+                            alert("This report is alredy in queue!");
+                            return;
+                        }
+                    }
+                    
+
+                    document.getElementById('ReportIdBackToQueueId').value = selected_report_id;
                     $('#AddHistoryReportBackToQueueForm').submit();
                 }
                 else {

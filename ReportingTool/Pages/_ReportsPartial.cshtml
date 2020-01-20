@@ -1,6 +1,15 @@
 ﻿@model List<Reportingtool.Models.Db.VTstReportSummary>
 
 @{
+    // This is to prevent loading error for the next step as 'null' cannot be used as dictionary key
+    foreach(var r in Model)
+    {
+        if (r.FaultType == null)
+        {
+            r.FaultType = "New Fault";
+        }
+    }
+
     var reportsByFault = Model
         .GroupBy(r => r.FaultType)
         .ToDictionary(grp => grp.Key, grp => grp.ToList());
@@ -15,6 +24,8 @@
         {5, "danger-color" },
     };
 
+
+
     if (faultTypes.Count > 0)
     {
         <input type="hidden" id="CheckPartialViewLoadedMachineTrainId" value="@(Model[0].MachineTrainId)">
@@ -22,6 +33,7 @@
 
     foreach (var ft in faultTypes)
     {
+
         <li class="treeview-animated-items">
             <a class="closed">
                 <i class="fas fa-angle-right mr-1"></i>

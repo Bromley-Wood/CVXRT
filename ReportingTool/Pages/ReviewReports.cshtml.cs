@@ -408,12 +408,15 @@ namespace Reportingtool.Pages
             return RedirectToPage("/ReviewReports", new { id = ReportIdBackToQueue });
         }
 
-        public PartialViewResult OnGetReportsPartial(int machinetrainid)
+        public PartialViewResult OnGetReportsPartial(int machinetrainid, int reportid)
         {
+
             var all_reports = _context.VTstReportSummary
                 .Where(r => r.MachineTrainId == machinetrainid)
+                .Where(r => r.ReportId != reportid)
                 .AsNoTracking()
                 .ToList();
+
             return Partial("_ReportsPartial", all_reports);
         }
 
