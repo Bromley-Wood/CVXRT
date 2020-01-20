@@ -180,13 +180,17 @@
                                     <ul class="treeview-animated-list mb-3" id="CustomMachineReportList"></ul>
                                     <hr class="p-0 m-0" />
                                     <div class="text-center">
-                                        <button class="btn btn-outline-blue btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseEditForm"
-                                                aria-expanded="false" aria-controls="collapseEditForm">
+                                        <button class="btn btn-outline-blue btn-primary btn-sm" type="button" onclick="AddHistoryReportBackToQueue()">
                                             Add back into queue <i class="fas fa-plus-square ml-1"></i>
                                         </button>
-                                        <cite><br />Hi Cheng! if we can just retrieve the selected report id and update the record to set it back to Report Stage = 1 (in progress)</cite>
                                     </div>
                                 </div>
+
+                                <!-- Add report back to queue -->
+                                <form method="post" asp-page-handler="AddHistoryReportBackToQueue" id="AddHistoryReportBackToQueueForm">
+                                    <input type="hidden" name="ReportIdBackToQueue" id="ReportIdBackToQueueId" class="form-control">
+                                </form>
+                                <!-- Add report back to queue -->
 
 
 
@@ -1223,6 +1227,20 @@
                 }
                 return false;
 
+            }
+        </script>
+
+        <script>
+            function AddHistoryReportBackToQueue() {
+                alert("AddHistoryReportBackToQueue");
+                var selected_reportlist = document.querySelectorAll('li.treeview-animated-element.opened span');
+                if (selected_reportlist.length > 0) {
+                    document.getElementById('ReportIdBackToQueueId').value = selected_reportlist[0].getAttribute('data-reportid');
+                    $('#AddHistoryReportBackToQueueForm').submit();
+                }
+                else {
+                    alert("You Must Select A Report First!");
+                }
             }
         </script>
 

@@ -61,6 +61,7 @@ namespace Reportingtool.Pages
         public MachineTrain ModifyCustomMachineTrain { get; set; }
 
         [BindProperty] public int MachineTrainIdAddNewFault { get; set; }
+        [BindProperty] public int ReportIdBackToQueue { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -70,7 +71,6 @@ namespace Reportingtool.Pages
                 .Where(r => r.ReportStage == "In Progress")
                 .AsNoTracking()
                 .ToListAsync();
-
 
             if (VTstReportSummary_InProgress.Count == 0)
             {
@@ -380,11 +380,36 @@ namespace Reportingtool.Pages
         }
 
 
+        public async Task<IActionResult> OnPostAddHistoryReportBackToQueue()
+        {
+
+            var report_back_to_queue =  _context.TstReport.FirstOrDefault(r => r.PkReportId == ReportIdBackToQueue);
+
+            report_back_to_queue.FkReportStageId = 1;
+
+            _context.Attach(report_back_to_queue).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ReportExists(ReportIdBackToQueue))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return RedirectToPage("/ReviewReports", new { id = ReportIdBackToQueue });
+        }
+
         public PartialViewResult OnGetReportsPartial(int machinetrainid)
         {
-            Console.WriteLine("--------------");
-            Console.WriteLine(machinetrainid);
-            Console.WriteLine("--------------");
             var all_reports = _context.VTstReportSummary
                 .Where(r => r.MachineTrainId == machinetrainid)
                 .AsNoTracking()

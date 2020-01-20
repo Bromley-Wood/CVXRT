@@ -1,6 +1,6 @@
 /* Rollback TstFaults*/
 
-UPDATE [tst_Fault] SET			
+UPDATE [DEV_ClientProject].[dbo].[tst_Fault] SET			
 FK_MachineTrainId	=	60	,
 FK_PrimaryComponentTypeId	=	1	,
 FK_PrimaryComponentSubtypeId	=	NULL	,
@@ -14,7 +14,7 @@ Production_Impact_Cost	=	50000	,
 Fault_IsActive	=	1	
 where PK_FaultId	=	46	;
 			
-UPDATE [tst_Fault] SET			
+UPDATE [DEV_ClientProject].[dbo].[tst_Fault] SET			
 FK_MachineTrainId	=	574	,
 FK_PrimaryComponentTypeId	=	1	,
 FK_PrimaryComponentSubtypeId	=	NULL	,
@@ -28,7 +28,7 @@ Production_Impact_Cost	=	500000	,
 Fault_IsActive	=	1	
 where PK_FaultId	=	619	;
 			
-UPDATE [tst_Fault] SET			
+UPDATE [DEV_ClientProject].[dbo].[tst_Fault] SET			
 FK_MachineTrainId	=	575	,
 FK_PrimaryComponentTypeId	=	1	,
 FK_PrimaryComponentSubtypeId	=	NULL	,
@@ -42,7 +42,7 @@ Production_Impact_Cost	=	500000	,
 Fault_IsActive	=	1	
 where PK_FaultId	=	621	;
 			
-UPDATE [tst_Fault] SET			
+UPDATE [DEV_ClientProject].[dbo].[tst_Fault] SET			
 FK_MachineTrainId	=	1373	,
 FK_PrimaryComponentTypeId	=	NULL	,
 FK_PrimaryComponentSubtypeId	=	NULL	,
@@ -57,7 +57,7 @@ Fault_IsActive	=	1
 where PK_FaultId	=	3213	;
 
 /* Rollback TstReports*/
-UPDATE [tst_Report] SET				
+UPDATE [DEV_ClientProject].[dbo].[tst_Report] SET				
 FK_FaultId		=	619	,
 Report_Date		=	'2019-12-31'	,
 Measurement_Date		=	'2019-12-31'	,
@@ -77,7 +77,7 @@ Report_IsActive		=	1	,
 Origin_CallId		=	NULL	
 where PK_ReportId		=	47322	;
 				
-UPDATE [tst_Report] SET				
+UPDATE [DEV_ClientProject].[dbo].[tst_Report] SET				
 FK_FaultId		=	621	,
 Report_Date		=	'2019-12-31'	,
 Measurement_Date		=	'2019-12-31'	,
@@ -97,7 +97,7 @@ Report_IsActive		=	1	,
 Origin_CallId		=	NULL	
 where PK_ReportId		=	47323	;
 				
-UPDATE [tst_Report] SET				
+UPDATE [DEV_ClientProject].[dbo].[tst_Report] SET				
 FK_FaultId		=	46	,
 Report_Date		=	'2019-12-31'	,
 Measurement_Date		=	'2019-12-31'	,
@@ -117,7 +117,7 @@ Report_IsActive		=	1	,
 Origin_CallId		=	NULL	
 where PK_ReportId		=	47324	;
 				
-UPDATE [tst_Report] SET				
+UPDATE [DEV_ClientProject].[dbo].[tst_Report] SET				
 FK_FaultId		=	3213	,
 Report_Date		=	'2019-12-31'	,
 Measurement_Date		=	'2019-12-31'	,

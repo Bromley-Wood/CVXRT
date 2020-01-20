@@ -31,7 +31,7 @@
                 @foreach (var r in reportsByFault[ft])
                 {
                     <li class="treeview-animated-element">
-                        <span class="badge @(badgeColor[(int)r.ConditionMagnitude]) mr-2">@r.ConditionMagnitude</span> @(((DateTime)r.ReportDate).ToString("dd-MM-yyyy"))
+                        <span data-reportid="@r.ReportId" class="badge @(badgeColor[(int)r.ConditionMagnitude]) mr-2">@r.ConditionMagnitude</span> @(((DateTime)r.ReportDate).ToString("dd-MM-yyyy"))
                     </li>
                 }
             </ul>
