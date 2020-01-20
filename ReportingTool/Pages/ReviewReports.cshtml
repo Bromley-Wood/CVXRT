@@ -129,7 +129,7 @@
                                     <span class="input-group-text"><i class="fas fa-search ml-1"></i></span>
                                 </div>
                                 <input type="text" class="form-control" id="ModifyCustomMachineTrain1" value="@Model.ModifyCustomMachineTrain.MachineTrain1" placeholder="@Model.ModifyCustomMachineTrain.MachineTrain1">
-                                <input type="hidden" id="ModifyCustomMachineTrainId" class="form-control" value="@Model.ModifyCustomMachineTrain.PkMachineTrainId">
+                                <input type="hidden" name="MachineTrainIdAddNewFault" id="ModifyCustomMachineTrainId" class="form-control" value="@Model.ModifyCustomMachineTrain.PkMachineTrainId">
                             </div>
                         </form>
                         <!-- /.Search for a machine -->
@@ -151,39 +151,9 @@
                                                 Are you sure you want to create a new fault?   <br />
                                                 A new fault will be added to the queue against   <br />
                                                 <strong id="AddNewFaultMachineName">{this machine name}.</strong>
-                                                <code>
-                                                    <br />-- Anomaly - No Existing Report
-
-                                                    INSERT INTO [DEV_ClientProject].[dbo].[Fault] (
-                                                    [FK_MachineTrainId]
-                                                    ,[FK_TechnologyId]
-                                                    ,[Create_Date]
-                                                    ,[Fault_IsActive])
-                                                    VALUES (<this machine id>
-                                                        ,1 -- aka. Initialise as Vibes
-                                                        ,SYSDATETIME()
-                                                        ,1) ;
-
-                                                        INSERT INTO report([FK_FaultId]
-                                                        ,[Report_Date]
-                                                        ,[Measurement_Date]
-                                                        ,[FK_ConditionId]
-                                                        ,[FK_ReportTypeId]
-                                                        ,[FK_ReportStageId]
-                                                        ,[Analyst_Name]
-                                                        ,[Report_IsActive])
-                                                        values ( SCOPE_IDENTITY() -- aka get Fault Id from above
-                                                        ,sysdatetime()
-                                                        ,sysdatetime()
-                                                        ,3 -- aka. Initialise as Trending
-                                                        ,3 -- aka. Initialise as Troubleshooting
-                                                        ,1 -- aka. In progress
-                                                        ,<current user>
-                                                            ,1);
-                                                </code>
                                             </div>
                                             <div class="modal-footer d-flex justify-content-center">
-                                                <button type="button" class="btn btn-danger btnYesClass" id="btnYes" data-dismiss="modal">Yes</button>
+                                                <button type="button" class="btn btn-danger btnYesClass" id="btnYes" data-dismiss="modal" onclick="$('#AddNewFaultAgainstMachineForm').submit();">Yes</button>
                                                 <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal">No</button>
                                             </div>
                                         </div>
@@ -1255,4 +1225,5 @@
 
             }
         </script>
+
     }

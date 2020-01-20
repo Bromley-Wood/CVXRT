@@ -60,6 +60,8 @@ namespace Reportingtool.Pages
 
         public MachineTrain ModifyCustomMachineTrain { get; set; }
 
+        [BindProperty] public int MachineTrainIdAddNewFault { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             VTstReportSummary_InProgress = await _context.VTstReportSummary
@@ -315,6 +317,69 @@ namespace Reportingtool.Pages
             return RedirectToPage("/ReviewReports", new { id = Report_To_Update.PkReportId });
         }
 
+        public async Task<IActionResult> OnPostAddNewFaultAgainstMachine()
+        {
+            var new_fault = new TstFault()
+            {
+                FkMachineTrainId = MachineTrainIdAddNewFault,
+                FkTechnologyId = 1,
+                CreateDate = DateTime.Now,
+                FaultIsActive = true
+            };
+
+            _context.TstFault.Add(new_fault);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!FaultExists(new_fault.PkFaultId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+
+            var new_report = new TstReport()
+            {
+                FkFaultId = new_fault.PkFaultId,
+                ReportDate = DateTime.Now,
+                MeasurementDate = DateTime.Now,
+                FkConditionId = 3,
+                FkReportTypeId = 3,
+                FkReportStageId = 1,
+                AnalystName = Current_User,
+                ReportIsActive = true,
+            };
+
+
+            _context.TstReport.Add(new_report);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ReportExists(new_report.PkReportId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return RedirectToPage("/ReviewReports", new { id = new_report.PkReportId });
+        }
+
+
         public PartialViewResult OnGetReportsPartial(int machinetrainid)
         {
             Console.WriteLine("--------------");
@@ -341,6 +406,8 @@ namespace Reportingtool.Pages
         {
             return _context.ReportFiles.Any(e => e.PkFilePathId == id);
         }
+
+        
 
 
     }
