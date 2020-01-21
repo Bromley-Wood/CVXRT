@@ -2,7 +2,7 @@
 
 @{
     // This is to prevent loading error for the next step as 'null' cannot be used as dictionary key
-    foreach(var r in Model)
+    foreach (var r in Model)
     {
         if (r.FaultType == null)
         {
@@ -42,8 +42,8 @@
             <ul class="nested">
                 @foreach (var r in reportsByFault[ft])
                 {
-                    <li class="treeview-animated-element">
-                        <span data-reportid="@r.ReportId" class="badge @(badgeColor[(int)r.ConditionMagnitude]) mr-2">@r.ConditionMagnitude</span> @(((DateTime)r.ReportDate).ToString("dd-MM-yyyy"))
+                    <li class="treeview-animated-element reporttree" onclick="SetReportPreviewModal()" data-reportid="@r.ReportId" data-reporttype="@r.ReportType" data-condition="@r.Condition" data-reportdate=@r.ReportDate data-observations="@r.Observations" data-actions="@r.Actions" data-externalnotes="@r.ExternalNotes" data-notification="@r.NotificationNo" data-workorder="@r.WorkOrderNo" data-analystnotes="@r.AnalystNotes" data-toggle="modal" data-target="#modalViewReport">
+                        <span  class="badge @(badgeColor[(int)r.ConditionMagnitude]) mr-2">@r.ConditionMagnitude</span> @(((DateTime)r.ReportDate).ToString("dd-MM-yyyy"))
                     </li>
                 }
             </ul>
@@ -52,3 +52,78 @@
 
 }
 
+<!--- Report Preview -->
+<div class="modal fade" id="modalViewReport" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modalViewReport">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Report Preview</h4>
+                <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body-edit modal-body mx-3">
+                <div class="md-form mb-5">
+                    <span class="field-label">Report Type</span>
+                    <span class="field-data" id="modalView_ReportType">
+                    </span>
+                </div>
+
+                <div class="md-form mb-5">
+                    <span class="field-label">Condition</span>
+                    <span class="field-data" id="modalView_Condition">
+                    </span>
+                </div>
+
+                <div class="md-form mb-5">
+                    <span class="field-label">Report Date</span>
+                    <span class="field-data" id="modalView_ReportDate">
+                    </span>
+                </div>
+
+
+            @*
+                <div class="md-form mb-5">
+                    <span class="field-label">Observations</span>
+                    <span class="field-data" id="modalView_Observations">
+                    </span>
+                </div>
+
+                <div class="md-form mb-5">
+                    <span class="field-label">Actions</span>
+                    <span class="field-data" id="modalView_Actions">
+                    </span>
+                </div>
+
+                <div class="md-form mb-5">
+                    <span class="field-label">External Notes</span>
+                    <span class="field-data" id="modalView_ExternalNotes">
+                    </span>
+                </div>
+
+                <div class="md-form mb-5">
+                    <span class="field-label">Notification</span>
+                    <span class="field-data" id="modalView_Notification">
+                    </span>
+                </div>
+
+                <div class="md-form mb-5">
+                    <span class="field-label">Work Order</span>
+                    <span class="field-data" id="modalView_WorkOrder">
+                    </span>
+                </div>
+
+                <div class="md-form mb-5">
+                    <span class="field-label">Analyst Notes</span>
+                    <span class="field-data" id="modalView_AnalystNotes">
+                    </span>
+                </div>*@
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<!--- Report Preview -->

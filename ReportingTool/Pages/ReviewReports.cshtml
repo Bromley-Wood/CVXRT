@@ -1243,7 +1243,7 @@
 
         <script>
             function AddHistoryReportBackToQueue() {
-                var selected_reportlist = document.querySelectorAll('li.treeview-animated-element.opened span');
+                var selected_reportlist = document.querySelectorAll('li.treeview-animated-element.opened');
                 if (selected_reportlist.length > 0) {
                     var selected_report_id = selected_reportlist[0].getAttribute('data-reportid');
                     // check if this report is alredy in queue or not
@@ -1264,5 +1264,22 @@
                 }
             }
         </script>
+
+    <script>
+
+        $(document).on("click", ".reporttree", function () {
+            $('#modalViewReport #modalView_ReportType')[0].textContent = $(this)[0].getAttribute('data-reporttype');
+            $('#modalViewReport #modalView_Condition')[0].textContent = $(this)[0].getAttribute('data-condition');
+            $('#modalViewReport #modalView_ReportDate')[0].textContent = $(this)[0].getAttribute('data-reportdate');
+            //$('#modalViewReport #modalView_Observations')[0].textContent = $(this)[0].getAttribute('data-observations');
+            //$('#modalViewReport #modalView_Actions')[0].textContent = $(this)[0].getAttribute('data-actions');
+            //$('#modalViewReport #modalView_ExternalNotes')[0].textContent = $(this)[0].getAttribute('data-externalnotes');
+            //$('#modalViewReport #modalView_Notification')[0].textContent = $(this)[0].getAttribute('data-notification');
+            //$('#modalViewReport #modalView_WorkOrder')[0].textContent = $(this)[0].getAttribute('data-workorder');
+            //$('#modalViewReport #modalView_AnalystNotes')[0].textContent = $(this)[0].getAttribute('data-analystnotes');
+        });
+
+
+    </script>
 
     }
