@@ -150,11 +150,6 @@ namespace Reportingtool.Pages
                         GeneratedReportSummary.Add(log_str);
                         Console.WriteLine(log_str);
                        
-                        //var insertQueryString =
-                        //string.Format("INSERT Missed_Survey (FK_MachineTrainId, Reason, Comments, Reported_Missed_Date, Reported_Missed_By, Origin_CallId) VALUES ({0}, '{1}', '{2}', '{3}', '{4}', {5}); ",
-                        //inputreport.MachineTrainId, reason_list[inputreport.Reason], inputreport.Comments, DateTime.Now.ToString("yyyy-MM-dd"), Current_User, inputreport.PK_CallId);
-                        //Console.WriteLine(insertQueryString);
-                        //_context.Database.ExecuteSqlRaw(insertQueryString);
                     }
                 }
                 else if (inputreport.MainOption == "good") // No Action
@@ -246,11 +241,6 @@ namespace Reportingtool.Pages
                             Console.WriteLine(log_str);
                             
 
-                            //var insertQueryString =
-                            //        string.Format("INSERT INTO tst_report ([FK_FaultId] , [Report_Date], [Measurement_Date], [FK_ConditionId], [FK_ReportTypeId], [FK_ReportStageId], [Observations], [Actions], [Analyst_Notes], [External_Notes], [Notification_No], [Work_Order_No], [Review_Comments], [Analyst_Name], [Reviewer_Name], [Report_IsActive], [Origin_CallId]) SELECT [FK_FaultId],  '{0}', '{1}', 1, 1, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '{4}', NULL, 1, {2} FROM Report where [PK_ReportId] = {3};", DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), inputreport.PK_CallId, latest_report.ReportId, Current_User);
-                            //    Console.WriteLine(insertQueryString);
-                            //    _context.Database.ExecuteSqlRaw(insertQueryString);
-
                         }
                         else
                         //-- if result is null then that means there are no open faults on this machine.  we need to raise a new fault and then a report.  go to (4).
@@ -291,14 +281,6 @@ namespace Reportingtool.Pages
                                     throw;
                                 }
                             }
-
-                            //var insertNewFaultQuery = string.Format("INSERT INTO Fault ([FK_MachineTrainId], [FK_PrimaryComponentTypeId], [FK_PrimaryComponentSubtypeId], [FK_TechnologyId], [FK_FaultTypeId], [FK_FaultSubtypeId], [Create_Date], [Close_Date], [Fault_Location], [Production_Impact_Cost], [Fault_IsActive]) VALUES ({0}, 1, NULL, 1, 1, NULL, '{1}', NULL, NULL, NULL, 1);", inputreport.MachineTrainId, DateTime.Now.ToString("yyyy-MM-dd"));
-                            //Console.WriteLine(insertNewFaultQuery);
-                            // //_context.Database.ExecuteSqlRaw(insertNewFaultQuery);
-                            //var newFaultId = _context.Fault.LastOrDefault().FaultId;
-                            //Console.WriteLine(newFaultId);
-
-
 
                             // --Create a new report on the new fault.
                             // -- Set this report to no fault, routine and released

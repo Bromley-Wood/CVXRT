@@ -173,9 +173,6 @@ namespace Reportingtool.Pages
         public async Task<IActionResult> OnPostDeleteReportFile()
 
         {
-            Console.WriteLine("HelloHelloHelloHelloHello");
-            Console.WriteLine(ReportFileID_ToDelete);
-            Console.WriteLine("HelloHelloHelloHelloHello");
             var ReportFile = await _context.ReportFiles.FindAsync(ReportFileID_ToDelete);
 
             if (ReportFile == null)
