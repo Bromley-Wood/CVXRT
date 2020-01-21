@@ -43,7 +43,7 @@
                 @foreach (var r in reportsByFault[ft])
                 {
                     <li class="treeview-animated-element reporttree" onclick="SetReportPreviewModal()" data-reportid="@r.ReportId" data-reporttype="@r.ReportType" data-condition="@r.Condition" data-reportdate=@r.ReportDate data-observations="@r.Observations" data-actions="@r.Actions" data-externalnotes="@r.ExternalNotes" data-notification="@r.NotificationNo" data-workorder="@r.WorkOrderNo" data-analystnotes="@r.AnalystNotes" data-toggle="modal" data-target="#modalViewReport">
-                        <span  class="badge @(badgeColor[(int)r.ConditionMagnitude]) mr-2">@r.ConditionMagnitude</span> @(((DateTime)r.ReportDate).ToString("dd-MM-yyyy"))
+                        <span class="badge @(badgeColor[(int)r.ConditionMagnitude]) mr-2">@r.ConditionMagnitude</span> @(((DateTime)r.ReportDate).ToString("dd-MM-yyyy"))
                     </li>
                 }
             </ul>
@@ -82,20 +82,6 @@
                     </span>
                 </div>
 
-
-            @*
-                <div class="md-form mb-5">
-                    <span class="field-label">Observations</span>
-                    <span class="field-data" id="modalView_Observations">
-                    </span>
-                </div>
-
-                <div class="md-form mb-5">
-                    <span class="field-label">Actions</span>
-                    <span class="field-data" id="modalView_Actions">
-                    </span>
-                </div>
-
                 <div class="md-form mb-5">
                     <span class="field-label">External Notes</span>
                     <span class="field-data" id="modalView_ExternalNotes">
@@ -103,22 +89,39 @@
                 </div>
 
                 <div class="md-form mb-5">
-                    <span class="field-label">Notification</span>
-                    <span class="field-data" id="modalView_Notification">
-                    </span>
-                </div>
-
-                <div class="md-form mb-5">
-                    <span class="field-label">Work Order</span>
-                    <span class="field-data" id="modalView_WorkOrder">
-                    </span>
-                </div>
-
-                <div class="md-form mb-5">
                     <span class="field-label">Analyst Notes</span>
                     <span class="field-data" id="modalView_AnalystNotes">
                     </span>
-                </div>*@
+                </div>
+
+                @*
+        <div class="md-form mb-5">
+            <span class="field-label">Observations</span>
+            <span class="field-data" id="modalView_Observations">
+            </span>
+        </div>
+
+        <div class="md-form mb-5">
+            <span class="field-label">Actions</span>
+            <span class="field-data" id="modalView_Actions">
+            </span>
+        </div>
+
+
+
+        <div class="md-form mb-5">
+            <span class="field-label">Notification</span>
+            <span class="field-data" id="modalView_Notification">
+            </span>
+        </div>
+
+        <div class="md-form mb-5">
+            <span class="field-label">Work Order</span>
+            <span class="field-data" id="modalView_WorkOrder">
+            </span>
+        </div>
+
+                *@
             </div>
 
 
