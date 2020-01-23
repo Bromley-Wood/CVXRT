@@ -95,11 +95,12 @@
                                         </caption>
                                         <thead>
                                             <tr>
-                                                <th class="th-sm">Missed | No Action | Anomaly</th>
-                                                <th class="th-sm">Machine Name</th>
-                                                <th class="th-sm">Condition</th>
-                                                <th class="th-sm">Reason</th>
-                                                <th class="th-sm">Comments</th>
+                                                <th class="th-sm text-center">Missed | No Action | Anomaly</th>
+                                                <th class="th-sm text-center">Machine Name</th>
+                                                <th class="th-sm text-center">Condition</th>
+                                                <th class="th-sm text-center">Reason</th>
+                                                <th class="th-sm text-center">Comments</th>
+                                                <th class="th-sm text-center">Report In Progress</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -125,12 +126,12 @@
                                                         </div>
                                                         <div class="invalid-feedback">Please select one</div>
                                                     </td>
-                                                    <td>
+                                                    <td class="text-center">
                                                         <strong>@mtrain.MachineTrain</strong> <br> @mtrain.MachineTrainLongName
 
 
                                                     </td>
-                                                    <td>
+                                                    <td class="text-center">
                                                         @mtrain.Condition<br>
                                                         <small>	@mtrain.ChangeInCondition	</small>
                                                     </td>
@@ -144,6 +145,16 @@
 
                                                     </td>
                                                     <td><input class="form-control form-control-sm" name="InputReportList[@machine_count].Comments" type="text" placeholder="Additional Comments" disabled></td>
+                                                    @{
+                                                        if (mtrain.ReportStage == "In Progress")
+                                                        {
+                                                            <td class="text-center">Yes</td>
+                                                        }
+                                                        else
+                                                        {
+                                                        }
+                                                        <td class="text-center">No</td>
+                                                    }
                                                 </tr>
 
                                                 machine_count += 1;
@@ -151,11 +162,12 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th class="th-sm">Missed | No Action | Anomaly</th>
-                                                <th class="th-sm">Machine Name</th>
-                                                <th class="th-sm">Condition</th>
-                                                <th class="th-sm">Reason</th>
-                                                <th class="th-sm">Comments</th>
+                                                <th class="th-sm text-center">Missed | No Action | Anomaly</th>
+                                                <th class="th-sm text-center">Machine Name</th>
+                                                <th class="th-sm text-center">Condition</th>
+                                                <th class="th-sm text-center">Reason</th>
+                                                <th class="th-sm text-center">Comments</th>
+                                                <th class="th-sm text-center">Report In Progress</th>
                                             </tr>
                                         </tfoot>
                                     </table>

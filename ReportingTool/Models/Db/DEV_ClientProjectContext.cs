@@ -987,6 +987,10 @@ namespace Reportingtool.Models.Db
                     .HasColumnType("date");
 
                 entity.Property(e => e.Unit).HasMaxLength(16);
+
+                entity.Property(e => e.ReportStage)
+                    .HasColumnName("Report_Stage")
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<VGenerateReports>(entity =>
