@@ -106,56 +106,57 @@
                                         <tbody>
                                             @foreach (var mtrain in Model.Machine_List_Dict[current_route.PkCallId])
                                             {
-                                                <tr>
-                                                    <td>
-                                                        <input type="hidden" name="InputReportList[@machine_count].MachineTrainId" value=@mtrain.PkMachineTrainId>
-                                                        <input type="hidden" name="InputReportList[@machine_count].Machine_Train_Long_Name" value="@mtrain.MachineTrainLongName">
-                                                        <input type="hidden" name="InputReportList[@machine_count].Machine_Train" value="@mtrain.MachineTrain">
-                                                        <input type="hidden" name="InputReportList[@machine_count].PK_CallId" value=@current_route.PkCallId>
-                                                        <input type="hidden" name="InputReportList[@machine_count].RouteDescription" value="@current_route.Route.Route1">
-                                                        <div class="btn-group btn-group-lg" data-toggle="buttons">
-                                                            <label class="rt-radio rt-radio-unique btn btn-sm form-check-label waves-effect waves-light">
-                                                                <input class="form-check-input" type="radio" name="InputReportList[@machine_count].MainOption" id="mt548-missed" value="missed"> <i class="fas fa-times-circle"></i>
-                                                            </label>
-                                                            <label class="rt-radio rt-radio-default btn btn-sm form-check-label waves-effect waves-light">
-                                                                <input class="form-check-input" type="radio" name="InputReportList[@machine_count].MainOption" id="mt548-good" value="good"> <i class="fas fa-check-circle"></i>
-                                                            </label>
-                                                            <label class="rt-radio rt-radio-amber btn btn-sm form-check-label waves-effect waves-light">
-                                                                <input class="form-check-input" type="radio" name="InputReportList[@machine_count].MainOption" id="mt548-anomaly" value="anomaly"> <i class="fas fa-exclamation-triangle"></i>
-                                                            </label>
-                                                        </div>
-                                                        <div class="invalid-feedback">Please select one</div>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <strong>@mtrain.MachineTrain</strong> <br> @mtrain.MachineTrainLongName
+                                            <tr>
+                                                <td>
+                                                    <input type="hidden" name="InputReportList[@machine_count].MachineTrainId" value=@mtrain.PkMachineTrainId>
+                                                    <input type="hidden" name="InputReportList[@machine_count].Machine_Train_Long_Name" value="@mtrain.MachineTrainLongName">
+                                                    <input type="hidden" name="InputReportList[@machine_count].Machine_Train" value="@mtrain.MachineTrain">
+                                                    <input type="hidden" name="InputReportList[@machine_count].PK_CallId" value=@current_route.PkCallId>
+                                                    <input type="hidden" name="InputReportList[@machine_count].RouteDescription" value="@current_route.Route.Route1">
+                                                    <div class="btn-group btn-group-lg" data-toggle="buttons">
+                                                        <label class="rt-radio rt-radio-unique btn btn-sm form-check-label waves-effect waves-light">
+                                                            <input class="form-check-input" type="radio" name="InputReportList[@machine_count].MainOption" id="mt548-missed" value="missed"> <i class="fas fa-times-circle"></i>
+                                                        </label>
+                                                        <label class="rt-radio rt-radio-default btn btn-sm form-check-label waves-effect waves-light">
+                                                            <input class="form-check-input" type="radio" name="InputReportList[@machine_count].MainOption" id="mt548-good" value="good"> <i class="fas fa-check-circle"></i>
+                                                        </label>
+                                                        <label class="rt-radio rt-radio-amber btn btn-sm form-check-label waves-effect waves-light">
+                                                            <input class="form-check-input" type="radio" name="InputReportList[@machine_count].MainOption" id="mt548-anomaly" value="anomaly"> <i class="fas fa-exclamation-triangle"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="invalid-feedback">Please select one</div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <strong>@mtrain.MachineTrain</strong> <br> @mtrain.MachineTrainLongName
 
 
-                                                    </td>
-                                                    <td class="text-center">
-                                                        @mtrain.Condition<br>
-                                                        <small>	@mtrain.ChangeInCondition	</small>
-                                                    </td>
-                                                    <td>
-                                                        <select class="custom-select custom-select-sm missed_reason" name="InputReportList[@machine_count].Reason" id="missed_reason" disabled>
-                                                            <option value=0 selected="">Select a Reason</option>
-                                                            <option value=1>@Model.reason_list[1]</option>
-                                                            <option value=2>@Model.reason_list[2]</option>
-                                                            <option value=3>@Model.reason_list[3]</option>
-                                                        </select>
+                                                </td>
+                                                <td class="text-center">
+                                                    @mtrain.Condition<br>
+                                                    <small>	@mtrain.ChangeInCondition	</small>
+                                                </td>
+                                                <td>
+                                                    <select class="custom-select custom-select-sm missed_reason" name="InputReportList[@machine_count].Reason" id="missed_reason" disabled>
+                                                        <option value=0 selected="">Select a Reason</option>
+                                                        <option value=1>@Model.reason_list[1]</option>
+                                                        <option value=2>@Model.reason_list[2]</option>
+                                                        <option value=3>@Model.reason_list[3]</option>
+                                                    </select>
 
-                                                    </td>
-                                                    <td><input class="form-control form-control-sm" name="InputReportList[@machine_count].Comments" type="text" placeholder="Additional Comments" disabled></td>
-                                                    @{
-                                                        if (mtrain.ReportStage == "In Progress")
-                                                        {
-                                                            <td class="text-center">Yes</td>
-                                                        }
-                                                        else
-                                                        {
-                                                        }
+                                                </td>
+                                                <td><input class="form-control form-control-sm" name="InputReportList[@machine_count].Comments" type="text" placeholder="Additional Comments" disabled></td>
+                                                @{
+                                                    if (mtrain.ReportStage == "In Progress")
+                                                    {
+                                                        <td class="text-center">Yes</td>
+                                                    }
+                                                    else
+                                                    {
                                                         <td class="text-center">No</td>
                                                     }
-                                                </tr>
+
+                                                }
+                                            </tr>
 
                                                 machine_count += 1;
                                             }
