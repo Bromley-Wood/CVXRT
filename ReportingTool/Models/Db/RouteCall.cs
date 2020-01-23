@@ -14,5 +14,7 @@ namespace Reportingtool.Models.Db
         public DateTime? ModifiedDate { get; set; }
         public string ModifiedBy { get; set; }
         public DateTime? CompleteDate { get; set; }
+
+        public Route Route { get; set; }
     }
 }

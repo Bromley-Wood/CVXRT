@@ -14,5 +14,7 @@ namespace Reportingtool.Models.Db
         public DateTime? FirstCallDate { get; set; }
         public int FkAreaId { get; set; }
         public bool RouteIsActive { get; set; }
+
+        public ICollection<MachineTrain> Machine_Train_List { get; set; }
     }
 }

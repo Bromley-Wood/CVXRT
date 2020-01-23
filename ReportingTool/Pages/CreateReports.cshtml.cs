@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ReportingTool.Models;
+using Reportingtool.Models.Db;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +25,9 @@ namespace Reportingtool.Pages
 
     public class CreateReportsModel : BasePageModel
     {
-        private readonly ReportingTool.Models.DatabaseContext _context;
+        private readonly DEV_ClientProjectContext _context;
 
-        public CreateReportsModel(ReportingTool.Models.DatabaseContext context)
+        public CreateReportsModel(DEV_ClientProjectContext context)
         {
             _context = context;
         }
@@ -35,19 +35,18 @@ namespace Reportingtool.Pages
         [BindProperty]
         public List<InputReport> InputReportList { get; set; }
 
-        public IList<Route_Call> Completed_Route_Call { get; set; }
+        public IList<TstRouteCall> Completed_Route_Call { get; set; }
 
         public List<int> Completed_Route_CallId { get; set; }
 
-        //public IList<V_Route_Machines> V_Route_Machines_All { get; set; }
 
-        public IList<V_Report_Summary> V_Report_Summary_All { get; set; }
+        public IList<VTstReportSummary> V_Report_Summary_All { get; set; }
 
-        public IList<V_Create_Reports> V_Create_Reports_All { get; set; }
+        public IList<VCreateReports> V_Create_Reports_All { get; set; }
 
-        public IList<Fault> Fault_All { get; set; }
+        public IList<TstFault> Fault_All { get; set; }
 
-        public Dictionary<int, List<V_Create_Reports>> Machine_List_Dict = new Dictionary<int, List<V_Create_Reports>>();
+        public Dictionary<int, List<VCreateReports>> Machine_List_Dict = new Dictionary<int, List<VCreateReports>>();
 
         // These two lists are defined to default the first route and its table to be active
         public List<string> active_status_list = new List<string>() { "active", "" };
@@ -64,28 +63,28 @@ namespace Reportingtool.Pages
         public async Task OnGetAsync()
         {
             // This is to get what routes need to be displayed on the page
-            Completed_Route_CallId = await _context.V_Create_Reports
-                .Select(m => m.PK_CallId)
+            Completed_Route_CallId = await _context.VCreateReports
+                .Select(m => m.PkCallId)
                 .Distinct()
                 .ToListAsync();
 
             /* Get Completed Route_Call */
-            Completed_Route_Call = await _context.Route_Call
+            Completed_Route_Call = await _context.TstRouteCall
                 .Include(c => c.Route)
                     .ThenInclude(c => c.Machine_Train_List)
-                .Where(c => Completed_Route_CallId.Contains(c.PK_CallId))
+                .Where(c => Completed_Route_CallId.Contains(c.PkCallId))
                 .AsNoTracking()
                 .ToListAsync();
 
-            V_Create_Reports_All = await _context.V_Create_Reports
+            V_Create_Reports_All = await _context.VCreateReports
                 .AsNoTracking()
                 .ToListAsync();
 
             for (int i = 0; i < Completed_Route_Call.Count; ++i)
             {
-                var rcall_id = Completed_Route_Call[i].PK_CallId;
+                var rcall_id = Completed_Route_Call[i].PkCallId;
                 var Machine_List = V_Create_Reports_All
-                    .Where(m => m.PK_CallId == rcall_id)
+                    .Where(m => m.PkCallId == rcall_id)
                     .ToList();
                 if (Machine_List.Count > 0)
                 {
@@ -98,7 +97,7 @@ namespace Reportingtool.Pages
         public async Task<IActionResult> OnPostCreateReport()
         {
 
-            V_Report_Summary_All = await _context.V_Report_Summary
+            V_Report_Summary_All = await _context.VTstReportSummary
                 .AsNoTracking()
                 .ToListAsync();
             
@@ -120,24 +119,24 @@ namespace Reportingtool.Pages
                     }
                     else
                     {
-                        var new_missed_sruvey = new Missed_Survey()
+                        var new_missed_sruvey = new MissedSurvey()
                         {
-                            FK_MachineTrainId = inputreport.MachineTrainId,
+                            FkMachineTrainId = inputreport.MachineTrainId,
                             Reason = reason_list[inputreport.Reason],
                             Comments = inputreport.Comments,
-                            Reported_Missed_Date = DateTime.Now,
-                            Reported_Missed_By = Current_User,
-                            Origin_CallId = inputreport.PK_CallId
+                            ReportedMissedDate = DateTime.Now,
+                            ReportedMissedBy = Current_User,
+                            OriginCallId = inputreport.PK_CallId
                         };
 
-                        _context.Missed_Survey.Add(new_missed_sruvey);
+                        _context.MissedSurvey.Add(new_missed_sruvey);
                         try
                         {
                             await _context.SaveChangesAsync();
                         }
                         catch (DbUpdateConcurrencyException)
                         {
-                            if (!FaultExists(new_missed_sruvey.PK_MissedSurveyId))
+                            if (!FaultExists(new_missed_sruvey.PkMissedSurveyId))
                             {
                                 return NotFound();
                             }
@@ -157,7 +156,7 @@ namespace Reportingtool.Pages
 
                     // -- Check 1 : Are there in progress reports?
                     var in_progress_reports_list = V_Report_Summary_All
-                                                        .Where(r => r.Report_Stage == "In Progress")
+                                                        .Where(r => r.ReportStage == "In Progress")
                                                         .Where(r => r.Status == "Open") // Case sensitive
                                                         .Where(r => r.MachineTrainId == inputreport.MachineTrainId)
                                                         .ToList();
@@ -169,7 +168,7 @@ namespace Reportingtool.Pages
                     else //-- if result is null then there are no in progress reports.  Go to the next check (2)
                     {
                         // -- Check 2: What is the latest report for this machine?
-                        V_Report_Summary latest_report = null;
+                        VTstReportSummary latest_report = null;
                         var latest_report_list = V_Report_Summary_All
                                                 .Where(r => r.MachineTrainId == inputreport.MachineTrainId)
                                                 .Where(r => r.IsLatestReport == 1)
@@ -196,37 +195,37 @@ namespace Reportingtool.Pages
                             // --Set this report to no fault, routine and released
                             // --No Fault - Existing Report
 
-                            var old_report = await _context.Report.FirstOrDefaultAsync(r => r.PK_ReportId == latest_report.ReportId);
-                            var new_report = new Report()
+                            var old_report = await _context.Report.FirstOrDefaultAsync(r => r.PkReportId == latest_report.ReportId);
+                            var new_report = new TstReport()
                             {
-                                FaultId = old_report.FaultId,
-                                Report_Date = DateTime.Now,
-                                Measurement_Date = DateTime.Now,
-                                FK_ConditionId = 1,
-                                FK_ReportTypeId = 1,
-                                FK_ReportStageId = 4,
+                                FkFaultId = old_report.FkFaultId,
+                                ReportDate = DateTime.Now,
+                                MeasurementDate = DateTime.Now,
+                                FkConditionId = 1,
+                                FkReportTypeId = 1,
+                                FkReportStageId = 4,
                                 Observations = null,
                                 Actions = null,
-                                Analyst_Notes = null,
-                                External_Notes = null,
-                                Notification_No = null,
-                                Work_Order_No = null,
-                                Review_Comments = null,
-                                Analyst_Name = Current_User,
-                                Reviewer_Name = null,
-                                Report_IsActive = true,
-                                Origin_CallId = inputreport.PK_CallId
+                                AnalystNotes = null,
+                                ExternalNotes = null,
+                                NotificationNo = null,
+                                WorkOrderNo = null,
+                                ReviewComments = null,
+                                AnalystName = Current_User,
+                                ReviewerName = null,
+                                ReportIsActive = true,
+                                OriginCallId = inputreport.PK_CallId
                             };
 
 
-                            _context.Report.Add(new_report);
+                            _context.TstReport.Add(new_report);
                             try
                             {
                                 await _context.SaveChangesAsync();
                             }
                             catch (DbUpdateConcurrencyException)
                             {
-                                if (!FaultExists(new_report.PK_ReportId))
+                                if (!FaultExists(new_report.PkReportId))
                                 {
                                     return NotFound();
                                 }
@@ -250,29 +249,29 @@ namespace Reportingtool.Pages
                             // -- set the fault type to no fault
 
                             /* Using entity framework for database operation */
-                            var new_fault = new Fault()
+                            var new_fault = new TstFault()
                             {
-                                FK_MachineTrainId = inputreport.MachineTrainId,
-                                FK_PrimaryComponentTypeId = 1,
-                                FK_PrimaryComponentSubtypeId = null,
-                                FK_TechnologyId = 1,
-                                FK_FaultTypeId = 1,
-                                FK_FaultSubtypeId = null,
-                                Create_Date = DateTime.Now,
-                                Close_Date = null,
-                                Fault_Location = "test",
-                                Production_Impact_Cost = null,
-                                Fault_IsActive = true
+                                FkMachineTrainId = inputreport.MachineTrainId,
+                                FkPrimaryComponentTypeId = 1,
+                                FkPrimaryComponentSubtypeId = null,
+                                FkTechnologyId = 1,
+                                FkFaultTypeId = 1,
+                                FkFaultSubtypeId = null,
+                                CreateDate = DateTime.Now,
+                                CloseDate = null,
+                                FaultLocation = "test",
+                                ProductionImpactCost = null,
+                                FaultIsActive = true
                             };
 
-                            _context.Fault.Add(new_fault);
+                            _context.TstFault.Add(new_fault);
                             try
                             {
                                 await _context.SaveChangesAsync();
                             }
                             catch (DbUpdateConcurrencyException)
                             {
-                                if (!FaultExists(new_fault.FaultId))
+                                if (!FaultExists(new_fault.PkFaultId))
                                 {
                                     return NotFound();
                                 }
@@ -284,30 +283,30 @@ namespace Reportingtool.Pages
 
                             // --Create a new report on the new fault.
                             // -- Set this report to no fault, routine and released
-                            var new_report = new Report()
+                            var new_report = new TstReport()
                             {
-                                FaultId = new_fault.FaultId,
-                                Report_Date = DateTime.Now,
-                                Measurement_Date = DateTime.Now,
-                                FK_ConditionId = 1,
-                                FK_ReportTypeId = 1,
-                                FK_ReportStageId = 4,
+                                FkFaultId = new_fault.PkFaultId,
+                                ReportDate = DateTime.Now,
+                                MeasurementDate = DateTime.Now,
+                                FkConditionId = 1,
+                                FkReportTypeId = 1,
+                                FkReportStageId = 4,
                                 Observations = null,
                                 Actions = null,
-                                Analyst_Notes = null,
-                                External_Notes = null,
-                                Notification_No = null,
-                                Work_Order_No = null,
-                                Review_Comments = null,
-                                Analyst_Name = Current_User,
-                                Reviewer_Name = null,
-                                Report_IsActive = true,
-                                Origin_CallId = inputreport.PK_CallId
+                                AnalystNotes = null,
+                                ExternalNotes = null,
+                                NotificationNo = null,
+                                WorkOrderNo = null,
+                                ReviewComments = null,
+                                AnalystName = Current_User,
+                                ReviewerName = null,
+                                ReportIsActive = true,
+                                OriginCallId = inputreport.PK_CallId
 
                             };
 
 
-                            _context.Report.Add(new_report);
+                            _context.TstReport.Add(new_report);
 
                             try
                             {
@@ -315,7 +314,7 @@ namespace Reportingtool.Pages
                             }
                             catch (DbUpdateConcurrencyException)
                             {
-                                if (!ReportExists(new_report.PK_ReportId))
+                                if (!ReportExists(new_report.PkReportId))
                                 {
                                     return NotFound();
                                 }
@@ -351,12 +350,12 @@ namespace Reportingtool.Pages
 
         private bool FaultExists(int id)
         {
-            return _context.Fault.Any(e => e.FaultId == id);
+            return _context.TstFault.Any(e => e.PkFaultId == id);
         }
 
         private bool ReportExists(int id)
         {
-            return _context.Report.Any(e => e.PK_ReportId == id);
+            return _context.TstReport.Any(e => e.PkReportId == id);
         }
     }
 }

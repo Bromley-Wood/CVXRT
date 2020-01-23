@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReportingTool.Models
 {
-    [Table("V_Report_Summary")]
+    [Table("V_tst_Report_Summary")]
     public class V_Report_Summary
     {
         public int FaultId { get; set; }

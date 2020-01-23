@@ -552,6 +552,8 @@ namespace Reportingtool.Models.Db
                 entity.Property(e => e.RouteIsActive).HasColumnName("Route_IsActive");
 
                 entity.Property(e => e.Unit).HasMaxLength(16);
+
+                entity.HasMany(e => e.Machine_Train_List).WithOne().HasForeignKey(FK => FK.FkRouteId);
             });
 
             modelBuilder.Entity<RouteCall>(entity =>
@@ -587,6 +589,8 @@ namespace Reportingtool.Models.Db
                 entity.Property(e => e.ScheduleDate)
                     .HasColumnName("Schedule_Date")
                     .HasColumnType("date");
+
+                entity.HasOne(e => e.Route).WithMany().HasForeignKey(FK => FK.FkRouteId);
             });
 
             modelBuilder.Entity<Site>(entity =>
@@ -823,6 +827,8 @@ namespace Reportingtool.Models.Db
                 entity.Property(e => e.ScheduleDate)
                     .HasColumnName("Schedule_Date")
                     .HasColumnType("date");
+
+                entity.HasOne(e => e.Route).WithMany().HasForeignKey(FK => FK.FkRouteId);
             });
 
             modelBuilder.Entity<VConditionDaily>(entity =>
