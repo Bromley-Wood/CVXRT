@@ -224,19 +224,20 @@
     <script>
 
         $(document).on("click", ".btnCreateReportSubmit", function () {
-            if (AllRequirementsAchieved) {
+            if (AllRequirementsAchieved()) {
                 // submit form
-                $('#createreport').submit();
+                //$('#createreport').submit();
+                alert("Submitting form!");
             }
             else {
-                alert("You have unfinished comments!")
+                alert("You have unfinished comments!");
             }
 
         });
 
         function AllRequirementsAchieved() {
             for (var mtrain of $('.mtrainrow')) {
-                if (!mtrain.querySelector('.mtraincomments').disabled && mtrain.querySelector('.mtraincomments').textContent == "") {
+                if (!mtrain.querySelector('.mtraincomments').disabled && mtrain.querySelector('.mtraincomments').value == "") {
                     return false;
                 }
             }
