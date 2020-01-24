@@ -21,6 +21,9 @@ namespace Reportingtool.Pages
         public string RouteDescription { get; set; }
         public string Machine_Train { get; set; }
 
+        public string Condition { get; set; }
+
+        public string ReportStage { get; set; }
     }
 
     public class CreateReportsModel : BasePageModel
@@ -107,8 +110,8 @@ namespace Reportingtool.Pages
             GeneratedReportSummary.Clear();
             foreach (var inputreport in InputReportList)
             {
-                //Console.WriteLine("{0}--{1}--{2}--{3}--{4}",
-                //    inputreport.MachineTrainId, inputreport.MainOption, inputreport.Reason, inputreport.Comments, inputreport.PK_CallId);
+                Console.WriteLine("{0}--{1}--{2}--{3}--{4}",
+                    inputreport.MachineTrainId, inputreport.MainOption, inputreport.Reason, inputreport.Comments, inputreport.PK_CallId);
                 if (inputreport.MainOption == "missed") // Missed
                 {
                     if (inputreport.Reason == 0)
