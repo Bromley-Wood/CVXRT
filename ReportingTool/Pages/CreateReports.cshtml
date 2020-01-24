@@ -13,13 +13,13 @@
         <hr class="my-5">
 
         @*<p>
-            Here is the summary of the reports you just submit:
-        </p>
+                Here is the summary of the reports you just submit:
+            </p>
 
-        @for (int i = 0; i< Model.GeneratedReportSummary.Count; ++i)
-        {
-            <p>@Model.GeneratedReportSummary[i]</p>
-        }*@
+            @for (int i = 0; i< Model.GeneratedReportSummary.Count; ++i)
+            {
+                <p>@Model.GeneratedReportSummary[i]</p>
+            }*@
         <!-- Main heading -->
         <!--Section: Sched Maint Header-->
         <!--Section: Generate Reports Header-->
@@ -73,7 +73,7 @@
 
         <!--Section: Notifications for reports in progress-->
         <div id="mtrainlisthasreportsinprogress">
-            
+
         </div>
         <!--Section: Notifications for reports in progress-->
         <!--Section: Machines List Table-->
@@ -149,7 +149,7 @@
                                                         </select>
 
                                                     </td>
-                                                    <td><input class="form-control form-control-sm" name="InputReportList[@machine_count].Comments" type="text" placeholder="Additional Comments" disabled></td>
+                                                    <td><input class="form-control form-control-sm mtraincomments" name="InputReportList[@machine_count].Comments" type="text" placeholder="Additional Comments" disabled></td>
                                                     @{
                                                         if (mtrain.ReportStage == "In Progress")
                                                         {
@@ -203,15 +203,13 @@
         });
 
         $(document).on("change", "#machinesOnRoute tbody .rt-radio-default input[type='radio']", function () {
-            
-            if ($(this).closest(".mtraincondition").textContent != "No Action")
-            {
-                alert("This machine's condition is not 2. Please confirm your choice by leaving comments.")
+
+            if ($(this).closest("tr").find(".mtraincondition")[0].textContent != "No Action") {
+                alert("This machine's condition is not 2. Please confirm your choice and finish the comments.")
                 $(this).closest("tr").find("input.form-control.form-control-sm").not(this).prop('disabled', false);
             }
-            else
-            {
-                $(this).closest("tr").find("input.form-control.form-control-sm").not(this).prop('disabled', true);    
+            else {
+                $(this).closest("tr").find("input.form-control.form-control-sm").not(this).prop('disabled', true);
             }
             $(this).closest("tr").find("select").not(this).prop('disabled', true);
         });
@@ -221,14 +219,30 @@
             $(this).closest("tr").find("select").not(this).prop('disabled', true);
         });
 
+    </script>
 
-        //---------------------------Create New Report ---------------------------//
-        $(function () {
-            $(document).on("click", ".btnCreateReportSubmit", function () {
+    <script>
+
+        $(document).on("click", ".btnCreateReportSubmit", function () {
+            if (AllRequirementsAchieved) {
+                // submit form
                 $('#createreport').submit();
-            });
+            }
+            else {
+                alert("You have unfinished comments!")
+            }
+
         });
-        //---------------------------Create New Report ---------------------------//
+
+        function AllRequirementsAchieved() {
+            for (var mtrain of $('.mtrainrow')) {
+                if (!mtrain.querySelector('.mtraincomments').disabled && mtrain.querySelector('.mtraincomments').textContent == "") {
+                    return false;
+                }
+            }
+            return true;
+        }
+
     </script>
 
     <script>
@@ -253,7 +267,7 @@
                 $('#mtrainlisthasreportsinprogress')[0].appendChild(section);
 
                 var strong1 = document.createElement("strong");
-                strong1.textContent = "The following machines have reports in progress. Please finish the reports in progress first before generate new reports.";
+                strong1.textContent = "The following machines have reports in progress. Please finish the reports in progress first before generate new ones.";
                 strong1.style.color = "red";
                 $('#mtrainlisthasreportsinprogress')[0].appendChild(strong1);
 
