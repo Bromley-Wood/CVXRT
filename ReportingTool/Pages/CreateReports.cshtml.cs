@@ -20,10 +20,11 @@ namespace Reportingtool.Pages
         public string Machine_Train_Long_Name { get; set; }
         public string RouteDescription { get; set; }
         public string Machine_Train { get; set; }
-
         public string Condition { get; set; }
-
         public string ReportStage { get; set; }
+        public string Status { get; set; }
+        public int FaultId { get; set; }
+        public int ReportId { get; set; }
     }
 
     public class CreateReportsModel : BasePageModel
@@ -103,7 +104,7 @@ namespace Reportingtool.Pages
             V_Report_Summary_All = await _context.VTstReportSummary
                 .AsNoTracking()
                 .ToListAsync();
-            
+
             // only process selected machines
             InputReportList = InputReportList.Where(r => MainOptionList.Contains(r.MainOption)).ToList();
 
@@ -151,75 +152,33 @@ namespace Reportingtool.Pages
                         log_str = $"Missed Survey created for machine {inputreport.Machine_Train} - {inputreport.Machine_Train_Long_Name} in route {inputreport.RouteDescription}";
                         GeneratedReportSummary.Add(log_str);
                         Console.WriteLine(log_str);
-                       
                     }
                 }
                 else if (inputreport.MainOption == "good") // No Action
                 {
-
-                    // -- Check 1 : Are there in progress reports?
-                    var in_progress_reports_list = V_Report_Summary_All
-                                                        .Where(r => r.ReportStage == "In Progress")
-                                                        .Where(r => r.Status == "Open") // Case sensitive
-                                                        .Where(r => r.MachineTrainId == inputreport.MachineTrainId)
-                                                        .ToList();
-
-                    if (in_progress_reports_list.Count > 0) //-- if result is not null 
+                    // Is there an open fault?
+                    if (inputreport.Status == "Open")
                     {
-                        // exit and add to warning list (tbc) (I probably need to build this in the html)
-                    }
-                    else //-- if result is null then there are no in progress reports.  Go to the next check (2)
-                    {
-                        // -- Check 2: What is the latest report for this machine?
-                        VTstReportSummary latest_report = null;
-                        var latest_report_list = V_Report_Summary_All
-                                                .Where(r => r.MachineTrainId == inputreport.MachineTrainId)
-                                                .Where(r => r.IsLatestReport == 1)
-                                                .ToList();
-
-                        foreach (var lr in latest_report_list)
+                        // Was the latest condition a 2 (No Action)
+                        if (inputreport.Condition == "No Action")
                         {
-                            if (lr.Condition == "No Action")
-                            {
-                                latest_report = lr;
-                                log_str = $"Latest report has 'No Action' found for machine {inputreport.Machine_Train} - {inputreport.Machine_Train_Long_Name} in route {inputreport.RouteDescription}";
-                                GeneratedReportSummary.Add(log_str);
-                                Console.WriteLine(log_str);
-                            }
-                        }
+                            /*
+                                Create a new report on the same fault.
+                                -- Set condition_mag = 2, routine and released
+                             */
 
-                        if (latest_report != null)
-                        {
-                            //-- If the above returns a report that is condition 2 then raise a no action report and release it.  go to (3)
-                            // Action 3
-                            // --Retrieve the latest report on this machine
-                            // -- Get the fault id of this report
-                            // -- Create a new report on the same fault.
-                            // --Set this report to no fault, routine and released
-                            // --No Fault - Existing Report
-
-                            var old_report = await _context.Report.FirstOrDefaultAsync(r => r.PkReportId == latest_report.ReportId);
                             var new_report = new TstReport()
                             {
-                                FkFaultId = old_report.FkFaultId,
+                                FkFaultId = inputreport.FaultId,
                                 ReportDate = DateTime.Now,
                                 MeasurementDate = DateTime.Now,
-                                FkConditionId = 1,
-                                FkReportTypeId = 1,
-                                FkReportStageId = 4,
-                                Observations = null,
-                                Actions = null,
-                                AnalystNotes = null,
-                                ExternalNotes = null,
-                                NotificationNo = null,
-                                WorkOrderNo = null,
-                                ReviewComments = null,
+                                FkConditionId = 1, // No Action Mag = 2
+                                FkReportTypeId = 1, // Routine
+                                FkReportStageId = 4, //released
                                 AnalystName = Current_User,
-                                ReviewerName = null,
                                 ReportIsActive = true,
                                 OriginCallId = inputreport.PK_CallId
                             };
-
 
                             _context.TstReport.Add(new_report);
                             try
@@ -228,7 +187,7 @@ namespace Reportingtool.Pages
                             }
                             catch (DbUpdateConcurrencyException)
                             {
-                                if (!FaultExists(new_report.PkReportId))
+                                if (!ReportExists(new_report.PkReportId))
                                 {
                                     return NotFound();
                                 }
@@ -238,32 +197,59 @@ namespace Reportingtool.Pages
                                 }
                             }
 
-                            log_str = $"New report created for machine {inputreport.Machine_Train} - {inputreport.Machine_Train_Long_Name} in route {inputreport.RouteDescription}";
-                            GeneratedReportSummary.Add(log_str);
-                            Console.WriteLine(log_str);
-                            
-
                         }
-                        else
-                        //-- if result is null then that means there are no open faults on this machine.  we need to raise a new fault and then a report.  go to (4).
+                        else // Was the latest condition a 2 (No Action)
                         {
-                            // Action 4
-                            // -- create a new fault on this machine
-                            // -- set the fault type to no fault
+                            /*
+                                Close the existing fault
+                                -- Stamp the close date field in the fault table
+                                -- Input the comment to the fault table    
+                            */
 
-                            /* Using entity framework for database operation */
+                            var Edit_Fault = await _context.TstFault.FirstOrDefaultAsync(n => n.PkFaultId == inputreport.FaultId);
+
+                            if (Edit_Fault == null)
+                            {
+                                return NotFound();
+                            }
+
+                            Edit_Fault.CloseDate = DateTime.Now;
+                            Edit_Fault.ClosureComment = inputreport.Comments;
+
+                            _context.Attach(Edit_Fault).State = EntityState.Modified;
+
+                            try
+                            {
+                                await _context.SaveChangesAsync();
+                            }
+                            catch (DbUpdateConcurrencyException)
+                            {
+                                if (!FaultExists(Edit_Fault.PkFaultId))
+                                {
+                                    return NotFound();
+                                }
+                                else
+                                {
+                                    throw;
+                                }
+                            }
+
+
+
+                            /*
+                                Create a new fault on this machine
+                                -- set the fault type to no fault
+                                -- Create a new report on the new fault.
+                                -- Set condition_mag = 2, routine and released
+                            */
+
                             var new_fault = new TstFault()
                             {
                                 FkMachineTrainId = inputreport.MachineTrainId,
                                 FkPrimaryComponentTypeId = 1,
-                                FkPrimaryComponentSubtypeId = null,
                                 FkTechnologyId = 1,
                                 FkFaultTypeId = 1,
-                                FkFaultSubtypeId = null,
                                 CreateDate = DateTime.Now,
-                                CloseDate = null,
-                                FaultLocation = "test",
-                                ProductionImpactCost = null,
                                 FaultIsActive = true
                             };
 
@@ -284,8 +270,6 @@ namespace Reportingtool.Pages
                                 }
                             }
 
-                            // --Create a new report on the new fault.
-                            // -- Set this report to no fault, routine and released
                             var new_report = new TstReport()
                             {
                                 FkFaultId = new_fault.PkFaultId,
@@ -294,18 +278,185 @@ namespace Reportingtool.Pages
                                 FkConditionId = 1,
                                 FkReportTypeId = 1,
                                 FkReportStageId = 4,
-                                Observations = null,
-                                Actions = null,
-                                AnalystNotes = null,
-                                ExternalNotes = null,
-                                NotificationNo = null,
-                                WorkOrderNo = null,
-                                ReviewComments = null,
                                 AnalystName = Current_User,
-                                ReviewerName = null,
                                 ReportIsActive = true,
                                 OriginCallId = inputreport.PK_CallId
+                            };
 
+
+                            _context.TstReport.Add(new_report);
+
+                            try
+                            {
+                                await _context.SaveChangesAsync();
+                            }
+                            catch (DbUpdateConcurrencyException)
+                            {
+                                if (!ReportExists(new_report.PkReportId))
+                                {
+                                    return NotFound();
+                                }
+                                else
+                                {
+                                    throw;
+                                }
+                            }
+                        }
+
+                    }
+                    else  // Is there an open fault?
+                    {
+                        /*
+                                Create a new fault on this machine
+                                -- set the fault type to no fault
+                                -- Create a new report on the new fault.
+                                -- Set condition_mag = 2, routine and released
+                            */
+
+                        var new_fault = new TstFault()
+                        {
+                            FkMachineTrainId = inputreport.MachineTrainId,
+                            FkPrimaryComponentTypeId = 1,
+                            FkTechnologyId = 1,
+                            FkFaultTypeId = 1,
+                            CreateDate = DateTime.Now,
+                            FaultIsActive = true
+                        };
+
+                        _context.TstFault.Add(new_fault);
+                        try
+                        {
+                            await _context.SaveChangesAsync();
+                        }
+                        catch (DbUpdateConcurrencyException)
+                        {
+                            if (!FaultExists(new_fault.PkFaultId))
+                            {
+                                return NotFound();
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
+
+                        var new_report = new TstReport()
+                        {
+                            FkFaultId = new_fault.PkFaultId,
+                            ReportDate = DateTime.Now,
+                            MeasurementDate = DateTime.Now,
+                            FkConditionId = 1,
+                            FkReportTypeId = 1,
+                            FkReportStageId = 4,
+                            AnalystName = Current_User,
+                            ReportIsActive = true,
+                            OriginCallId = inputreport.PK_CallId
+                        };
+
+
+                        _context.TstReport.Add(new_report);
+
+                        try
+                        {
+                            await _context.SaveChangesAsync();
+                        }
+                        catch (DbUpdateConcurrencyException)
+                        {
+                            if (!ReportExists(new_report.PkReportId))
+                            {
+                                return NotFound();
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
+
+                    }
+                }
+                else if (inputreport.MainOption == "anomaly") // Anomaly
+                {
+                    // Is there an open fault?
+                    if (inputreport.Status == "Open")
+                    {
+                        // Was the latest condition a 2 (No Action)
+                        if (inputreport.Condition == "No Action")
+                        {
+                            /*
+                                Close the existing fault
+                                -- Stamp the close date field in the fault table  
+                            */
+                            var Edit_Fault = await _context.TstFault.FirstOrDefaultAsync(n => n.PkFaultId == inputreport.FaultId);
+
+                            if (Edit_Fault == null)
+                            {
+                                return NotFound();
+                            }
+
+                            Edit_Fault.CloseDate = DateTime.Now;
+
+                            _context.Attach(Edit_Fault).State = EntityState.Modified;
+
+                            try
+                            {
+                                await _context.SaveChangesAsync();
+                            }
+                            catch (DbUpdateConcurrencyException)
+                            {
+                                if (!FaultExists(Edit_Fault.PkFaultId))
+                                {
+                                    return NotFound();
+                                }
+                                else
+                                {
+                                    throw;
+                                }
+                            }
+
+
+                            /*
+                                Create a new fault on this machine
+                                -- Create a new report on the new fault.
+                                -- Set condition_mag = 3, routine and In progress
+                            */
+
+                            var new_fault = new TstFault()
+                            {
+                                FkMachineTrainId = inputreport.MachineTrainId,
+                                FkPrimaryComponentTypeId = 1,
+                                FkTechnologyId = 1,
+                                CreateDate = DateTime.Now,
+                                FaultIsActive = true
+                            };
+
+                            _context.TstFault.Add(new_fault);
+                            try
+                            {
+                                await _context.SaveChangesAsync();
+                            }
+                            catch (DbUpdateConcurrencyException)
+                            {
+                                if (!FaultExists(new_fault.PkFaultId))
+                                {
+                                    return NotFound();
+                                }
+                                else
+                                {
+                                    throw;
+                                }
+                            }
+
+                            var new_report = new TstReport()
+                            {
+                                FkFaultId = new_fault.PkFaultId,
+                                ReportDate = DateTime.Now,
+                                MeasurementDate = DateTime.Now,
+                                FkConditionId = 2,
+                                FkReportTypeId = 1,
+                                FkReportStageId = 1,
+                                AnalystName = Current_User,
+                                ReportIsActive = true,
+                                OriginCallId = inputreport.PK_CallId
                             };
 
 
@@ -327,18 +478,115 @@ namespace Reportingtool.Pages
                                 }
                             }
 
-                            log_str = $"New report created for machine {inputreport.Machine_Train} - {inputreport.Machine_Train_Long_Name} in route {inputreport.RouteDescription}";
-                            GeneratedReportSummary.Add(log_str);
-                            Console.WriteLine(log_str);
+                        }
+                        else
+                        {
+                            /*
+                                Create a new report on the same fault.
+                                -- Set condition_mag = 2, routine and released
+                             */
+
+                            var new_report = new TstReport()
+                            {
+                                FkFaultId = inputreport.FaultId,
+                                ReportDate = DateTime.Now,
+                                MeasurementDate = DateTime.Now,
+                                FkConditionId = 1,
+                                FkReportTypeId = 1,
+                                FkReportStageId = 4,
+                                AnalystName = Current_User,
+                                ReportIsActive = true,
+                                OriginCallId = inputreport.PK_CallId
+                            };
+
+
+                            _context.TstReport.Add(new_report);
+
+                            try
+                            {
+                                await _context.SaveChangesAsync();
+                            }
+                            catch (DbUpdateConcurrencyException)
+                            {
+                                if (!ReportExists(new_report.PkReportId))
+                                {
+                                    return NotFound();
+                                }
+                                else
+                                {
+                                    throw;
+                                }
+                            }
+
+                        }
+
+                    }
+                    else
+                    {
+                        /*
+                                Create a new fault on this machine
+                                -- Create a new report on the new fault.
+                                -- Set condition_mag = 3, routine and In progress
+                            */
+
+                        var new_fault = new TstFault()
+                        {
+                            FkMachineTrainId = inputreport.MachineTrainId,
+                            FkPrimaryComponentTypeId = 1,
+                            FkTechnologyId = 1,
+                            CreateDate = DateTime.Now,
+                            FaultIsActive = true
+                        };
+
+                        _context.TstFault.Add(new_fault);
+                        try
+                        {
+                            await _context.SaveChangesAsync();
+                        }
+                        catch (DbUpdateConcurrencyException)
+                        {
+                            if (!FaultExists(new_fault.PkFaultId))
+                            {
+                                return NotFound();
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
+
+                        var new_report = new TstReport()
+                        {
+                            FkFaultId = new_fault.PkFaultId,
+                            ReportDate = DateTime.Now,
+                            MeasurementDate = DateTime.Now,
+                            FkConditionId = 2,
+                            FkReportTypeId = 1,
+                            FkReportStageId = 1,
+                            AnalystName = Current_User,
+                            ReportIsActive = true,
+                            OriginCallId = inputreport.PK_CallId
+                        };
+
+
+                        _context.TstReport.Add(new_report);
+
+                        try
+                        {
+                            await _context.SaveChangesAsync();
+                        }
+                        catch (DbUpdateConcurrencyException)
+                        {
+                            if (!ReportExists(new_report.PkReportId))
+                            {
+                                return NotFound();
+                            }
+                            else
+                            {
+                                throw;
+                            }
                         }
                     }
-                }
-                else if (inputreport.MainOption == "anomaly") // Anomaly
-                {
-                    log_str = $"Anomaly report hasn't been implemented for machine {inputreport.Machine_Train} - {inputreport.Machine_Train_Long_Name} in route {inputreport.RouteDescription}";
-                    GeneratedReportSummary.Add(log_str);
-                    Console.WriteLine(log_str);
-                    
                 }
                 else
                 {

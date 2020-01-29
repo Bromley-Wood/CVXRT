@@ -35,5 +35,6 @@ namespace Reportingtool.Models.Db
         public int? ConditionDifference { get; set; }
         public string ChangeInCondition { get; set; }
         public string ReportStage { get; set; }
+        public string Status { get; set; }
     }
 }

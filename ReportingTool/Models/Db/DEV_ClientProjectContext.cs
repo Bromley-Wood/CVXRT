@@ -991,6 +991,10 @@ namespace Reportingtool.Models.Db
                 entity.Property(e => e.ReportStage)
                     .HasColumnName("Report_Stage")
                     .HasMaxLength(50);
+
+                entity.Property(e => e.Status)
+                    .HasMaxLength(6)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<VGenerateReports>(entity =>
@@ -1414,7 +1418,7 @@ namespace Reportingtool.Models.Db
                 //entity.HasNoKey();
                 //Specify a key for view here is important to ensure that when use Include and Theninclude statements in C#
                 //To make sure EntityFramework returns the correct results
-                
+
                 entity.HasKey(e => e.ReportId);
 
                 entity.ToView("V_tst_Report_Summary");
