@@ -995,6 +995,8 @@ namespace Reportingtool.Models.Db
                 entity.Property(e => e.Status)
                     .HasMaxLength(6)
                     .IsUnicode(false);
+
+                entity.Property(e => e.HasReportInProgress).HasColumnName("HasReportInProgress");
             });
 
             modelBuilder.Entity<VGenerateReports>(entity =>

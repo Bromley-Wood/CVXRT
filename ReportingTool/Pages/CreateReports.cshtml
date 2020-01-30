@@ -157,7 +157,7 @@
                                                 </td>
                                                 <td><input class="form-control form-control-sm mtraincomments" name="InputReportList[@machine_count].Comments" type="text" placeholder="Additional Comments" disabled></td>
                                                 @{
-                                                    if (mtrain.ReportStage == "In Progress")
+                                                    if (mtrain.HasReportInProgress == 1)
                                                     {
                                                         <td class="text-center reportinprogressflag" style="color: red">Yes</td>
                                                     }

@@ -36,5 +36,6 @@ namespace Reportingtool.Models.Db
         public string ChangeInCondition { get; set; }
         public string ReportStage { get; set; }
         public string Status { get; set; }
+        public int HasReportInProgress { get; set; }
     }
 }
