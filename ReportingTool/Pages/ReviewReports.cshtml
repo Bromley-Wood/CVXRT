@@ -119,19 +119,23 @@
 
                         <!-- Heading -->
                         <p class="grey-text">
-                            Raise a new fault, or edit an existing report on a machine train
+                            Raise a new fault/report, or edit an existing report on a machine train
                         </p>
 
                         <!-- Search for a machine -->
                         <form method="post" asp-page-handler="AddNewFaultAgainstMachine" id="AddNewFaultAgainstMachineForm">
-                            <div class="input-group mb-3 ui-widget w-100">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-search ml-1"></i></span>
-                                </div>
-                                <input type="text" class="form-control" id="ModifyCustomMachineTrain1" value="@Model.ModifyCustomMachineTrain.MachineTrain1" placeholder="@Model.ModifyCustomMachineTrain.MachineTrain1">
-                                <input type="hidden" name="MachineTrainIdAddNewFault" id="ModifyCustomMachineTrainId" class="form-control" value="@Model.ModifyCustomMachineTrain.PkMachineTrainId">
-                            </div>
+                            <input type="hidden" name="MachineTrainIdAddNewFault" id="ModifyCustomMachineTrainId" class="form-control" value="@Model.ModifyCustomMachineTrain.PkMachineTrainId">
                         </form>
+                        <form method="post" asp-page-handler="AddNewReportForExistingFaultAgainstMachine" id="AddNewReportForExistingFaultAgainstMachineForm">
+                            <input type="hidden" name="MachineTrainIdAddNewFault" id="ModifyCustomMachineTrainId_NewReport" class="form-control" value="@Model.ModifyCustomMachineTrain.PkMachineTrainId">
+                        </form>
+                        <div class="input-group mb-3 ui-widget w-100">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-search ml-1"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="ModifyCustomMachineTrain1" value="@Model.ModifyCustomMachineTrain.MachineTrain1" placeholder="@Model.ModifyCustomMachineTrain.MachineTrain1">
+                        </div>
+
                         <!-- /.Search for a machine -->
 
                         <div class="list-group  d-flex justify-content-center">
@@ -142,19 +146,18 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header text-center">
-                                                <h4 class="modal-title w-100 font-weight-bold ml-5 text-default">Raise a new fault</h4>
+                                                <h4 class="modal-title w-100 font-weight-bold ml-5 text-default">Raise New</h4>
                                                 <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body mx-3">
-                                                Are you sure you want to create a new fault?   <br />
-                                                A new fault will be added to the queue against   <br />
-                                                <strong id="AddNewFaultMachineName">{this machine name}.</strong>
+                                                Create a new report for the existing fault or raise a new fault for machine
+                                                <strong id="AddNewFaultMachineName" class="text-center"></strong>
                                             </div>
                                             <div class="modal-footer d-flex justify-content-center">
-                                                <button type="button" class="btn btn-danger btnYesClass" id="btnYes" data-dismiss="modal" onclick="$('#AddNewFaultAgainstMachineForm').submit();">Yes</button>
-                                                <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal">No</button>
+                                                <button type="button" class="btn btn-danger btnYesClass" id="btnYes" data-dismiss="modal" onclick="$('#AddNewFaultAgainstMachineForm').submit();">New Fault and New Report</button>
+                                                <button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal" onclick="$('#AddNewReportForExistingFaultAgainstMachineForm').submit();">New Report On Existing Fault</button>
                                             </div>
                                         </div>
                                     </div>
@@ -1175,6 +1178,7 @@
                         event.preventDefault();
                         $('#ModifyCustomMachineTrain1').val(ui.item.label);
                         $('#ModifyCustomMachineTrainId').val(ui.item.value).trigger('change');
+                        $('#ModifyCustomMachineTrainId_NewReport').val(ui.item.value);
                     }
                 });
             });
@@ -1215,8 +1219,11 @@
             }
 
             function SetMachineTrainNameLoading() {
-                document.getElementById('AddNewFaultMachineName').innerHTML = "Loading " + document.getElementById('ModifyCustomMachineTrain1').value;
-                document.getElementById('ReportListMachineTrainName').innerHTML = "Loading " + document.getElementById('ModifyCustomMachineTrain1').value;
+                //document.getElementById('AddNewFaultMachineName').innerHTML = "Loading " + document.getElementById('ModifyCustomMachineTrain1').value;
+                //document.getElementById('ReportListMachineTrainName').innerHTML = "Loading " + document.getElementById('ModifyCustomMachineTrain1').value;
+
+                document.getElementById('AddNewFaultMachineName').innerHTML = "Loading " + document.getElementById('ModifyCustomMachineTrain1').value + "... DO NOT ADD OR EDIT!";
+                document.getElementById('ReportListMachineTrainName').innerHTML = "Loading " + document.getElementById('ModifyCustomMachineTrain1').value + "... DO NOT ADD OR EDIT!";
             }
 
 
@@ -1226,11 +1233,11 @@
             }
 
             function TreeviewInitialization() {
-                
+
                 if (document.getElementById('CheckPartialViewLoadedMachineTrainId') != null) {
-                
+
                     if (document.getElementById('CheckPartialViewLoadedMachineTrainId').value == document.getElementById('ModifyCustomMachineTrainId').value) {
-                
+
                         $('.treeview-animated').mdbTreeview();
                         SetMachineTrainName();
                         return true;
@@ -1254,7 +1261,7 @@
                             return;
                         }
                     }
-                    
+
 
                     document.getElementById('ReportIdBackToQueueId').value = selected_report_id;
                     $('#AddHistoryReportBackToQueueForm').submit();
@@ -1265,21 +1272,21 @@
             }
         </script>
 
-    <script>
+        <script>
 
-        $(document).on("click", ".reporttree", function () {
-            $('#modalViewReport #modalView_ReportType')[0].textContent = $(this)[0].getAttribute('data-reporttype');
-            $('#modalViewReport #modalView_Condition')[0].textContent = $(this)[0].getAttribute('data-condition');
-            $('#modalViewReport #modalView_ReportDate')[0].textContent = $(this)[0].getAttribute('data-reportdate');
-            //$('#modalViewReport #modalView_Observations')[0].textContent = $(this)[0].getAttribute('data-observations');
-            //$('#modalViewReport #modalView_Actions')[0].textContent = $(this)[0].getAttribute('data-actions');
-            $('#modalViewReport #modalView_ExternalNotes')[0].textContent = $(this)[0].getAttribute('data-externalnotes');
-            //$('#modalViewReport #modalView_Notification')[0].textContent = $(this)[0].getAttribute('data-notification');
-            //$('#modalViewReport #modalView_WorkOrder')[0].textContent = $(this)[0].getAttribute('data-workorder');
-            $('#modalViewReport #modalView_AnalystNotes')[0].textContent = $(this)[0].getAttribute('data-analystnotes');
-        });
+            $(document).on("click", ".reporttree", function () {
+                $('#modalViewReport #modalView_ReportType')[0].textContent = $(this)[0].getAttribute('data-reporttype');
+                $('#modalViewReport #modalView_Condition')[0].textContent = $(this)[0].getAttribute('data-condition');
+                $('#modalViewReport #modalView_ReportDate')[0].textContent = $(this)[0].getAttribute('data-reportdate');
+                //$('#modalViewReport #modalView_Observations')[0].textContent = $(this)[0].getAttribute('data-observations');
+                //$('#modalViewReport #modalView_Actions')[0].textContent = $(this)[0].getAttribute('data-actions');
+                $('#modalViewReport #modalView_ExternalNotes')[0].textContent = $(this)[0].getAttribute('data-externalnotes');
+                //$('#modalViewReport #modalView_Notification')[0].textContent = $(this)[0].getAttribute('data-notification');
+                //$('#modalViewReport #modalView_WorkOrder')[0].textContent = $(this)[0].getAttribute('data-workorder');
+                $('#modalViewReport #modalView_AnalystNotes')[0].textContent = $(this)[0].getAttribute('data-analystnotes');
+            });
 
 
-    </script>
+        </script>
 
     }

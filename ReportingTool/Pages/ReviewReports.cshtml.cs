@@ -376,6 +376,47 @@ namespace Reportingtool.Pages
             return RedirectToPage("/ReviewReports", new { id = new_report.PkReportId });
         }
 
+        public async Task<IActionResult> OnPostAddNewReportForExistingFaultAgainstMachine()
+        {
+            var ExistingFaultId = _context.TstFault
+                .Where(f => f.FkMachineTrainId == MachineTrainIdAddNewFault)
+                .OrderByDescending(f => f.CreateDate)
+                .First()
+                .PkFaultId;
+            
+            var new_report = new TstReport()
+            {
+                FkFaultId = ExistingFaultId,
+                ReportDate = DateTime.Now,
+                MeasurementDate = DateTime.Now,
+                FkConditionId = 3,
+                FkReportTypeId = 3,
+                FkReportStageId = 1,
+                AnalystName = Current_User,
+                ReportIsActive = true,
+            };
+
+
+            _context.TstReport.Add(new_report);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ReportExists(new_report.PkReportId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return RedirectToPage("/ReviewReports", new { id = new_report.PkReportId });
+        }
 
         public async Task<IActionResult> OnPostAddHistoryReportBackToQueue()
         {
