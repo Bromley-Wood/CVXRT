@@ -413,6 +413,8 @@ namespace Reportingtool.Pages
                                 }
                             }
 
+                            Console.WriteLine("Close the existing fault");
+
 
                             /*
                                 Create a new fault on this machine
@@ -478,6 +480,8 @@ namespace Reportingtool.Pages
                                 }
                             }
 
+                            Console.WriteLine("Set condition_mag = 3, routine and In progress");
+
                         }
                         else
                         {
@@ -517,6 +521,8 @@ namespace Reportingtool.Pages
                                     throw;
                                 }
                             }
+
+                            Console.WriteLine("Create a new report on the same fault. -- Set condition_mag = 2, routine and released");
 
                         }
 
@@ -586,6 +592,7 @@ namespace Reportingtool.Pages
                                 throw;
                             }
                         }
+                        Console.WriteLine("Create a new fault on this machine -- Create a new report on the new fault. -- Set condition_mag = 3, routine and In progress");
                     }
                 }
                 else
