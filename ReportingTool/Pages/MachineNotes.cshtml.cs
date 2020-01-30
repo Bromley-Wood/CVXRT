@@ -49,6 +49,9 @@ namespace Reportingtool.Pages
         public bool Machine_Train_Note_ShowOnReport { get; set; }
 
 
+        [BindProperty]
+        public int MachineFileID_ToDelete { get; set; }
+
 
         public async Task OnGetAsync(int? id)
         {
@@ -249,6 +252,28 @@ namespace Reportingtool.Pages
             }
             else {
                 return RedirectToPage("/Machinenotes", new { id = 1 });
+            }
+        }
+
+        public async Task<IActionResult> OnPostDeleteMachinefile()
+
+        {
+            var MachineFile = await _context.Machine_Train_Files.FindAsync(MachineFileID_ToDelete);
+
+            if (MachineFile == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                _context.Machine_Train_Files.Remove(MachineFile);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("/Machinenotes", new { id = Machine_Train_Id });
+            }
+            catch (DbUpdateException /* ex */)
+            {
+                throw;
             }
         }
 

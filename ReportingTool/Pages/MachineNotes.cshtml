@@ -30,7 +30,6 @@
                         </div>
                     </div>
                     <!--/.Featured Image-->
-
                     <!--Display Machine Notes-->
                     <div class="card mb-4 wow fadeIn">
 
@@ -151,6 +150,10 @@
                         <div class="card-header">Attached Files</div>
 
                         <!--Card content-->
+                        <form method="post" asp-page-handler="deletemachinefile" id="deletemachinefileform">
+                            <input type="hidden" asp-for="MachineFileID_ToDelete" id="MachineFileID_ToDelete" />
+                            <input type="hidden" asp-for="Machine_Train_Id" value="@Model.Current_Machine_Train.MachineTrainId" />
+                        </form>
                         <div class="card-body">
                             <ul class="list-unstyled">
                                 @foreach (var item in Model.Machine_Train_File_All)
@@ -158,11 +161,14 @@
                                     <li class="media">
                                         <img class="d-flex mr-3" src="~/MachineAttach/@(item.FileName)" alt="Generic placeholder image" width=25%, height=25%>
                                         <div class="media-body">
-                                            Uploaded By: @item.Uploaded_By
-                                            <br />
-                                            Uploaded Date: @item.Upload_Date
+                                            @*Uploaded By: @item.Uploaded_By
+                            <br />
+                            Uploaded Date: @item.Upload_Date*@
+                                            <button machinefileid="@item.PK_FilePathId" class="btn btn-info btn-rounded btn-sm btnDeleteMachineFile" style="color:black; font-size:10pt" type="submit" form="deletemachinefileform" onclick="deleteMachineFile(this)">Delete Attachment</button>
                                         </div>
                                     </li>
+
+                                    <br />
                                 }
                             </ul>
                         </div>
@@ -301,6 +307,15 @@
 
 
             });
+    </script>
+
+    <script>
+        function deleteMachineFile(elmnt) {
+            var id = elmnt.getAttribute('machinefileid');
+            document.getElementById('MachineFileID_ToDelete').setAttribute('value', id);
+            $('#deletemachinefileform').submit();
+        }
+
     </script>
 
     <script>
