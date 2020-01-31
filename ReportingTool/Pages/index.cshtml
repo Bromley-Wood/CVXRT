@@ -84,12 +84,12 @@
                     <!--Card content-->
                     <div class="card-kpi card-body">
                         <!--KPI-->
-                        <h1 class="font-weight-bold">12</h1>
+                        <h1 class="font-weight-bold">@Model.Route_Call_Hour_Week.Count</h1>
                         <!--Title-->
                         <h4 class="card-title">Routes Remaining</h4>
                         <!--Text-->
                         <p class="card-text">
-                            14 hours remaining in the schedule for this week. Shift your workload or confirm your routes.
+                            @Model.Route_Call_Hour_Week.Sum() hours remaining in the schedule for this week. Shift your workload or confirm your routes.
                         </p>
                         <a class="btn btn-info" asp-page="/ScheduleMaintenance">Schedule Work</a>
                     </div>
@@ -111,12 +111,12 @@
                     <!--Card content-->
                     <div class="card-kpi card-body">
                         <!--KPI-->
-                        <h1 class="font-weight-bold">27</h1>
+                        <h1 class="font-weight-bold">@Model.Num_Machine_To_Verify</h1>
                         <!--Title-->
                         <h4 class="card-title">Machines to Verify</h4>
                         <!--Text-->
                         <p class="card-text">
-                            5 Routes have been completed.  Verify whether these machines have been missed or require reporting for this survey.
+                            @Model.Num_Completed_Route Routes have been completed.  Verify whether these machines have been missed or require reporting for this survey.
                         </p>
                         <a class="btn btn-info" asp-page="/CreateReports">Raise Reports</a>
                     </div>
@@ -138,12 +138,12 @@
                     <!--Card content-->
                     <div class="card-kpi card-body">
                         <!--KPI-->
-                        <h1 class="font-weight-bold">3</h1>
+                        <h1 class="font-weight-bold">@Model.Num_Report_In_Progress</h1>
                         <!--Title-->
                         <h4 class="card-title">Reports In Progress</h4>
                         <!--Text-->
                         <p class="card-text">
-                            8 Reports are currently in progress.  Record observations, analysis outcomes and recommendations.
+                            @Model.Num_Report_In_Progress Reports are currently in progress.  Record observations, analysis outcomes and recommendations.
                         </p>
                         <a class="btn btn-info" asp-page="/ReviewReports">Complete Analysis</a>
                     </div>

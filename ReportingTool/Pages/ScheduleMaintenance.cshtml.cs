@@ -52,7 +52,10 @@ namespace Reportingtool.Pages
             DateTime startingDate = DateTime.Today;
 
             while (startingDate.DayOfWeek != weekStart)
+            {
                 startingDate = startingDate.AddDays(-1);
+            }
+
 
             for (int i = 0; i < 4; ++i)
             {
