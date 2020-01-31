@@ -170,6 +170,8 @@ namespace Reportingtool.Models.Db
             {
                 entity.HasKey(e => e.PkFaultId);
 
+                entity.ToTable("Fault");
+
                 entity.Property(e => e.PkFaultId).HasColumnName("PK_FaultId");
 
                 entity.Property(e => e.CloseDate)
@@ -208,6 +210,9 @@ namespace Reportingtool.Models.Db
                     .IsRequired()
                     .HasMaxLength(6)
                     .IsUnicode(false);
+
+                entity.Property(e => e.Status)
+                .HasComputedColumnSql("Status");
             });
 
             modelBuilder.Entity<FaultSubtype>(entity =>
@@ -421,6 +426,8 @@ namespace Reportingtool.Models.Db
             {
                 entity.HasKey(e => e.PkReportId);
 
+                entity.ToTable("Report");
+
                 entity.Property(e => e.PkReportId).HasColumnName("PK_ReportId");
 
                 entity.Property(e => e.Actions).HasMaxLength(2500);
@@ -450,6 +457,8 @@ namespace Reportingtool.Models.Db
                 entity.Property(e => e.NotificationNo).HasColumnName("Notification_No");
 
                 entity.Property(e => e.Observations).HasMaxLength(2500);
+
+                entity.Property(e => e.OriginCallId).HasColumnName("Origin_CallId");
 
                 entity.Property(e => e.ReportDate)
                     .HasColumnName("Report_Date")
@@ -1292,10 +1301,17 @@ namespace Reportingtool.Models.Db
                 entity.Property(e => e.Route).HasMaxLength(255);
 
                 entity.Property(e => e.Status)
+                    .IsRequired()
                     .HasMaxLength(6)
                     .IsUnicode(false);
 
+                entity.Property(e => e.UnitReference)
+                    .HasColumnName("Unit_Reference")
+                    .HasMaxLength(4);
+
                 entity.Property(e => e.WorkOrderNo).HasColumnName("Work_Order_No");
+
+                entity.HasOne(e => e.Machine_Train_Entry).WithMany().HasForeignKey(FK => FK.MachineTrainId);
             });
 
             modelBuilder.Entity<VRouteMachines>(entity =>
