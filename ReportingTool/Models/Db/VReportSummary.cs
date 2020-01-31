@@ -5,13 +5,14 @@ namespace Reportingtool.Models.Db
 {
     public partial class VReportSummary
     {
-        public int? FaultId { get; set; }
+        public int FaultId { get; set; }
         public int? AreaId { get; set; }
         public string GreaterArea { get; set; }
+        public string UnitReference { get; set; }
         public string Area { get; set; }
         public int? DrivenUnitTypeId { get; set; }
         public string DrivenUnitType { get; set; }
-        public int? MachineTrainId { get; set; }
+        public int MachineTrainId { get; set; }
         public string MachineTrain { get; set; }
         public string MachineTrainLongName { get; set; }
         public string Route { get; set; }
@@ -23,11 +24,11 @@ namespace Reportingtool.Models.Db
         public int? FaultTypeId { get; set; }
         public string FaultType { get; set; }
         public string FaultSubtype { get; set; }
-        public DateTime? CreateDate { get; set; }
+        public DateTime CreateDate { get; set; }
         public DateTime? CloseDate { get; set; }
         public string FaultLocation { get; set; }
         public double? ProductionImpactCost { get; set; }
-        public bool? FaultIsActive { get; set; }
+        public bool FaultIsActive { get; set; }
         public string Status { get; set; }
         public int? ReportId { get; set; }
         public DateTime? ReportDate { get; set; }
@@ -50,5 +51,7 @@ namespace Reportingtool.Models.Db
         public string ChangeInCondition { get; set; }
         public int? IsLatestReport { get; set; }
         public int? IsLastRecord { get; set; }
+
+        public MachineTrain Machine_Train_Entry { get; set; }
     }
 }
