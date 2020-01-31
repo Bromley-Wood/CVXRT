@@ -66,11 +66,17 @@ namespace Reportingtool.Pages
 
         public async Task OnGetAsync()
         {
+
+            V_Create_Reports_All = await _context.VCreateReports
+                .AsNoTracking()
+                .ToListAsync();
+
+
             // This is to get what routes need to be displayed on the page
-            Completed_Route_CallId = await _context.VCreateReports
+            Completed_Route_CallId = V_Create_Reports_All
                 .Select(m => m.PkCallId)
                 .Distinct()
-                .ToListAsync();
+                .ToList();
 
             /* Get Completed Route_Call */
             Completed_Route_Call = await _context.TstRouteCall
@@ -80,9 +86,7 @@ namespace Reportingtool.Pages
                 .AsNoTracking()
                 .ToListAsync();
 
-            V_Create_Reports_All = await _context.VCreateReports
-                .AsNoTracking()
-                .ToListAsync();
+            
 
             for (int i = 0; i < Completed_Route_Call.Count; ++i)
             {

@@ -276,7 +276,7 @@ namespace Reportingtool.Models.Db
 
             modelBuilder.Entity<MachineTrainFiles>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.PkFilePathId);
 
                 entity.ToTable("Machine_Train_Files");
 
@@ -1175,7 +1175,11 @@ namespace Reportingtool.Models.Db
 
             modelBuilder.Entity<VReportSummary>(entity =>
             {
-                entity.HasNoKey();
+                //entity.HasNoKey();
+                //Specify a key for view here is important to ensure that when use Include and Theninclude statements in C#
+                //To make sure EntityFramework returns the correct results
+
+                entity.HasKey(e => e.ReportId);
 
                 entity.ToView("V_Report_Summary");
 

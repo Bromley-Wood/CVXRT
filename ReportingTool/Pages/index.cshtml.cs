@@ -45,15 +45,17 @@ namespace Reportingtool.Pages
                     .Select(c => c.LabourHours)
                     .ToListAsync();
 
-            Num_Completed_Route = _context.VCreateReports
+            var VCreateReports_List = _context.VCreateReports
+                .AsNoTracking()
+                .ToList();
+
+            Num_Completed_Route = VCreateReports_List
                 .Select(m => m.PkCallId)
                 .Distinct()
                 .ToList()
                 .Count;
 
-            Num_Machine_To_Verify = _context.VCreateReports
-                .AsNoTracking()
-                .ToList()
+            Num_Machine_To_Verify = VCreateReports_List
                 .Count;
 
             Num_Report_In_Progress = _context.VTstReportSummary

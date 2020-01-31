@@ -265,16 +265,17 @@ namespace Reportingtool.Pages
         public async Task<IActionResult> OnPostDeleteMachinefile()
 
         {
-            var MachineFile = await _context.MachineTrainFiles.FindAsync(MachineFileID_ToDelete);
 
-            if (MachineFile == null)
+            var MachineFile_ToDelete = await _context.MachineTrainFiles.FirstOrDefaultAsync(f => f.PkFilePathId == MachineFileID_ToDelete);
+
+            if (MachineFile_ToDelete == null)
             {
                 return NotFound();
             }
 
             try
             {
-                _context.MachineTrainFiles.Remove(MachineFile);
+                _context.MachineTrainFiles.Remove(MachineFile_ToDelete);
                 await _context.SaveChangesAsync();
                 return RedirectToPage("/Machinenotes", new { id = Machine_Train_Id });
             }
