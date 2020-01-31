@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting.Internal;
-using ReportingTool.Models;
+using Reportingtool.Models.Db;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,25 +16,25 @@ namespace Reportingtool.Pages
 
     public class MachineNotesModel : BasePageModel
     {
-        private readonly ReportingTool.Models.DatabaseContext _context;
+        private readonly DEV_ClientProjectContext _context;
 
-        public MachineNotesModel(ReportingTool.Models.DatabaseContext context)
+        public MachineNotesModel(DEV_ClientProjectContext context)
         {
             _context = context;
         }
 
-        public IList<Machine_Train_Notes> Machine_Train_Notes_All { get; set; }
+        public IList<MachineTrainNotes> Machine_Train_Notes_All { get; set; }
 
-        public IList<Machine_Train_Files> Machine_Train_Files { get; set; }
+        public IList<MachineTrainFiles> Machine_Train_Files { get; set; }
 
-        public Machine_Train Current_Machine_Train { get; set; }
+        public MachineTrain Current_Machine_Train { get; set; }
 
         
 
-        public List<Machine_Train_Files> Machine_Train_File_All { get; set; }
+        public List<MachineTrainFiles> Machine_Train_File_All { get; set; }
 
         [BindProperty]
-        public Machine_Train_Notes New_Machine_Note { get; set; }
+        public MachineTrainNotes New_Machine_Note { get; set; }
 
         [BindProperty]
         public int Machine_Train_Id { get; set; }
@@ -63,19 +63,19 @@ namespace Reportingtool.Pages
 
             Console.WriteLine($"Displaying machine {id}");
 
-            Current_Machine_Train = await _context.Machine_Train.FirstOrDefaultAsync(m => m.MachineTrainId == id);
+            Current_Machine_Train = await _context.MachineTrain.FirstOrDefaultAsync(m => m.PkMachineTrainId == id);
 
 
-            Machine_Train_Notes_All = await _context.Machine_Train_Notes
+            Machine_Train_Notes_All = await _context.MachineTrainNotes
                 //.Include(m => m.Machine_Train)
-                .Where(n => n.MachineTrainId == id)
-                .Where(n => n.MachineTrainNote_IsActive == true)
-                .OrderByDescending(n => n.Note_Date)
+                .Where(n => n.PkMachineTrainNoteId == id)
+                .Where(n => n.MachineTrainNoteIsActive == true)
+                .OrderByDescending(n => n.NoteDate)
                 .AsNoTracking()
                 .ToListAsync();
 
-            Machine_Train_File_All = await _context.Machine_Train_Files
-                .Where(f => f.FK_MachineTrainId == id)
+            Machine_Train_File_All = await _context.MachineTrainFiles
+                .Where(f => f.FkMachineTrainId == id)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -84,19 +84,19 @@ namespace Reportingtool.Pages
         {
 
 
-            New_Machine_Note.MachineTrainNote_IsActive = true;
-            New_Machine_Note.Note_Date = DateTime.Now;
-            New_Machine_Note.MachineTrainNote_IsActive = true;
-            New_Machine_Note.Analyst_Name = Current_User;
+            New_Machine_Note.MachineTrainNoteIsActive = true;
+            New_Machine_Note.NoteDate = DateTime.Now;
+            New_Machine_Note.MachineTrainNoteIsActive = true;
+            New_Machine_Note.AnalystName = Current_User;
 
-            _context.Machine_Train_Notes.Add(New_Machine_Note);
+            _context.MachineTrainNotes.Add(New_Machine_Note);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MachineNoteExists(New_Machine_Note.MachineTrainId))
+                if (!MachineNoteExists(New_Machine_Note.FkMachineTrainId))
                 {
                     return NotFound();
                 }
@@ -106,20 +106,20 @@ namespace Reportingtool.Pages
                 }
             }
 
-            return RedirectToPage("/Machinenotes", new { id = New_Machine_Note.MachineTrainId });
+            return RedirectToPage("/Machinenotes", new { id = New_Machine_Note.FkMachineTrainId });
         }
 
         public async Task<IActionResult> OnPostArchiveMachineNote()
         {
 
-            var Edit_Machine_Note = await _context.Machine_Train_Notes.FirstOrDefaultAsync(n => n.PK_MachineTrainNoteId == Machine_Train_Note_Id);
+            var Edit_Machine_Note = await _context.MachineTrainNotes.FirstOrDefaultAsync(n => n.PkMachineTrainNoteId == Machine_Train_Note_Id);
 
             if (Edit_Machine_Note == null)
             {
                 return NotFound();
             }
 
-            Edit_Machine_Note.MachineTrainNote_IsActive = false;
+            Edit_Machine_Note.MachineTrainNoteIsActive = false;
 
             _context.Attach(Edit_Machine_Note).State = EntityState.Modified;
 
@@ -129,7 +129,7 @@ namespace Reportingtool.Pages
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MachineNoteExists(Edit_Machine_Note.PK_MachineTrainNoteId))
+                if (!MachineNoteExists(Edit_Machine_Note.PkMachineTrainNoteId))
                 {
                     return NotFound();
                 }
@@ -139,12 +139,12 @@ namespace Reportingtool.Pages
                 }
             }
 
-            return RedirectToPage("/Machinenotes", new { id = Edit_Machine_Note.MachineTrainId });
+            return RedirectToPage("/Machinenotes", new { id = Edit_Machine_Note.FkMachineTrainId });
         }
 
         public async Task<IActionResult> OnPostEditMachineNote()
         {
-            var Edit_Machine_Note = await _context.Machine_Train_Notes.FirstOrDefaultAsync(n => n.PK_MachineTrainNoteId == Machine_Train_Note_Id);
+            var Edit_Machine_Note = await _context.MachineTrainNotes.FirstOrDefaultAsync(n => n.PkMachineTrainNoteId == Machine_Train_Note_Id);
 
             if (Edit_Machine_Note == null)
             {
@@ -155,9 +155,9 @@ namespace Reportingtool.Pages
             Console.WriteLine(Machine_Train_Note_ShowOnReport);
             Console.WriteLine("**************");
 
-            Edit_Machine_Note.MachineTrain_Note = Machine_Train_Note_Content;
-            Edit_Machine_Note.MachineTrainNote_ShowOnReport = Machine_Train_Note_ShowOnReport;
-            Edit_Machine_Note.Note_Date = DateTime.Now;
+            Edit_Machine_Note.MachineTrainNote = Machine_Train_Note_Content;
+            Edit_Machine_Note.MachineTrainNoteShowOnReport = Machine_Train_Note_ShowOnReport;
+            Edit_Machine_Note.NoteDate = DateTime.Now;
 
             _context.Attach(Edit_Machine_Note).State = EntityState.Modified;
 
@@ -167,7 +167,7 @@ namespace Reportingtool.Pages
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MachineNoteExists(Edit_Machine_Note.PK_MachineTrainNoteId))
+                if (!MachineNoteExists(Edit_Machine_Note.PkMachineTrainNoteId))
                 {
                     return NotFound();
                 }
@@ -177,7 +177,7 @@ namespace Reportingtool.Pages
                 }
             }
 
-            return RedirectToPage("/Machinenotes", new { id = Edit_Machine_Note.MachineTrainId });
+            return RedirectToPage("/Machinenotes", new { id = Edit_Machine_Note.FkMachineTrainId });
         }
 
         
@@ -187,22 +187,22 @@ namespace Reportingtool.Pages
 
             foreach (var file in data.Files)
             {
-                Machine_Train_Files New_Machine_Train_File = new Machine_Train_Files();
+                MachineTrainFiles New_Machine_Train_File = new MachineTrainFiles();
                 
                 Console.WriteLine(file.FileName);
                 New_Machine_Train_File.FileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file.FileName);
-                New_Machine_Train_File.FK_MachineTrainId = Machine_Train_Id;
-                New_Machine_Train_File.Upload_Date = DateTime.Now;
-                New_Machine_Train_File.Uploaded_By = Current_User;
+                New_Machine_Train_File.FkMachineTrainId = Machine_Train_Id;
+                New_Machine_Train_File.UploadDate = DateTime.Now;
+                New_Machine_Train_File.UploadedBy = Current_User;
 
-                _context.Machine_Train_Files.Add(New_Machine_Train_File);
+                _context.MachineTrainFiles.Add(New_Machine_Train_File);
                 try
                 {
                     _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MachineFileExists(New_Machine_Train_File.PK_FilePathId))
+                    if (!MachineFileExists(New_Machine_Train_File.PkFilePathId))
                     {
                         return NotFound();
                     }
@@ -224,18 +224,18 @@ namespace Reportingtool.Pages
         }
         private bool MachineFileExists(int id)
         {
-            return _context.Machine_Train_Files.Any(f => f.PK_FilePathId == id);
+            return _context.MachineTrainFiles.Any(f => f.PkFilePathId == id);
         }
 
         private bool MachineNoteExists(int id)
         {
-            return _context.Machine_Train_Notes.Any(n => n.MachineTrainId == id);
+            return _context.MachineTrainNotes.Any(n => n.FkMachineTrainId == id);
         }
 
         public IActionResult GetMachineList()
         {
-            var Machine_Train_All = _context.Machine_Train
-                .Select(m => m.Machine_Train_Name)
+            var Machine_Train_All = _context.MachineTrain
+                .Select(m => m.MachineTrain1)
                 .AsNoTracking()
                 .ToList();
 
@@ -246,7 +246,7 @@ namespace Reportingtool.Pages
 
         public async Task<IActionResult> OnPostGoToMachineTrain()
         {
-            if (_context.Machine_Train.Any(m => m.MachineTrainId == Machine_Train_Id))
+            if (_context.MachineTrain.Any(m => m.PkMachineTrainId == Machine_Train_Id))
             {
                 return RedirectToPage("/Machinenotes", new { id = Machine_Train_Id });
             }
@@ -258,7 +258,7 @@ namespace Reportingtool.Pages
         public async Task<IActionResult> OnPostDeleteMachinefile()
 
         {
-            var MachineFile = await _context.Machine_Train_Files.FindAsync(MachineFileID_ToDelete);
+            var MachineFile = await _context.MachineTrainFiles.FindAsync(MachineFileID_ToDelete);
 
             if (MachineFile == null)
             {
@@ -267,7 +267,7 @@ namespace Reportingtool.Pages
 
             try
             {
-                _context.Machine_Train_Files.Remove(MachineFile);
+                _context.MachineTrainFiles.Remove(MachineFile);
                 await _context.SaveChangesAsync();
                 return RedirectToPage("/Machinenotes", new { id = Machine_Train_Id });
             }

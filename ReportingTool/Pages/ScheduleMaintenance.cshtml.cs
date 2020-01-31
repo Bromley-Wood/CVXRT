@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ReportingTool.Models;
+using Reportingtool.Models.Db;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,40 +11,40 @@ namespace Reportingtool.Pages
 {
     public class ScheduleMaintenanceModel : BasePageModel
     {
-        private readonly ReportingTool.Models.DatabaseContext _context;
+        private readonly DEV_ClientProjectContext _context;
 
-        public ScheduleMaintenanceModel(ReportingTool.Models.DatabaseContext context)
+        public ScheduleMaintenanceModel(DEV_ClientProjectContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public Route_Call Edit_Route_Call { get; set; }
+        public TstRouteCall Edit_Route_Call { get; set; }
 
         [BindProperty]
         public List<int> AreChecked { get; set; }
 
-        public IList<Route_Call> Route_Call_All { get; set; }
+        public IList<TstRouteCall> Route_Call_All { get; set; }
         // Route_Call_Week_List contains four lists of route calls: last week, current week, next week and week after next
-        public List<List<Route_Call>> Route_Call_Week_List = new List<List<Route_Call>>();
+        public List<List<TstRouteCall>> Route_Call_Week_List = new List<List<TstRouteCall>>();
         public List<double> WeekHourList = new List<double>();
 
-        public IList<V_Route_Machines> V_Route_Machines_All { get; set; }
+        public IList<VRouteMachines> V_Route_Machines_All { get; set; }
 
-        public Dictionary<int, List<V_Route_Machines>> Machine_List_Dict = new Dictionary<int, List<V_Route_Machines>>();
+        public Dictionary<int, List<VRouteMachines>> Machine_List_Dict = new Dictionary<int, List<VRouteMachines>>();
 
 
         public async Task OnGetAsync()
         {
-            V_Route_Machines_All = await _context.V_Route_Machines
+            V_Route_Machines_All = await _context.VRouteMachines
                 .AsNoTracking()
                 .ToListAsync();
 
             /* Get Route_Call for different weeks */
-            Route_Call_All = await _context.Route_Call
+            Route_Call_All = await _context.TstRouteCall
                 .Include(c => c.Route)
                     .ThenInclude(c => c.Machine_Train_List)
-                .Where(c => c.Complete_Date == null)
+                .Where(c => c.CompleteDate == null)
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -64,16 +64,16 @@ namespace Reportingtool.Pages
                 DateTime weekenddate = startingDate.AddDays(-1 + 7 * i);
 
                 Route_Call_Week_List.Add(Route_Call_All
-                    .Where(r => r.Schedule_Date <= weekenddate)
-                    .Where(r => r.Schedule_Date >= weekstartdate)
+                    .Where(r => r.ScheduleDate <= weekenddate)
+                    .Where(r => r.ScheduleDate >= weekstartdate)
                     //.OrderBy(r => r.RouteId)
                     .ToList());
 
-                WeekHourList.Add(Route_Call_Week_List[i].Sum(r => r.Labour_Hours));
+                WeekHourList.Add(Route_Call_Week_List[i].Sum(r => r.LabourHours));
 
                 for (int j = 0; j < Route_Call_Week_List[i].Count; ++j)
                 {
-                    var r_id = Route_Call_Week_List[i][j].RouteId;
+                    var r_id = Route_Call_Week_List[i][j].FkRouteId;
                     var Machine_List = V_Route_Machines_All
                         .Where(m => m.RouteId == r_id)
                         .ToList();
@@ -89,9 +89,9 @@ namespace Reportingtool.Pages
             //Console.WriteLine(Edit_Route_Call.Schedule_Date);
             //Console.WriteLine(Edit_Route_Call.PK_CallId);
 
-            var Updated_Route_Call = await _context.Route_Call.FirstOrDefaultAsync(m => m.PK_CallId == Edit_Route_Call.PK_CallId);
-            Updated_Route_Call.Schedule_Date = Edit_Route_Call.Schedule_Date;
-            Updated_Route_Call.Modified_By = Current_User;
+            var Updated_Route_Call = await _context.TstRouteCall.FirstOrDefaultAsync(m => m.PkCallId == Edit_Route_Call.PkCallId);
+            Updated_Route_Call.ScheduleDate = Edit_Route_Call.ScheduleDate;
+            Updated_Route_Call.ModifiedBy = Current_User;
 
             _context.Attach(Updated_Route_Call).State = EntityState.Modified;
 
@@ -101,7 +101,7 @@ namespace Reportingtool.Pages
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RouteCallExists(Edit_Route_Call.PK_CallId))
+                if (!RouteCallExists(Edit_Route_Call.PkCallId))
                 {
                     return NotFound();
                 }
@@ -130,8 +130,8 @@ namespace Reportingtool.Pages
                 //var updateQueryString = "UPDATE tst_Route_Call SET Complete_Date='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' WHERE PK_CallId=" + AreChecked[i] + ";";
                 //_context.Database.ExecuteSqlRaw(updateQueryString);
 
-                var Updated_Route_Call = await _context.Route_Call.FirstOrDefaultAsync(m => m.PK_CallId == AreChecked[i]);
-                Updated_Route_Call.Complete_Date = DateTime.Now;
+                var Updated_Route_Call = await _context.TstRouteCall.FirstOrDefaultAsync(m => m.PkCallId == AreChecked[i]);
+                Updated_Route_Call.CompleteDate = DateTime.Now;
                 _context.Attach(Updated_Route_Call).State = EntityState.Modified;
 
 
@@ -158,7 +158,7 @@ namespace Reportingtool.Pages
 
         private bool RouteCallExists(int id)
         {
-            return _context.Route_Call.Any(e => e.PK_CallId == id);
+            return _context.TstRouteCall.Any(e => e.PkCallId == id);
         }
 
     }

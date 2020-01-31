@@ -81,7 +81,7 @@
 
                         <div class="modal-body-edit modal-body mx-3">
                             <form method="post" asp-page-handler="editroutecall" id="editroutecall">
-                                <input type="hidden" asp-for="Edit_Route_Call.PK_CallId" id="formEditCallId" readonly />
+                                <input type="hidden" asp-for="Edit_Route_Call.PkCallId" id="formEditCallId" readonly />
                                 <div class="md-form mb-5">
                                     <span class="field-label">Route</span>
                                     <span class="field-data">
@@ -111,7 +111,7 @@
                                 </div>
 
                                 <div class="md-form mb-5">
-                                    <input type="date" id="formEditScheduleDate" class="form-control validate" asp-for="Edit_Route_Call.Schedule_Date" />
+                                    <input type="date" id="formEditScheduleDate" class="form-control validate" asp-for="Edit_Route_Call.ScheduleDate" />
                                     <label data-error="wrong" data-success="right" for="formEditScheduleDate">Schedule Date</label>
                                 </div>
 
@@ -153,11 +153,11 @@
                                     <tbody>
                                         @foreach (var mtrain in mtraininfo.Value)
                                         {
-                                            string last_measured_time = mtrain.Measurement_Date.HasValue ? mtrain.Measurement_Date.Value.ToString("dd/MM/yyyy") : "";
+                                            string last_measured_time = mtrain.MeasurementDate.HasValue ? mtrain.MeasurementDate.Value.ToString("dd/MM/yyyy") : "";
                                             <tr>
-                                                <td>	@mtrain.Machine_Train	<br>	@mtrain.Machine_Train_Long_Name	</td>
+                                                <td>	@mtrain.MachineTrain	<br>	@mtrain.MachineTrainLongName	</td>
                                                 <td>	@last_measured_time	</td>
-                                                <td>	@mtrain.Condition	<small> @mtrain.Change_In_Condition</small></td>
+                                                <td>	@mtrain.Condition	<small> @mtrain.ChangeInCondition</small></td>
                                             </tr>
 
                                         }
@@ -238,29 +238,29 @@
                                 <tbody>
                                     @foreach (var item in Model.Route_Call_Week_List[0])
                                     {
-                                        <tr>
-                                            <td>@Html.DisplayFor(modelItem => item.Route.RouteDescription)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.Route.Cycle_Days)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.Route.Machine_Train_List.Count)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.Labour_Hours)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.Plan_Date)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
-                                            <td>
-                                                <div class="btn-group btn-group-lg" role="group">
-                                                    <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PK_CallId data-route="@item.Route.RouteDescription" data-cycledays=@item.Route.Cycle_Days data-labourhours=@item.Labour_Hours data-plandate=@item.Plan_Date data-scheduledate=@item.Schedule_Date data-toggle="modal" data-target="#modalEdit">
-                                                        <i class="fas fa-edit"></i>
-                                                    </button>
-                                                    <button type="submit" class="btn btn-unique btn-sm" data-routeid=@item.RouteId data-toggle="modal" data-target="#modalMachineList@(item.RouteId)">
-                                                        <i class="far fa-list-alt"></i>
-                                                    </button>
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.Route.Route1)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Route.CycleDays)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Route.Machine_Train_List.Count)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.LabourHours)</td>
+                                        <td>@item.PlanDate.ToString("dd/MM/yyyy")</td>
+                                        <td>@item.ScheduleDate.ToString("dd/MM/yyyy")</td>
+                                        <td>
+                                            <div class="btn-group btn-group-lg" role="group">
+                                                <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PkCallId data-route="@item.Route.Route1" data-cycledays=@item.Route.CycleDays data-labourhours=@item.LabourHours data-plandate=@item.PlanDate data-scheduledate=@item.ScheduleDate data-toggle="modal" data-target="#modalEdit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button type="submit" class="btn btn-unique btn-sm" data-routeid=@item.FkRouteId data-toggle="modal" data-target="#modalMachineList@(item.FkRouteId)">
+                                                    <i class="far fa-list-alt"></i>
+                                                </button>
 
-                                                    <label class="rt-check btn form-check-label btn-sm" data-toggle="buttons">
-                                                        <input class="form-check-input" type="checkbox" autocomplete="off" name="AreChecked" value="@item.PK_CallId" form="completeroute">
-                                                        <i class="fas fa-clipboard-check"></i>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                <label class="rt-check btn form-check-label btn-sm" data-toggle="buttons">
+                                                    <input class="form-check-input" type="checkbox" autocomplete="off" name="AreChecked" value="@item.PkCallId" form="completeroute">
+                                                    <i class="fas fa-clipboard-check"></i>
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
                                     }
                                 </tbody>
                                 <tfoot>
@@ -296,29 +296,29 @@
                             <tbody>
                                 @foreach (var item in Model.Route_Call_Week_List[1])
                                 {
-                                    <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.Route.RouteDescription)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Route.Cycle_Days)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Route.Machine_Train_List.Count)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Labour_Hours)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Plan_Date)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
-                                        <td>
-                                            <div class="btn-group btn-group-lg" role="group">
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Route.Route1)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Route.CycleDays)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Route.Machine_Train_List.Count)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.LabourHours)</td>
+                                    <td>@item.PlanDate.ToString("dd/MM/yyyy")</td>
+                                    <td>@item.ScheduleDate.ToString("dd/MM/yyyy")</td>
+                                    <td>
+                                        <div class="btn-group btn-group-lg" role="group">
 
-                                                <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PK_CallId data-route="@item.Route.RouteDescription" data-cycledays=@item.Route.Cycle_Days data-labourhours=@item.Labour_Hours data-plandate=@item.Plan_Date data-scheduledate=@item.Schedule_Date data-toggle="modal" data-target="#modalEdit">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-unique btn-sm" data-routeid=@item.RouteId data-toggle="modal" data-target="#modalMachineList@(item.RouteId)">
-                                                    <i class="far fa-list-alt"></i>
-                                                </button>
-                                                <label class="rt-check btn form-check-label btn-sm" data-toggle="buttons">
-                                                    <input class="form-check-input" type="checkbox" autocomplete="off" name="AreChecked" value="@item.PK_CallId" form="completeroute">
-                                                    <i class="fas fa-clipboard-check"></i>
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PkCallId data-route="@item.Route.Route1" data-cycledays=@item.Route.CycleDays data-labourhours=@item.LabourHours data-plandate=@item.PlanDate data-scheduledate=@item.ScheduleDate data-toggle="modal" data-target="#modalEdit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-unique btn-sm" data-routeid=@item.FkRouteId data-toggle="modal" data-target="#modalMachineList@(item.FkRouteId)">
+                                                <i class="far fa-list-alt"></i>
+                                            </button>
+                                            <label class="rt-check btn form-check-label btn-sm" data-toggle="buttons">
+                                                <input class="form-check-input" type="checkbox" autocomplete="off" name="AreChecked" value="@item.PkCallId" form="completeroute">
+                                                <i class="fas fa-clipboard-check"></i>
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
                                 }
                             </tbody>
                             <tfoot>
@@ -354,28 +354,28 @@
                             <tbody>
                                 @foreach (var item in Model.Route_Call_Week_List[2])
                                 {
-                                    <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.Route.RouteDescription)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Route.Cycle_Days)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Route.Machine_Train_List.Count)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Labour_Hours)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Plan_Date)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
-                                        <td>
-                                            <div class="btn-group btn-group-lg" role="group">
-                                                <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PK_CallId data-route="@item.Route.RouteDescription" data-cycledays=@item.Route.Cycle_Days data-labourhours=@item.Labour_Hours data-plandate=@item.Plan_Date data-scheduledate=@item.Schedule_Date data-toggle="modal" data-target="#modalEdit">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-unique btn-sm" data-routeid=@item.RouteId data-toggle="modal" data-target="#modalMachineList@(item.RouteId)">
-                                                    <i class="far fa-list-alt"></i>
-                                                </button>
-                                                <label class="rt-check btn form-check-label btn-sm" data-toggle="buttons">
-                                                    <input class="form-check-input" type="checkbox" autocomplete="off" name="AreChecked" value="@item.PK_CallId" form="completeroute">
-                                                    <i class="fas fa-clipboard-check"></i>
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Route.Route1)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Route.CycleDays)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Route.Machine_Train_List.Count)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.LabourHours)</td>
+                                    <td>@item.PlanDate.ToString("dd/MM/yyyy")</td>
+                                    <td>@item.ScheduleDate.ToString("dd/MM/yyyy")</td>
+                                    <td>
+                                        <div class="btn-group btn-group-lg" role="group">
+                                            <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PkCallId data-route="@item.Route.Route1" data-cycledays=@item.Route.CycleDays data-labourhours=@item.LabourHours data-plandate=@item.PlanDate data-scheduledate=@item.ScheduleDate data-toggle="modal" data-target="#modalEdit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-unique btn-sm" data-routeid=@item.FkRouteId data-toggle="modal" data-target="#modalMachineList@(item.FkRouteId)">
+                                                <i class="far fa-list-alt"></i>
+                                            </button>
+                                            <label class="rt-check btn form-check-label btn-sm" data-toggle="buttons">
+                                                <input class="form-check-input" type="checkbox" autocomplete="off" name="AreChecked" value="@item.PkCallId" form="completeroute">
+                                                <i class="fas fa-clipboard-check"></i>
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
                                 }
                             </tbody>
                             <tfoot>
@@ -411,22 +411,22 @@
                                 @foreach (var item in Model.Route_Call_Week_List[3])
                                 {
                                     <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.Route.RouteDescription)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Route.Cycle_Days)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Route.Route1)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Route.CycleDays)</td>
                                         <td>@Html.DisplayFor(modelItem => item.Route.Machine_Train_List.Count)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Labour_Hours)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Plan_Date)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Schedule_Date)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.LabourHours)</td>
+                                        <td>@item.PlanDate.ToString("dd/MM/yyyy")</td>
+                                        <td>@item.ScheduleDate.ToString("dd/MM/yyyy")</td>
                                         <td>
                                             <div class="btn-group btn-group-lg" role="group">
-                                                <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PK_CallId data-route="@item.Route.RouteDescription" data-cycledays=@item.Route.Cycle_Days data-labourhours=@item.Labour_Hours data-plandate=@item.Plan_Date data-scheduledate=@item.Schedule_Date data-toggle="modal" data-target="#modalEdit">
+                                                <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PkCallId data-route="@item.Route.Route1" data-cycledays=@item.Route.CycleDays data-labourhours=@item.LabourHours data-plandate=@item.PlanDate data-scheduledate=@item.ScheduleDate data-toggle="modal" data-target="#modalEdit">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
-                                                <button type="button" class="btn btn-unique btn-sm" data-routeid=@item.RouteId data-toggle="modal" data-target="#modalMachineList@(item.RouteId)">
+                                                <button type="button" class="btn btn-unique btn-sm" data-routeid=@item.FkRouteId data-toggle="modal" data-target="#modalMachineList@(item.FkRouteId)">
                                                     <i class="far fa-list-alt"></i>
                                                 </button>
                                                 <label class="rt-check btn form-check-label btn-sm" data-toggle="buttons">
-                                                    <input class="form-check-input" type="checkbox" autocomplete="off" name="AreChecked" value="@item.PK_CallId" form="completeroute">
+                                                    <input class="form-check-input" type="checkbox" autocomplete="off" name="AreChecked" value="@item.PkCallId" form="completeroute">
                                                     <i class="fas fa-clipboard-check"></i>
                                                 </label>
                                             </div>
@@ -490,7 +490,7 @@
                 $('#completeroute').submit();
             });
         });
-        //---------------------------Complete Route ---------------------------//
+            //---------------------------Complete Route ---------------------------//
 
     </script>
 }

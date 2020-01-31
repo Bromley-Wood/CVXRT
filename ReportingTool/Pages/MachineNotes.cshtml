@@ -21,10 +21,10 @@
                     <div class="mb-4 wow fadeIn">
                         <div class="container">
                             <h2 class="display-4">
-                                @Model.Current_Machine_Train.Machine_Train_Name
+                                @Model.Current_Machine_Train.MachineTrain1
                             </h2>
                             <p class="lead">
-                                @Model.Current_Machine_Train.Machine_Train_Long_Name
+                                @Model.Current_Machine_Train.MachineTrainLongName
                             </p>
                             <hr />
                         </div>
@@ -38,28 +38,28 @@
 
                             <p class="h5 my-4">Displayed Notes </p>
 
-                            @foreach (var item in Model.Machine_Train_Notes_All.Where(n => n.MachineTrainNote_ShowOnReport == true).ToList())
+                            @foreach (var item in Model.Machine_Train_Notes_All.Where(n => n.MachineTrainNoteShowOnReport == true).ToList())
                             {
                                 <blockquote class="machine-note blockquote">
-                                    <p class="mb-0">@item.MachineTrain_Note</p>
+                                    <p class="mb-0">@item.MachineTrainNote</p>
                                     <footer class="blockquote-footer">
-                                        <cite>@item.Analyst_Name - @item.Note_Date.ToString("dd MMMM yyyy")</cite>
-                                        <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalArchiveNote" data-machinenoteid="@item.PK_MachineTrainNoteId"><i class="fas fa-archive"></i></button>
-                                        <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalEditNote" data-machinenoteid="@item.PK_MachineTrainNoteId" data-machinenote="@item.MachineTrain_Note"><i class="fas fa-pen"></i></button>
+                                        <cite>@item.AnalystName - @item.NoteDate.ToString("dd MMMM yyyy")</cite>
+                                        <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalArchiveNote" data-machinenoteid="@item.PkMachineTrainNoteId"><i class="fas fa-archive"></i></button>
+                                        <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalEditNote" data-machinenoteid="@item.PkMachineTrainNoteId" data-machinenote="@item.MachineTrainNote"><i class="fas fa-pen"></i></button>
                                     </footer>
                                 </blockquote>
                             }
 
                             <p class="h5 my-4">Additional Machine Information </p>
 
-                            @foreach (var item in Model.Machine_Train_Notes_All.Where(n => n.MachineTrainNote_ShowOnReport == false).ToList())
+                            @foreach (var item in Model.Machine_Train_Notes_All.Where(n => n.MachineTrainNoteShowOnReport == false).ToList())
                             {
                                 <p class="machine-note">
-                                    @item.MachineTrain_Note
+                                    @item.MachineTrainNote
                                     <span class="blockquote-footer">
-                                        <cite>@item.Analyst_Name - @item.Note_Date.ToString("dd MMMM yyyy")</cite>
-                                        <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalArchiveNote" data-machinenoteid="@item.PK_MachineTrainNoteId"><i class="fas fa-archive"></i></button>
-                                        <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalEditNote" data-machinenoteid="@item.PK_MachineTrainNoteId" data-machinenote="@item.MachineTrain_Note"><i class="fas fa-pen"></i></button>
+                                        <cite>@item.AnalystName - @item.NoteDate.ToString("dd MMMM yyyy")</cite>
+                                        <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalArchiveNote" data-machinenoteid="@item.PkMachineTrainNoteId"><i class="fas fa-archive"></i></button>
+                                        <button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalEditNote" data-machinenoteid="@item.PkMachineTrainNoteId" data-machinenote="@item.MachineTrainNote"><i class="fas fa-pen"></i></button>
                                     </span>
                                 </p>
                             }
@@ -75,15 +75,15 @@
 
                             <!-- Default form reply -->
                             <form method="post" asp-page-handler="createnewmachinenote" id="createnewmachinenote">
-                                <input type="hidden" asp-for="New_Machine_Note.MachineTrainId" value=@Model.Current_Machine_Train.MachineTrainId>
+                                <input type="hidden" asp-for="New_Machine_Note.FkMachineTrainId" value=@Model.Current_Machine_Train.PkMachineTrainId>
                                 <!-- Comment -->
                                 <div class="form-group">
                                     <label for="replyFormComment">Your comment</label>
-                                    <textarea maxlength="300" class="form-control" id="replyFormComment" rows="5" asp-for="New_Machine_Note.MachineTrain_Note"></textarea>
+                                    <textarea maxlength="300" class="form-control" id="replyFormComment" rows="5" asp-for="New_Machine_Note.MachineTrainNote"></textarea>
                                 </div>
                                 <hr class="mb-1" />
                                 <fieldset class="form-check ks-cbox">
-                                    <input type="checkbox" class="form-check-input" id="checkbox-shownonreport" asp-for="New_Machine_Note.MachineTrainNote_ShowOnReport">
+                                    <input type="checkbox" class="form-check-input" id="checkbox-shownonreport" asp-for="New_Machine_Note.MachineTrainNoteShowOnReport">
                                     <label for="checkbox-shownonreport" class="form-check-label dark-grey-text">Show this note when raising reports</label>
                                     <button class="btn btn-info btn-sm btnCreateNewMachineNote float-right" type="submit">Post</button>
                                 </fieldset>
@@ -99,7 +99,7 @@
                             <!-- Dropzone -->
                             <form method="post" class="dropzone needsclick" id="uploadattachmentsform">
                                 @Html.AntiForgeryToken()
-                                <input type="hidden" asp-for="Machine_Train_Id" value=@Model.Current_Machine_Train.MachineTrainId>
+                                <input type="hidden" asp-for="Machine_Train_Id" value=@Model.Current_Machine_Train.PkMachineTrainId>
                                 <div class=" dz-message needsclick" style="color: rgba(0,0,0,0.4);">
                                     <i class="fas fa-file-import" style="font-size: 4rem; color: rgba(0,0,0,0.2); padding: 1rem;"></i>
                                     <br />
@@ -131,7 +131,7 @@
                             <form method="post" asp-page-handler="gotomachinetrain" id="gotomachinetrainform"></form>
 
                             <div class="input-group mb-3 ui-widget">
-                                <input type="text" class="form-control" id="gotomachinetrainname" placeholder=@Model.Current_Machine_Train.Machine_Train_Name>
+                                <input type="text" class="form-control" id="gotomachinetrainname" placeholder=@Model.Current_Machine_Train.MachineTrain1>
 
                                 <input type="hidden" id="gotomachinetrainid" class="form-control" asp-for="Machine_Train_Id" form="gotomachinetrainform">
 
@@ -152,7 +152,7 @@
                         <!--Card content-->
                         <form method="post" asp-page-handler="deletemachinefile" id="deletemachinefileform">
                             <input type="hidden" asp-for="MachineFileID_ToDelete" id="MachineFileID_ToDelete" />
-                            <input type="hidden" asp-for="Machine_Train_Id" value="@Model.Current_Machine_Train.MachineTrainId" />
+                            <input type="hidden" asp-for="Machine_Train_Id" value="@Model.Current_Machine_Train.PkMachineTrainId" />
                         </form>
                         <div class="card-body">
                             <ul class="list-unstyled">
@@ -164,7 +164,7 @@
                                             @*Uploaded By: @item.Uploaded_By
                             <br />
                             Uploaded Date: @item.Upload_Date*@
-                                            <button machinefileid="@item.PK_FilePathId" class="btn btn-info btn-rounded btn-sm btnDeleteMachineFile" style="color:black; font-size:10pt" type="submit" form="deletemachinefileform" onclick="deleteMachineFile(this)">Delete Attachment</button>
+                                            <button machinefileid="@item.PkFilePathId" class="btn btn-info btn-rounded btn-sm btnDeleteMachineFile" style="color:black; font-size:10pt" type="submit" form="deletemachinefileform" onclick="deleteMachineFile(this)">Delete Attachment</button>
                                         </div>
                                     </li>
 
