@@ -11,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ReportingTool.Models;
 
 namespace Reportingtool
 {
@@ -33,7 +32,6 @@ namespace Reportingtool
             services.AddMvc(option => option.EnableEndpointRouting = false);
 
             var connection = configuration.GetConnectionString("CVXDevDb");
-            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
 
             services.AddDbContext<Reportingtool.Models.Db.DEV_ClientProjectContext>(options => options.UseSqlServer(connection));
 

@@ -65,14 +65,21 @@ namespace Reportingtool.Pages
 
             Current_Machine_Train = await _context.MachineTrain.FirstOrDefaultAsync(m => m.PkMachineTrainId == id);
 
+            Console.WriteLine("---------------");
+            Console.WriteLine(Current_Machine_Train.MachineTrainLongName);
+            Console.WriteLine("---------------");
 
             Machine_Train_Notes_All = await _context.MachineTrainNotes
                 //.Include(m => m.Machine_Train)
-                .Where(n => n.PkMachineTrainNoteId == id)
+                .Where(n => n.FkMachineTrainId == id)
                 .Where(n => n.MachineTrainNoteIsActive == true)
                 .OrderByDescending(n => n.NoteDate)
                 .AsNoTracking()
                 .ToListAsync();
+
+            Console.WriteLine("---------------");
+            Console.WriteLine(Machine_Train_Notes_All.Count);
+            Console.WriteLine("---------------");
 
             Machine_Train_File_All = await _context.MachineTrainFiles
                 .Where(f => f.FkMachineTrainId == id)
