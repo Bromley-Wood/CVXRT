@@ -38,7 +38,7 @@ namespace Reportingtool.Pages
             DateTime weekstartdate = startingDate.AddDays(0);
             DateTime weekenddate = startingDate.AddDays(6);
 
-            Route_Call_Hour_Week = await _context.TstRouteCall
+            Route_Call_Hour_Week = await _context.RouteCall
                     .Where(c => c.CompleteDate == null)
                     .Where(c => c.ScheduleDate <= weekenddate)
                     .Where(c => c.ScheduleDate >= weekstartdate)
@@ -58,7 +58,7 @@ namespace Reportingtool.Pages
             Num_Machine_To_Verify = VCreateReports_List
                 .Count;
 
-            Num_Report_In_Progress = _context.VTstReportSummary
+            Num_Report_In_Progress = _context.VReportSummary
                 .Where(r => r.ReportStage == "In Progress")
                 .AsNoTracking()
                 .ToList()

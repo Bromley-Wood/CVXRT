@@ -19,14 +19,14 @@ namespace Reportingtool.Pages
         }
 
         [BindProperty]
-        public TstRouteCall Edit_Route_Call { get; set; }
+        public RouteCall Edit_Route_Call { get; set; }
 
         [BindProperty]
         public List<int> AreChecked { get; set; }
 
-        public IList<TstRouteCall> Route_Call_All { get; set; }
+        public IList<RouteCall> Route_Call_All { get; set; }
         // Route_Call_Week_List contains four lists of route calls: last week, current week, next week and week after next
-        public List<List<TstRouteCall>> Route_Call_Week_List = new List<List<TstRouteCall>>();
+        public List<List<RouteCall>> Route_Call_Week_List = new List<List<RouteCall>>();
         public List<double> WeekHourList = new List<double>();
 
         public IList<VRouteMachines> V_Route_Machines_All { get; set; }
@@ -41,7 +41,7 @@ namespace Reportingtool.Pages
                 .ToListAsync();
 
             /* Get Route_Call for different weeks */
-            Route_Call_All = await _context.TstRouteCall
+            Route_Call_All = await _context.RouteCall
                 .Include(c => c.Route)
                     .ThenInclude(c => c.Machine_Train_List)
                 .Where(c => c.CompleteDate == null)
@@ -89,7 +89,7 @@ namespace Reportingtool.Pages
             //Console.WriteLine(Edit_Route_Call.Schedule_Date);
             //Console.WriteLine(Edit_Route_Call.PK_CallId);
 
-            var Updated_Route_Call = await _context.TstRouteCall.FirstOrDefaultAsync(m => m.PkCallId == Edit_Route_Call.PkCallId);
+            var Updated_Route_Call = await _context.RouteCall.FirstOrDefaultAsync(m => m.PkCallId == Edit_Route_Call.PkCallId);
             Updated_Route_Call.ScheduleDate = Edit_Route_Call.ScheduleDate;
             Updated_Route_Call.ModifiedBy = Current_User;
 
@@ -130,7 +130,7 @@ namespace Reportingtool.Pages
                 //var updateQueryString = "UPDATE tst_Route_Call SET Complete_Date='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' WHERE PK_CallId=" + AreChecked[i] + ";";
                 //_context.Database.ExecuteSqlRaw(updateQueryString);
 
-                var Updated_Route_Call = await _context.TstRouteCall.FirstOrDefaultAsync(m => m.PkCallId == AreChecked[i]);
+                var Updated_Route_Call = await _context.RouteCall.FirstOrDefaultAsync(m => m.PkCallId == AreChecked[i]);
                 Updated_Route_Call.CompleteDate = DateTime.Now;
                 _context.Attach(Updated_Route_Call).State = EntityState.Modified;
 
@@ -158,7 +158,7 @@ namespace Reportingtool.Pages
 
         private bool RouteCallExists(int id)
         {
-            return _context.TstRouteCall.Any(e => e.PkCallId == id);
+            return _context.RouteCall.Any(e => e.PkCallId == id);
         }
 
     }

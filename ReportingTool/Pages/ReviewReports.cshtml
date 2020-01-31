@@ -59,7 +59,7 @@
                 <!-- Queue -->
                 <h4 class="d-flex justify-content-between align-items-center mt-5 mx-3">
                     <span>Reports In Progress</span>
-                    <span class="badge badge-secondary badge-pill">@Model.VTstReportSummary_InProgress.Count</span>
+                    <span class="badge badge-secondary badge-pill">@Model.VReportSummary_InProgress.Count</span>
                 </h4>
                 <!--card-->
                 <div class="card mb-4 wow fadeIn">
@@ -71,13 +71,13 @@
                         @for (int idx = 0; idx < Model.UnitReference_InProgress.Count; ++idx)
                         {
                             var unit_ref = Model.UnitReference_InProgress[idx];
-                            var VTstReportSummary_InProgress_Per_Unit = Model.VTstReportSummary_InProgress.Where(r => r.UnitReference == @unit_ref).ToList();
+                            var VReportSummary_InProgress_Per_Unit = Model.VReportSummary_InProgress.Where(r => r.UnitReference == @unit_ref).ToList();
                             <h5 class="ip-sub-header list-group-item d-flex justify-content-between">
                                 <span>Unit @(unit_ref)00</span>
-                                <strong>@VTstReportSummary_InProgress_Per_Unit.Count Reports</strong>
+                                <strong>@VReportSummary_InProgress_Per_Unit.Count Reports</strong>
                             </h5>
 
-                            foreach (var in_p_report in VTstReportSummary_InProgress_Per_Unit)
+                            foreach (var in_p_report in VReportSummary_InProgress_Per_Unit)
                             {
                                 <a class="in-queue-rpt-item list-group-item d-flex justify-content-between lh-condensed @Model.active_status_list[Convert.ToInt32(in_p_report.ReportId == Model.Current_Displayed_Report.ReportId)]" id="@(in_p_report.ReportId)" data-toggle="list" href="#" role="tab">
                                     @{

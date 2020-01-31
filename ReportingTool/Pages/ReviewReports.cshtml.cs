@@ -24,7 +24,7 @@ namespace Reportingtool.Pages
         }
 
         [BindProperty] public int SelectedReportId { get; set; }
-        public IList<VTstReportSummary> VTstReportSummary_InProgress { get; set; }
+        public IList<VReportSummary> VReportSummary_InProgress { get; set; }
         public IList<string> UnitReference_InProgress { get; set; }
 
         //------------------- Select List------------------------------------//
@@ -40,11 +40,11 @@ namespace Reportingtool.Pages
         public IList<Models.Db.Action> Action_List { get; set; }
         //------------------- Select List------------------------------------//
 
-        public VTstReportSummary Current_Displayed_Report { get; set; }
+        public VReportSummary Current_Displayed_Report { get; set; }
 
-        [BindProperty] public TstReport Report_To_Update { get; set; }
+        [BindProperty] public Report Report_To_Update { get; set; }
 
-        [BindProperty] public TstFault Fault_To_Update { get; set; }
+        [BindProperty] public Fault Fault_To_Update { get; set; }
 
 
         public List<string> selected_status_list = new List<string> { "", "selected" };
@@ -54,9 +54,9 @@ namespace Reportingtool.Pages
 
         [BindProperty] public int ReportFileID_ToDelete { get; set; }
 
-        public List<TstReport> ReportHistoryList { get; set; }
+        public List<Report> ReportHistoryList { get; set; }
 
-        public List<TstReport> Report_All_List { get; set; }
+        public List<Report> Report_All_List { get; set; }
 
         public MachineTrain ModifyCustomMachineTrain { get; set; }
 
@@ -65,32 +65,32 @@ namespace Reportingtool.Pages
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            VTstReportSummary_InProgress = await _context.VTstReportSummary
+            VReportSummary_InProgress = await _context.VReportSummary
                 .Include(r => r.Machine_Train_Entry)
                     .ThenInclude(m => m.Machine_Train_Notes)
                 .Where(r => r.ReportStage == "In Progress")
                 .AsNoTracking()
                 .ToListAsync();
 
-            if (VTstReportSummary_InProgress.Count == 0)
+            if (VReportSummary_InProgress.Count == 0)
             {
                 return RedirectToPage("/Noreports");
             }
 
-            if (!(VTstReportSummary_InProgress.Select(r => r.ReportId).ToList().Contains(id)))
+            if (!(VReportSummary_InProgress.Select(r => r.ReportId).ToList().Contains(id)))
             {
-                Console.WriteLine($"Report Not Found. The first in-progress report {VTstReportSummary_InProgress[0].ReportId} is displayed.");
-                return RedirectToPage("/ReviewReports", new { id = VTstReportSummary_InProgress[0].ReportId });
+                Console.WriteLine($"Report Not Found. The first in-progress report {VReportSummary_InProgress[0].ReportId} is displayed.");
+                return RedirectToPage("/ReviewReports", new { id = VReportSummary_InProgress[0].ReportId });
             }
 
             Console.WriteLine($"Displaying report {id}");
 
-            UnitReference_InProgress = VTstReportSummary_InProgress
+            UnitReference_InProgress = VReportSummary_InProgress
                 .Select(r => r.UnitReference)
                 .Distinct()
                 .ToList();
 
-            Current_Displayed_Report = VTstReportSummary_InProgress.FirstOrDefault(r => r.ReportId == id);
+            Current_Displayed_Report = VReportSummary_InProgress.FirstOrDefault(r => r.ReportId == id);
 
 
             //------------------------------------------------------------------//
@@ -132,12 +132,12 @@ namespace Reportingtool.Pages
                 .ToListAsync();
             //------------------------------------------------------------------//
 
-            Report_To_Update = _context.TstReport.FirstOrDefault(r => r.PkReportId == Current_Displayed_Report.ReportId);
-            Fault_To_Update = _context.TstFault.FirstOrDefault(f => f.PkFaultId == Current_Displayed_Report.FaultId);
+            Report_To_Update = _context.Report.FirstOrDefault(r => r.PkReportId == Current_Displayed_Report.ReportId);
+            Fault_To_Update = _context.Fault.FirstOrDefault(f => f.PkFaultId == Current_Displayed_Report.FaultId);
 
             //------------------------------------------------------------------//
 
-            Report_All_List = await _context.TstReport
+            Report_All_List = await _context.Report
                 .Include(r => r.ReportFile_List)
                 .OrderByDescending(r => r.ReportDate)
                 .AsNoTracking()
@@ -194,7 +194,7 @@ namespace Reportingtool.Pages
 
         public async Task<IActionResult> OnPostUpdateReportFault()
         {
-            Current_Displayed_Report = _context.VTstReportSummary.FirstOrDefault(r => r.ReportId == Report_To_Update.PkReportId);
+            Current_Displayed_Report = _context.VReportSummary.FirstOrDefault(r => r.ReportId == Report_To_Update.PkReportId);
 
 
             //--------------- Update Fault if FaultType is null ----------------------------//
@@ -207,7 +207,7 @@ namespace Reportingtool.Pages
                     Console.WriteLine($"{name} = {value}");
                 }
 
-                var Updated_Fault = await _context.TstFault.FirstOrDefaultAsync(f => f.PkFaultId == Fault_To_Update.PkFaultId);
+                var Updated_Fault = await _context.Fault.FirstOrDefaultAsync(f => f.PkFaultId == Fault_To_Update.PkFaultId);
                 Updated_Fault.FkTechnologyId = Fault_To_Update.FkTechnologyId;
                 Updated_Fault.FkPrimaryComponentTypeId = Fault_To_Update.FkPrimaryComponentTypeId;
                 Updated_Fault.FkPrimaryComponentSubtypeId = Fault_To_Update.FkPrimaryComponentSubtypeId;
@@ -242,7 +242,7 @@ namespace Reportingtool.Pages
             //    object value = descriptor.GetValue(Report_To_Update);
             //    Console.WriteLine($"{name} = {value}");
             //}
-            var Updated_Report = await _context.TstReport.FirstOrDefaultAsync(f => f.PkReportId == Report_To_Update.PkReportId);
+            var Updated_Report = await _context.Report.FirstOrDefaultAsync(f => f.PkReportId == Report_To_Update.PkReportId);
             Updated_Report.FkReportTypeId = Report_To_Update.FkReportTypeId;
             Updated_Report.FkConditionId = Report_To_Update.FkConditionId;
             Updated_Report.ReportDate = Report_To_Update.ReportDate;
@@ -316,7 +316,7 @@ namespace Reportingtool.Pages
 
         public async Task<IActionResult> OnPostAddNewFaultAgainstMachine()
         {
-            var new_fault = new TstFault()
+            var new_fault = new Fault()
             {
                 FkMachineTrainId = MachineTrainIdAddNewFault,
                 FkTechnologyId = 1,
@@ -324,7 +324,7 @@ namespace Reportingtool.Pages
                 FaultIsActive = true
             };
 
-            _context.TstFault.Add(new_fault);
+            _context.Fault.Add(new_fault);
             try
             {
                 await _context.SaveChangesAsync();
@@ -342,7 +342,7 @@ namespace Reportingtool.Pages
             }
 
 
-            var new_report = new TstReport()
+            var new_report = new Report()
             {
                 FkFaultId = new_fault.PkFaultId,
                 ReportDate = DateTime.Now,
@@ -355,7 +355,7 @@ namespace Reportingtool.Pages
             };
 
 
-            _context.TstReport.Add(new_report);
+            _context.Report.Add(new_report);
 
             try
             {
@@ -378,13 +378,13 @@ namespace Reportingtool.Pages
 
         public async Task<IActionResult> OnPostAddNewReportForExistingFaultAgainstMachine()
         {
-            var ExistingFaultId = _context.TstFault
+            var ExistingFaultId = _context.Fault
                 .Where(f => f.FkMachineTrainId == MachineTrainIdAddNewFault)
                 .OrderByDescending(f => f.CreateDate)
                 .First()
                 .PkFaultId;
             
-            var new_report = new TstReport()
+            var new_report = new Report()
             {
                 FkFaultId = ExistingFaultId,
                 ReportDate = DateTime.Now,
@@ -397,7 +397,7 @@ namespace Reportingtool.Pages
             };
 
 
-            _context.TstReport.Add(new_report);
+            _context.Report.Add(new_report);
 
             try
             {
@@ -421,7 +421,7 @@ namespace Reportingtool.Pages
         public async Task<IActionResult> OnPostAddHistoryReportBackToQueue()
         {
 
-            var report_back_to_queue =  _context.TstReport.FirstOrDefault(r => r.PkReportId == ReportIdBackToQueue);
+            var report_back_to_queue =  _context.Report.FirstOrDefault(r => r.PkReportId == ReportIdBackToQueue);
 
             report_back_to_queue.FkReportStageId = 1;
 
@@ -449,7 +449,7 @@ namespace Reportingtool.Pages
         public PartialViewResult OnGetReportsPartial(int machinetrainid, int reportid)
         {
 
-            var all_reports = _context.VTstReportSummary
+            var all_reports = _context.VReportSummary
                 .Where(r => r.MachineTrainId == machinetrainid)
                 .Where(r => r.ReportId != reportid)
                 .AsNoTracking()
@@ -460,12 +460,12 @@ namespace Reportingtool.Pages
 
         private bool FaultExists(int id)
         {
-            return _context.TstFault.Any(e => e.PkFaultId == id);
+            return _context.Fault.Any(e => e.PkFaultId == id);
         }
 
         private bool ReportExists(int id)
         {
-            return _context.TstReport.Any(e => e.PkReportId == id);
+            return _context.Report.Any(e => e.PkReportId == id);
         }
 
         private bool ReportFileExists(int id)

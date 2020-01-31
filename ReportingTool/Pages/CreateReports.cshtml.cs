@@ -39,16 +39,16 @@ namespace Reportingtool.Pages
         [BindProperty]
         public List<InputReport> InputReportList { get; set; }
 
-        public IList<TstRouteCall> Completed_Route_Call { get; set; }
+        public IList<RouteCall> Completed_Route_Call { get; set; }
 
         public List<int> Completed_Route_CallId { get; set; }
 
 
-        public IList<VTstReportSummary> V_Report_Summary_All { get; set; }
+        public IList<VReportSummary> V_Report_Summary_All { get; set; }
 
         public IList<VCreateReports> V_Create_Reports_All { get; set; }
 
-        public IList<TstFault> Fault_All { get; set; }
+        public IList<Fault> Fault_All { get; set; }
 
         public Dictionary<int, List<VCreateReports>> Machine_List_Dict = new Dictionary<int, List<VCreateReports>>();
 
@@ -79,7 +79,7 @@ namespace Reportingtool.Pages
                 .ToList();
 
             /* Get Completed Route_Call */
-            Completed_Route_Call = await _context.TstRouteCall
+            Completed_Route_Call = await _context.RouteCall
                 .Include(c => c.Route)
                     .ThenInclude(c => c.Machine_Train_List)
                 .Where(c => Completed_Route_CallId.Contains(c.PkCallId))
@@ -105,7 +105,7 @@ namespace Reportingtool.Pages
         public async Task<IActionResult> OnPostCreateReport()
         {
 
-            V_Report_Summary_All = await _context.VTstReportSummary
+            V_Report_Summary_All = await _context.VReportSummary
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -171,7 +171,7 @@ namespace Reportingtool.Pages
                                 -- Set condition_mag = 2, routine and released
                              */
 
-                            var new_report = new TstReport()
+                            var new_report = new Report()
                             {
                                 FkFaultId = inputreport.FaultId,
                                 ReportDate = DateTime.Now,
@@ -184,7 +184,7 @@ namespace Reportingtool.Pages
                                 OriginCallId = inputreport.PK_CallId
                             };
 
-                            _context.TstReport.Add(new_report);
+                            _context.Report.Add(new_report);
                             try
                             {
                                 await _context.SaveChangesAsync();
@@ -210,7 +210,7 @@ namespace Reportingtool.Pages
                                 -- Input the comment to the fault table    
                             */
 
-                            var Edit_Fault = await _context.TstFault.FirstOrDefaultAsync(n => n.PkFaultId == inputreport.FaultId);
+                            var Edit_Fault = await _context.Fault.FirstOrDefaultAsync(n => n.PkFaultId == inputreport.FaultId);
 
                             if (Edit_Fault == null)
                             {
@@ -247,7 +247,7 @@ namespace Reportingtool.Pages
                                 -- Set condition_mag = 2, routine and released
                             */
 
-                            var new_fault = new TstFault()
+                            var new_fault = new Fault()
                             {
                                 FkMachineTrainId = inputreport.MachineTrainId,
                                 FkPrimaryComponentTypeId = 1,
@@ -257,7 +257,7 @@ namespace Reportingtool.Pages
                                 FaultIsActive = true
                             };
 
-                            _context.TstFault.Add(new_fault);
+                            _context.Fault.Add(new_fault);
                             try
                             {
                                 await _context.SaveChangesAsync();
@@ -274,7 +274,7 @@ namespace Reportingtool.Pages
                                 }
                             }
 
-                            var new_report = new TstReport()
+                            var new_report = new Report()
                             {
                                 FkFaultId = new_fault.PkFaultId,
                                 ReportDate = DateTime.Now,
@@ -288,7 +288,7 @@ namespace Reportingtool.Pages
                             };
 
 
-                            _context.TstReport.Add(new_report);
+                            _context.Report.Add(new_report);
 
                             try
                             {
@@ -317,7 +317,7 @@ namespace Reportingtool.Pages
                                 -- Set condition_mag = 2, routine and released
                             */
 
-                        var new_fault = new TstFault()
+                        var new_fault = new Fault()
                         {
                             FkMachineTrainId = inputreport.MachineTrainId,
                             FkPrimaryComponentTypeId = 1,
@@ -327,7 +327,7 @@ namespace Reportingtool.Pages
                             FaultIsActive = true
                         };
 
-                        _context.TstFault.Add(new_fault);
+                        _context.Fault.Add(new_fault);
                         try
                         {
                             await _context.SaveChangesAsync();
@@ -344,7 +344,7 @@ namespace Reportingtool.Pages
                             }
                         }
 
-                        var new_report = new TstReport()
+                        var new_report = new Report()
                         {
                             FkFaultId = new_fault.PkFaultId,
                             ReportDate = DateTime.Now,
@@ -358,7 +358,7 @@ namespace Reportingtool.Pages
                         };
 
 
-                        _context.TstReport.Add(new_report);
+                        _context.Report.Add(new_report);
 
                         try
                         {
@@ -390,7 +390,7 @@ namespace Reportingtool.Pages
                                 Close the existing fault
                                 -- Stamp the close date field in the fault table  
                             */
-                            var Edit_Fault = await _context.TstFault.FirstOrDefaultAsync(n => n.PkFaultId == inputreport.FaultId);
+                            var Edit_Fault = await _context.Fault.FirstOrDefaultAsync(n => n.PkFaultId == inputreport.FaultId);
 
                             if (Edit_Fault == null)
                             {
@@ -426,7 +426,7 @@ namespace Reportingtool.Pages
                                 -- Set condition_mag = 3, routine and In progress
                             */
 
-                            var new_fault = new TstFault()
+                            var new_fault = new Fault()
                             {
                                 FkMachineTrainId = inputreport.MachineTrainId,
                                 FkPrimaryComponentTypeId = 1,
@@ -435,7 +435,7 @@ namespace Reportingtool.Pages
                                 FaultIsActive = true
                             };
 
-                            _context.TstFault.Add(new_fault);
+                            _context.Fault.Add(new_fault);
                             try
                             {
                                 await _context.SaveChangesAsync();
@@ -452,7 +452,7 @@ namespace Reportingtool.Pages
                                 }
                             }
 
-                            var new_report = new TstReport()
+                            var new_report = new Report()
                             {
                                 FkFaultId = new_fault.PkFaultId,
                                 ReportDate = DateTime.Now,
@@ -466,7 +466,7 @@ namespace Reportingtool.Pages
                             };
 
 
-                            _context.TstReport.Add(new_report);
+                            _context.Report.Add(new_report);
 
                             try
                             {
@@ -494,7 +494,7 @@ namespace Reportingtool.Pages
                                 -- Set condition_mag = 2, routine and released
                              */
 
-                            var new_report = new TstReport()
+                            var new_report = new Report()
                             {
                                 FkFaultId = inputreport.FaultId,
                                 ReportDate = DateTime.Now,
@@ -508,7 +508,7 @@ namespace Reportingtool.Pages
                             };
 
 
-                            _context.TstReport.Add(new_report);
+                            _context.Report.Add(new_report);
 
                             try
                             {
@@ -539,7 +539,7 @@ namespace Reportingtool.Pages
                                 -- Set condition_mag = 3, routine and In progress
                             */
 
-                        var new_fault = new TstFault()
+                        var new_fault = new Fault()
                         {
                             FkMachineTrainId = inputreport.MachineTrainId,
                             FkPrimaryComponentTypeId = 1,
@@ -548,7 +548,7 @@ namespace Reportingtool.Pages
                             FaultIsActive = true
                         };
 
-                        _context.TstFault.Add(new_fault);
+                        _context.Fault.Add(new_fault);
                         try
                         {
                             await _context.SaveChangesAsync();
@@ -565,7 +565,7 @@ namespace Reportingtool.Pages
                             }
                         }
 
-                        var new_report = new TstReport()
+                        var new_report = new Report()
                         {
                             FkFaultId = new_fault.PkFaultId,
                             ReportDate = DateTime.Now,
@@ -579,7 +579,7 @@ namespace Reportingtool.Pages
                         };
 
 
-                        _context.TstReport.Add(new_report);
+                        _context.Report.Add(new_report);
 
                         try
                         {
@@ -612,12 +612,12 @@ namespace Reportingtool.Pages
 
         private bool FaultExists(int id)
         {
-            return _context.TstFault.Any(e => e.PkFaultId == id);
+            return _context.Fault.Any(e => e.PkFaultId == id);
         }
 
         private bool ReportExists(int id)
         {
-            return _context.TstReport.Any(e => e.PkReportId == id);
+            return _context.Report.Any(e => e.PkReportId == id);
         }
     }
 }
