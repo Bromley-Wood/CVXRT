@@ -452,6 +452,7 @@ namespace Reportingtool.Pages
             var all_reports = _context.VReportSummary
                 .Where(r => r.MachineTrainId == machinetrainid)
                 .Where(r => r.ReportId != reportid)
+                .OrderBy(r => r.ReportDate)
                 .AsNoTracking()
                 .ToList();
 

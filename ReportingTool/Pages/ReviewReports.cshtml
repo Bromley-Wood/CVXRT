@@ -165,7 +165,7 @@
 
                                 <div class="text-center">
                                     <a href="" class="btn btn-info btn-rounded btn-sm" data-toggle="modal" data-target="#modalAddNewFault">
-                                        New fault<i class="fas fa-plus-square ml-1"></i>
+                                        Create New Report<i class="fas fa-plus-square ml-1"></i>
                                     </a>
                                 </div>
                                 <!--- end add form -->
@@ -393,7 +393,8 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
-                                        <input type="date" name="Report_To_Update.ReportDate" class="form-control" id="reportdate" value="@DateTime.Today.ToString("yyyy-MM-dd")" required>
+                                        @*<input type="date" name="Report_To_Update.ReportDate" class="form-control" id="reportdate" value="@DateTime.Today.ToString("yyyy-MM-dd")" required>*@
+                                    <input type="date" name="Report_To_Update.ReportDate" class="form-control" id="reportdate" value="@Model.Report_To_Update.ReportDate.ToString("yyyy-MM-dd")" required>
                                         <div class="invalid-feedback" style="width: 100%;">
                                             Report date is required.
                                         </div>
