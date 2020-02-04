@@ -452,7 +452,7 @@ namespace Reportingtool.Pages
             var all_reports = _context.VReportSummary
                 .Where(r => r.MachineTrainId == machinetrainid)
                 .Where(r => r.ReportId != reportid)
-                .OrderBy(r => r.ReportDate)
+                .OrderByDescending(r => r.ReportDate)
                 .AsNoTracking()
                 .ToList();
 
@@ -473,6 +473,8 @@ namespace Reportingtool.Pages
         {
             return _context.ReportFiles.Any(e => e.PkFilePathId == id);
         }
+
+
 
         
 

@@ -164,7 +164,7 @@
                                 </div>
 
                                 <div class="text-center">
-                                    <a href="" class="btn btn-info btn-rounded btn-sm" data-toggle="modal" data-target="#modalAddNewFault">
+                                    <a href="" class="btn btn-info btn-rounded btn-sm"  data-toggle="modal" data-target="#modalAddNewFault">
                                         Create New Report<i class="fas fa-plus-square ml-1"></i>
                                     </a>
                                 </div>
@@ -394,7 +394,7 @@
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
                                         @*<input type="date" name="Report_To_Update.ReportDate" class="form-control" id="reportdate" value="@DateTime.Today.ToString("yyyy-MM-dd")" required>*@
-                                    <input type="date" name="Report_To_Update.ReportDate" class="form-control" id="reportdate" value="@Model.Report_To_Update.ReportDate.ToString("yyyy-MM-dd")" required>
+                                    <input type="date" name="Report_To_Update.ReportDate" class="form-control" id="reportdate" value="@(Model.Report_To_Update.ReportDate.HasValue ? Model.Report_To_Update.ReportDate.Value.ToString("yyyy-MM-dd") : "")" required>
                                         <div class="invalid-feedback" style="width: 100%;">
                                             Report date is required.
                                         </div>
@@ -1284,7 +1284,6 @@
                             return;
                         }
                     }
-
 
                     document.getElementById('ReportIdBackToQueueId').value = selected_report_id;
                     $('#AddHistoryReportBackToQueueForm').submit();
