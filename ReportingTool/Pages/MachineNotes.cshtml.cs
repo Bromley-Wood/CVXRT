@@ -55,6 +55,8 @@ namespace Reportingtool.Pages
 
         public async Task OnGetAsync(int? id)
         {
+            GetUserName();
+
             if (id == null)
             {
                 id = 1;
@@ -89,7 +91,7 @@ namespace Reportingtool.Pages
 
         public async Task<IActionResult> OnPostCreateNewMachinenote()
         {
-
+            GetUserName();
 
             New_Machine_Note.MachineTrainNoteIsActive = true;
             New_Machine_Note.NoteDate = DateTime.Now;
@@ -190,6 +192,8 @@ namespace Reportingtool.Pages
         
         public IActionResult OnPostUploadAttachments()
         {
+            GetUserName();
+
             var data = Request.Form;
 
             foreach (var file in data.Files)

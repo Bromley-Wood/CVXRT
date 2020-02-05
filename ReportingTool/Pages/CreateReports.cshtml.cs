@@ -66,6 +66,7 @@ namespace Reportingtool.Pages
 
         public async Task OnGetAsync()
         {
+            GetUserName();
 
             V_Create_Reports_All = await _context.VCreateReports
                 .AsNoTracking()
@@ -104,6 +105,7 @@ namespace Reportingtool.Pages
 
         public async Task<IActionResult> OnPostCreateReport()
         {
+            GetUserName();
 
             V_Report_Summary_All = await _context.VReportSummary
                 .AsNoTracking()

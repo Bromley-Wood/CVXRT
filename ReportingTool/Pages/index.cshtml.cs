@@ -27,6 +27,8 @@ namespace Reportingtool.Pages
 
         public async Task OnGetAsync()
         {
+            GetUserName();
+
             DayOfWeek weekStart = DayOfWeek.Monday; // or Sunday, or whenever
             DateTime startingDate = DateTime.Today;
 

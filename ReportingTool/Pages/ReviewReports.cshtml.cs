@@ -65,6 +65,8 @@ namespace Reportingtool.Pages
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+            GetUserName();
+
             VReportSummary_InProgress = await _context.VReportSummary
                 .Include(r => r.Machine_Train_Entry)
                     .ThenInclude(m => m.Machine_Train_Notes)
@@ -194,6 +196,8 @@ namespace Reportingtool.Pages
 
         public async Task<IActionResult> OnPostUpdateReportFault()
         {
+            GetUserName();
+
             Current_Displayed_Report = _context.VReportSummary.FirstOrDefault(r => r.ReportId == Report_To_Update.PkReportId);
 
 
@@ -378,6 +382,8 @@ namespace Reportingtool.Pages
 
         public async Task<IActionResult> OnPostAddNewReportForExistingFaultAgainstMachine()
         {
+            GetUserName();
+
             var ExistingFaultId = _context.Fault
                 .Where(f => f.FkMachineTrainId == MachineTrainIdAddNewFault)
                 .OrderByDescending(f => f.CreateDate)

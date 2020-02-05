@@ -13,15 +13,10 @@ namespace Reportingtool.Pages
     {
         public string Current_User { get; set; }
 
-        public BasePageModel()
+        public void GetUserName()
         {
-
-            _GetUserName();
-        }
-
-        public void _GetUserName()
-        {
-            Current_User = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
+            Current_User = User.Identity.Name;
+            
             string[] res = Current_User.Split("\\");
             if (res.Length == 2)
             {

@@ -36,6 +36,8 @@ namespace Reportingtool.Pages
 
         public async Task OnGetAsync()
         {
+            GetUserName();
+
             V_Route_Machines_All = await _context.VRouteMachines
                 .AsNoTracking()
                 .ToListAsync();
@@ -85,6 +87,8 @@ namespace Reportingtool.Pages
 
         public async Task<IActionResult> OnPostEditRouteCall()
         {
+            GetUserName();
+
             //Console.WriteLine(" ------------------------------ Edit Route Call ------------------------------");
             //Console.WriteLine(Edit_Route_Call.Schedule_Date);
             //Console.WriteLine(Edit_Route_Call.PK_CallId);

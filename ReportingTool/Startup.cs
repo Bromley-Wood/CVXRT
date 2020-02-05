@@ -27,7 +27,7 @@ namespace Reportingtool
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddAuthentication(IISDefaults.AuthenticationScheme);
+            services.AddAuthentication(IISDefaults.AuthenticationScheme);
 
             services.AddMvc(option => option.EnableEndpointRouting = false);
 
