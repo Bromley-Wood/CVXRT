@@ -13,7 +13,7 @@ Plan and schedule collection routes. Standardise and optimise collection.
 Raise diagnostic reports. Detect early signs of deterioration.
 
 
-Developer's Guide
+Developer Guide
 ------------------------
 
 If you are a developer and looking for information on how the tool is built, this part of the documentation is for you.
@@ -28,7 +28,7 @@ If you are a developer and looking for information on how the tool is built, thi
    machine_notes_d
 
 
-User's Guide
+User Guide
 ------------
 
 If you are an user and looking for information on how to use this tool, this part of the documentation is for you.

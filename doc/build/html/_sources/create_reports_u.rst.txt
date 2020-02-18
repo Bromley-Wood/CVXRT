@@ -1,2 +1,2 @@
-Developer Guide - Create Reports
+User Guide - Create Reports
 ==================================
