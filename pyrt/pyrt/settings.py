@@ -57,7 +57,7 @@ ROOT_URLCONF = 'pyrt.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['C:/Users/chenghuanliu/Desktop/Projects/ReportingTool/pyrt/rt'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

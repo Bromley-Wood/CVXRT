@@ -1,0 +1,632 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Reporting Tool</title>
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+	<!-- Bootstrap core CSS -->
+	<link href="../wwwroot/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+	<!-- Material Design Bootstrap -->
+	<link href="../wwwroot/css/mdb.min.css" rel="stylesheet">
+	<!-- Dropzone -->
+	<link href="../wwwroot/css/dropzone.min.css" rel="stylesheet">
+
+	<!-- Your custom styles (optional) -->
+	<link href="../wwwroot/css/style.css" rel="stylesheet">
+	<style type="text/css">
+		html,
+		body,
+		header,
+		.view {
+			height: 100%;
+		}
+
+		@@media (max-width: 740px) {
+			html,
+			body,
+			header,
+			.view {
+				height: 1000px;
+			}
+		}
+
+		@@media (min-width: 800px) and (max-width: 850px) {
+			html,
+			body,
+			header,
+			.view {
+				height: 650px;
+			}
+		}
+
+		@@media (min-width: 800px) and (max-width: 850px) {
+			.navbar:not(.top-nav-collapse) {
+				background: #1C2331 !important;
+			}
+		}
+	</style>
+
+
+
+
+</head>
+
+<body>
+
+	<!-- Navbar -->
+	<nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+		<div class="container">
+
+			<!-- Brand -->
+			<a class="navbar-brand" href="@Url.Page(" ./Pages/Index")" target="_blank">
+			<strong>Home</strong>
+			</a>
+
+			<!-- Collapse -->
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<!-- Links -->
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+				<!-- Left -->
+				<ul class="navbar-nav mr-auto">
+
+					<li class="nav-item">
+						<a class="nav-link" href="@Url.Page(" ./Pages/ScheduleMaintenance")">Schedule Work</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="#">
+							Create Reports
+							<span class="sr-only">(current)</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="@Url.Page(" ./Pages/MachineNotes")">Add Machine Notes</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="@Url.Page(" ./Pages/CreateReports")">Review Reports</a>
+					</li>
+				</ul>
+
+				<!-- Right -->
+				<ul class="navbar-nav nav-flex-icons">
+					<li class="nav-item">
+						<a href="https://www.facebook.com/mdbootstrap" class="nav-link" target="_blank">
+							<i class="fas fa-inbox"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
+							<i class="fas fa-envelope"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded"
+						   target="_blank">
+							<i class="fas fa-question-circle"></i> Help
+						</a>
+					</li>
+				</ul>
+
+			</div>
+
+		</div>
+	</nav>
+	<!-- Navbar -->
+	<!--Main layout-->
+	<main class="mt-5 pt-5">
+		<div class="container">
+
+			<!--Section: Post-->
+			<section class="mt-4">
+
+				<!--Grid row-->
+				<div class="row">
+
+					<!--Grid column-->
+					<div class="col-md-8 mb-4">
+
+						<!--Featured Image-->
+						<div class="mb-4 wow fadeIn">
+							<div class="container">
+								<h2 class="display-4">
+									2P-1614A
+								</h2>
+								<p class="lead">
+									Butane Recycle Pump
+								</p>
+								<hr />
+							</div>
+						</div>
+						<!--/.Featured Image-->
+						<!--Card-->
+						<div class="card mb-4 wow fadeIn">
+
+							<!--Card content-->
+							<div class="card-body">
+
+								<p class="h5 my-4">Displayed Notes </p>
+
+
+								<blockquote class="machine-note blockquote">
+									<p class="mb-0">Gearbox has no studs installed</p>
+									<footer class="blockquote-footer">
+										<cite>Cheng Huan Liu - 19 Dec 2019</cite>
+										<button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-pen"></i></button>
+										<button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalArchiveNote"><i class="fas fa-archive"></i></button>
+									</footer>
+								</blockquote>
+
+
+								<blockquote class="machine-note blockquote">
+									<p class="mb-0">
+										Some other note - would like to have a character limit on these notes.  How many characters is this?
+										Some other note - would like to have a character limit on these notes.  How many characters is this?
+										Some other note - would like to have a character limit on these notes.  How many characters is this? (It's about 300)
+									</p>
+									<footer class="blockquote-footer">
+										<cite>Cheng Huan Liu - 10 Dec 2019</cite>
+										<button class="btn btn-sm float-right"><i class="fas fa-pen"></i></button>
+										<button class="btn btn-sm float-right"><i class="fas fa-archive"></i></button>
+									</footer>
+								</blockquote>
+
+								<p class="h5 my-4">Additional Machine Information </p>
+
+								<p class="machine-note">
+									The "post a note" section below to validate on the checkbox.  if checkbox is ticked, then limit submission to 300 characters.
+									<span class="blockquote-footer">
+										<cite>Shu - 19 Dec 2019</cite>
+										<button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-pen"></i></button>
+										<button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalArchiveNote"><i class="fas fa-archive"></i></button>
+									</span>
+								</p>
+
+
+								<p class="machine-note">
+									Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, ut rerum deserunt corporis
+									ducimus at, deleniti ea alias dolor reprehenderit sit vel. Incidunt id illum doloribus,
+									consequuntur maiores sed eligendi.
+									<span class="blockquote-footer">
+										<cite>Cheng Huan Liu - 10 Dec 2018</cite>
+										<button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-pen"></i></button>
+										<button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalArchiveNote"><i class="fas fa-archive"></i></button>
+									</span>
+								</p>
+
+								<p class="machine-note">
+									Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, ut rerum deserunt corporis
+									ducimus at, deleniti ea alias dolor reprehenderit sit vel. Incidunt id illum doloribus,
+									consequuntur maiores sed eligendi.
+									<span class="blockquote-footer">
+										<cite>Cheng Huan Liu - 10 Dec 2017</cite>
+										<button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-pen"></i></button>
+										<button class="btn btn-sm float-right" data-toggle="modal" data-target="#modalArchiveNote"><i class="fas fa-archive"></i></button>
+									</span>
+								</p>
+
+							</div>
+
+						</div>
+						<!--/.Card-->
+						<!--Reply-->
+						<div class="card mb-3 wow fadeIn">
+							<div class="card-header font-weight-bold">Post a note</div>
+							<div class="card-body">
+
+								<!-- Default form reply -->
+								<form>
+									<!-- Comment -->
+									<div class="form-group">
+										<label for="replyFormComment">Your comment</label>
+										<textarea class="form-control" id="replyFormComment" rows="5"></textarea>
+									</div>
+									<hr>
+									<fieldset class="form-check">
+										<input type="checkbox" class="form-check-input" id="checkbox1">
+										<label for="checkbox1" class="form-check-label dark-grey-text">Show this note when raising reports</label>
+									</fieldset>
+									<!-- Subtmit Post -->
+									<div class="text-center mt-4">
+										<button class="btn btn-info btn-md" type="submit">Post</button>
+									</div>
+								</form>
+							</div>
+						</div>
+
+
+						<div class="card mb-3 wow fadeIn">
+							<div class="card-header font-weight-bold">Add attachments</div>
+							<div class="card-body">
+
+								<!-- Dropzone -->
+
+								<div id="dropzone">
+									<form action="/upload" class="dropzone needsclick" id="demo-upload">
+
+										<div class="dz-message needsclick" style="color: rgba(0,0,0,0.4);">
+											<i class="fas fa-file-import" style="font-size: 4rem; color: rgba(0,0,0,0.2); padding: 1rem;"></i>
+											<br />
+											Drop files here or click to upload.
+										</div>
+
+
+									</form>
+									<div class="text-center mt-4">
+										<button class="btn btn-info btn-md" type="submit">Post</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!--/.Reply-->
+
+					</div>
+					<!--Grid column-->
+					<!--Grid column-->
+					<div class="col-md-4 mb-4">
+
+						<!--Card : Dynamic content wrapper-->
+						<div class="card mb-4 text-center wow fadeIn">
+
+							<div class="card-header">Search for a Machine Train</div>
+
+							<!--Card content-->
+							<div class="card-body">
+
+								<!-- Default form login -->
+								<form>
+
+									<div class="input-group mb-3 ui-widget">
+										<input type="text" class="form-control" id="machineslist" placeholder="Machine Train" aria-label="Machine Train"
+											   aria-describedby="button-addon2">
+										<div class="input-group-append">
+											<button class="btn btn-md btn-outline-primary m-0 px-3 py-2 z-depth-0 waves-effect" type="button" id="button-addon2">Go</button>
+										</div>
+									</div>
+
+									<div class="text-center">
+										<a href="#" class="btn btn-info btn-rounded btn-sm" data-toggle="modal" data-target="#modalSearch">
+											Advanced Search &nbsp;<i class="fas fa-search"></i>
+										</a>
+									</div>
+								</form>
+								<!-- Default form login -->
+
+							</div>
+
+						</div>
+						<!--/.Card : Dynamic content wrapper-->
+						<!--Card-->
+						<div class="card mb-4 wow fadeIn">
+
+							<div class="card-header">Attached Files</div>
+
+							<!--Card content-->
+							<div class="card-body">
+
+								<ul class="list-unstyled">
+									<li class="media">
+										<img class="d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Others/placeholder7.jpg" alt="Generic placeholder image" width=25%, height=25%>
+										<div class="media-body">
+											<a href=">
+												<h5 class="mt-0 mb-1 font-weight-bold">List-based media object</h5>
+											</a>
+											Cras sit amet nibh libero, in gravida nulla (...)
+										</div>
+									</li>
+									<li class="media my-4">
+										<img class="d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Others/placeholder6.jpg" alt="An image">
+										<div class="media-body">
+											<a href=">
+												<h5 class="mt-0 mb-1 font-weight-bold">List-based media object</h5>
+											</a>
+											Cras sit amet nibh libero, in gravida nulla (...)
+										</div>
+									</li>
+									<li class="media">
+										<img class="d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Others/placeholder5.jpg" alt="Generic placeholder image">
+										<div class="media-body">
+											<a href=">
+												<h5 class="mt-0 mb-1 font-weight-bold">List-based media object</h5>
+											</a>
+											Cras sit amet nibh libero, in gravida nulla (...)
+										</div>
+									</li>
+								</ul>
+
+							</div>
+
+						</div>
+						<!--/.Card-->
+
+					</div>
+					<!--Grid column-->
+
+				</div>
+				<!--Grid row-->
+
+			</section>
+			<!--Section: Post-->
+
+
+			<div class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header text-center">
+							<h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit Route</h4>
+							<button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body mx-3">
+							<!-- Default form reply -->
+							<form>
+								<!-- Comment -->
+								<div class="form-group">
+									<label for="replyFormComment">Your comment</label>
+									<textarea class="form-control" id="replyFormComment" rows="5" value="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae, ut rerum deserunt corporis ducimus at, deleniti ea alias dolor reprehenderit sit vel. Incidunt id illum doloribus, consequuntur maiores sed eligendi."></textarea>
+								</div>
+
+								<fieldset class="form-check">
+									<input type="checkbox" class="form-check-input" id="checkbox1">
+									<label for="checkbox1" class="form-check-label dark-grey-text">Show this note when raising reports</label>
+								</fieldset>
+
+							</form>
+							<!-- Default form reply -->
+
+						</div>
+						<div class="modal-footer d-flex justify-content-center editInsideWrapper">
+							<button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal">
+								Edit form
+								<i class="fas fa-paper-plane-o ml-1"></i>
+							</button>
+							<!-- UPDATE Route_Call SET Schedule_Date = '2019-12-05'  WHERE PK_CallId = (this id);-->
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--- Edit form -->
+
+			<div class="modal fade" id="modalArchiveNote" tabindex="-1" role="dialog" aria-labelledby="modalArchiveNote"
+				 aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header text-center">
+							<h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Archive this note</h4>
+							<button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body mx-3">
+							<p class="text-center">
+								Are you sure you want to archive this note?  <br />
+								You will need to contact an administrator to retrieve it from archive.
+							</p>
+
+						</div>
+						<div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
+							<button type="button" class="btn btn-danger btnYesClass" id="btnYes" data-dismiss="modal">Yes</button>
+							<button type="button" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal">No</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal fade addNewInputs" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="modalSearch"
+				 aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header text-center">
+							<h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Select a machine</h4>
+							<button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body mx-3">
+							<div class="md-form mb-5">
+								<span>Area</span>
+								<select class="custom-select d-block w-100" id="formAddArea" required>
+									<option>Inlet</option>
+									<option>LNG</option>
+									<option>DOMGAS</option>
+									<option>S&L</option>
+									<option>Utilities</option>
+								</select>
+								<!-- SELECT Unit_Reference + ': ' + Area as [Area_Long_Name]
+										FROM [DEV_ClientProject].[dbo].[Area]
+										where [Area_IsActive] = 1 -->
+							</div>
+
+							<div class="input-group md-form form-sm form-1 pl-0 mb-5">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="basic-text1">
+										<i class="fas fa-search text-white"
+										   aria-hidden="true"></i>
+									</span>
+								</div>
+								<input class="form-control my-0 py-1" type="text" placeholder="Search for a machine train" aria-label="Search">
+							</div>
+
+							<div class="mb-5">
+								<ul class="ks-cboxtags ks-radio">
+									<li><input type="radio" name="machinetrainid" id="cbmach1" value="10"><label for="cbmach1">0A-0A-0915-SM1A: UNIT 1 LEAN MEG CENTRIFUGE MAIN MOTOR</label></li>
+									<li><input type="radio" name="machinetrainid" id="cbmach2" value="11"><label for="cbmach2">0A-0915-SM1B: UNIT 2 LEAN MEG CENTRIFUGE MAIN MOTOR</label></li>
+									<li><input type="radio" name="machinetrainid" id="cbmach3" value="12"><label for="cbmach3">0A-0915-SM1C: UNIT 3 LEAN MEG CENTRIFUGE MAIN MOTOR</label></li>
+									<li><input type="radio" name="machinetrainid" id="cbmach4" value="13"><label for="cbmach4">0A-0920-K1A: MEG VACUUM PUMP </label></li>
+									<li><input type="radio" name="machinetrainid" id="cbmach5" value="15"><label for="cbmach5">0A-0920-K1A: MEG VACUUM PUMP </label></li>
+									<li><input type="radio" name="machinetrainid" id="cbmach6" value="16"><label for="cbmach6">0A-0920-K1B: MEG VACUUM PUMP </label></li>
+									<li><input type="radio" name="machinetrainid" id="cbmach7" value="17"><label for="cbmach7">0A-0920-KM1A: MEG VACUUM PACKAGE LIQUID RING CIRCULATING PUMP A</label></li>
+									<li><input type="radio" name="machinetrainid" id="cbmach8" value="18"><label for="cbmach8">0A-0920-KM1B: MEG VACUUM PACKAGE LIQUID RING CIRCULATING PUMP B</label></li>
+									<li><input type="radio" name="machinetrainid" id="cbmach9" value="19"><label for="cbmach9">0K-4801B-K1:	COOLER (INTER STAGE COOLER & AFTER COOLER & WATER COOLER) FAN</label></li>
+									<li><input type="radio" name="machinetrainid" id="cbmach10" value="89"><label for="cbmach10">0A-0955-SM1: UNIT 3 LEAN MEG CENTRIFUGE MAIN MOTOR</label></li>
+									<li><input type="radio" name="machinetrainid" id="cbmach11" value="90"><label for="cbmach11">0A-0960-K1A: Aker Tag (MEG vacuum pump)</label></li>
+									<li><input type="radio" name="machinetrainid" id="cbmach12" value="91"><label for="cbmach12">0A-0960-K1B: Aker Tag (MEG vacuum pump)</label></li>
+									<li><input type="radio" name="machinetrainid" id="cbmach13" value="92"><label for="cbmach13">0A-0990-K1A: Refrigeration Compressor </label></li>
+									<li><input type="radio" name="machinetrainid" id="cbmach14" value="93"><label for="cbmach14">0A-0990-K1B: Refrigeration Compressor </label></li>
+									<li><input type="radio" name="machinetrainid" id="cbmach15" value="94"><label for="cbmach15">0A-0990-K1C: Refrigeration Compressor </label></li>
+									<li><input type="radio" name="machinetrainid" id="cbmach16" value="95"><label for="cbmach16">0A-0990-P3A: Cooling Water Circulation pump A</label></li>
+								</ul>
+							</div>
+						</div>
+						<div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
+							<button class="btn btn-outline-primary btn-block buttonAdd" data-dismiss="modal">
+								Add form
+								<i class="fas fa-paper-plane-o ml-1"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--- end select form -->
+
+
+
+		</div>
+	</main>
+	<!--Main layout-->
+	<!--Footer-->
+	<footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn">
+
+		<!--Call to action-->
+		<div class="pt-4">
+			<a class="btn btn-outline-white" href="https://mdbootstrap.com/getting-started/" target="_blank" role="button">
+				Download MDB
+				<i class="fa fa-download ml-2"></i>
+			</a>
+			<a class="btn btn-outline-white" href="https://mdbootstrap.com/bootstrap-tutorial/" target="_blank" role="button">
+				Start tutorial
+				<i class="fa fa-graduation-cap ml-2"></i>
+			</a>
+		</div>
+		<!--/.Call to action-->
+
+		<hr class="my-4">
+
+		<!-- Social icons -->
+		<div class="pb-4">
+			<a href="https://www.facebook.com/mdbootstrap" target="_blank">
+				<i class="fab fa-facebook-f mr-3"></i>
+			</a>
+
+			<a href="https://twitter.com/MDBootstrap" target="_blank">
+				<i class="fab fa-twitter mr-3"></i>
+			</a>
+
+			<a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
+				<i class="fab fa-youtube mr-3"></i>
+			</a>
+
+			<a href="https://plus.google.com/u/0/b/107863090883699620484" target="_blank">
+				<i class="fab fa-google-plus mr-3"></i>
+			</a>
+
+			<a href="https://dribbble.com/mdbootstrap" target="_blank">
+				<i class="fab fa-dribbble mr-3"></i>
+			</a>
+
+			<a href="https://pinterest.com/mdbootstrap" target="_blank">
+				<i class="fab fa-pinterest mr-3"></i>
+			</a>
+
+			<a href="https://github.com/mdbootstrap/bootstrap-material-design" target="_blank">
+				<i class="fab fa-github mr-3"></i>
+			</a>
+
+			<a href="http://codepen.io/mdbootstrap/" target="_blank">
+				<i class="fab fa-codepen mr-3"></i>
+			</a>
+		</div>
+		<!-- Social icons -->
+		<!--Copyright-->
+		<div class="footer-copyright py-3">
+			© 2018 Copyright:
+			<a href="https://mdbootstrap.com/bootstrap-tutorial/" target="_blank"> MDBootstrap.com </a>
+		</div>
+		<!--/.Copyright-->
+
+	</footer>
+	<!--/.Footer-->
+	<!-- SCRIPTS -->
+	<!-- JQuery -->
+	<script type="text/javascript" src="../wwwroot/js/jquery-3.4.1.min.js"></script>
+
+
+
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" src="../wwwroot/js/popper.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="../wwwroot/js/bootstrap.min.js"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" src="../wwwroot/js/mdb.min.js"></script>
+	<!-- Dropzone JavaScript -->
+	<script type="text/javascript" src="../wwwroot/js/dropzone.min.js"></script>
+	<!-- Navbar -->
+	<script>
+		$(function () {
+			$('a').each(function () {
+				if ($(this).prop('href') == window.location.href) {
+					$(this).addClass('active'); $(this).parents('li').addClass('active');
+				}
+			});
+		});
+	</script>
+	<script type="text/javascript" src="../wwwroot/js/jquery-ui.min.js"></script> 
+	<!--<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+	<script>
+		$(function () {
+			var availableTags = [
+				"ActionScript",
+				"AppleScript",
+				"Asp",
+				"BASIC",
+				"C",
+				"C++",
+				"Clojure",
+				"COBOL",
+				"ColdFusion",
+				"Erlang",
+				"Fortran",
+				"Groovy",
+				"Haskell",
+				"Java",
+				"JavaScript",
+				"Lisp",
+				"Perl",
+				"PHP",
+				"Python",
+				"Ruby",
+				"Scala",
+				"Scheme"
+			];
+			$("#machineslist").autocomplete({
+				source: availableTags
+			});
+		});
+	</script>
+
+
+	<!-- Initializations -->
+	<script type="text/javascript">
+		// Animations initialization
+		new WOW().init();
+
+
+	</script>
+
+
+
+
+</body>
+
+</html>
