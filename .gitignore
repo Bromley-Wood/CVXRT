@@ -341,3 +341,5 @@ healthchecksdb
 
 
 ReportingTool/wwwroot/MachineAttach/
+
+pyrt/.env
