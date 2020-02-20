@@ -15,8 +15,11 @@ class Action(models.Model):
     action_isactive = models.IntegerField(db_column='Action_IsActive')  # Field name made lowercase.
     action_order = models.IntegerField(db_column='Action_Order')  # Field name made lowercase.
 
+    def __str__(self):
+        return self.action
+
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'action'
 
 
@@ -28,8 +31,11 @@ class Area(models.Model):
     area_isactive = models.IntegerField(db_column='Area_IsActive')  # Field name made lowercase.
     fk_siteid = models.IntegerField(db_column='FK_SiteId')  # Field name made lowercase.
 
+    def __str__(self):
+        return self.area
+
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'area'
 
 
@@ -40,7 +46,7 @@ class Condition(models.Model):
     condition_alt_label = models.CharField(db_column='Condition_Alt_Label', max_length=32, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'condition'
 
 
@@ -58,7 +64,7 @@ class DimDate(models.Model):
     year = models.IntegerField(db_column='Year')  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'dim_date'
 
 
@@ -68,7 +74,7 @@ class DrivenUnitType(models.Model):
     drivenunittype_isactive = models.IntegerField(db_column='DrivenUnitType_IsActive')  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'driven_unit_type'
 
 
@@ -89,7 +95,7 @@ class Fault(models.Model):
     closure_comment = models.CharField(db_column='Closure_Comment', max_length=255, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'fault'
 
 
@@ -99,7 +105,7 @@ class FaultSubtype(models.Model):
     fk_faulttypeid = models.IntegerField(db_column='FK_FaultTypeId')  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'fault_subtype'
 
 
@@ -109,7 +115,7 @@ class FaultType(models.Model):
     fk_technologyid = models.IntegerField(db_column='FK_TechnologyId')  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'fault_type'
 
 
@@ -123,7 +129,7 @@ class MachineTrain(models.Model):
     machinetrain_isactive = models.IntegerField(db_column='MachineTrain_IsActive')  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'machine_train'
 
 
@@ -135,7 +141,7 @@ class MachineTrainFiles(models.Model):
     uploaded_by = models.CharField(db_column='Uploaded_By', max_length=50)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'machine_train_files'
 
 
@@ -149,7 +155,7 @@ class MachineTrainNotes(models.Model):
     analyst_name = models.CharField(db_column='Analyst_Name', max_length=50)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'machine_train_notes'
 
 
@@ -163,7 +169,7 @@ class MissedSurvey(models.Model):
     origin_callid = models.IntegerField(db_column='Origin_CallId', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'missed_survey'
 
 
@@ -173,7 +179,7 @@ class Observation(models.Model):
     fk_observationtypeid = models.IntegerField(db_column='FK_ObservationTypeId')  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'observation'
 
 
@@ -182,7 +188,7 @@ class ObservationType(models.Model):
     observation_type = models.CharField(db_column='Observation_Type', max_length=80)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'observation_type'
 
 
@@ -193,7 +199,7 @@ class PrimaryComponentSubtype(models.Model):
     fk_primarycomponenttypeid = models.IntegerField(db_column='FK_PrimaryComponentTypeId')  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'primary_component_subtype'
 
 
@@ -203,7 +209,7 @@ class PrimaryComponentType(models.Model):
     primarycomponenttype_isactive = models.IntegerField(db_column='PrimaryComponentType_IsActive')  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'primary_component_type'
 
 
@@ -228,7 +234,7 @@ class Report(models.Model):
     origin_callid = models.IntegerField(db_column='Origin_CallId', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'report'
 
 
@@ -240,7 +246,7 @@ class ReportFiles(models.Model):
     uploaded_by = models.CharField(db_column='Uploaded_By', max_length=50)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'report_files'
 
 
@@ -249,7 +255,7 @@ class ReportStage(models.Model):
     report_stage = models.CharField(db_column='Report_Stage', max_length=50)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'report_stage'
 
 
@@ -258,7 +264,7 @@ class ReportType(models.Model):
     report_type = models.CharField(db_column='Report_Type', max_length=50)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'report_type'
 
 
@@ -274,7 +280,7 @@ class Route(models.Model):
     route_isactive = models.IntegerField(db_column='Route_IsActive')  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'route'
 
 
@@ -290,7 +296,7 @@ class RouteCall(models.Model):
     complete_date = models.DateTimeField(db_column='Complete_Date', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'route_call'
 
 
@@ -300,7 +306,7 @@ class Site(models.Model):
     site_isactive = models.IntegerField(db_column='Site_IsActive')  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'site'
 
 
@@ -309,7 +315,7 @@ class Technology(models.Model):
     technology = models.CharField(db_column='Technology', max_length=50)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'technology'
 
 
@@ -337,7 +343,7 @@ class TempReports(models.Model):
     report_stage = models.CharField(db_column='Report_Stage', max_length=50, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'temp_reports'
 
 
@@ -358,7 +364,7 @@ class TstFault(models.Model):
     closure_comment = models.CharField(db_column='Closure_Comment', max_length=255, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'tst_fault'
 
 
@@ -383,7 +389,7 @@ class TstReport(models.Model):
     origin_callid = models.IntegerField(db_column='Origin_CallId', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'tst_report'
 
 
@@ -399,5 +405,5 @@ class TstRouteCall(models.Model):
     complete_date = models.DateTimeField(db_column='Complete_Date', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'tst_route_call'
