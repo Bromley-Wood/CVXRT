@@ -1,0 +1,1 @@
+ALTER TABLE fault MODIFY COLUMN Status varchar(6) GENERATED always as (case when close_date is not null then 'Closed' else 'Open' end) STORED;
