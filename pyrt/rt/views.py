@@ -15,4 +15,4 @@ def machinenotes(request, machinetrain_id):
         'machine_notes':[machine_notes]
     }
 
-    return render(request, 'MachineNotes.html', context)
+    return render(request, 'rt/MachineNotes.html', context)

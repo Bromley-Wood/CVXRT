@@ -1,4 +1,5 @@
-﻿
+﻿{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,14 +11,14 @@
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
 	<!-- Bootstrap core CSS -->
-	<link href="../wwwroot/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+	<link href="{% static "rt/css/bootstrap.min.css" %}" type="text/css" rel="stylesheet">
 	<!-- Material Design Bootstrap -->
-	<link href="../wwwroot/css/mdb.min.css" rel="stylesheet">
+	<link href="{% static "rt/css/mdb.min.css" %}" rel="stylesheet">
 	<!-- Dropzone -->
-	<link href="../wwwroot/css/dropzone.min.css" rel="stylesheet">
+	<link href="{% static "rt/css/dropzone.min.css" %}" rel="stylesheet">
 
 	<!-- Your custom styles (optional) -->
-	<link href="../wwwroot/css/style.css" rel="stylesheet">
+	<link href="{% static "rt/css/style.css" %}" rel="stylesheet">
 	<style type="text/css">
 		html,
 		body,
@@ -559,18 +560,18 @@
 	<!--/.Footer-->
 	<!-- SCRIPTS -->
 	<!-- JQuery -->
-	<script type="text/javascript" src="../wwwroot/js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="{% static "rt/js/jquery-3.4.1.min.js" %}"></script>
 
 
 
 	<!-- Bootstrap tooltips -->
-	<script type="text/javascript" src="../wwwroot/js/popper.min.js"></script>
+	<script type="text/javascript" src="{% static "rt/js/popper.min.js" %}"></script>
 	<!-- Bootstrap core JavaScript -->
-	<script type="text/javascript" src="../wwwroot/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="{% static "rt/js/bootstrap.min.js" %}"></script>
 	<!-- MDB core JavaScript -->
-	<script type="text/javascript" src="../wwwroot/js/mdb.min.js"></script>
+	<script type="text/javascript" src="{% static "rt/js/mdb.min.js" %}"></script>
 	<!-- Dropzone JavaScript -->
-	<script type="text/javascript" src="../wwwroot/js/dropzone.min.js"></script>
+	<script type="text/javascript" src="{% static "rt/js/dropzone.min.js" %}"></script>
 	<!-- Navbar -->
 	<script>
 		$(function () {
@@ -581,7 +582,7 @@
 			});
 		});
 	</script>
-	<script type="text/javascript" src="../wwwroot/js/jquery-ui.min.js"></script> 
+	<script type="text/javascript" src="{% static "rt/js/jquery-ui.min.js" %}"></script> 
 	<!--<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 	<script>
 		$(function () {
