@@ -15,7 +15,7 @@ def machinenotes(request, machinetrain_id):
     machine_notes = MachineTrainNotes.objects.filter(fk_machinetrainid=machinetrain_id)
     context =  {
         'machine_info': machine_info,
-        'machine_notes':[machine_notes]
+        'machine_notes':machine_notes
     }
 
     return render(request, 'rt/MachineNotes.html', context)
