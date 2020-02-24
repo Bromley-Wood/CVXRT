@@ -3,6 +3,9 @@ from django.http import HttpResponse
 from django.template import loader
 from .models import MachineTrainNotes, MachineTrain
 
+from .serializers import MachineTrainNotesSerializer
+from rest_framework import generics
+
 
 # Create your views here.
 
@@ -19,3 +22,8 @@ def machinenotes(request, machinetrain_id):
     }
 
     return render(request, 'rt/MachineNotes.html', context)
+
+
+class MachineTrainNotesListCreate(generics.ListCreateAPIView):
+    queryset = MachineTrainNotes.objects.all()
+    serializer_class = MachineTrainNotesSerializer
