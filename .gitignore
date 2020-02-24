@@ -345,3 +345,5 @@ ReportingTool/wwwroot/MachineAttach/
 pyrt/.env
 
 pyrt/rt/static/rt/MachineAttach/
+
+pyrt/frontend/public/MachineAttach/
