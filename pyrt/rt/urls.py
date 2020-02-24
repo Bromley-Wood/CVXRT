@@ -10,4 +10,5 @@ urlpatterns = [
 
     # API
     path('api/machinenotes', views.MachineTrainNotesListCreate.as_view()),
+    path('api/machinenotes/<int:pk>', views.MachineTrainNotesDetail.as_view()),
 ]

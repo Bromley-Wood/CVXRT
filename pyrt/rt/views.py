@@ -27,3 +27,8 @@ def machinenotes(request, machinetrain_id):
 class MachineTrainNotesListCreate(generics.ListCreateAPIView):
     queryset = MachineTrainNotes.objects.all()
     serializer_class = MachineTrainNotesSerializer
+
+
+class MachineTrainNotesDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = MachineTrainNotes.objects.all()
+    serializer_class = MachineTrainNotesSerializer
