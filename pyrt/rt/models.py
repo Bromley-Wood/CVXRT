@@ -407,3 +407,138 @@ class TstRouteCall(models.Model):
     class Meta:
         # managed = False
         db_table = 'tst_route_call'
+
+
+class VCreateReports(models.Model):
+    pk_routeid = models.IntegerField(db_column='PK_RouteId', blank=True, null=True)  # Field name made lowercase.
+    route = models.CharField(db_column='Route', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    module_code = models.CharField(db_column='Module_Code', max_length=16, blank=True, null=True)  # Field name made lowercase.
+    unit = models.CharField(db_column='Unit', max_length=16, blank=True, null=True)  # Field name made lowercase.
+    cycle_days = models.FloatField(db_column='Cycle_Days', blank=True, null=True)  # Field name made lowercase.
+    pk_callid = models.IntegerField(db_column='PK_CallId')  # Field name made lowercase.
+    call_no = models.IntegerField(db_column='Call_No')  # Field name made lowercase.
+    labour_hours = models.FloatField(db_column='Labour_Hours')  # Field name made lowercase.
+    plan_date = models.DateField(db_column='Plan_Date')  # Field name made lowercase.
+    schedule_date = models.DateField(db_column='Schedule_Date')  # Field name made lowercase.
+    modified_date = models.DateTimeField(db_column='Modified_Date', blank=True, null=True)  # Field name made lowercase.
+    modified_by = models.CharField(db_column='Modified_By', max_length=32, blank=True, null=True)  # Field name made lowercase.
+    complete_date = models.DateTimeField(db_column='Complete_Date', blank=True, null=True)  # Field name made lowercase.
+    pk_machinetrainid = models.IntegerField(db_column='PK_MachineTrainId', blank=True, null=True)  # Field name made lowercase.
+    machine_train = models.CharField(db_column='Machine_Train', max_length=32, blank=True, null=True)  # Field name made lowercase.
+    machine_train_long_name = models.CharField(db_column='Machine_Train_Long_Name', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    record = models.CharField(db_column='Record', max_length=6, blank=True, null=True)  # Field name made lowercase.
+    faultid = models.IntegerField(db_column='FaultId', blank=True, null=True)  # Field name made lowercase.
+    primary_component_type = models.CharField(db_column='Primary_Component_Type', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    fault_type = models.CharField(db_column='Fault_Type', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    create_date = models.DateTimeField(db_column='Create_Date', blank=True, null=True)  # Field name made lowercase.
+    fault_location = models.CharField(db_column='Fault_Location', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    reportid = models.IntegerField(db_column='ReportId', blank=True, null=True)  # Field name made lowercase.
+    report_date = models.DateField(db_column='Report_Date', blank=True, null=True)  # Field name made lowercase.
+    measurement_date = models.DateField(db_column='Measurement_Date', blank=True, null=True)  # Field name made lowercase.
+    condition = models.CharField(db_column='Condition', max_length=32, blank=True, null=True)  # Field name made lowercase.
+    actions = models.CharField(db_column='Actions', max_length=2500, blank=True, null=True)  # Field name made lowercase.
+    condition_difference = models.BigIntegerField(db_column='Condition_Difference', blank=True, null=True)  # Field name made lowercase.
+    change_in_condition = models.CharField(db_column='Change_In_Condition', max_length=11, blank=True, null=True)  # Field name made lowercase.
+    report_stage = models.CharField(db_column='Report_Stage', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    status = models.CharField(db_column='Status', max_length=6, blank=True, null=True)  # Field name made lowercase.
+    hasreportinprogress = models.IntegerField(db_column='HasReportInProgress')  # Field name made lowercase.
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'v_create_reports'
+
+
+class VLatestReportByFault(models.Model):
+    fk_faultid = models.IntegerField(db_column='FK_FaultId')  # Field name made lowercase.
+    latest_report_date_by_fault = models.DateField(db_column='Latest_Report_Date_by_Fault', blank=True, null=True)  # Field name made lowercase.
+    islatestreport = models.IntegerField(db_column='IsLatestReport')  # Field name made lowercase.
+    status = models.CharField(db_column='Status', max_length=6, blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'v_latest_report_by_fault'
+
+
+class VReportSummary(models.Model):
+    faultid = models.IntegerField(db_column='FaultId')  # Field name made lowercase.
+    areaid = models.IntegerField(db_column='AreaId', blank=True, null=True)  # Field name made lowercase.
+    greater_area = models.CharField(db_column='Greater_Area', max_length=32, blank=True, null=True)  # Field name made lowercase.
+    unit_reference = models.CharField(db_column='Unit_Reference', max_length=4, blank=True, null=True)  # Field name made lowercase.
+    area = models.CharField(db_column='Area', max_length=64, blank=True, null=True)  # Field name made lowercase.
+    drivenunittypeid = models.IntegerField(db_column='DrivenUnitTypeId', blank=True, null=True)  # Field name made lowercase.
+    driven_unit_type = models.CharField(db_column='Driven_Unit_Type', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    machinetrainid = models.IntegerField(db_column='MachineTrainId')  # Field name made lowercase.
+    machine_train = models.CharField(db_column='Machine_Train', max_length=32, blank=True, null=True)  # Field name made lowercase.
+    machine_train_long_name = models.CharField(db_column='Machine_Train_Long_Name', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    route = models.CharField(db_column='Route', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    cycle_days = models.FloatField(db_column='Cycle_Days', blank=True, null=True)  # Field name made lowercase.
+    primarycomponenttypeid = models.IntegerField(db_column='PrimaryComponentTypeId', blank=True, null=True)  # Field name made lowercase.
+    primary_component_type = models.CharField(db_column='Primary_Component_Type', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    primarycomponentsubtypeid = models.IntegerField(db_column='PrimaryComponentSubtypeId', blank=True, null=True)  # Field name made lowercase.
+    primary_component_subtype = models.CharField(db_column='Primary_Component_Subtype', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    faulttypeid = models.IntegerField(db_column='FaultTypeId', blank=True, null=True)  # Field name made lowercase.
+    fault_type = models.CharField(db_column='Fault_Type', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    fault_subtype = models.CharField(db_column='Fault_Subtype', max_length=200, blank=True, null=True)  # Field name made lowercase.
+    create_date = models.DateTimeField(db_column='Create_Date')  # Field name made lowercase.
+    close_date = models.DateTimeField(db_column='Close_Date', blank=True, null=True)  # Field name made lowercase.
+    fault_location = models.CharField(db_column='Fault_Location', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    production_impact_cost = models.FloatField(db_column='Production_Impact_Cost', blank=True, null=True)  # Field name made lowercase.
+    fault_isactive = models.IntegerField(db_column='Fault_IsActive')  # Field name made lowercase.
+    status = models.CharField(db_column='Status', max_length=6, blank=True, null=True)  # Field name made lowercase.
+    reportid = models.IntegerField(db_column='ReportId', blank=True, null=True)  # Field name made lowercase.
+    report_date = models.DateField(db_column='Report_Date', blank=True, null=True)  # Field name made lowercase.
+    measurement_date = models.DateField(db_column='Measurement_Date', blank=True, null=True)  # Field name made lowercase.
+    condition = models.CharField(db_column='Condition', max_length=32, blank=True, null=True)  # Field name made lowercase.
+    condition_magnitude = models.PositiveIntegerField(db_column='Condition_Magnitude', blank=True, null=True)  # Field name made lowercase.
+    report_type = models.CharField(db_column='Report_Type', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    report_stage = models.CharField(db_column='Report_Stage', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    observations = models.CharField(db_column='Observations', max_length=2500, blank=True, null=True)  # Field name made lowercase.
+    actions = models.CharField(db_column='Actions', max_length=2500, blank=True, null=True)  # Field name made lowercase.
+    analyst_notes = models.TextField(db_column='Analyst_Notes', blank=True, null=True)  # Field name made lowercase.
+    external_notes = models.CharField(db_column='External_Notes', max_length=1000, blank=True, null=True)  # Field name made lowercase.
+    notification_no = models.IntegerField(db_column='Notification_No', blank=True, null=True)  # Field name made lowercase.
+    work_order_no = models.IntegerField(db_column='Work_Order_No', blank=True, null=True)  # Field name made lowercase.
+    review_comments = models.CharField(db_column='Review_Comments', max_length=2500, blank=True, null=True)  # Field name made lowercase.
+    analyst_name = models.CharField(db_column='Analyst_Name', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    reviewer_name = models.CharField(db_column='Reviewer_Name', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    report_isactive = models.IntegerField(db_column='Report_IsActive', blank=True, null=True)  # Field name made lowercase.
+    condition_difference = models.BigIntegerField(db_column='Condition_Difference', blank=True, null=True)  # Field name made lowercase.
+    change_in_condition = models.CharField(db_column='Change_In_Condition', max_length=11)  # Field name made lowercase.
+    islatestreport = models.IntegerField(db_column='IsLatestReport', blank=True, null=True)  # Field name made lowercase.
+    islastrecord = models.IntegerField(db_column='IsLastRecord', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'v_report_summary'
+
+
+class VRouteMachines(models.Model):
+    pk_machinetrainid = models.IntegerField(db_column='PK_MachineTrainId')  # Field name made lowercase.
+    machine_train = models.CharField(db_column='Machine_Train', max_length=32)  # Field name made lowercase.
+    machine_train_long_name = models.CharField(db_column='Machine_Train_Long_Name', max_length=255)  # Field name made lowercase.
+    driven_unit_type = models.CharField(db_column='Driven_Unit_Type', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    machinetrain_isactive = models.IntegerField(db_column='MachineTrain_IsActive')  # Field name made lowercase.
+    faultid = models.IntegerField(db_column='FaultId', blank=True, null=True)  # Field name made lowercase.
+    primary_component_type = models.CharField(db_column='Primary_Component_Type', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    fault_type = models.CharField(db_column='Fault_Type', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    create_date = models.DateTimeField(db_column='Create_Date', blank=True, null=True)  # Field name made lowercase.
+    fault_location = models.CharField(db_column='Fault_Location', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    reportid = models.IntegerField(db_column='ReportId', blank=True, null=True)  # Field name made lowercase.
+    report_date = models.DateField(db_column='Report_Date', blank=True, null=True)  # Field name made lowercase.
+    measurement_date = models.DateField(db_column='Measurement_Date', blank=True, null=True)  # Field name made lowercase.
+    condition = models.CharField(db_column='Condition', max_length=32, blank=True, null=True)  # Field name made lowercase.
+    actions = models.CharField(db_column='Actions', max_length=2500, blank=True, null=True)  # Field name made lowercase.
+    condition_difference = models.BigIntegerField(db_column='Condition_Difference', blank=True, null=True)  # Field name made lowercase.
+    change_in_condition = models.CharField(db_column='Change_In_Condition', max_length=11, blank=True, null=True)  # Field name made lowercase.
+    routeid = models.IntegerField(db_column='RouteId', blank=True, null=True)  # Field name made lowercase.
+    route = models.CharField(db_column='Route', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    module_code = models.CharField(db_column='Module_Code', max_length=16, blank=True, null=True)  # Field name made lowercase.
+    unit = models.CharField(db_column='Unit', max_length=16, blank=True, null=True)  # Field name made lowercase.
+    cycle_days = models.FloatField(db_column='Cycle_Days', blank=True, null=True)  # Field name made lowercase.
+    labour_hours = models.FloatField(db_column='Labour_Hours', blank=True, null=True)  # Field name made lowercase.
+    first_call_date = models.DateField(db_column='First_Call_Date', blank=True, null=True)  # Field name made lowercase.
+    route_isactive = models.IntegerField(db_column='Route_IsActive', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False  # Created from a view. Don't remove.
+        db_table = 'v_route_machines'
