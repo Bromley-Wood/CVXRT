@@ -24,11 +24,23 @@ def machinenotes(request, machinetrain_id):
     return render(request, 'rt/MachineNotes.html', context)
 
 
-class MachineTrainNotesListCreate(generics.ListCreateAPIView):
-    queryset = MachineTrainNotes.objects.all()
+class MachineTrainNotesListCreate(generics.ListAPIView):
+    # queryset = MachineTrainNotes.objects.all()
     serializer_class = MachineTrainNotesSerializer
 
+    def get_queryset(self):
+        """
+        Optionally restricts the returned notes,
+        by filtering against a `machinetrainid` query parameter in the URL.
+        """
+        machinetrainid = self.request.query_params.get('machinetrainid', None)
+        if machinetrainid is not None:
+            queryset = MachineTrainNotes.objects.all()
+            queryset = queryset.filter(fk_machinetrainid=machinetrainid)
+            return queryset
+        else:
+            return []
 
-class MachineTrainNotesDetail(generics.RetrieveUpdateDestroyAPIView):
+class MachineTrainNotesDetail(generics.RetrieveAPIView):
     queryset = MachineTrainNotes.objects.all()
     serializer_class = MachineTrainNotesSerializer
