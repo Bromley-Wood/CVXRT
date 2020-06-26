@@ -347,3 +347,5 @@ pyrt/.env
 pyrt/rt/static/rt/MachineAttach/
 
 pyrt/frontend/public/MachineAttach/
+
+pyrt/dump_db/
