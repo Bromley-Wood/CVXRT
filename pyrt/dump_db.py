@@ -36,7 +36,11 @@ def save_to_file(file_name, file_mode,  stuff_to_be_saved):
         print(f"{len(stuff_to_be_saved)} records have been appended file {file_name}")
 
 
-def extract_mssql_db_to_csv():
+def extract_mssql_db_to_csv(extract_head=False):
+    if extract_head:
+        extract_limit = 100
+    else:
+        extract_limit = -1
 
     # TODO: use pandas write to file to avoid messing up long text columns 
 
@@ -47,7 +51,7 @@ def extract_mssql_db_to_csv():
     
     table_list = [x[2] for x in cursor.tables() if x[1] == "dbo"] # get all the tables
 
-    WRITE_FREQ = 5000
+    WRITE_FREQ = 150
 
     for idx, tb in enumerate(list(set(table_list) - set(extracted_tables))):
 
@@ -64,10 +68,13 @@ def extract_mssql_db_to_csv():
     
 
         num = 1
+        limit_reached = False
         while True:
+            if num > extract_limit > 0:
+                limit_reached = True
             record = cursor.fetchone()
             
-            if record == None:
+            if record == None or limit_reached:
                 if len(stuff_to_be_saved) > 0:
                     if not os.path.exists(csv_file_name):
                         save_to_file(csv_file_name, "w",  stuff_to_be_saved)
@@ -87,13 +94,7 @@ def extract_mssql_db_to_csv():
             
             num += 1
             
-            
-                
-            
-
-
-
 if __name__ == "__main__":
-    extract_mssql_db_to_csv()
+    extract_mssql_db_to_csv(extract_head=True)
     
 
