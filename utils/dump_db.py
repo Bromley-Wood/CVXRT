@@ -1,23 +1,3 @@
-'''
-
-
-**************************
-Using pyodbc 32bit version
-set CONDA_FORCE_32BIT=1
-conda crteate -n py27_32 python=2.7
-pip install pyodbc
-
-set CONDA_FORCE_32BIT=1
-conda activate py27_32
-**************************
-
-**************************
-MHM must be running when extracting data (YOU DON"T NEED A DONGLE TO RUN MHM SERVICE)
-**************************
-
-'''
-
-
 import pyodbc
 import csv
 import binascii
