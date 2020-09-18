@@ -31,15 +31,13 @@ for route in route_list.keys():
         missing_machine_f.write("~".join(missing_machine_list) + "\n")
 
     # get the route id from the Route table
-    PK_RouteId = df_rt["PK_RouteId"][df_rt["Route"].str.contains(route)]
-    
-    
+    PK_RouteId = df_rt.loc[df_rt["Route"].str.contains(route)]
     print(route, len(PK_RouteId))
-    
-    # print(f"Get RouteId {PK_RouteId[0]} for Route {route}")
-    
-    
+    PK_RouteId = PK_RouteId["PK_RouteId"].values[0]
+    df_mt.loc[df_mt["Machine_Train"].isin(mt_list_csv), "FK_RouteId"] = PK_RouteId
 
+print(df_mt)
+df_mt.to_csv("tmp.csv")
 route_machine_f.close()
 missing_machine_f.close()
 exit()
