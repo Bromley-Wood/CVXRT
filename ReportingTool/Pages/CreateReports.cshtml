@@ -7,19 +7,11 @@
 
 <!--Main layout-->
 <main>
+<iframe style="position:relative; top: 70px;" width="1920" height="1700" src="https://app.powerbi.com/reportEmbed?reportId=f69673ad-a1a9-40b2-9657-a2e85b1a840f&autoAuth=true&ctid=0843acec-fd3e-49be-bd54-18c6048a3fd0&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXVzLW5vcnRoLWNlbnRyYWwtYi1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
+
     <div class="container">
 
 
-        <hr class="my-5">
-
-        @*<p>
-                Here is the summary of the reports you just submit:
-            </p>
-
-            @for (int i = 0; i< Model.GeneratedReportSummary.Count; ++i)
-            {
-                <p>@Model.GeneratedReportSummary[i]</p>
-            }*@
         <!-- Main heading -->
         <!--Section: Sched Maint Header-->
         <!--Section: Generate Reports Header-->
@@ -27,43 +19,7 @@
 
             <!--Grid row-->
             <div class="row">
-
-                <!--Grid column-->
-                <div class="col-md-4">
-
-                    <!-- Main heading -->
-                    <h2 class="mb-3">Generate Reports</h2>
-                    <p>
-                        Start by selecting a completed route on the right. <br />
-                    </p>
-                    <p>
-                        <i class="fas fa-times-circle rt-text-icon" style="color: #880e4f;"></i> Mark the machine as missed.<br />
-                        <i class="fas fa-check-circle rt-text-icon" style="color: #2bbbad;"></i> Machine has no alarms.<br />
-                        <i class="fas fa-exclamation-triangle rt-text-icon" style="color: #FFA000;"></i> Raise or update a fault
-                        <div class="invalid-feedback">Please select one</div>
-                    </p>
-                    <a href="#submitMachines">Submit your machine list and generate reports</a>
-                    <!-- Main heading -->
-
-                </div>
-                <!--Grid column-->
-                <!--Grid column-->
-                <div class="col-md-8 col-xl-8 sb-style-1">
-                    <!-- List group -->
-                    <div class="list-group" id="myList" role="tablist" style="min-height: 246px; padding: 0;">
-                        @for (int i = 0; i < Model.Completed_Route_Call.Count; ++i)
-                        {
-                            var status_index = i > 0 ? 1 : 0;
-                            <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center @(Model.active_status_list[status_index])" data-toggle="list" href="#completedRoute@(i)" role="tab" aria-selected=@Model.aria_selected_status_list[status_index]>
-                                @Model.Completed_Route_Call[i].Route.Route1
-                                <span class="badge mdb-color white-text badge-pill">@Model.Machine_List_Dict[Model.Completed_Route_Call[i].PkCallId].Count</span>
-                            </a>
-                        }
-                    </div>
-
-                </div>
-                <!--Grid column-->
-
+                
             </div>
             <!--Grid row-->
         </section>
