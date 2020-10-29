@@ -4,6 +4,12 @@
 @{
     ViewData["Title"] = Model.Current_User + " - Schedule Maintenance";
 }
+
+
+@section Style{
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+}
+
 <!--Main layout-->
 <main>
     <div class="container">
@@ -66,6 +72,9 @@
             <!--Grid row-->
         </section>
         <!--/.Section: Sched Maint Header-->
+
+
+
         <!-- Pop up modals -->
         <div class="row d-flex justify-content-center modalWrapper">
             <!--- Edit Route -->
@@ -208,6 +217,17 @@
 
 
         <hr class="mb-3">
+
+        <div class="col-md-4">
+            <label for="time_select">Select datetime range</label>
+            <input type="text" name="time_select" class="form-control" />
+        </div>
+
+        @foreach (var item in Model.Route_Call_All.Take(5))
+        
+        {
+            <td>@Html.DisplayFor(modelItem => item.Route.Route1)</td>
+        }
 
         <!--Section: Maintenance Table-->
         <section>
@@ -460,6 +480,33 @@
 </main>
 
 @section Scripts{
+<script>
+    var model = @Html.Raw(Json.Serialize(Model.Route_Call_All[0]));
+    console.log(model)
+
+</script>
+    
+
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+    <script>
+        $(function () {
+            $('input[name="time_select"]').daterangepicker({
+                timePicker: true,
+                timePicker24Hour: true,
+                startDate: moment().startOf('hour').add(-24, 'hour'),
+                endDate: moment().startOf('hour'),
+                locale: {
+                    format: 'YYYY/MM/DD'
+                }
+            });
+        });
+    </script>
+
     <script>
         // Pass the route call information to the edit modal
         $(document).on("click", ".btn-editform", function () {

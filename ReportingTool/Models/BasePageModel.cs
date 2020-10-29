@@ -16,6 +16,10 @@ namespace Reportingtool.Pages
         public void GetUserName()
         {
             Current_User = User.Identity.Name;
+
+            if (Current_User == null){
+                Current_User = "admin";
+            }
             
             string[] res = Current_User.Split("\\");
             if (res.Length == 2)
@@ -25,8 +29,8 @@ namespace Reportingtool.Pages
             }
             else
             {
-                Current_User = "UnknownUser";
-                Console.WriteLine("Couldn't Get User Name. The name 'UnknownUser' is used instead");
+                Current_User = "admin2";
+                Console.WriteLine("Couldn't Get User Name. The name 'admin' is used instead");
             }
         }
     }
