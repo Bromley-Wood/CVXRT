@@ -165,5 +165,15 @@ namespace Reportingtool.Pages
             return _context.RouteCall.Any(e => e.PkCallId == id);
         }
 
+        public JsonResult OnGetRouteList()
+        {
+            V_Route_Machines_All =  _context.VRouteMachines
+                .AsNoTracking()
+                .ToList();
+
+            return new JsonResult(V_Route_Machines_All);
+        }
+
+
     }
 }
