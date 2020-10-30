@@ -544,14 +544,27 @@
 </main>
 
 @section Scripts{
+
+
 <script>
+    function gettoken() {
+        var token = '@Html.AntiForgeryToken()';
+        token = $(token).val();
+        return token;
+   }
 
     function getCustomList() {
+
+    var startDate = $('input[name="time_select"]').data('daterangepicker').startDate._d.toISOString();
+    alert(startDate);
+
         
     $.ajax({
         
+        contentType: 'application/json; charset=utf-8',
         url: '/ScheduleMaintenance?handler=routelist',
-        type: 'GET',
+        type: 'Post',
+        data: JSON.stringify({ start_date: startDate, __RequestVerificationToken: gettoken() }),
         success: function (data) {
             alert("Request Successful " + data);
         },

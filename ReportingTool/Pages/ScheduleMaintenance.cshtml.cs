@@ -165,8 +165,12 @@ namespace Reportingtool.Pages
             return _context.RouteCall.Any(e => e.PkCallId == id);
         }
 
-        public JsonResult OnGetRouteList()
+        public JsonResult OnPostRouteList(string data)
         {
+            Console.WriteLine("------------------------------------");
+            Console.WriteLine(data);
+            Console.WriteLine("------------------------------------");
+
             V_Route_Machines_All =  _context.VRouteMachines
                 .AsNoTracking()
                 .ToList();
