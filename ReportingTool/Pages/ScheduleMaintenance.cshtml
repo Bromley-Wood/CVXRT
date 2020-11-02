@@ -547,25 +547,22 @@
 
 
 <script>
-    function gettoken() {
-        var token = '@Html.AntiForgeryToken()';
-        token = $(token).val();
-        return token;
-   }
-
     function getCustomList() {
 
     var startDate = $('input[name="time_select"]').data('daterangepicker').startDate._d.toISOString();
-    alert(startDate);
+    var endDate = $('input[name="time_select"]').data('daterangepicker').endDate._d.toISOString();
+    
 
-        
+    var data = new Array(startDate, endDate);
+    var dataJsonString = JSON.stringify(data);
+
+
     $.ajax({
-        
-        contentType: 'application/json; charset=utf-8',
         url: '/ScheduleMaintenance?handler=routelist',
-        type: 'Post',
-        data: JSON.stringify({ start_date: startDate, __RequestVerificationToken: gettoken() }),
+        type: 'Get',
+        data: {data:dataJsonString},
         success: function (data) {
+            console.log(data);
             alert("Request Successful " + data);
         },
         error: function () {

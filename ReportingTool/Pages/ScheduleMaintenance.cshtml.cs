@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Reportingtool.Pages
 {
@@ -33,6 +35,7 @@ namespace Reportingtool.Pages
 
         public Dictionary<int, List<VRouteMachines>> Machine_List_Dict = new Dictionary<int, List<VRouteMachines>>();
 
+        public CustomRouteList result  {get; set;}
 
         public async Task OnGetAsync()
         {
@@ -165,17 +168,56 @@ namespace Reportingtool.Pages
             return _context.RouteCall.Any(e => e.PkCallId == id);
         }
 
-        public JsonResult OnPostRouteList(string data)
+
+        public ActionResult OnGetRouteList()
         {
-            Console.WriteLine("------------------------------------");
-            Console.WriteLine(data);
-            Console.WriteLine("------------------------------------");
+
+            // "[\"2020-11-01T05:00:00.000Z\",\"2020-11-02T05:00:00.000Z\"]"  =>
+            // 202-11-01 2020-11-02
+            var date_range = Request.Query["data"].ToString().Replace("\"","").Replace("[", "").Replace("]","").Split(",");
+            DateTime start_time = DateTime.ParseExact(date_range[0], "yyyy-MM-ddTHH:mm:ss.fffZ", null);
+            DateTime end_time = DateTime.ParseExact(date_range[1], "yyyy-MM-ddTHH:mm:ss.fffZ", null);
+            Console.WriteLine(" ------------------------------ Get custom route list------------------------------");
+            Console.WriteLine("Get datetime range from {0} to {1}", start_time, end_time);
+            Console.WriteLine(" ------------------------------ Get custom route list ------------------------------");
+            
 
             V_Route_Machines_All =  _context.VRouteMachines
                 .AsNoTracking()
                 .ToList();
 
-            return new JsonResult(V_Route_Machines_All);
+            /* Get Route_Call for different weeks */
+            Route_Call_All =  _context.RouteCall
+                .Include(c => c.Route)
+                    .ThenInclude(c => c.Machine_Train_List)
+                .Where(c => c.CompleteDate == null)
+                .AsNoTracking()
+                .ToList();
+
+            List<RouteCall> Custom_Route_Call_List = Route_Call_All
+                    .Where(r => r.ScheduleDate <= end_time)
+                    .Where(r => r.ScheduleDate >= start_time)
+                    .OrderBy(r => r.PkCallId)
+                    .ToList();
+
+            double route_hour = Custom_Route_Call_List.Sum(r => r.LabourHours);
+
+            List<List<VRouteMachines>> Machine_List = new List<List<VRouteMachines>> (); 
+
+            for (int j = 0; j < Custom_Route_Call_List.Count; ++j)
+            {
+                var r_id = Custom_Route_Call_List[j].FkRouteId;
+                var Machines = V_Route_Machines_All
+                    .Where(m => m.RouteId == r_id)
+                    .ToList();
+                Machine_List.Add(Machines);
+            }
+
+            Console.WriteLine(Machine_List.Count);
+
+            result = new CustomRouteList {route_list = Custom_Route_Call_List, hour = route_hour, machine_train_list = Machine_List};
+            
+            return new JsonResult(result);
         }
 
 

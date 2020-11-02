@@ -29,7 +29,7 @@ namespace Reportingtool.Pages
             }
             else
             {
-                Current_User = "admin2";
+                Current_User = "admin";
                 Console.WriteLine("Couldn't Get User Name. The name 'admin' is used instead");
             }
         }
