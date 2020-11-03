@@ -79,10 +79,13 @@ namespace Reportingtool.Pages
                 for (int j = 0; j < Route_Call_Week_List[i].Count; ++j)
                 {
                     var r_id = Route_Call_Week_List[i][j].FkRouteId;
-                    var Machine_List = V_Route_Machines_All
-                        .Where(m => m.RouteId == r_id)
-                        .ToList();
-                    Machine_List_Dict.Add(r_id, Machine_List);
+                    if (! Machine_List_Dict.ContainsKey(r_id)){
+
+                        var Machine_List = V_Route_Machines_All
+                            .Where(m => m.RouteId == r_id)
+                            .ToList();
+                        Machine_List_Dict.Add(r_id, Machine_List);
+                    }
                 }
             }
             /* Get Route_Call for different weeks */
@@ -181,11 +184,6 @@ namespace Reportingtool.Pages
             Console.WriteLine("Get datetime range from {0} to {1}", start_time, end_time);
             Console.WriteLine(" ------------------------------ Get custom route list ------------------------------");
             
-
-            V_Route_Machines_All =  _context.VRouteMachines
-                .AsNoTracking()
-                .ToList();
-
             /* Get Route_Call for different weeks */
             Route_Call_All =  _context.RouteCall
                 .Include(c => c.Route)
@@ -202,20 +200,7 @@ namespace Reportingtool.Pages
 
             double route_hour = Custom_Route_Call_List.Sum(r => r.LabourHours);
 
-            List<List<VRouteMachines>> Machine_List = new List<List<VRouteMachines>> (); 
-
-            for (int j = 0; j < Custom_Route_Call_List.Count; ++j)
-            {
-                var r_id = Custom_Route_Call_List[j].FkRouteId;
-                var Machines = V_Route_Machines_All
-                    .Where(m => m.RouteId == r_id)
-                    .ToList();
-                Machine_List.Add(Machines);
-            }
-
-            Console.WriteLine(Machine_List.Count);
-
-            result = new CustomRouteList {route_list = Custom_Route_Call_List, hour = route_hour, machine_train_list = Machine_List};
+            result = new CustomRouteList {route_list = Custom_Route_Call_List, hour = route_hour};
             
             return new JsonResult(result);
         }

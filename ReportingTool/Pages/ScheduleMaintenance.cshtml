@@ -43,7 +43,7 @@
                 <div class="col-md-5 col-xl-5 mb-2">
                     <!-- List group -->
                     <div class="list-group py-3" id="myList" role="tablist">
-                        <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                        <a id="customtab" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
                            data-toggle="list" href="#customdaterange" role="tab">
                             Custom Date Range
                             <span class="badge mdb-color white-text badge-pill">@Model.WeekHourList[1] h</span>
@@ -242,7 +242,7 @@
                 <div class="tab-content col-md-12 py-2">
                     <div class="tab-pane" id="customdaterange" role="tabpanel">
                         <div class="table-responsive-md">
-                            <table id="dtLastWeek" class="rt-table route-table table table-striped table-bordered table-top-margin align-middle" cellspacing="0" width="100%">
+                            <table id="dtcustom" class="rt-table route-table table table-striped table-bordered table-top-margin align-middle" cellspacing="0" width="100%">
                                 <caption class="text-center text-muted border border-bottom-0 border-light py-3 rgba-grey-slight">
                                     Custom Date Range - @Model.WeekHourList[0] Hours Scheduled
                                 </caption>
@@ -259,32 +259,6 @@
                                     </tr>
                                 </thead>
                                 <tbody id="customlist">
-                                    @foreach (var item in Model.Route_Call_Week_List[0])
-                                    {
-                                    <tr>
-                                        <td>@Html.DisplayFor(modelItem => item.Route.Route1)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Route.CycleDays)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Route.Machine_Train_List.Count)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.LabourHours)</td>
-                                        <td>@item.PlanDate.ToString("dd/MM/yyyy")</td>
-                                        <td>@item.ScheduleDate.ToString("dd/MM/yyyy")</td>
-                                        <td>
-                                            <div class="btn-group btn-group-lg" role="group">
-                                                <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=@item.PkCallId data-route="@item.Route.Route1" data-cycledays=@item.Route.CycleDays data-labourhours=@item.LabourHours data-plandate=@item.PlanDate data-scheduledate=@item.ScheduleDate data-toggle="modal" data-target="#modalEdit">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button type="submit" class="btn btn-unique btn-sm" data-routeid=@item.FkRouteId data-toggle="modal" data-target="#modalMachineList@(item.FkRouteId)">
-                                                    <i class="far fa-list-alt"></i>
-                                                </button>
-
-                                                <label class="rt-check btn form-check-label btn-sm" data-toggle="buttons">
-                                                    <input class="form-check-input" type="checkbox" autocomplete="off" name="AreChecked" value="@item.PkCallId" form="completeroute">
-                                                    <i class="fas fa-clipboard-check"></i>
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    }
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -547,6 +521,53 @@
 
 
 <script>
+    function updateCustomTable(data) {
+        
+        document.getElementById("dtcustom").getElementsByTagName("caption")[0].innerHTML = "Custom Date Range - " + data["hour"] + " Hours Scheduled"
+        
+        
+        document.getElementById("customlist").innerHTML = "";
+
+        for (i = 0; i < data["route_list"].length; i++) {
+  
+            var item = data["route_list"][i];
+        var div = document.createElement('tr');
+        div.innerHTML = `
+            <td>${item.route.route1}</td>
+            <td>${item.route.cycleDays}</td>
+            <td>${item.route.machine_Train_List.length}</td>
+            <td>${item.route.labourHours}</td>
+            <td>${item.planDate.substring(0, 10)}</td>
+            <td>${item.scheduleDate.substring(0, 10)}</td>
+            <td>
+                <div class="btn-group btn-group-lg" role="group">
+                    <button type="button" class="btn btn-mdb-color btn-sm btn-editform" data-callid=${item.pkCallId} data-route="${item.route.route1}" data-cycledays=${item.route.cycleDays} data-labourhours=${item.route.labourHours} data-plandate=${item.planDate} data-scheduledate=${item.scheduleDate} data-toggle="modal" data-target="#modalEdit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button type="submit" class="btn btn-unique btn-sm" data-routeid=${item.fkRouteId} data-toggle="modal" data-target="#modalMachineList${item.fkRouteId}">
+                        <i class="far fa-list-alt"></i>
+                    </button>
+
+                    <label class="rt-check btn form-check-label btn-sm" data-toggle="buttons">
+                        <input class="form-check-input" type="checkbox" autocomplete="off" name="AreChecked" value="${item.pkCallId}" form="completeroute">
+                        <i class="fas fa-clipboard-check"></i>
+                    </label>
+                </div>
+            </td>
+        `;
+        document.getElementById('customlist').appendChild(div);
+}
+
+        
+
+        document.getElementById("customtab").click();
+        
+    }
+
+</script>
+
+
+<script>
     function getCustomList() {
 
     var startDate = $('input[name="time_select"]').data('daterangepicker').startDate._d.toISOString();
@@ -562,8 +583,7 @@
         type: 'Get',
         data: {data:dataJsonString},
         success: function (data) {
-            console.log(data);
-            alert("Request Successful " + data);
+            updateCustomTable(data);
         },
         error: function () {
             alert("Request Failed");
