@@ -1,0 +1,28 @@
+This is the instruction on how to deploy the reporting tool on the svt-qlikview-d server
+
+
+1. publish the project
+
+- On your local dev machine, open the command prompt and go to <path_to_project>/CVXRT/ReportingTool
+- Run `dotnet publish -c Release`. The project will be published at <path_to_project>/CVXRT/ReportingTool/bin/Release/netcoreapp3.0/publish
+
+2. Deploy on the server
+- Connect to the remote desktop svt-qlikview-d.svt.local using the wood laptop login credentials.
+- Copy the folder `<path_to_project>/CVXRT/ReportingTool/bin/Release/netcoreapp3.0/publish` to the C drive of the server and rename it with the deployment date to CVXRT_xxxxxxxx, e.g., CVXRT_05022020.
+- Right click C:\CVXRT_05022020 and open properties. 
+- Go to security - Edit - Add. Click Location - SVT-QLIKVIEW-D - OK
+- Input "IIS_IUSRS" and click `Check Names` and you should see the object names is changed to SVT-QLIKVIEW-D\IIS_IUSRS. Click OK and close the property window.
+
+3. Setup IIS
+- Open Internet Information Services (IIS) Manager from start menu
+- On the left panel, select SVT-QLIKVIEW-D -> Sites -> CVXRT
+- On the right panel, click Basic Settings...
+- Change the physical path to `C:\CVXRT_05022020` and click OK.
+- Below `Basic Settings`, click `Restart` in `Manage Web Site`
+- Click `Bindings...` and Add. Set `type` as http and put a port number, e.g., 5003. Make sure the port is not taken by other applications.
+
+Now open chrome and go to localhost:5003 to test if the tool has been deployed successfully.
+
+
+Chenghuan Liu
+03.11.2020
