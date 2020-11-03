@@ -43,7 +43,7 @@
                 <div class="col-md-5 col-xl-5 mb-2">
                     <!-- List group -->
                     <div class="list-group py-3" id="myList" role="tablist">
-                        <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center active"
+                        <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
                            data-toggle="list" href="#customdaterange" role="tab">
                             Custom Date Range
                             <span class="badge mdb-color white-text badge-pill">@Model.WeekHourList[1] h</span>
@@ -53,9 +53,9 @@
                             Last Week
                             <span class="badge mdb-color white-text badge-pill">@Model.WeekHourList[0] h</span>
                         </a>
-                        <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                        <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center active"
                            data-toggle="list" href="#currentWeek" role="tab">
-                            Current Week
+                            This Week
                             <span class="badge mdb-color white-text badge-pill">@Model.WeekHourList[1] h</span>
                         </a>
                         <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
@@ -587,7 +587,7 @@
             $('input[name="time_select"]').daterangepicker({
                 timePicker: true,
                 timePicker24Hour: true,
-                startDate: moment().startOf('hour').add(-24, 'hour'),
+                startDate: moment().startOf('hour').add(-10, 'day'),
                 endDate: moment().startOf('hour'),
                 locale: {
                     format: 'YYYY/MM/DD'
